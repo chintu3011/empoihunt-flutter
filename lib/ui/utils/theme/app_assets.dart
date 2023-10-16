@@ -11,6 +11,13 @@ class AppAssets {
   static const String titleLog = 'assets/image/titleLogo.png';
   static const String titleLogoWhite = 'assets/image/titleLogoWhite.png';
   static const String phoneImg = 'assets/image/phone.png';
+  static const String otpScreenIcon = 'assets/image/otp_screen_icon.png';
+
+
+  ///register photos and icons
+  static const String registerNeedJob = 'assets/image/register_need_job.png';
+  static const String registerHiringGirl = 'assets/image/register_hiring_girl.png';
+
 
 
 }

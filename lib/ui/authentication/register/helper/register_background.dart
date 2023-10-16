@@ -1,11 +1,11 @@
-import 'package:emploiflutter/ui/authentication/login/helper/login_card.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_card.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 
 import '../../../utils/theme/app_color.dart';
 import '../../../utils/theme/theme.dart';
 
-class LoginBackGround extends StatelessWidget {
-  const LoginBackGround({super.key});
+class RegisterBackGround extends StatelessWidget {
+  const RegisterBackGround({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +18,11 @@ class LoginBackGround extends StatelessWidget {
         Column(
           children: [
             Container(
-              height: size.height * 0.55,
+              height: size.height * 0.56,
               width:  size.width,
               decoration: BoxDecoration(
-                color: AppColors.colors.clayColors,
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(100.r))
+                  color: AppColors.colors.clayColors,
+                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(100.r))
               ),
               child: Column(
                 children: [
@@ -32,13 +32,13 @@ class LoginBackGround extends StatelessWidget {
               ),
             ),
             Container(
-              height: size.height * 0.4,
-              width:  size.width,
-              color: Colors.white
+                height: size.height * 0.4,
+                width:  size.width,
+                color: Colors.white
             )
           ],
         ),
-         const Positioned(child: LoginCard())
+        const Positioned(child: RegisterCard())
       ],
     );
   }

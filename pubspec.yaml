@@ -41,6 +41,7 @@ dependencies:
   flutter_svg:
   responsive_builder:
   easy_localization:
+  country_picker:
   file_picker:
   qr_flutter:
   firebase_auth:
@@ -49,6 +50,7 @@ dependencies:
   firebase_storage:
   path:
   cached_network_image:
+  pinput:
 
 
 dev_dependencies:
@@ -76,6 +78,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/
+    - assets/font/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

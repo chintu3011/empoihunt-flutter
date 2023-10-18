@@ -54,7 +54,7 @@ class AuthIntro extends StatelessWidget {
                       ),
                       child: Padding(
                         padding:  EdgeInsets.symmetric(horizontal: size.width* 0.25.w,vertical: 8.h),
-                        child: Text("Login",style: TextStyles.w400.copyWith(fontSize: 22.sp,color: Colors.white),),
+                        child: Text("Login",style: TextStyles.w400.copyWith(fontSize: 20.sp,color: Colors.white),),
                       )),
                   SizedBox(height: 15.h,),
                   ElevatedButton(
@@ -68,7 +68,7 @@ class AuthIntro extends StatelessWidget {
                       ),
                       child: Padding(
                         padding:  EdgeInsets.symmetric(horizontal: size.width* 0.21.w,vertical: 5.h),
-                        child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 22.sp,color: Colors.white),),
+                        child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 20.sp,color: Colors.white),),
                       ))
 
                 ],

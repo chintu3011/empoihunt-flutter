@@ -29,8 +29,8 @@ class LoginCard extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("OTP  Verification",style:  TextStyles.w500.copyWith(fontSize: 26.sp,color: Colors.black),),
-                Text("we will send you 6-digit one-time password to the number", textAlign: TextAlign.center, style:  TextStyles.w300.copyWith(fontSize: 8.sp,color: Colors.grey),),
+                Text("OTP Verification",style:  TextStyles.w500.copyWith(fontSize: 26.sp,color: Colors.black),),
+                Text("we will send you 6-digit one-time password to the number", textAlign: TextAlign.center, style:  TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.grey),),
                  Padding(
                    padding: EdgeInsets.symmetric(vertical: 22.h),
                    child: Row(
@@ -72,7 +72,7 @@ class LoginCard extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Not A Member?  ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: Colors.grey),),
+                    Text("Not A Member? ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: Colors.grey),),
                     TextButton(onPressed: (){
                       Navigator.push(context, MaterialPageRoute(builder: (_)=>const ChooseRegisterType()));
                     }, child: Text("Register Now",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)),

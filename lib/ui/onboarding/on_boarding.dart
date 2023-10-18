@@ -1,4 +1,8 @@
 
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:flutter/scheduler.dart';
+
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/app_color.dart';
 import '../utils/theme/theme.dart';
@@ -7,11 +11,24 @@ import 'helper/intro_appbar.dart';
 import 'helper/on_boarding_next_button.dart';
 import 'helper/pages/intro_pages.dart';
 
-class OnBoarding extends ConsumerWidget {
+class OnBoarding extends ConsumerStatefulWidget {
   const OnBoarding({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<OnBoarding> createState() => _OnBoardingState();
+}
+
+class _OnBoardingState extends ConsumerState<OnBoarding> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
+      await SharedPrefServices.services.setBool(onBoardingKey, true);
+    });
+
+  }
+  @override
+  Widget build(BuildContext context,) {
     final introViewWatch = ref.watch(onBoardingController);
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -33,6 +50,7 @@ class OnBoarding extends ConsumerWidget {
                   controller: introViewWatch.pageController,
                   onPageChanged: (val){
                     introViewWatch.onPageChange(val);
+                    SharedPrefServices.services.setBool(onBoardingKey, true);
                   },
                   children: const [
                     IntroPageView(model: (img: AppAssets.image1,title: "Welcome  to EmploiHunt",subtile: "Discover your ideal job here")),

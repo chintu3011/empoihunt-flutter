@@ -1,14 +1,14 @@
-import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/register_profile_details.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
-import '../../utils/theme/text_styles.dart';
-import '../../utils/theme/theme.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
-class LoginOTP extends StatelessWidget {
-  const LoginOTP({super.key});
+class RegisterOTP extends StatelessWidget {
+  const RegisterOTP({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +35,8 @@ class LoginOTP extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 28.h),
                   margin: EdgeInsets.symmetric(horizontal: 18.w,vertical: 15.h),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
-                    border: Border.all(color: AppColors.colors.clayColors,width: 1.5.w)
+                      borderRadius: BorderRadius.circular(8.r),
+                      border: Border.all(color: AppColors.colors.clayColors,width: 1.5.w)
                   ),
                   child: Pinput(
                     inputFormatters: [
@@ -60,24 +60,25 @@ class LoginOTP extends StatelessWidget {
                             border: Border.all(color: AppColors.colors.clayColors,width: 2.w)
                         )),
                     focusedPinTheme: PinTheme(
-                      height: 45.h,
+                        height: 45.h,
                         width: 45.w,
                         decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(color: AppColors.colors.clayColors)
-                    )),
+                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(color: AppColors.colors.clayColors)
+                        )),
                     disabledPinTheme: PinTheme(
                         height: 45.h,
                         width: 45.w,
                         decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(color: AppColors.colors.clayColors)
-                    )),
+                            borderRadius: BorderRadius.circular(10.r),
+                            border: Border.all(color: AppColors.colors.clayColors)
+                        )),
                   ),
                 ),
                 SizedBox(height: 15.h,),
                 CommonButton(btnText: "Verify", onPressed: (){
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+                  Navigator.pop(context);
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>const RegisterProfileDetails()));
                 },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                 SizedBox(height: 10.h,),
                 Text("Resend OTP in 30 second",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)

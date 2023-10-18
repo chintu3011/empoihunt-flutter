@@ -10,7 +10,7 @@ class CommonFormField extends StatelessWidget {
         this.obscureText =false,
         this.suffixIcon,
         this.validator,
-        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength});
+        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding});
 
   final String hintText;
   final String? labelText;
@@ -21,8 +21,12 @@ class CommonFormField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
   final TextInputType? keyboardType;
+  final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
   final bool obscureText;
   final int? maxLength;
+  final int? maxLine;
+  final EdgeInsetsGeometry? contentPadding;
   final List<TextInputFormatter>? inputFormatters;
 
 
@@ -30,6 +34,8 @@ class CommonFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLine,
+      minLines: maxLine,
       maxLength: maxLength,
       initialValue: initialValue,
       controller: controller,
@@ -44,9 +50,9 @@ class CommonFormField extends StatelessWidget {
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
           labelText: labelText,
-          labelStyle:  TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
-          hintStyle: TextStyles.w400.copyWith(color: Colors.grey,fontSize: 14.sp),
-          contentPadding:  EdgeInsets.symmetric(horizontal: 10.w,vertical: 0),
+          labelStyle: labelStyle?? TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
+          hintStyle:hintStyle ?? TextStyles.w400.copyWith(color: Colors.grey,fontSize: 14.sp),
+          contentPadding: contentPadding?? EdgeInsets.symmetric(horizontal: 10.w,vertical: 0),
           disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),

@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/authentication/login_controller/login_controller.dart';
 import 'package:emploiflutter/frame_work/controller/authentication/register_controller/register_controller.dart';
+import 'package:emploiflutter/ui/authentication/register/register_otp.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -36,14 +37,20 @@ class RegisterCard extends ConsumerWidget {
                       keyboardType: TextInputType.name,
                       controller: registerWatch.firstNameController,
                       prefixIcon: Icon(Icons.person,size: 18.sp,color: AppColors.colors.blueColors,),
-                      hintText: "First name",labelText: "First name",)),
+                      hintText: "First name",labelText: "First name",
+                       labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
+                     )),
                     SizedBox(width: 10.w,),
                     Expanded(child: CommonFormField(
                       textInputAction: TextInputAction.newline,
                       keyboardType: TextInputType.name,
                       controller: registerWatch.lastNameController,
                       prefixIcon: Icon(Icons.person,size: 18.sp,color: AppColors.colors.blueColors,),
-                      hintText: "Last name",labelText: "Last name",)),
+                      hintText: "Last name",labelText: "Last name",
+                      labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
+                    ),
+
+                    ),
                   ],
                 ),
                  Padding(
@@ -76,7 +83,9 @@ class RegisterCard extends ConsumerWidget {
                         keyboardType: TextInputType.phone,
                         controller: registerWatch.phoneNumberController,
                         prefixIcon: Icon(Icons.phone,size: 18.sp,color: AppColors.colors.blueColors,),
-                        hintText: "9876....",labelText: "Phone Number",)),
+                        hintText: "9876....",labelText: "Phone Number",
+                        labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
+                      )),
                     ],
                   ),
                 ),
@@ -84,13 +93,17 @@ class RegisterCard extends ConsumerWidget {
                   textInputAction: TextInputAction.newline,
                   controller: registerWatch.emailController,
                   prefixIcon: Icon(Icons.email,size: 18.sp,color: AppColors.colors.blueColors,),
-                  hintText: "Email",labelText: "Email",),
+                  hintText: "Email",labelText: "Email",
+                  labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
+                ),
                 SizedBox(height: 10.h,),
                 CommonFormField(
                   textInputAction: TextInputAction.newline,
                   controller: registerWatch.cityController,
                   prefixIcon: Icon(Icons.location_city_outlined,size: 18.sp,color: AppColors.colors.blueColors,),
-                  hintText: "City",labelText: "City",),
+                  hintText: "City",labelText: "City",
+                    labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
+      ),
                 SizedBox(height: 10.h,),
 
                 Row(
@@ -99,10 +112,11 @@ class RegisterCard extends ConsumerWidget {
                     registerWatch.updateIsCheck(val!);
                   }),
                     SizedBox(width: 5.w,),
-                    Expanded(child: Text("I have read and agreed to the terms & conditions",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: Colors.black),))
+                    Expanded(child: Text("I have read and agreed to the terms & conditions",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: Colors.black),))
                   ],
                 ),
                 CommonButton(btnText: "Register",onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>const RegisterOTP()));
                 },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 40.w,vertical: 6.h)),
                 SizedBox(height: 15.h,),
               ],

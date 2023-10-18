@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TextStyles {
   TextStyles._();
 
-  static String fontFamilyInter = 'Inter';
-  static String fontFamilyMontserrat = 'Montserrat';
+  static String fontFamilyPoppins = 'poppins';
+  // static String fontFamilyMontserrat = 'Montserrat';
 
   static FontWeight fwThin = FontWeight.w100;
   static FontWeight fwExtraLight = FontWeight.w200;
@@ -16,28 +16,28 @@ class TextStyles {
   static FontWeight fwExtraBold = FontWeight.w800;
 
   static TextStyle get w100 =>
-      TextStyle(fontWeight: fwThin, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwThin, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w200 =>
-      TextStyle(fontWeight: fwExtraLight, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwExtraLight, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w300 =>
-      TextStyle(fontWeight: fwLight, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwLight, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w400 =>
-      TextStyle(fontWeight: fwRegular, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwRegular, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w500 =>
-      TextStyle(fontWeight: fwMedium, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwMedium, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w600 =>
-      TextStyle(fontWeight: fwSemiBold, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwSemiBold, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w700 =>
-      TextStyle(fontWeight: fwBold, fontFamily: fontFamilyInter);
+      TextStyle(fontWeight: fwBold, fontFamily: fontFamilyPoppins);
 
   static TextStyle get w800 => TextStyle(
         fontWeight: fwExtraBold,
-        fontFamily: fontFamilyInter,
+        fontFamily: fontFamilyPoppins,
       );
 }

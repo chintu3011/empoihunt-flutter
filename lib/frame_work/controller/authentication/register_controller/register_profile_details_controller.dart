@@ -170,7 +170,7 @@ class RegisterProfileDetailsController extends ChangeNotifier{
         notifyListeners();
   }
 
-  ///-----------------Profile3--------------///
+  ///-----------------Profile3--------------/  //
 
   @override
   void notifyListeners() {

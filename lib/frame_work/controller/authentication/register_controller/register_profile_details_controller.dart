@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 final registerProfileDetailsController = ChangeNotifierProvider((ref) => RegisterProfileDetailsController());
@@ -81,6 +83,7 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     jobTitle = value;
     notifyListeners();
   }
+
   String? preferCity;
   updateSelectedPreferCity(String? value) {
     preferCity = value;
@@ -110,12 +113,70 @@ class RegisterProfileDetailsController extends ChangeNotifier{
   }
 
 
+  ///---Lottie Controller ---///
+      late AnimationController resumeLottieController;
+      late AnimationController uploadImgLottieController;
+
+      initializeLottie(TickerProvider vsync1,TickerProvider vsync2)async{
+         resumeLottieController = AnimationController(vsync: vsync1,duration: const Duration(seconds: 2));
+        uploadImgLottieController = AnimationController(vsync: vsync2,duration: const Duration(seconds: 2));
+      }
+  ///---Lottie Controller ---///
 
   ///-----------------Profile2--------------///
+
+
+  ///-----------------Profile3--------------///
+
+  File? pdfFile;
+  Future<void> pickPdfFile() async{
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+     );
+    resumeLottieController.stop();
+    if(result != null){
+      final PlatformFile file = result.files.first;
+      print(file.name);
+      print(file.path);
+     resumeLottieController.reset();
+      resumeLottieController.forward();
+    }else{
+      resumeLottieController.stop();
+    }
+    notifyListeners();
+  }
+
+
+  File? profilePic;
+  Future<void> imagePicker() async{
+        final result = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg','png']
+        );
+        profilePic = null;
+        notifyListeners();
+        uploadImgLottieController.stop();
+        if(result != null){
+          final PlatformFile file = result.files.first;
+          print("image name --->${file.name}");
+          uploadImgLottieController.reset();
+          uploadImgLottieController.forward();
+          await Future.delayed(const Duration(seconds: 3),);
+          profilePic = File(file.path!);
+        }else{
+          uploadImgLottieController.stop();
+        }
+        notifyListeners();
+  }
+
+  ///-----------------Profile3--------------///
+
   @override
   void notifyListeners() {
     super.notifyListeners();
   }
+
 
 }
 

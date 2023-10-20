@@ -45,6 +45,7 @@ dependencies:
   country_picker:
   file_picker:
   qr_flutter:
+  flutter_typeahead:
   firebase_auth:
   firebase_core:
   cloud_firestore:
@@ -52,6 +53,7 @@ dependencies:
   path:
   cached_network_image:
   pinput:
+  lottie:
 
 
 dev_dependencies:
@@ -80,6 +82,7 @@ flutter:
   assets:
     - assets/image/
     - assets/font/
+    - assets/lottie/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

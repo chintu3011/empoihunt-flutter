@@ -10,7 +10,7 @@ class CommonFormField extends StatelessWidget {
         this.obscureText =false,
         this.suffixIcon,
         this.validator,
-        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding});
+        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode});
 
   final String hintText;
   final String? labelText;
@@ -26,6 +26,7 @@ class CommonFormField extends StatelessWidget {
   final bool obscureText;
   final int? maxLength;
   final int? maxLine;
+  final AutovalidateMode? autoValidateMode;
   final EdgeInsetsGeometry? contentPadding;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -34,6 +35,8 @@ class CommonFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      buildCounter: (context, {required currentLength,  required isFocused, maxLength}){ return const SizedBox();},
+      autovalidateMode: autoValidateMode,
       maxLines: maxLine,
       minLines: maxLine,
       maxLength: maxLength,
@@ -46,6 +49,7 @@ class CommonFormField extends StatelessWidget {
       textAlignVertical: TextAlignVertical.center,
       style: TextStyles.w400.copyWith(fontSize: 14.sp),
       decoration: InputDecoration(
+        errorStyle: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400),
           hintText: hintText,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,

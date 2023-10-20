@@ -28,7 +28,7 @@ class RegisterProfileDetailsBackGround extends StatelessWidget {
               child: Column(
                 children: [
                   Image.asset(AppAssets.titleLogoWhite,height: 100.h,width: 330.w,),
-                  Image.asset(AppAssets.phoneImg,height: 140.h,width: 270.w,),
+                  Image.asset(AppAssets.registerProfileDetailImg,height: 140.h,width: 270.w,),
                 ],
               ),
             ),

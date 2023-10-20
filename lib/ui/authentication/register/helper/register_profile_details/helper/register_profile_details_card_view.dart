@@ -1,8 +1,10 @@
 import 'package:emploiflutter/frame_work/controller/authentication/register_controller/register_profile_details_controller.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details1/register_profile_details1.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details2/register_profile_details2.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'register_profile_details1/register_profile_details1.dart';
+import 'register_profile_details2/register_profile_details2.dart';
+import 'register_profile_details3/register_profile_details3.dart';
+import 'register_profile_details4/register_profile_details4.dart';
 
 class RegisterProfileDetailsCardView extends ConsumerWidget {
   const RegisterProfileDetailsCardView({super.key});
@@ -35,8 +37,8 @@ class RegisterProfileDetailsCardView extends ConsumerWidget {
               children: [
                 const RegisterProfileDetails1(),
                 const RegisterProfileDetails2(),
-                Container(),
-                Container(color: Colors.red,),
+                const RegisterProfileDetails3(),
+                const RegisterProfileDetails4(),
                 Container(color: Colors.blue,),
               ],
             )),

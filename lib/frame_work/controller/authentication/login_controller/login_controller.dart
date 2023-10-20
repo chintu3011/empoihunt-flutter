@@ -7,6 +7,7 @@ final loginController = ChangeNotifierProvider((ref) => LoginController());
 class LoginController  extends ChangeNotifier{
 
   final phoneFieldController = TextEditingController();
+  final GlobalKey<FormState> loginKey = GlobalKey();
 
   /// ----------------------------Country Picker--------------------------------///
   Country selectedCountry = Country(phoneCode: "91", countryCode: "IN", e164Sc: 0, geographic: true, level: 1, name: "India", example: "9123456789", displayName: "India (IN) [+91]", displayNameNoCountryCode: "India (IN)", e164Key: "91-IN-0");

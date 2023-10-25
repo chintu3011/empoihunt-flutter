@@ -21,7 +21,7 @@ class HomeJobDetailCard extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           decoration: BoxDecoration(
               color: AppColors.colors.whiteColors,
-              borderRadius: BorderRadius.circular(10.r)),
+              borderRadius: BorderRadius.circular(4.r)),
           child: Column(
             children: [
               Row(
@@ -134,23 +134,23 @@ class HomeJobDetailCard extends StatelessWidget {
                 height: 4.h,
                 color: AppColors.colors.blueColors,
               ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                   homeJobDetailModel.description,
-                    style: TextStyles.w500
-                        .copyWith(fontSize: 12.sp, color: Colors.grey),
-                  ),
-                  Text(
-                    "${homeJobDetailModel.days} days ago",
-                    style: TextStyles.w500
-                        .copyWith(fontSize: 12.sp, color: Colors.grey),
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                     homeJobDetailModel.description,
+                      style: TextStyles.w500
+                          .copyWith(fontSize: 12.sp, color: Colors.grey),
+                    ),
+                    Text(
+                      "${homeJobDetailModel.days} days ago",
+                      style: TextStyles.w500
+                          .copyWith(fontSize: 12.sp, color: Colors.grey),
+                    ),
+                  ],
+                ),
               )
             ],
           ),

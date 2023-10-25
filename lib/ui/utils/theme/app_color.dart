@@ -8,6 +8,9 @@ class AppColors{
 
   final Color clayColors = const Color(0xff60C3AD);
   final Color blueColors = const Color(0xff004A69);
+  final Color blueDark = const Color(0xff14344B);
   final Color blackColors = const Color(0xff000000);
   final Color whiteColors = const Color(0xffffffff);
+  final Color grayRegent = const Color(0xff8494A4);
+  final Color whiteCatskill = const Color(0xffE9F4F4);
 }

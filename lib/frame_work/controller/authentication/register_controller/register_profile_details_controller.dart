@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -10,11 +11,13 @@ class RegisterProfileDetailsController extends ChangeNotifier{
 
   int index= 0;
 
-  forwardBtn(){
-    if(index != 4) {
+  forwardBtn(BuildContext context){
+    if(index < 3) {
       index++;
       pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
       Curves.easeIn);
+    }else{
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
     }
     notifyListeners();
   }
@@ -126,8 +129,45 @@ class RegisterProfileDetailsController extends ChangeNotifier{
   ///-----------------Profile2--------------///
 
 
+  ///-----------------Profile2.0--------------///
+
+  final companyNameController = TextEditingController();
+
+  List<String> designationList=[
+    "Flutter dev",
+    "Full Stack dev",
+    "React native",
+    "Human Resource",
+    "Accountant",
+    "Freelancing",
+  ];
+
+  List<String> jobLocationList=[
+    "Ahmedabad",
+    "Delhi",
+    "Mumbai",
+    "Hyderabad",
+    "Bangalore",
+  ];
+  String? designation;
+  updateSelectedDesignation(String? value) {
+    designation = value;
+    notifyListeners();
+  }
+
+  String? jobLocation;
+  updateSelectedJobLocation(String? value) {
+    jobLocation = value;
+    notifyListeners();
+  }
+  ///-----------------Profile2.0--------------///
+
+
+
+
   ///-----------------Profile3--------------///
 
+  String? fileName;
   File? pdfFile;
   Future<void> pickPdfFile() async{
     final result = await FilePicker.platform.pickFiles(
@@ -137,6 +177,7 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     resumeLottieController.stop();
     if(result != null){
       final PlatformFile file = result.files.first;
+      fileName = file.name;
       print(file.name);
       print(file.path);
      resumeLottieController.reset();
@@ -147,12 +188,17 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     notifyListeners();
   }
 
+  ///-----------------Profile3--------------///
 
+  ///-----------------Profile4--------------///
+
+  bool isPicAnimationRun = false;
   File? profilePic;
   Future<void> imagePicker() async{
+    isPicAnimationRun = true;
         final result = await FilePicker.platform.pickFiles(
           type: FileType.custom,
-          allowedExtensions: ['jpg','png']
+          allowedExtensions: ['jpg','png','jpeg']
         );
         profilePic = null;
         notifyListeners();
@@ -164,13 +210,17 @@ class RegisterProfileDetailsController extends ChangeNotifier{
           uploadImgLottieController.forward();
           await Future.delayed(const Duration(seconds: 3),);
           profilePic = File(file.path!);
+          isPicAnimationRun=false;
+          notifyListeners();
         }else{
           uploadImgLottieController.stop();
+          isPicAnimationRun=false;
+          notifyListeners();
         }
         notifyListeners();
   }
 
-  ///-----------------Profile3--------------/  //
+  ///-----------------Profile4--------------/  //
 
   @override
   void notifyListeners() {

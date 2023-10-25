@@ -32,31 +32,58 @@ class RegisterProfileDetails4 extends ConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                   GestureDetector(
-                     onTap: (){
-                       registerProfileDetailsWatch.imagePicker();
-                     },
-                     child: registerProfileDetailsWatch.profilePic !=null?
-                     Stack(
-                       children: [
-                         Container(
-                           height: 260.h,
-                           decoration: BoxDecoration(
+                   Stack(
+                     children: [
+                       registerProfileDetailsWatch.isPicAnimationRun?
+                       Lottie.asset(
+                         height: 250.h,
+                         width: 260.w,
+                         AppAssets.imgLoadingLottie,
+                         controller: registerProfileDetailsWatch.uploadImgLottieController,
+                       ):
+                       Card(
+                         elevation:3,
+                         child: Container(
+                           height: 200.h,
+                           width: 220.h,
+                           alignment: Alignment.center,
+                           clipBehavior: Clip.hardEdge,
+                           decoration: const BoxDecoration(
                              shape: BoxShape.circle,
-                             border: Border.all(color: AppColors.colors.blueColors,width: 4.w),
-                             image: DecorationImage(
-                               image: FileImage(registerProfileDetailsWatch.profilePic!),
-                               fit: BoxFit.contain,
-                             )
+                             // border: Border.all(color: AppColors.colors.whiteColors,width: 4.w),
+                           ),
+                           child: registerProfileDetailsWatch.profilePic !=null ? Image.file(registerProfileDetailsWatch.profilePic!,fit:BoxFit.fill,): Image.asset(AppAssets.profilePicPng,),
+                         ),
+                       ),
+                       Positioned(
+                         bottom: 5,
+                         right: 30,
+                         child: GestureDetector(
+                           onTap: (){
+                             registerProfileDetailsWatch.imagePicker();
+                           },
+                           child: Container(
+                             height: 50.h,
+                             width: 60.w,
+                             alignment: Alignment.center,
+                             decoration: BoxDecoration(
+                               color: AppColors.colors.whiteColors,
+                               shape: BoxShape.circle,
+                             ),
+                             child: Container(
+                               height: 40.h,
+                               width: 50.w,
+                               alignment: Alignment.center,
+                               decoration: BoxDecoration(
+                                 color: AppColors.colors.clayColors,
+                                 shape: BoxShape.circle,
+                               ),
+                               child:  Icon(Icons.add,color: Colors.white,),
+                             ),
                            ),
                          ),
-                       ],
-                     ):
-                     Lottie.asset(
-                       height: 260.h,
-                       AppAssets.imgLoadingLottie,
-                       controller: registerProfileDetailsWatch.uploadImgLottieController,
-                     ),
+                       )
+                     ],
                    ),
                   ],
                 ),

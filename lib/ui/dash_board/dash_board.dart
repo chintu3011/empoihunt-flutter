@@ -1,4 +1,5 @@
-import 'package:emploiflutter/ui/dash_board/controller/dash_board_controller.dart';
+import 'package:emploiflutter/frame_work/controller/dash_board/dash_board_controller.dart';
+import '../utils/theme/app_color.dart';
 import '../utils/theme/theme.dart';
 
 class DashBoard extends ConsumerWidget {
@@ -10,6 +11,8 @@ class DashBoard extends ConsumerWidget {
     return Scaffold(
       body: dashBoardWatch.pages[dashBoardWatch.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: AppColors.colors.clayColors,
+        unselectedItemColor: AppColors.colors.blueColors,
         items:const[
            BottomNavigationBarItem(
              icon: Icon(Icons.home),

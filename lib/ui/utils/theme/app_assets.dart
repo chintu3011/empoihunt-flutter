@@ -19,6 +19,7 @@ class AppAssets {
   ///register photos and icons
   static const String registerNeedJob = 'assets/image/register_need_job.png';
   static const String registerHiringGirl = 'assets/image/register_hiring_girl.png';
+  static const String profilePicPng = 'assets/image/profilePic.png';
 
 
 

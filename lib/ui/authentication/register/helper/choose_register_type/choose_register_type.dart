@@ -1,11 +1,8 @@
 import 'package:emploiflutter/ui/authentication/register/register.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
-import '../../../../utils/theme/text_styles.dart';
-
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 
 class ChooseRegisterType extends StatelessWidget {
@@ -79,7 +76,9 @@ class ChooseRegisterType extends StatelessWidget {
                     child: InkWell(
                       borderRadius: BorderRadius.circular(6.r),
                       splashColor: Colors.blue.shade100,
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=>const Register()));
+                      },
                       child: Column(
                         children: [
                           Container(

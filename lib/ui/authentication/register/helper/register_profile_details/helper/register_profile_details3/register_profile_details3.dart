@@ -54,7 +54,7 @@ class RegisterProfileDetails3 extends ConsumerWidget {
                           children: [
                             Image.asset(AppAssets.resumeUpload,scale: 27,color: AppColors.colors.blueColors,),
                             SizedBox(width: 8.w,),
-                            Text("Choose Pdf File",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),)
+                            Expanded(child: Text(registerProfileDetailsWatch.fileName !=null ? "${registerProfileDetailsWatch.fileName}" : "Choose Pdf File",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),softWrap: true,))
                           ],
                         ),
                       ),

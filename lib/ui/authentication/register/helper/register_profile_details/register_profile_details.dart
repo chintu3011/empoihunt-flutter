@@ -3,7 +3,7 @@ import 'package:emploiflutter/ui/authentication/register/helper/register_profile
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details_backrgound.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
-import '../../../../utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 
 class RegisterProfileDetails extends ConsumerStatefulWidget {
   const RegisterProfileDetails({super.key});

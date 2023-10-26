@@ -4,9 +4,9 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class HomeJobDetailCard extends StatelessWidget {
+class CommonHomeJobDetailCard extends StatelessWidget {
   final HomeJobDetailModel homeJobDetailModel;
-  const HomeJobDetailCard({super.key, required this.homeJobDetailModel});
+  const CommonHomeJobDetailCard({super.key, required this.homeJobDetailModel});
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +31,13 @@ class HomeJobDetailCard extends StatelessWidget {
                     child: Text(
                       homeJobDetailModel.jobTitle,
                       style: TextStyles.w500.copyWith(
-                          fontSize: 16.sp, color: AppColors.colors.blackColors),
+                          fontSize: 14.sp, color: AppColors.colors.blackColors),
                     ),
                   ),
                   Text(
                     "${homeJobDetailModel.lpa} LPA+",
                     style: TextStyles.w500.copyWith(
-                        fontSize: 16.sp, color: AppColors.colors.blackColors),
+                        fontSize: 14.sp, color: AppColors.colors.blackColors),
                   ),
                 ],
               ),
@@ -90,15 +90,16 @@ class HomeJobDetailCard extends StatelessWidget {
                   Text(
                     homeJobDetailModel.companyName,
                     style: TextStyles.w500.copyWith(
-                        fontSize: 14.sp, color: AppColors.colors.blackColors),
+                        fontSize: 12.sp, color: AppColors.colors.blackColors),
                   ),
                   Text(
                     "${homeJobDetailModel.vacancy} Vacancy",
                     style: TextStyles.w500.copyWith(
-                        fontSize: 14.sp, color: AppColors.colors.blackColors),
+                        fontSize: 12.sp, color: AppColors.colors.blackColors),
                   ),
                 ],
               ),
+              SizedBox(height: 10..h,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -115,39 +116,39 @@ class HomeJobDetailCard extends StatelessWidget {
                       SizedBox(width: 5.w),
                       Text(
                         homeJobDetailModel.hrName,
-                        style: TextStyles.w500.copyWith(
-                            fontSize: 12.sp, color: AppColors.colors.blackColors),
+                        style: TextStyles.w400.copyWith(
+                            fontSize: 11.sp, color: AppColors.colors.blackColors),
                       ),
                     ],
                   ),
                   Text(
                     homeJobDetailModel.location,
-                    style: TextStyles.w500
-                        .copyWith(fontSize: 12.sp, color: Colors.grey),
+                    style: TextStyles.w400
+                        .copyWith(fontSize: 11.sp, color: Colors.grey),
                   ),
                 ],
               ),
               SizedBox(
-                height: 5.h,
+                height: 10.h,
               ),
               Divider(
                 height: 4.h,
                 color: AppColors.colors.blueColors,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.h),
+                padding: EdgeInsets.only(top: 12.h,bottom: 18.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                      homeJobDetailModel.description,
-                      style: TextStyles.w500
-                          .copyWith(fontSize: 12.sp, color: Colors.grey),
+                      style: TextStyles.w400
+                          .copyWith(fontSize: 10.sp, color: Colors.grey),
                     ),
                     Text(
                       "${homeJobDetailModel.days} days ago",
-                      style: TextStyles.w500
-                          .copyWith(fontSize: 12.sp, color: Colors.grey),
+                      style: TextStyles.w400
+                          .copyWith(fontSize: 10.sp, color: Colors.grey),
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:emploiflutter/frame_work/repository/model/campus_job_details_model/campus_job_detail_model.dart';
+import 'package:emploiflutter/ui/campus/helper/campus_bottom_sheet.dart';
 import 'package:emploiflutter/ui/campus/helper/campus_detail_table.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
 import '../../utils/theme/app_color.dart';
 import '../../utils/theme/text_styles.dart';
 
@@ -105,15 +105,36 @@ class CampusDetailCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                alignment: Alignment.center,
-                width: size.width,
-                padding: EdgeInsets.symmetric(vertical: 4.h),
-                decoration: BoxDecoration(
-                  color: AppColors.colors.blueColors,
-                  borderRadius: BorderRadius.only(bottomRight: Radius.circular(10.r))
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: AppColors.colors.blueColors,
+              //     fixedSize: Size(size.width, 10.h),
+              //     padding: EdgeInsets.symmetric(vertical: 0.h),
+              //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(10.r)))
+              //   ),
+              //     onPressed: (){
+              //       showModalBottomSheet(
+              //           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              //           context: context,
+              //           builder: (context) =>  CampusBottomSheet(companyName: campusJobDetailModel.companyName));
+              //     }, child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),)),
+              GestureDetector(
+                onTap: (){
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+                      context: context,
+                      builder: (context) =>  CampusBottomSheet(companyName: campusJobDetailModel.companyName));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  width: size.width,
+                  padding: EdgeInsets.symmetric(vertical: 4.h),
+                  decoration: BoxDecoration(
+                    color: AppColors.colors.blueColors,
+                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(10.r))
+                  ),
+                  child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),),
                 ),
-                child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),),
               )
             ],
           ),

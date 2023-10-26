@@ -9,6 +9,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 2.5,
+      shadowColor: Colors.grey.shade300,
       title:  Text("Find Best jobs Here",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),),
       actions: [
         IconButton(onPressed: (){}, icon:  Icon(Icons.search,color: AppColors.colors.blackColors,)),

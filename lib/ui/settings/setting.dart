@@ -39,6 +39,9 @@ class Setting extends ConsumerWidget {
                 margin: EdgeInsets.only(bottom: 8.h),
                 height: 45.h,
                 child: ListTile(
+                  onTap: (){
+                    settingWatch.navigatingToList(index, context);
+                  },
                   dense: true,
                   contentPadding: EdgeInsets.only(top:0,bottom: 0,right: 5.w,left: 3.w),
                   shape: RoundedRectangleBorder(

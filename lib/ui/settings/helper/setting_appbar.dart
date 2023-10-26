@@ -10,10 +10,16 @@ class SettingAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Colors.white,
+      elevation: 2.5,
+      shadowColor: Colors.grey.shade300,
       title: Text("Settings",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),),
       actions: [
         IconButton(onPressed: (){
-          showModalBottomSheet(context: context, builder: (context) => const SettingBottomSheet());
+          showModalBottomSheet(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+              context: context,
+              builder: (context) => const SettingBottomSheet());
         }, icon: Icon(Icons.logout_outlined,color: AppColors.colors.blackColors,))
       ],
     );

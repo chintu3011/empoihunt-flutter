@@ -53,7 +53,7 @@ dependencies:
   path:
   cached_network_image:
   pinput:
-  lottie:
+  lottie: ^2.7.0
 
 
 dev_dependencies:

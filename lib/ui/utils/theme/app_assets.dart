@@ -14,6 +14,8 @@ class AppAssets {
   static const String phoneImg = 'assets/image/phone.png';
   static const String otpScreenIcon = 'assets/image/otp_screen_icon.png';
   static const String resumeUpload = 'assets/image/resume_upload.jpg';
+  static const String jobSearch = 'assets/image/jobsearch.png';
+  static const String contactUs = 'assets/image/contactus.png';
 
 
   ///register photos and icons
@@ -29,5 +31,7 @@ class AppAssets {
 
   static const String resumeLottie = 'assets/lottie/resume.json';
   static const String imgLoadingLottie = 'assets/lottie/image_lodding.json';
+  static const String logOutLottie = 'assets/lottie/logout.json';
+  static const String execlaminationMarkLottie = 'assets/lottie/excemilation_mark.json';
 }
 

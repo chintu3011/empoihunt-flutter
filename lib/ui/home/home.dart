@@ -1,7 +1,9 @@
 import 'package:emploiflutter/ui/home/helper/home_appbar.dart';
-import 'package:emploiflutter/ui/home/helper/home_job_detail_card.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_home_job_detail_card.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
+import 'package:flutter/services.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({super.key});
@@ -13,6 +15,10 @@ class Home extends ConsumerStatefulWidget {
 class _HomeState extends ConsumerState<Home> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: AppColors.colors.clayColors,
+    ));
+
     return Scaffold(
       appBar: const HomeAppbar(),
       body: SingleChildScrollView(
@@ -23,8 +29,7 @@ class _HomeState extends ConsumerState<Home> {
             children: List.generate(
                 jobsLists.length, (index) {
               final jobList = jobsLists[index];
-              return  HomeJobDetailCard(homeJobDetailModel: jobList,);
-              return  HomeJobDetailCard(homeJobDetailModel: jobList,);
+              return  CommonHomeJobDetailCard(homeJobDetailModel: jobList,);
             })
           ),
         ),

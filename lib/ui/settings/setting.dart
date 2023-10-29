@@ -3,14 +3,31 @@ import 'package:emploiflutter/ui/settings/helper/setting_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter/scheduler.dart';
 
+import '../../frame_work/controller/setting/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import '../utils/theme/text_styles.dart';
 
-class Setting extends ConsumerWidget {
+class Setting extends ConsumerStatefulWidget {
   const Setting({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<Setting> createState() => _SettingState();
+}
+
+class _SettingState extends ConsumerState<Setting> {
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp)async {
+      await ref.watch(termsPrivacyPolicyController).termsApiRequest();
+      await ref.watch(termsPrivacyPolicyController).privacyPolicyApiRequest();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final settingWatch = ref.watch(settingController);
     return  Scaffold(
       appBar: const SettingAppbar(),
@@ -28,13 +45,12 @@ class Setting extends ConsumerWidget {
                 radius: 34.r,
                 foregroundImage: const AssetImage(AppAssets.profilePicPng),
               ),
-              title: Text("Parth Rathod",style: TextStyles.w500.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
+              title: Text("Parth Rathod",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
+              subtitle: Text("Amri Systen",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
             ),
-
-
             SizedBox(height: 25.h,),
-            ...List.generate(settingWatch.settingList.length, (index) {
-              final setting = settingWatch.settingList[index];
+            ...List.generate(settingWatch.seekerSettingList.length, (index) {
+              final setting = settingWatch.seekerSettingList[index];
               return  Container(
                 margin: EdgeInsets.only(bottom: 8.h),
                 height: 45.h,
@@ -49,7 +65,7 @@ class Setting extends ConsumerWidget {
                       side: BorderSide(color: AppColors.colors.blueColors,width: 1.w)
                   ),
                   leading: Icon(setting["Icon"],color: AppColors.colors.blueColors,),
-                  title: Text(setting["Text"],style: TextStyles.w300.copyWith(fontSize: 10.sp,color: AppColors.colors.blackColors),),
+                  title: Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
                   trailing: Icon(Icons.arrow_forward_ios_outlined,color: AppColors.colors.clayColors,),
                 ),
               );

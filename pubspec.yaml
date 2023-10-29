@@ -54,6 +54,8 @@ dependencies:
   cached_network_image:
   pinput:
   lottie: ^2.7.0
+  webview_flutter: ^4.4.1
+  dio:
 
 
 dev_dependencies:

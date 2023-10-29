@@ -1,3 +1,4 @@
+import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 import '../../utils/theme/app_color.dart';
@@ -16,7 +17,9 @@ class HomeAppbar extends StatelessWidget implements PreferredSizeWidget{
       actions: [
         IconButton(onPressed: (){}, icon:  Icon(Icons.search,color: AppColors.colors.blackColors,)),
         IconButton(onPressed: (){}, icon:  Icon(Icons.mic,color: AppColors.colors.blackColors,)),
-        IconButton(onPressed: (){}, icon:  Icon(Icons.filter_alt_sharp,color: AppColors.colors.blackColors,)),
+        IconButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_)=>const FilterJobPreference()));
+        }, icon:  Icon(Icons.filter_alt_sharp,color: AppColors.colors.blackColors,)),
       ],
     );
   }

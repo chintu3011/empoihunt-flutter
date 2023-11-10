@@ -1,3 +1,4 @@
+
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../frame_work/controller/setting/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
@@ -10,10 +11,9 @@ class PrivacyPolicy extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final termsPrivacyWatch = ref.watch(termsPrivacyPolicyController);
-
+    var html_sSting = termsPrivacyWatch.privacyPolicyHtmlString;
     WebViewController webViewController = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.disabled)
-      ..loadHtmlString(termsPrivacyWatch.privacyPolicyHtmlString);
+        ..loadHtmlString(html_sSting);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
@@ -9,7 +8,6 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 final termsPrivacyPolicyController = ChangeNotifierProvider((ref) => TermsPrivacyPolicyController());
 
 class TermsPrivacyPolicyController extends ChangeNotifier{
-
 
 
    String termHtmlString = "<p>Loading</p>";
@@ -43,7 +41,7 @@ class TermsPrivacyPolicyController extends ChangeNotifier{
        }
      } catch (e) {
        // Handle the error appropriately (e.g., logging, showing error messages)
-       print('Error: $e');
+       // print('Error: $e');
        return Future.error(e);
      }
    }

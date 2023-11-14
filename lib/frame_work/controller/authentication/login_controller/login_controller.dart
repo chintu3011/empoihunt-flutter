@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:country_picker/country_picker.dart';
 
@@ -28,5 +30,20 @@ class LoginController  extends ChangeNotifier{
     notifyListeners();
   }
 /// ----------------------------Country Picker--------------------------------///
+
+
+
+///----------------------------- Timer function -----------------------------///
+
+  var maxSecond = 30;
+
+  Timer? time;
+
+
+  void timerFunction(){
+  }
+
+
+///----------------------------- Timer function -----------------------------///
 
 }

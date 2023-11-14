@@ -43,7 +43,7 @@ class _SettingBottomSheetState extends State<SettingBottomSheet> with SingleTick
             alignment: Alignment.center,
               child: Lottie.asset(
                 controller: logoutController,
-                AppAssets.resumeLottie,width: 180.w,
+                AppAssets.logOutLottie,width: 180.w,
                 height: 180.h,
                 onLoaded: (_){
                   logoutController.repeat();

@@ -2,7 +2,6 @@ import 'package:emploiflutter/frame_work/repository/services/shared_pref_service
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/user_role.dart';
 import 'package:flutter/services.dart';
 
 
@@ -10,7 +9,6 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
   await SharedPrefServices.services.init();
-  UserRole userRole = UserRole.jobSeeker;
 }
 
 class MyApp extends StatelessWidget {

@@ -46,18 +46,14 @@ dependencies:
   file_picker:
   qr_flutter:
   flutter_typeahead:
-  firebase_auth:
-  firebase_core:
-  cloud_firestore:
-  firebase_storage:
   path:
   cached_network_image:
   pinput:
   lottie: ^2.7.0
-  json_annotation: ^4.0.1
-  webview_flutter: ^4.4.1
+  json_annotation:
+  webview_flutter:
   dio:
-  package_info_plus: ^1.0.6
+#  package_info_plus: ^1.0.6
 
 
 dev_dependencies:

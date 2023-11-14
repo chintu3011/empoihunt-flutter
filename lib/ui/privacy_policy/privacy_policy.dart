@@ -1,9 +1,8 @@
-
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../frame_work/controller/setting/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
-import '../utils/theme/app_color.dart';
-import '../utils/theme/text_styles.dart';
+import 'package:emploiflutter/frame_work/controller/setting/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 class PrivacyPolicy extends ConsumerWidget {
   const PrivacyPolicy({super.key});
@@ -11,9 +10,9 @@ class PrivacyPolicy extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final termsPrivacyWatch = ref.watch(termsPrivacyPolicyController);
-    var html_sSting = termsPrivacyWatch.privacyPolicyHtmlString;
+    // var html_sSting = ;
     WebViewController webViewController = WebViewController()
-        ..loadHtmlString(html_sSting);
+        ..loadHtmlString(termsPrivacyWatch.privacyPolicyHtmlString);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

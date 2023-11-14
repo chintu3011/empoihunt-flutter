@@ -8,13 +8,13 @@ class SplashModel {
   SplashModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ?  Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -42,17 +42,17 @@ class Data {
     tMessage = json['tMessage'];
     isBlock = json['isBlock'];
     nothing =
-    json['nothing'] != null ? new Nothing.fromJson(json['nothing']) : null;
+    json['nothing'] != null ?  Nothing.fromJson(json['nothing']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['latestAppVersionCode'] = this.latestAppVersionCode;
-    data['isForceUpdate'] = this.isForceUpdate;
-    data['tMessage'] = this.tMessage;
-    data['isBlock'] = this.isBlock;
-    if (this.nothing != null) {
-      data['nothing'] = this.nothing!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['latestAppVersionCode'] = latestAppVersionCode;
+    data['isForceUpdate'] = isForceUpdate;
+    data['tMessage'] = tMessage;
+    data['isBlock'] = isBlock;
+    if (nothing != null) {
+      data['nothing'] = nothing!.toJson();
     }
     return data;
   }
@@ -72,10 +72,10 @@ class Nothing {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['vKey'] = this.vKey;
-    data['vName'] = this.vName;
-    data['id'] = this.id;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['vKey'] = vKey;
+    data['vName'] = vName;
+    data['id'] = id;
     return data;
   }
 }

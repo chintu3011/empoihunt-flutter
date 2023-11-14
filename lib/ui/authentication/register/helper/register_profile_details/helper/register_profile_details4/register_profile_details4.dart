@@ -78,7 +78,7 @@ class RegisterProfileDetails4 extends ConsumerWidget {
                                  color: AppColors.colors.clayColors,
                                  shape: BoxShape.circle,
                                ),
-                               child:  Icon(Icons.add,color: Colors.white,),
+                               child:  const Icon(Icons.add,color: Colors.white,),
                              ),
                            ),
                          ),

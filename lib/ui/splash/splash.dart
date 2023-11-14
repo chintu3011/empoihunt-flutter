@@ -1,14 +1,9 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/authentication/auth_intro.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:page_transition/page_transition.dart';
-import '../../frame_work/repository/api_end_point.dart';
-import '../../frame_work/repository/dio_client.dart';
-import '../../frame_work/repository/model/splash/splashmodel.dart';
 import '../onboarding/on_boarding.dart';
 import '../utils/theme/app_assets.dart';
 

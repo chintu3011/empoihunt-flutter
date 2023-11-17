@@ -16,14 +16,22 @@ class AppAssets {
   static const String resumeUpload = 'assets/image/resume_upload.jpg';
   static const String jobSearch = 'assets/image/jobsearch.png';
   static const String contactUs = 'assets/image/contactus.png';
+  static const String experienceEmptyIcon = 'assets/image/experience_empty_icon.png';
 
 
   ///register photos and icons
   static const String registerNeedJob = 'assets/image/register_need_job.png';
   static const String registerHiringGirl = 'assets/image/register_hiring_girl.png';
   static const String profilePicPng = 'assets/image/profilePic.png';
+  static const String phoneIcon = 'assets/image/phone_icon.jpg';
+  static const String emailIcon = 'assets/image/email_icon.jpg';
 
 
+  ///---------------- Svgs -------------------///
+  static const String workingModeSvg = 'assets/svg/workingModeIcon.svg';
+  static const String bioGraphSvg = 'assets/svg/biographyIcon.svg';
+  static const String skillsSvg = 'assets/svg/skillsIcon.svg';
+  static const String qualificationSvg = 'assets/svg/qualificationIcon.svg';
 
 
 

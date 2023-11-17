@@ -178,8 +178,8 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     if(result != null){
       final PlatformFile file = result.files.first;
       fileName = file.name;
-      print(file.name);
-      print(file.path);
+      // print(file.name);
+      // print(file.path);
      resumeLottieController.reset();
       resumeLottieController.forward();
     }else{

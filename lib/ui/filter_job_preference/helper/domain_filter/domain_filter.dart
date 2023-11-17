@@ -1,5 +1,4 @@
 import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class DomainFilter extends ConsumerWidget {

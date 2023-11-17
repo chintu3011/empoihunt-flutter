@@ -1,4 +1,3 @@
-import 'package:emploiflutter/frame_work/controller/authentication/login_controller/login_controller.dart';
 import 'package:emploiflutter/ui/authentication/login/login_otp.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/choose_register_type/choose_register_type.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
@@ -6,6 +5,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
+import '../../../../frame_work/controller/authentication_controller/login_controller/login_controller.dart';
 import '../../../utils/theme/text_styles.dart';
 import '../../../utils/theme/theme.dart';
 

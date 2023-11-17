@@ -1,11 +1,11 @@
-import 'package:emploiflutter/frame_work/controller/setting/setting_controller.dart';
+import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
-
-import '../../frame_work/controller/setting/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
+import '../../frame_work/controller/setting_controller/setting_controller.dart';
+import '../../frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import '../utils/theme/text_styles.dart';
 
 class Setting extends ConsumerStatefulWidget {
@@ -20,10 +20,14 @@ class _SettingState extends ConsumerState<Setting> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp)async {
-      await ref.watch(termsPrivacyPolicyController).termsApiRequest();
-      await ref.watch(termsPrivacyPolicyController).privacyPolicyApiRequest();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+       ref.read(termsPrivacyPolicyController).termsApiRequest();
+       ref.read(termsPrivacyPolicyController).privacyPolicyApiRequest();
     });
+  }
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -36,6 +40,9 @@ class _SettingState extends ConsumerState<Setting> {
         child: Column(
           children: [
             ListTile(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const Profile()));
+              },
               contentPadding: EdgeInsets.only(left: 0,top: 6.h,bottom: 6.h),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r),

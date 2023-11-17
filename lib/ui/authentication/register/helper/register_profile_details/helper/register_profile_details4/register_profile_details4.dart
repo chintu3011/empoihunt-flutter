@@ -1,9 +1,9 @@
-import 'package:emploiflutter/frame_work/controller/authentication/register_controller/register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:lottie/lottie.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
 
 class RegisterProfileDetails4 extends ConsumerWidget {
   const RegisterProfileDetails4({super.key});

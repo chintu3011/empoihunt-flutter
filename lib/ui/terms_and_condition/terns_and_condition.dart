@@ -1,7 +1,7 @@
-import 'package:emploiflutter/frame_work/controller/setting/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import '../../frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import '../utils/theme/text_styles.dart';
 
 class TermsAndCondition extends ConsumerWidget {

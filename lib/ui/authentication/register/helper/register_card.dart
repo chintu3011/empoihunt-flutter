@@ -1,5 +1,5 @@
-import 'package:emploiflutter/frame_work/controller/authentication/login_controller/login_controller.dart';
-import 'package:emploiflutter/frame_work/controller/authentication/register_controller/register_controller.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/login_controller/login_controller.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
 import 'package:emploiflutter/ui/authentication/register/register_otp.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';

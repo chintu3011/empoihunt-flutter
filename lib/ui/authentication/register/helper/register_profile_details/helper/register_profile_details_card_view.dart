@@ -1,4 +1,4 @@
-import 'package:emploiflutter/frame_work/controller/authentication/register_controller/register_profile_details_controller.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details2/register_profile_details2.0.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';

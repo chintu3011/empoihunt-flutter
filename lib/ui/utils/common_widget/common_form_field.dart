@@ -10,7 +10,7 @@ class CommonFormField extends StatelessWidget {
         this.obscureText =false,
         this.suffixIcon,
         this.validator,
-        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode});
+        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border});
 
   final String hintText;
   final String? labelText;
@@ -29,7 +29,7 @@ class CommonFormField extends StatelessWidget {
   final AutovalidateMode? autoValidateMode;
   final EdgeInsetsGeometry? contentPadding;
   final List<TextInputFormatter>? inputFormatters;
-
+  final InputBorder? border;
 
 
   @override
@@ -57,22 +57,22 @@ class CommonFormField extends StatelessWidget {
           labelStyle: labelStyle?? TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
           hintStyle:hintStyle ?? TextStyles.w400.copyWith(color: Colors.grey,fontSize: 14.sp),
           contentPadding: contentPadding?? EdgeInsets.symmetric(horizontal: 10.w,vertical: 0),
-          disabledBorder: OutlineInputBorder(
+          disabledBorder:border?? OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
-          errorBorder: OutlineInputBorder(
+          errorBorder:border?? OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.5.w)),
-          focusedErrorBorder: OutlineInputBorder(
+          focusedErrorBorder:border?? OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.5.w)),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder:border?? OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.5.w)),
-          border: OutlineInputBorder(
+          border:border?? OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)),
-          enabledBorder: OutlineInputBorder(
+          enabledBorder:border?? OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w))),
       validator: validator,

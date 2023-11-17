@@ -1,4 +1,5 @@
 import 'package:emploiflutter/ui/home/helper/home_appbar.dart';
+import 'package:emploiflutter/ui/job_details/job_details.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_home_job_detail_card.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -29,7 +30,10 @@ class _HomeState extends ConsumerState<Home> {
             children: List.generate(
                 jobsLists.length, (index) {
               final jobList = jobsLists[index];
-              return  CommonHomeJobDetailCard(homeJobDetailModel: jobList,);
+              return  CommonHomeJobDetailCard(homeJobDetailModel: jobList,onTap: (){
+
+                Navigator.push(context, MaterialPageRoute(builder: (_)=>const JobDetails()));
+              },);
             })
           ),
         ),

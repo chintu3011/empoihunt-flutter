@@ -1,4 +1,4 @@
-import 'package:emploiflutter/frame_work/controller/dash_board/dash_board_controller.dart';
+import '../../frame_work/controller/dash_board_controller/dash_board_controller.dart';
 import '../utils/theme/app_color.dart';
 import '../utils/theme/theme.dart';
 

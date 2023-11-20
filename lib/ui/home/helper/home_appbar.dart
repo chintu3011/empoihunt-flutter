@@ -1,14 +1,15 @@
+import 'package:emploiflutter/frame_work/controller/home_controller/home_controller.dart';
 import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
 import '../../utils/theme/app_color.dart';
 import '../../utils/theme/text_styles.dart';
 
-class HomeAppbar extends StatelessWidget implements PreferredSizeWidget{
+class HomeAppbar extends ConsumerWidget implements PreferredSizeWidget{
   const HomeAppbar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final homeWatch = ref.read(homeController);
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 2.5,

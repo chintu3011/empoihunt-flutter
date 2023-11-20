@@ -31,7 +31,7 @@ class _SettingBottomSheetState extends State<SettingBottomSheet> with SingleTick
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 300.h,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 8.w,vertical: 10.h),
       child: Column(

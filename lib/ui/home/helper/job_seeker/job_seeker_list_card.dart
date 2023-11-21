@@ -4,10 +4,10 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class CommonHomeJobDetailCard extends StatelessWidget {
+class JobSeekerListCard extends StatelessWidget {
   final HomeJobDetailModel homeJobDetailModel;
   final void Function()? onTap;
-  const CommonHomeJobDetailCard({super.key, required this.homeJobDetailModel, this.onTap});
+  const JobSeekerListCard({super.key, required this.homeJobDetailModel, this.onTap});
 
   @override
   Widget build(BuildContext context) {

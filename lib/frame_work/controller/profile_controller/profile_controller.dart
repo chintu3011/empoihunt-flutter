@@ -80,12 +80,19 @@ class ProfileController extends ChangeNotifier {
   int selectedUserExperienceListIndex = -1;
   int updateItemIndex = 0;
 
-
-  updateListItem(){
+  updateListItem() {
     if (userExperienceDesignFieldController.text != "" &&
         userExperienceJobLocationFieldController.text != "" &&
         userExperienceCompanyNameFieldController.text != "") {
-    userExperienceList[updateItemIndex] = UserExperienceModel(designation: userExperienceDesignFieldController.text, companyName: userExperienceCompanyNameFieldController.text, location: userExperienceJobLocationFieldController.text,duration: userExperienceDurationFieldController.text);
+      userExperienceList[updateItemIndex] = UserExperienceModel(
+          designation: userExperienceDesignFieldController.text,
+          companyName: userExperienceCompanyNameFieldController.text,
+          location: userExperienceJobLocationFieldController.text,
+          duration: userExperienceDurationFieldController.text);
+      userExperienceDesignFieldController.clear();
+      userExperienceJobLocationFieldController.clear();
+      userExperienceDurationFieldController.clear();
+      userExperienceCompanyNameFieldController.clear();
     }
     notifyListeners();
     selectedUserExperienceListIndex = -1;
@@ -97,15 +104,15 @@ class ProfileController extends ChangeNotifier {
     required String companyName,
     required String jobLocation,
     String? duration,
-  }){
-    if(selectedUserExperienceListIndex == index){
+  }) {
+    if (selectedUserExperienceListIndex == index) {
       selectedUserExperienceListIndex = -1;
-    }else{
+    } else {
       updateItemIndex = index;
       selectedUserExperienceListIndex = index;
-      userExperienceDesignFieldController.text =designation;
-      userExperienceCompanyNameFieldController.text =companyName;
-      userExperienceJobLocationFieldController.text =jobLocation;
+      userExperienceDesignFieldController.text = designation;
+      userExperienceCompanyNameFieldController.text = companyName;
+      userExperienceJobLocationFieldController.text = jobLocation;
       userExperienceDurationFieldController.text = duration ?? "";
     }
     notifyListeners();
@@ -119,7 +126,6 @@ class ProfileController extends ChangeNotifier {
     isExperienceExpanded = true;
     notifyListeners();
   }
-
 
   userExperienceAddButton() {
     if (userExperienceDesignFieldController.text != "" &&
@@ -154,6 +160,9 @@ class ProfileController extends ChangeNotifier {
 
   /// ------ User Experience ----////
 }
+
+
+
 
 class UserExperienceModel {
   final String designation;

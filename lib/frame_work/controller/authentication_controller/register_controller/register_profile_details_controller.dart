@@ -205,7 +205,7 @@ class RegisterProfileDetailsController extends ChangeNotifier{
         uploadImgLottieController.stop();
         if(result != null){
           final PlatformFile file = result.files.first;
-          print("image name --->${file.name}");
+          // print("image name --->${file.name}");
           uploadImgLottieController.reset();
           uploadImgLottieController.forward();
           await Future.delayed(const Duration(seconds: 3),);

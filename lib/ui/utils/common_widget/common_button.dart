@@ -12,7 +12,7 @@ class CommonButton extends StatelessWidget {
   final double? fontSize;
   final OutlinedBorder? shape;
   final Color? onPrimary;
-  final void Function() onPressed;
+  final void Function()? onPressed;
   const CommonButton({super.key,  this.txtPadding, required this.btnText, this.backgroundColor, this.textColor, this.fontSize, this.shape, required this.onPressed, this.onPrimary, });
 
   @override

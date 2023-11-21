@@ -53,7 +53,9 @@ dependencies:
   showcaseview: ^2.0.3
   json_annotation:
   webview_flutter:
+  popover:
   dio:
+
 #  package_info_plus: ^1.0.6
 
 

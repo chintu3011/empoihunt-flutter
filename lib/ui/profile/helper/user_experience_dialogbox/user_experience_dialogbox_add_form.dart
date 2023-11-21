@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';

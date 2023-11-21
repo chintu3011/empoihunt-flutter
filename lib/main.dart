@@ -1,6 +1,8 @@
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/create_post_job/create_post_job.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
-import 'package:emploiflutter/ui/profile/profile.dart';
+import 'package:emploiflutter/ui/home/home.dart';
+import 'package:emploiflutter/ui/settings/setting.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.colors.blueColors),
         ),
-        home: const Profile(),
+        home: const DashBoard(),
       ),
     );
   }

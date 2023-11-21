@@ -11,28 +11,25 @@ class PersonalChat extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
-    return  SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            const PersonalChatBackWidget(),
-            Positioned(
-              top: 12.h,
-                left: 6.w,
-                child: CircleAvatar(
-              radius: 45.r,
-              child: Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: AppColors.colors.whiteColors,width: 2.5),
-                ),
-                child: Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,),
+    return  Scaffold(
+      body: Stack(
+        children: [
+          const PersonalChatBackWidget(),
+          Positioned(
+            top: 30.h,
+              left: 6.w,
+              child: CircleAvatar(
+            radius: 45.r,
+            child: Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.colors.whiteColors,width: 2.5),
               ),
-            ))
-          ],
-
-        ),
+              child: Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,),
+            ),
+          ))
+        ],
       ),
     );
   }

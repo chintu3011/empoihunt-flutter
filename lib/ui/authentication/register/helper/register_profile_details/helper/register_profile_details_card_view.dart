@@ -33,7 +33,7 @@ class RegisterProfileDetailsCardView extends ConsumerWidget {
                   controller: registerProfileDetailWatch.pageController,
               onPageChanged: (index){
                     registerProfileDetailWatch.index = index;
-                    print(registerProfileDetailWatch.index);
+                    // print(registerProfileDetailWatch.index);
               },
               children: [
                 const RegisterProfileDetails1(),

@@ -1,5 +1,6 @@
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:popover/popover.dart';
 
 import '../../../utils/theme/app_color.dart';
 import '../../../utils/theme/text_styles.dart';
@@ -16,7 +17,7 @@ class PersonalChatBackWidget extends StatelessWidget {
     return Column(children: [
       Container(
         width: size.width.w,
-        padding: EdgeInsets.only(left: 100.w, top: 8.h, bottom: 8.h),
+        padding: EdgeInsets.only(left: 100.w, top: 35.h, bottom: 15.h),
         color: AppColors.colors.clayColors,
         child: Text(
           "Chintan Patel",
@@ -55,11 +56,15 @@ class PersonalChatBackWidget extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: "Message",
                   border: InputBorder.none,
-                  prefixIcon: Icon(
+                  prefixIcon: IconButton(
+                    onPressed:(){
+
+                    },
+                    icon: Icon(
                     Icons.add,
                     size: 35.sp,
                     color: AppColors.colors.blueColors,
-                  ),
+                  ),),
                   // contentPadding: EdgeInsets.symmetric(horizontal: 6.w,vertical:1.h)
                 ),
               ),
@@ -68,7 +73,8 @@ class PersonalChatBackWidget extends StatelessWidget {
         ),
         SizedBox(width: 3.w),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+          },
           icon: Icon(
             Icons.mic,
             size: 22.sp,

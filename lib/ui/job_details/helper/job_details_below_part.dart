@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -25,7 +27,7 @@ class JobDetailsBelowPart extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors),
+                    SvgPicture.asset(color: AppColors.colors.blueColors,AppAssets.skillsSvg),
                     // Icon(Icons.file_copy_rounded,color: AppColors.colors.blueColors,size: 20,),
                     SizedBox(width: 5.w,),
                     Text("Skills",style: TextStyles.w500.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors))

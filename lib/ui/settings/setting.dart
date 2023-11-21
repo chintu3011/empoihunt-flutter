@@ -1,5 +1,6 @@
 import 'package:emploiflutter/ui/profile/profile.dart';
-import 'package:emploiflutter/ui/settings/helper/setting_appbar.dart';
+import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -34,7 +35,13 @@ class _SettingState extends ConsumerState<Setting> {
   Widget build(BuildContext context) {
     final settingWatch = ref.watch(settingController);
     return  Scaffold(
-      appBar: const SettingAppbar(),
+      appBar: CommonAppBar(title: "Settings",actions: [ IconButton(onPressed: (){
+        showModalBottomSheet(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            context: context,
+            builder: (context) => const SettingBottomSheet());
+      }, icon: Icon(Icons.logout_outlined,color: AppColors.colors.blackColors,))
+      ],),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
         child: Column(

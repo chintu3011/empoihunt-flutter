@@ -1,5 +1,5 @@
 import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_home_job_detail_card.dart';
+import 'package:emploiflutter/ui/home/helper/job_seeker/job_seeker_list_card.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -25,7 +25,7 @@ class ViewApplyList extends StatelessWidget {
           child: Column(
               children: List.generate(jobsLists.length, (index) {
             final jobList = jobsLists[index];
-            return CommonHomeJobDetailCard(
+            return JobSeekerListCard(
               homeJobDetailModel: jobList,
             );
           })),

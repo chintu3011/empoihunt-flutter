@@ -1,10 +1,11 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/ui/profile/helper/user_experience_dialogbox/user_experience_dialogbox_add_form.dart';
-import 'package:emploiflutter/ui/profile/helper/user_experience_dialogbox/user_experience_dialogbox_tile.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+
+import 'helper/user_experience_dialogbox/user_experience_dialogbox_add_form.dart';
+import 'helper/user_experience_dialogbox/user_experience_dialogbox_tile.dart';
 
 class UserExperienceDialogBox extends ConsumerWidget {
   const UserExperienceDialogBox({super.key});

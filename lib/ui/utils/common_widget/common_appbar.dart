@@ -1,8 +1,6 @@
-import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
-import '../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

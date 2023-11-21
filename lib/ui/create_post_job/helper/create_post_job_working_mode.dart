@@ -28,7 +28,7 @@ class CreatePostJobWorkingMode extends ConsumerWidget {
                 contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
                   title: Text(
                     radioButton.title,
-                    style: TextStyles.w300.copyWith(
+                    style: TextStyles.w400.copyWith(
                         fontSize: 12.sp, color: AppColors.colors.blackColors),
                   ),
                   value: radioButton.value,
@@ -44,7 +44,7 @@ class CreatePostJobWorkingMode extends ConsumerWidget {
             child: Container(
               padding: EdgeInsets.only(top: 8.h),
               color: AppColors.colors.whiteColors,
-              child: Text("Working Mode",style: TextStyles.w200.copyWith(fontSize: 10.sp,color: AppColors.colors.blackColors),),
+              child: Text("Working Mode",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
             ),
           )
         ],

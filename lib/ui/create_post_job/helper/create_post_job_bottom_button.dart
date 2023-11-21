@@ -9,9 +9,9 @@ class CreatePostJobBottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: CommonButton(onPressed: (){}, btnText: "Post Job",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 20.sp,)),
+        Expanded(child: CommonButton(onPressed: (){}, btnText: "Post Job",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 18.sp,)),
         SizedBox(width:8.w,),
-        Expanded(child: CommonButton(onPressed: (){}, btnText: "Cancel Post",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 20.sp,)),
+        Expanded(child: CommonButton(onPressed: (){}, btnText: "Cancel Post",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 18.sp,)),
       ],
     );
   }

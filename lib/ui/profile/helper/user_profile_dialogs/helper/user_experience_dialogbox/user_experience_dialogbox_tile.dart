@@ -1,9 +1,8 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/ui/profile/helper/user_experience_dialogbox/user_experience_dialogbox_update_form.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
-import '../../../utils/theme/app_color.dart';
-import '../../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'user_experience_dialogbox_update_form.dart';
 
 class UserExperienceDialogBoxTile extends ConsumerWidget {
   const UserExperienceDialogBoxTile({super.key});

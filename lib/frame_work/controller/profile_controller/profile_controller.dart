@@ -1,10 +1,9 @@
 import 'dart:io';
-
-import 'package:emploiflutter/ui/profile/helper/user_about_dialogbox.dart';
-import 'package:emploiflutter/ui/profile/helper/user_details_dialogbox.dart';
-import 'package:emploiflutter/ui/profile/helper/user_experience_dialogbox/user_experience_dialogbox.dart';
-import 'package:emploiflutter/ui/profile/helper/user_qualification_dialogbox.dart';
-import 'package:emploiflutter/ui/profile/helper/user_resume_dialogbox.dart';
+import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_experience_dialogbox.dart';
+import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_about_dialogbox.dart';
+import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_details_dialogbox.dart';
+import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_qualification_dialogbox.dart';
+import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_resume_dialogbox.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 

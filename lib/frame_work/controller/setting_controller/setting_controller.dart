@@ -1,5 +1,7 @@
+import 'package:emploiflutter/ui/applied_candidate_list/applied_candidate_list.dart';
 import 'package:emploiflutter/ui/contact_us/contact_us.dart';
 import 'package:emploiflutter/ui/job_preference/job_preference.dart';
+import 'package:emploiflutter/ui/manages_jobs/manages_jobs.dart';
 import 'package:emploiflutter/ui/privacy_policy/privacy_policy.dart';
 import 'package:emploiflutter/ui/save_job/save_job.dart';
 import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
@@ -21,7 +23,7 @@ class SettingController extends ChangeNotifier{
     {"Icon": Icons.menu_book_rounded,"Text":"Terms & Condition"},
   ];
 
-  navigatingToList(int index,BuildContext context){
+  seekerNavigatingToList(int index,BuildContext context){
     switch(index){
       case 0:
         Navigator.push(context, MaterialPageRoute(builder: (_)=>const ViewApplyList()));
@@ -47,11 +49,31 @@ class SettingController extends ChangeNotifier{
 
 ///--------------Recruiter ----------------////
   List<Map<String,dynamic>> recruiterSettingList=[
-    {"Icon": Icons.work,"Text":"View ApplyList"},
-    {"Icon": Icons.person,"Text":"Job Preference"},
+    {"Icon": Icons.work,"Text":"Manage Jobs"},
+    {"Icon": Icons.person,"Text":"Applied Candidate List"},
     {"Icon": Icons.phone,"Text":"Contact Us"},
     {"Icon": Icons.security,"Text":"Privacy Policy"},
     {"Icon": Icons.menu_book_rounded,"Text":"Terms & Condition"},
   ];
+
+  recruiterNavigatingToList(int index,BuildContext context){
+    switch(index){
+      case 0:
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ManagesJobs()));
+        break;
+      case 1:
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>const AppliedCandidateList()));
+        break;
+      case 2:
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ContactUs()));
+        break;
+      case 3:
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>const PrivacyPolicy()));
+        break;
+      case 4:
+        Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
+        break;
+    }
+  }
 ///--------------Recruiter ----------------////
 }

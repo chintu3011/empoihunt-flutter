@@ -38,8 +38,8 @@ class CreatePostJob extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 20.sp,).paddingOnly(right: 6.w),
-                  Text("Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),)
+                  Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,).paddingOnly(right: 6.w),
+                  Text("Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
                 ],
               ),
             ).paddingVertical(10.h),

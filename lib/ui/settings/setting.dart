@@ -1,5 +1,6 @@
 import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -63,14 +64,22 @@ class _SettingState extends ConsumerState<Setting> {
               subtitle: Text("Amri Systen",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
             ),
             SizedBox(height: 25.h,),
-            ...List.generate(settingWatch.seekerSettingList.length, (index) {
-              final setting = settingWatch.seekerSettingList[index];
+            ...List.generate(
+              userRole == 0?
+                settingWatch.seekerSettingList.length:
+                  settingWatch.recruiterSettingList.length
+                , (index) {
+              final setting = userRole ==0? settingWatch.seekerSettingList[index] : settingWatch.recruiterSettingList[index];
               return  Container(
                 margin: EdgeInsets.only(bottom: 8.h),
                 height: 45.h,
                 child: ListTile(
                   onTap: (){
-                    settingWatch.navigatingToList(index, context);
+                    if(userRole == 0){
+                    settingWatch.seekerNavigatingToList(index, context);
+                    }else{
+                      settingWatch.recruiterNavigatingToList(index, context);
+                    }
                   },
                   dense: true,
                   contentPadding: EdgeInsets.only(top:0,bottom: 0,right: 5.w,left: 3.w),
@@ -84,7 +93,6 @@ class _SettingState extends ConsumerState<Setting> {
                 ),
               );
             })
-,
           ],
         ),
       ),

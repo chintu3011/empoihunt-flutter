@@ -1,7 +1,5 @@
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:popover/popover.dart';
-
 import '../../../utils/theme/app_color.dart';
 import '../../../utils/theme/text_styles.dart';
 import '../model/chat_model.dart';

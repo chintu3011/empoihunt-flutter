@@ -1,4 +1,7 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -76,8 +79,17 @@ class UserDetailsDialogBox extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    CommonFormField(
-                      hintText: "First Name",labelText: "First Name",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
+
+                    CommonDropDownFormField(
+                      items: SharedPrefServices.services.getList(locationKey)??["No Data"],
+                      searchController: profileWatch.jobLocationSearchController,
+                      onChanged: (value) {
+                        profileWatch.updateSelectedJobLocation(value);
+                      },
+                      hintTextForDropdown: "Residential City",
+                      hintTextForField: "Residential City",
+                      selectedValue: profileWatch.selectedJobLocation,
+                    ).paddingOnly(top: 10.h),
                     CommonFormField(
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                       hintText: "Email",labelText: "Email",prefixIcon: Icon(Icons.mail,color: AppColors.colors.blueColors,),).paddingVertical(10.h),

@@ -24,6 +24,7 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
     super.deactivate();
     ref.read(profileController).resumeLottieController.dispose();
   }
+
   @override
   Widget build(BuildContext context,) {
     final profileWatch = ref.watch(profileController);

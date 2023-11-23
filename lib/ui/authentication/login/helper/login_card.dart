@@ -55,6 +55,7 @@ class LoginCard extends ConsumerWidget {
                           ),
                         ),
                          Expanded(child: CommonFormField(
+                           buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
                            autoValidateMode: AutovalidateMode.onUserInteraction,
                            maxLength: 10,
                            validator: (val)=>phoneValidator(val),

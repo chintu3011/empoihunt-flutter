@@ -17,6 +17,7 @@ class AppAssets {
   static const String jobSearch = 'assets/image/jobsearch.png';
   static const String contactUs = 'assets/image/contactus.png';
   static const String experienceEmptyIcon = 'assets/image/experience_empty_icon.png';
+  static const String defaultBannerImage = 'assets/image/default_banner_image.jpg';
 
 
   ///register photos and icons
@@ -25,6 +26,7 @@ class AppAssets {
   static const String profilePicPng = 'assets/image/profilePic.png';
   static const String phoneIcon = 'assets/image/phone_icon.jpg';
   static const String emailIcon = 'assets/image/email_icon.jpg';
+  static const String uploadImgIcon = 'assets/image/uploadImgIcon.png';
 
 
   ///---------------- Svgs -------------------///
@@ -41,5 +43,6 @@ class AppAssets {
   static const String imgLoadingLottie = 'assets/lottie/image_lodding.json';
   static const String logOutLottie = 'assets/lottie/logout.json';
   static const String execlaminationMarkLottie = 'assets/lottie/excemilation_mark.json';
+  static const String bannerLoadingLottie = 'assets/lottie/imag_lodding_rectangle.json';
 }
 

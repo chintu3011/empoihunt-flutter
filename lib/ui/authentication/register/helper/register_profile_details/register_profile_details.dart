@@ -33,7 +33,7 @@ class _RegisterProfileDetailsState extends ConsumerState<RegisterProfileDetails>
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
-    return  const Scaffold(
+    return const Scaffold(
       backgroundColor:  Colors.white,
       appBar: RegisterProfileDetailsAppBar(),
       body: SafeArea(

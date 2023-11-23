@@ -1,6 +1,7 @@
 import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/domain_filter/domain_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/filter_job_preference_appbar.dart';
+import 'package:emploiflutter/ui/filter_job_preference/helper/location_filter/location_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/mode_filter/mode_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/package_filter/package_filter.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -71,15 +72,16 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
               const Spacer()
             ],
           ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.73.h,
-              child: TabBarView(
-                  children: [
-                const DomainFilter(),
-                Container(),
-                const ModeFilter(),
-                const PackageFilter()
-              ]),
+            const Expanded(
+              child: SizedBox(
+                child: TabBarView(
+                    children: [
+                  DomainFilter(),
+                  LocationFilter(),
+                  ModeFilter(),
+                  PackageFilter()
+                ]),
+              ),
             )
           ],
         ),

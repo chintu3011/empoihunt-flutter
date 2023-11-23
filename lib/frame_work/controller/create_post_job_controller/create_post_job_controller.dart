@@ -20,6 +20,19 @@ class CreatePostJobController extends ChangeNotifier{
   }
 ///--------------- Working Mode ----------------///
 
+  final jobLocationSearchController = TextEditingController();
+  String? selectedJobLocation;
+  updateSelectedJobLocation(String? value) {
+    selectedJobLocation = value;
+    notifyListeners();
+  }
+
+  final qualificationSearchController = TextEditingController();
+  String? selectedQualification;
+  updateSelectedQualification(String? value) {
+    selectedQualification = value;
+    notifyListeners();
+  }
 
 }
 

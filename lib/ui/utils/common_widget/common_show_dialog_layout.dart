@@ -27,7 +27,7 @@ class CommonShowDialogLayout extends ConsumerWidget {
                 width: size.width,
                 color: Colors.black45,
                 child:  Center(
-                    child: profileWatch.dialogForShow()),
+                    child: profileWatch.jobSeekerShowDialogs()),
               ),
             )
         ],

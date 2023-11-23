@@ -19,4 +19,12 @@ class SharedPrefServices{
     return pref.getBool(key) ?? false;
   }
 
+  Future<void> setList(String key,List<String> list)async{
+    await pref.setStringList(key, list);
+  }
+
+  List<String>? getList(String key,){
+   return pref.getStringList(key)?? [];
+  }
+
 }

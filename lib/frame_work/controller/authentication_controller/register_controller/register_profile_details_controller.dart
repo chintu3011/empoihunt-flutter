@@ -29,19 +29,25 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     }
     notifyListeners();
   }
+  ///---Lottie Controller ---///
+  late AnimationController resumeLottieController;
+  late AnimationController uploadImgLottieController;
+
+  initializeLottie(TickerProvider vsync1,TickerProvider vsync2)async{
+    resumeLottieController = AnimationController(vsync: vsync1,duration: const Duration(seconds: 2));
+    uploadImgLottieController = AnimationController(vsync: vsync2,duration: const Duration(seconds: 2));
+  }
+  ///---Lottie Controller ---///
+
 
 
 
 
   ///-----------------Profile1--------------///
   final bioController = TextEditingController();
-  List<String> qualificationList=[
-    "BCA",
-    "B.Com",
-    "B.A.",
-    "M.A.",
-    "Bsc.IT"
-  ];
+
+  final qualificationSearchController = TextEditingController();
+
 
   bool isFresher = false;
   updateFresher(){
@@ -56,40 +62,29 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     notifyListeners();
   }
 
-  String? qualification;
+  String? selectedQualification;
   updateSelectedQualification(String? value) {
-    qualification = value;
+    selectedQualification = value;
     notifyListeners();
   }
   ///-----------------Profile1--------------///
 
 
-  ///-----------------Profile2--------------///
-  List<String> jobTitleList=[
-    "Flutter dev",
-    "Full Stack dev",
-    "React native",
-    "Human Resource",
-    "Accountant",
-    "Freelancing",
-  ];
+  ///-----------------Profile2 For Fresher--------------///
 
-  List<String> preferCityList=[
-    "Ahmedabad",
-    "Delhi",
-    "Mumbai",
-    "Hyderabad",
-    "Bangalore",
-  ];
-  String? jobTitle;
+
+  final jobSearchController = TextEditingController();
+  final preferCitySearchController = TextEditingController();
+
+  String? selectedJobTitle;
   updateSelectedJobTitle(String? value) {
-    jobTitle = value;
+    selectedJobTitle = value;
     notifyListeners();
   }
 
-  String? preferCity;
+  String? selectedPreferCity;
   updateSelectedPreferCity(String? value) {
-    preferCity = value;
+    selectedPreferCity = value;
     notifyListeners();
   }
 
@@ -115,52 +110,27 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     notifyListeners();
   }
 
-
-  ///---Lottie Controller ---///
-      late AnimationController resumeLottieController;
-      late AnimationController uploadImgLottieController;
-
-      initializeLottie(TickerProvider vsync1,TickerProvider vsync2)async{
-         resumeLottieController = AnimationController(vsync: vsync1,duration: const Duration(seconds: 2));
-        uploadImgLottieController = AnimationController(vsync: vsync2,duration: const Duration(seconds: 2));
-      }
-  ///---Lottie Controller ---///
-
-  ///-----------------Profile2--------------///
+  ///-----------------Profile2 For Fresher--------------///
 
 
-  ///-----------------Profile2.0--------------///
+  ///-----------------Profile2 For Experience--------------///
 
   final companyNameController = TextEditingController();
+  final designationSearchController = TextEditingController();
+  final jobLocationSearchController = TextEditingController();
 
-  List<String> designationList=[
-    "Flutter dev",
-    "Full Stack dev",
-    "React native",
-    "Human Resource",
-    "Accountant",
-    "Freelancing",
-  ];
-
-  List<String> jobLocationList=[
-    "Ahmedabad",
-    "Delhi",
-    "Mumbai",
-    "Hyderabad",
-    "Bangalore",
-  ];
-  String? designation;
+  String? selectedDesignation;
   updateSelectedDesignation(String? value) {
-    designation = value;
+    selectedDesignation = value;
     notifyListeners();
   }
 
-  String? jobLocation;
+  String? selectedJobLocation;
   updateSelectedJobLocation(String? value) {
-    jobLocation = value;
+    selectedJobLocation = value;
     notifyListeners();
   }
-  ///-----------------Profile2.0--------------///
+  ///-----------------Profile2 For Experience--------------///
 
 
 
@@ -227,7 +197,18 @@ class RegisterProfileDetailsController extends ChangeNotifier{
     super.notifyListeners();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    companyNameController.dispose();
+    jobSearchController.dispose();
+    designationSearchController.dispose();
+    qualificationSearchController.dispose();
+    super.dispose();
+  }
 
 }
+
+
 
 

@@ -9,23 +9,20 @@ class DomainFilter extends ConsumerWidget {
     final filterJobPrefWatch = ref.watch(filterJobPreferenceController);
     return SingleChildScrollView(
       child: Wrap(
-          spacing: 10,
-          runSpacing: 5,
+          spacing: 8,
+          runSpacing: 3,
           children: List.generate(
             growable: true,
               filterJobPrefWatch.domainList.length,
                   (index) {
                 final filter = filterJobPrefWatch.domainList[index];
-                return Padding(
-                  padding:  EdgeInsets.only(top: 8.h),
-                  child: FilterChip(
-                      label: Text(filter),
-                    onSelected: (selected) {
-                        filterJobPrefWatch.addDomainToList(index: index,selected: selected, value: filter,);
-                    },
-                    selected: index == filterJobPrefWatch.selectedFilterDomainIndex,
-                      ),
-                );
+                return FilterChip(
+                    label: Text(filter),
+                  onSelected: (selected) {
+                      filterJobPrefWatch.addDomainToList(index: index,selected: selected, value: filter,);
+                  },
+                  selected: index == filterJobPrefWatch.selectedFilterDomainIndex,
+                    );
               })),
     );
   }

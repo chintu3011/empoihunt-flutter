@@ -17,10 +17,9 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> {
   @override
-  Future<void> initState() async {
+  initState() {
     super.initState();
     // getData();
-
     Timer(
         const Duration(seconds: 3),
             (){

@@ -1,6 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_profile_pic.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_user_details.dart';
+import 'package:emploiflutter/ui/profile/profile_profile_pic.dart';
+import 'package:emploiflutter/ui/profile/profile_user_details.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_show_dialog_layout.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';

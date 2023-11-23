@@ -54,6 +54,7 @@ class CreatePostJob extends StatelessWidget {
             /// Job DropDown Forms ///
             const CreatePostJobDropDownForms(),
 
+            SizedBox(height: 10.h,),
             CommonFormField(hintText: "Salary Package",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
 
             /// Working Mode
@@ -61,6 +62,7 @@ class CreatePostJob extends StatelessWidget {
 
             CommonFormField(hintText: "Need of Employees",labelText: "Number of Employees",prefixIcon: Icon(Icons.people,color: AppColors.colors.blueColors,),),
 
+            SizedBox(height: 10.h,),
             /// Bottom Button ///
             const CreatePostJobBottomButton()
           ],

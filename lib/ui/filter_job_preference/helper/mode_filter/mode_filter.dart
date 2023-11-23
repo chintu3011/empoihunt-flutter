@@ -8,20 +8,17 @@ class ModeFilter extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final filterJobPrefWatch = ref.watch(filterJobPreferenceController);
     return Wrap(
-        spacing: 10,
-        runSpacing: 5,
+        spacing: 8,
+        runSpacing: 3,
         children: List.generate(filterJobPrefWatch.modeList.length,
                 (index) {
               final filter = filterJobPrefWatch.modeList[index];
-              return Padding(
-                padding:  EdgeInsets.only(top: 8.h),
-                child: FilterChip(
-                  label: Text(filter),
-                  onSelected: (selected) {
-                    filterJobPrefWatch.addModeToList(index: index,selected: selected, value: filter);
-                  },
-                  selected: index == filterJobPrefWatch.selectedFilterModeIndex,
-                ),
+              return FilterChip(
+                label: Text(filter),
+                onSelected: (selected) {
+                  filterJobPrefWatch.addModeToList(index: index,selected: selected, value: filter);
+                },
+                selected: index == filterJobPrefWatch.selectedFilterModeIndex,
               );
             }));
   }

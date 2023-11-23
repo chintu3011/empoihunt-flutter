@@ -1,10 +1,14 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
-class RegisterProfileDetails2 extends ConsumerWidget {
-  const RegisterProfileDetails2({super.key});
+class RegisterProfileDetails2ForFresher extends ConsumerWidget {
+  const RegisterProfileDetails2ForFresher({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,46 +33,35 @@ class RegisterProfileDetails2 extends ConsumerWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    DropdownButtonFormField(
-                      dropdownColor: AppColors.colors.whiteColors,
-                      value: registerProfileDetailsWatch.jobTitle,
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: AppColors.colors.blueColors,
-                      ),
-                      items: registerProfileDetailsWatch.jobTitleList.map<DropdownMenuItem<String>>((e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e))).toList(),
-                      onChanged: (value){
-                        registerProfileDetailsWatch.updateSelectedJobTitle(value);
+                    CommonDropDownFormField(
+                      items: designationList,
+                      searchController:
+                          registerProfileDetailsWatch.jobSearchController,
+                      onChanged: (value) {
+                        registerProfileDetailsWatch
+                            .updateSelectedJobTitle(value);
                       },
-                      decoration:  InputDecoration(
-                          hintText: "Job Title",
-                          hintStyle: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors)
-                      ),
+                      hintTextForDropdown: "Job Title",
+                      hintTextForField: "Job Title",
+                      selectedValue:
+                          registerProfileDetailsWatch.selectedJobTitle,
                     ),
                     SizedBox(
                       height: 25.h,
                     ),
-                    DropdownButtonFormField(
-                      dropdownColor: AppColors.colors.whiteColors,
-                      value: registerProfileDetailsWatch.preferCity,
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: AppColors.colors.blueColors,
-                      ),
-                      items: registerProfileDetailsWatch.preferCityList.map<DropdownMenuItem<String>>((e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e))).toList(),
-                      onChanged: (value){
-                        registerProfileDetailsWatch.updateSelectedPreferCity(value);
+                    CommonDropDownFormField(
+                      items: SharedPrefServices.services.getList(locationKey)??["No data"],
+                      searchController:
+                      registerProfileDetailsWatch.preferCitySearchController,
+                      onChanged: (value) {
+                        registerProfileDetailsWatch
+                            .updateSelectedPreferCity(value);
                       },
-                      decoration:  InputDecoration(
-                          hintText: "Prefer City",
-                          hintStyle: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors)
-                      ),
-                    )
-                  ],
+                      hintTextForDropdown: "Prefer City",
+                      hintTextForField: "Prefer City",
+                      selectedValue:
+                      registerProfileDetailsWatch.selectedPreferCity,
+                    )                  ],
                 ),
               ),
             ),

@@ -1,16 +1,26 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class UserExperienceDialogBoxAddForm extends ConsumerWidget {
+class UserExperienceDialogBoxAddForm extends ConsumerStatefulWidget {
   const UserExperienceDialogBoxAddForm({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<UserExperienceDialogBoxAddForm> createState() => _UserExperienceDialogBoxAddFormState();
+}
+
+class _UserExperienceDialogBoxAddFormState extends ConsumerState<UserExperienceDialogBoxAddForm> {
+
+
+  @override
+  Widget build(BuildContext context) {
 
     final profileWatch = ref.watch(profileController);
     return Container(
@@ -23,16 +33,23 @@ class UserExperienceDialogBoxAddForm extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CommonFormField(
-            controller: profileWatch.userExperienceDesignFieldController,
+            controller: profileWatch.userExperienceAddDesignFieldController,
             hintText: "Designation",labelText: "Designation",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
           SizedBox(height: 10.h,),
           CommonFormField(
-            controller: profileWatch.userExperienceCompanyNameFieldController,
+            controller: profileWatch.userExperienceAddCompanyNameFieldController,
             hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
           SizedBox(height: 20.h,),
-          CommonFormField(
-            controller: profileWatch.userExperienceJobLocationFieldController,
-          hintText: "Company name",labelText: "Job Location",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
+          CommonDropDownFormField(
+            items: SharedPrefServices.services.getList(locationKey)??["No data"],
+            searchController: profileWatch.userExperienceAddSearchJobLocationFieldController,
+            onChanged: (value) {
+              profileWatch.updateUserExperienceAddSelectedJobLocation(value);
+            },
+            hintTextForDropdown: "Job Location",
+            hintTextForField: "Job Location",
+            selectedValue: profileWatch.userExperienceAddSelectedJobLocation,
+          ),
           Row(
             children: [
               Checkbox(value: true, onChanged: (val){}),
@@ -41,7 +58,7 @@ class UserExperienceDialogBoxAddForm extends ConsumerWidget {
             ],
           ).paddingOnly(top: 15.h,bottom: 10.h),
           CommonFormField(
-            controller: profileWatch.userExperienceDurationFieldController,
+            controller: profileWatch.userExperienceAddDurationFieldController,
             hintText: "Duration",labelText: "Duration",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
           Text("Enter Duration in years",style: TextStyles.w300.copyWith(fontSize: 10.sp,color: AppColors.colors.greyRegent),),
           Row(

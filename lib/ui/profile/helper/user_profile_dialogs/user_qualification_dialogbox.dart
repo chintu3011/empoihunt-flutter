@@ -1,7 +1,8 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -14,7 +15,7 @@ class UserQualificationDialogBox extends ConsumerWidget {
     return SafeArea(
       child: Container(
         width: 340.w,
-        height: 180.h,
+        height: 200.h,
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
         margin: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom> 0? 160 : 0),
         decoration: BoxDecoration(
@@ -25,12 +26,10 @@ class UserQualificationDialogBox extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Edit Qualification",style: TextStyles.w600.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),).paddingVertical(10.h),
-            const Expanded(
-              child: CommonFormField(
-                hintText: "Qualification",
-                labelText: "Qualification",
-              ),
-            ),
+             CommonDropDownFormField(items: qualificationList, searchController: profileWatch.qualificationSearchController, selectedValue: profileWatch.selectedQualification, onChanged: (value){
+               profileWatch.updateSelectedQualification(value);
+             }, hintTextForDropdown: "Qualification", hintTextForField: "Qualification"),
+           const Spacer(),
             Row(
               children: [
                 const Spacer(),

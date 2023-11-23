@@ -1,4 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
+import 'package:emploiflutter/ui/utils/app_string_constant.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -41,24 +43,10 @@ class RegisterProfileDetails1 extends ConsumerWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    DropdownButtonFormField(
-                      dropdownColor: AppColors.colors.whiteColors,
-                      value: registerProfileDetailsWatch.qualification,
-                      icon: Icon(
-                        Icons.arrow_drop_down,
-                        color: AppColors.colors.blueColors,
-                      ),
-                      items: registerProfileDetailsWatch.qualificationList.map<DropdownMenuItem<String>>((e) => DropdownMenuItem(
-                          value: e,
-                          child: Text(e))).toList(),
-                      onChanged: (value){
-                        registerProfileDetailsWatch.updateSelectedQualification(value);
-                      },
-                      decoration:  InputDecoration(
-                          hintText: "Qualification",
-                          hintStyle: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors)
-                      ),
-                    )
+                    CommonDropDownFormField(items: qualificationsList, searchController: registerProfileDetailsWatch.qualificationSearchController,selectedValue: registerProfileDetailsWatch.selectedQualification,onChanged: (value){
+                      registerProfileDetailsWatch.updateSelectedQualification(value);
+                    }, hintTextForDropdown: 'Qualification', hintTextForField: 'Qualification',),
+
                   ],
                 ),
               ),

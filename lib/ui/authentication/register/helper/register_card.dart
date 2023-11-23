@@ -83,6 +83,7 @@ class RegisterCard extends ConsumerWidget {
                         ),
                         Expanded(child: CommonFormField(
                           maxLength: 10,
+                          buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox() ,
                           autoValidateMode: AutovalidateMode.onUserInteraction,
                           validator: (val)=>phoneValidator(val),
                           inputFormatters: [

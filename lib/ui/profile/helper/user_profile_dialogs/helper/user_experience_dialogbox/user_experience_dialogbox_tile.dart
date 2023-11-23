@@ -62,7 +62,9 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
                     profileWatch.listEditButton(index: index, designation: experience.designation, companyName: experience.companyName,jobLocation: experience.location,duration: experience.duration);
                   }, icon: Icon(profileWatch.selectedUserExperienceListIndex == index ? Icons.cancel_outlined :Icons.edit,color: AppColors.colors.whiteColors,size: 18.sp),style:  ElevatedButton.styleFrom(backgroundColor: AppColors.colors.blueColors,padding: EdgeInsets.all(4.sp)),),
                   SizedBox(width: 5.w,),
-                  IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: AppColors.colors.whiteColors,size: 18.sp),style:  ElevatedButton.styleFrom(backgroundColor: AppColors.colors.blueColors,padding: EdgeInsets.all(6.sp)),),
+                  IconButton(onPressed: (){
+                    profileWatch.listDeleteButton(index);
+                  }, icon: Icon(Icons.delete,color: AppColors.colors.whiteColors,size: 18.sp),style:  ElevatedButton.styleFrom(backgroundColor: AppColors.colors.blueColors,padding: EdgeInsets.all(6.sp)),),
                 ],
               ),
             )

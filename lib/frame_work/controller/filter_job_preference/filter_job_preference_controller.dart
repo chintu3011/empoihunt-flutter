@@ -50,6 +50,19 @@ class FilterJobPreferenceController extends ChangeNotifier{
     notifyListeners();
   }
 
+  int selectedFilterLocationIndex = -1;
+  void addLocationToList({required int index,required bool selected,required String value,}){
+    if(selected && index != selectedFilterLocationIndex){
+      selectedValue[1].value = value;
+      selectedFilterLocationIndex = index;
+      // print("$index,$value");
+    }else if(!selected && index == selectedFilterLocationIndex){
+      selectedValue[1].value="";
+      selectedFilterLocationIndex = -1;
+    }
+    notifyListeners();
+  }
+
   List<FilterValueAndMode> selectedValue = [
     FilterValueAndMode(mode: FilterMode.domain, value: ""),
     FilterValueAndMode(mode: FilterMode.location, value: ""),

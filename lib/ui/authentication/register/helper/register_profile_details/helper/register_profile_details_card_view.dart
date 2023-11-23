@@ -1,9 +1,9 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details2/register_profile_details2.0.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details2/register_profile_details2_for_experienced.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'register_profile_details1/register_profile_details1.dart';
-import 'register_profile_details2/register_profile_details2.dart';
+import 'register_profile_details2/register_profile_details2_for_fresher.dart';
 import 'register_profile_details3/register_profile_details3.dart';
 import 'register_profile_details4/register_profile_details4.dart';
 
@@ -37,7 +37,7 @@ class RegisterProfileDetailsCardView extends ConsumerWidget {
               },
               children: [
                 const RegisterProfileDetails1(),
-               registerProfileDetailWatch.isExperienced? const RegisterProfileDetails20(): const RegisterProfileDetails2(),
+               registerProfileDetailWatch.isExperienced? const RegisterProfileDetails2ForExperience(): const RegisterProfileDetails2ForFresher(),
                 const RegisterProfileDetails3(),
                 const RegisterProfileDetails4(),
               ],

@@ -1,14 +1,12 @@
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class ProfileResumeTile extends ConsumerWidget {
-  const ProfileResumeTile({super.key});
+class AppliedCandidateResumeTile extends ConsumerWidget {
+  const AppliedCandidateResumeTile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileWatch = ref.watch(profileController);
     return  Card(
       color: AppColors.colors.whiteColors,
       elevation: 6,
@@ -46,10 +44,6 @@ class ProfileResumeTile extends ConsumerWidget {
               ],
             ),
           ),
-          trailing: IconButton(onPressed: (){
-            profileWatch.setDialogValue(6);
-            profileWatch.updateIsDialogShow();
-          },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),),
         ),
       ),
     );

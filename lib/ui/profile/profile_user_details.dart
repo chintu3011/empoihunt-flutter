@@ -6,12 +6,8 @@ import 'package:emploiflutter/ui/profile/helper/profile_qualification_tile.dart'
 import 'package:emploiflutter/ui/profile/helper/profile_resume_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_user_detail_tile.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
-import '../utils/theme/text_styles.dart';
 
 class ProfileUserDetails extends ConsumerWidget {
   const ProfileUserDetails({super.key});

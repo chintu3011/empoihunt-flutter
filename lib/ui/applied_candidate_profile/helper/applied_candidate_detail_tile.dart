@@ -1,17 +1,15 @@
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class ProfileUserDetailTile extends ConsumerWidget {
-  const ProfileUserDetailTile({super.key});
+class AppliedCandidateDetailTile extends ConsumerWidget {
+  const AppliedCandidateDetailTile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileWatch = ref.watch(profileController);
-    return Card(
+    return  Card(
       color: AppColors.colors.whiteColors,
       elevation: 4,
       child: Container(
@@ -31,14 +29,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
                       fontSize: 16.sp,
                       color: AppColors.colors.blueDark),
                 ),
-                IconButton(onPressed: (){
-                  profileWatch.setDialogValue(2);
-                  profileWatch.updateIsDialogShow();
-                }, icon: Icon(
-                  Icons.edit,
-                  color: AppColors.colors.blueColors,
-                  size: 18,
-                ))
+                const Expanded(child: SizedBox())
               ],
             ),
             SizedBox(height: 70.h),

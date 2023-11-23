@@ -304,10 +304,11 @@ class ProfileController extends ChangeNotifier {
     "Remote",
     "Hybrid",
   ];
+
   int selectedWorkingMode = 0;
   updateWorkingMode(int index){
     selectedWorkingMode = index;
-    print(workingModeList[index]);
+    debugPrint(workingModeList[index]);
     notifyListeners();
   }
   /// ------ User Current Position ----////

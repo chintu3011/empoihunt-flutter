@@ -5,7 +5,6 @@ import 'package:emploiflutter/frame_work/repository/model/location_list_model/lo
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final authIntroController = ChangeNotifierProvider((ref)=>AuthIntroController());
 

@@ -17,7 +17,7 @@ class _ExampleState extends State<Example> {
           children: List.generate(4, (index) => Visibility(
             visible: selectedRadio == -1 || selectedRadio == index,
             child: ListTile(
-              title: Text("test"),
+              title: const Text("test"),
               leading: Radio(
                 value: index,
                 groupValue: selectedRadio,

@@ -1,15 +1,13 @@
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class ProfileExperienceTile extends ConsumerWidget {
-  const ProfileExperienceTile({super.key});
+class AppliedCandidateExperienceTile extends ConsumerWidget {
+  const AppliedCandidateExperienceTile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final profileWatch = ref.watch(profileController);
     final size = MediaQuery.of(context).size;
 
     return Card(
@@ -22,19 +20,11 @@ class ProfileExperienceTile extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Experience",
-                  style: TextStyles.w500.copyWith(
-                      fontSize: 18.sp,
-                      color: AppColors.colors.blackColors),
-                ),
-                IconButton(onPressed: (){
-                  profileWatch.setDialogValue(5);
-                  profileWatch.updateIsDialogShow();
-                },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
+            Text(
+              "Experience",
+              style: TextStyles.w500.copyWith(
+                  fontSize: 18.sp,
+                  color: AppColors.colors.blackColors),
             ),
             SizedBox(height: 10.h,),
             Row(

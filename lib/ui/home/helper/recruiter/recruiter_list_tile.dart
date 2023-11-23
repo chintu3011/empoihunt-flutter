@@ -65,9 +65,6 @@ class RecruiterListTile extends StatelessWidget {
             ),
           ),
           const RecruiterProfileCard(),
-
-
-
           ///------------------ Call and mail share Icons ----------///
           Positioned(
             bottom: 0,

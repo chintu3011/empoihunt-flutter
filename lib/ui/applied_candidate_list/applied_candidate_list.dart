@@ -13,7 +13,7 @@ class AppliedCandidateList extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final appliedCandidateWatch = ref.watch(appliedCandidateListController);
     return Scaffold(
-      appBar: const CommonAppBar(title: "Applied Candidate List"),
+      appBar: const CommonAppBar(title: "Applied Candidate List",isLeadingShow: true),
       body: Column(
         children: [
           PopupMenuButton(

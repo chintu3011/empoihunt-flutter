@@ -1,10 +1,9 @@
-import 'package:emploiflutter/ui/utils/app_string_constant.dart';
+import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-final createPostJobController = ChangeNotifierProvider((ref) => CreatePostJobController());
+final updatePostController = ChangeNotifierProvider((ref) => UpdatePostController());
 
-class CreatePostJobController extends ChangeNotifier{
-
+class UpdatePostController extends ChangeNotifier{
 
 
   ///--------------- Working Mode ----------------///
@@ -19,9 +18,9 @@ class CreatePostJobController extends ChangeNotifier{
     notifyListeners();
     // print(selectedValue);
   }
-///--------------- Working Mode ----------------///
+  ///--------------- Working Mode ----------------///
 
-///----------------- DropDown Filed -----------------///
+  ///----------------- DropDown Filed -----------------///
   final jobLocationSearchController = TextEditingController();
   String? selectedJobLocation;
   updateSelectedJobLocation(String? value) {
@@ -30,19 +29,12 @@ class CreatePostJobController extends ChangeNotifier{
   }
 
   final qualificationSearchController = TextEditingController();
-  List<String> checkQualification(String query){
-    query = query.toUpperCase().trim();
-    return qualificationsList.where((education) => education.toUpperCase().trim().contains(query)).toList();
+  String? selectedQualification;
+  updateSelectedQualification(String? value) {
+    selectedQualification = value;
+    notifyListeners();
   }
 ///----------------- DropDown Filed -----------------///
 
-
-}
-
-class RadioButtonModel{
-  final String title;
-  final String value;
-
-  RadioButtonModel({required this.title, required this.value});
 
 }

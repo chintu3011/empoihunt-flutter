@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_bottom_button.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_dropdown_forms.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_skills_widget.dart';
@@ -5,8 +7,10 @@ import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_working_
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/theme/text_styles.dart';
 
@@ -22,9 +26,9 @@ class CreatePostJob extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 15.h),
         child: Column(
           children: [
-            CommonFormField(hintText: "Job Title",labelText: "job Title",prefixIcon: Icon(Icons.cases_outlined,color: AppColors.colors.blueColors,),),
+            CommonFormField(hintText: "Android Developer",labelText: "job Title",prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
             SizedBox(height: 10.h,),
-            CommonFormField(hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.maps_home_work_outlined,color: AppColors.colors.blueColors,),),
+            CommonFormField(hintText: "Tellva Still Texus",labelText: "Company name",prefixIcon: SvgPicture.asset(AppAssets.companyBuildingSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
 
             /// Company Logo ///
             Container(
@@ -44,9 +48,9 @@ class CreatePostJob extends StatelessWidget {
               ),
             ).paddingVertical(10.h),
 
-            CommonFormField(hintText: "Job Description Here", prefixIcon: Icon(Icons.file_copy,color: AppColors.colors.blueColors,), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
-            CommonFormField(hintText: "Job Role & Responsibility", prefixIcon: Icon(Icons.storage_rounded,color: AppColors.colors.blueColors,), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
-            CommonFormField(hintText: "Required Experience",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
+            CommonFormField(hintText: "Job Description Here", prefixIcon: SvgPicture.asset(AppAssets.bioGraphSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
+            CommonFormField(hintText: "Job Role & Responsibility", prefixIcon: SvgPicture.asset(AppAssets.baselinePlaylistAddCheckCircleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
+            CommonFormField(hintText: "2 years",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
 
             /// Job Skills Forms ///
             const CreatePostJobSkillsWidget(),
@@ -55,7 +59,7 @@ class CreatePostJob extends StatelessWidget {
             const CreatePostJobDropDownForms(),
 
             SizedBox(height: 10.h,),
-            CommonFormField(hintText: "Salary Package",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
+            CommonFormField(hintText: "12 LPA",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
 
             /// Working Mode
             const CreatePostJobWorkingMode(),

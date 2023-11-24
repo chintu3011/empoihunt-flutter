@@ -10,7 +10,7 @@ class AppliedCandidateProfile extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     return Scaffold(
-      appBar: const CommonAppBar(title: "Applied Candidate Profile"),
+      appBar: const CommonAppBar(title: "Applied Candidate Profile",isLeadingShow: true,),
       body:  SingleChildScrollView(
         child: Column(
           children: [

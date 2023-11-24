@@ -1,6 +1,7 @@
 import 'package:emploiflutter/ui/campus/campus.dart';
 import 'package:emploiflutter/ui/create_post_job/create_post_job.dart';
-import 'package:emploiflutter/ui/home/home.dart';
+import 'package:emploiflutter/ui/home/helper/job_seeker/job_seeker_home.dart';
+import 'package:emploiflutter/ui/home/helper/recruiter/recruiter_home.dart';
 import 'package:emploiflutter/ui/settings/setting.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -10,7 +11,6 @@ class DashBoardController extends ChangeNotifier{
 
   int selectedIndex = 0;
 
-  int userRole = 0;
 
   updateSelectedIndex(int index){
     selectedIndex = index;
@@ -18,13 +18,13 @@ class DashBoardController extends ChangeNotifier{
   }
 
   List<Widget> jobSeekerPages = [
-    const Home(),
+    const JobSeekerHome(),
     const Campus(),
     const Setting()
   ];
 
   List<Widget> recruiterPages = [
-    const Home(),
+    const RecruiterHome(),
     const CreatePostJob(),
     const Setting()
   ];

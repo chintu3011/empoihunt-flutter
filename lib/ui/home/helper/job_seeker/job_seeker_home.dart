@@ -1,24 +1,21 @@
-import 'package:emploiflutter/ui/MessengerModul/Messenger/messanger.dart';
-import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
-import 'package:emploiflutter/ui/home/helper/recruiter/recruiter_list_tile.dart';
+import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
+import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar.dart';
+import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_list_card.dart';
 import 'package:emploiflutter/ui/job_details/job_details.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/home/helper/job_seeker/job_seeker_list_card.dart';
+import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 
-import '../../frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
 
-class Home extends ConsumerStatefulWidget {
-  const Home({super.key});
+class JobSeekerHome extends ConsumerStatefulWidget {
+  const JobSeekerHome({super.key});
 
   @override
-  ConsumerState<Home> createState() => _HomeState();
+  ConsumerState<JobSeekerHome> createState() => _JobSeekerHomeState();
 }
 
-class _HomeState extends ConsumerState<Home> {
+class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -26,19 +23,7 @@ class _HomeState extends ConsumerState<Home> {
     ));
     // final homeWatch = ref.watch(homeController);
     return Scaffold(
-      appBar: CommonAppBar(
-        title: "Find Best jobs Here",
-        actions: [
-          IconButton(onPressed: () {},
-              icon: Icon(Icons.search, color: AppColors.colors.blackColors,)),
-          IconButton(onPressed: () {},
-              icon: Icon(Icons.mic, color: AppColors.colors.blackColors,)),
-          IconButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const FilterJobPreference()));             },
-              icon: Icon(Icons.filter_alt_sharp, color: AppColors.colors.blackColors,)),
-        ],
-      ),
+      appBar: const JobSeekerAppbar(),
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -46,8 +31,7 @@ class _HomeState extends ConsumerState<Home> {
             child: Padding(
               padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
               child: Column(
-                  children:userRole == 0?
-                      ///------ for Job Seeker ------///
+                  children:
                   List.generate(jobsLists.length, (index) {
                 final jobList = jobsLists[index];
                 return JobSeekerListCard(
@@ -57,11 +41,7 @@ class _HomeState extends ConsumerState<Home> {
                         MaterialPageRoute(builder: (_) => const JobDetails()));
                   },
                 );
-              }):
-                  ///------- For Recruiter --------///
-                  List.generate(10, (index) {
-                    return const RecruiterListTile();
-                  })
+              })
               ) ,
             ),
           ),

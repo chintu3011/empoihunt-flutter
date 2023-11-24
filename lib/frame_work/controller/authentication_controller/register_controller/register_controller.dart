@@ -32,8 +32,8 @@ class RegisterController extends ChangeNotifier{
   ///------------- get location List from the Shared Preference -----------////
   ///------------- btw i called api on authIntro screen and Stored in share preference -----///
   List<String> checkCity(String query){
-    query = query.toUpperCase();
-    return SharedPrefServices.services.getList(locationKey)!.where((city) => city.toUpperCase().contains(query)).toList();
+    query = query.toUpperCase().trim();
+    return SharedPrefServices.services.getList(locationKey)!.where((city) => city.toUpperCase().trim().contains(query)).toList();
   }
 
 

@@ -1,4 +1,4 @@
-import 'package:emploiflutter/ui/MessengerModul/personal_chat/helper/personal_back_widget.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';

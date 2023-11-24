@@ -1,4 +1,4 @@
-import 'package:emploiflutter/ui/MessengerModul/personal_chat/model/chat_model.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/model/chat_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 

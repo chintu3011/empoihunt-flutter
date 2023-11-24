@@ -1,15 +1,10 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-class CreatePostJobSkillsWidget extends StatelessWidget {
-  const CreatePostJobSkillsWidget({super.key});
+class UpdatePostSkillsWidget extends StatelessWidget {
+  const UpdatePostSkillsWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +24,7 @@ class CreatePostJobSkillsWidget extends StatelessWidget {
                   children: [
                     Expanded(child: CommonFormField(
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
-                      hintText: "Developer",labelText: "Required Technical Skills",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
+                      hintText: "Required Technical Skills",labelText: "Developer",prefixIcon: Icon(Icons.stacked_bar_chart_rounded,color: AppColors.colors.blueColors,),)),
                     SizedBox(width: 10.w,),
                     IconButton(
                       onPressed: (){}, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
@@ -73,7 +68,7 @@ class CreatePostJobSkillsWidget extends StatelessWidget {
                   children: [
                     Expanded(child: CommonFormField(
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
-                      hintText: "Communication",labelText: "Required Soft Skills",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
+                      hintText: "Required Soft Skills",labelText: "Required Soft Skills",prefixIcon: Icon(Icons.stacked_bar_chart_rounded,color: AppColors.colors.blueColors,),)),
                     SizedBox(width: 10.w,),
                     IconButton(
                       onPressed: (){}, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(

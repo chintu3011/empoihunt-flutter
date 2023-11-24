@@ -1,9 +1,15 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
-import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
+import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CreatePostJobDropDownForms extends ConsumerWidget {
   const CreatePostJobDropDownForms({super.key});
@@ -14,16 +20,17 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
 
     return Column(
       children: [
-        CommonDropDownFormField(
-          items: qualificationsList,
-          searchController: createPostJobWatch.qualificationSearchController,
-          selectedValue: createPostJobWatch.selectedQualification,
-          onChanged: (value) {
-            createPostJobWatch.updateSelectedQualification(value);
-          },
-          hintTextForDropdown: 'Qualification',
-          hintTextForField: 'Qualification',
-        ),
+        CommonTypeAheadFormField(
+          prefixIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
+          controller: createPostJobWatch.qualificationSearchController,
+            hintText: "Bachelor of Engineering(BE)",
+            labelText: "Required Education",
+            onSuggestionSelected: (value) {
+              createPostJobWatch.qualificationSearchController.text = value;
+            },
+            suggestionsCallback: (pattern){
+          return createPostJobWatch.checkQualification(pattern);
+        }),
         SizedBox(
           height: 10.h,
         ),

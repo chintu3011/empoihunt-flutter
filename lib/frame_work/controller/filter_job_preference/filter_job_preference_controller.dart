@@ -67,7 +67,7 @@ class FilterJobPreferenceController extends ChangeNotifier{
     FilterValueAndMode(mode: FilterMode.domain, value: ""),
     FilterValueAndMode(mode: FilterMode.location, value: ""),
     FilterValueAndMode(mode: FilterMode.mode, value: ""),
-    FilterValueAndMode(mode: FilterMode.package, value: ""),
+    FilterValueAndMode(mode: FilterMode.package, value: "")
   ];
   void addFilters(){
 

@@ -1,11 +1,10 @@
-import 'package:emploiflutter/ui/MessengerModul/Messenger/helper/messenger_appbar.dart';
-import 'package:emploiflutter/ui/MessengerModul/personal_chat/personal_chat.dart';
+import 'package:emploiflutter/ui/messenger_modul/Messenger/helper/messenger_appbar.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/personal_chat.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
 import '../make_new_chat/make_new_chat.dart';
 
 
@@ -15,6 +14,7 @@ class Messenger extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
+      backgroundColor: AppColors.colors.whiteColors,
       appBar: const MessengerAppbar(),
       floatingActionButton: IconButton(
         style: ElevatedButton.styleFrom(

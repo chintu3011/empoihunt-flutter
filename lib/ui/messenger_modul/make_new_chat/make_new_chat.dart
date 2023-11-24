@@ -1,9 +1,9 @@
-import 'package:emploiflutter/ui/MessengerModul/make_new_chat/helper/make_new_chat_appbar.dart';
-import 'package:emploiflutter/ui/MessengerModul/personal_chat/personal_chat.dart';
+import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_chat_appbar.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/personal_chat.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import '../../utils/theme/app_assets.dart';
-import '../../utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import '../../utils/theme/text_styles.dart';
 
 class MakeNewChat extends StatelessWidget {
@@ -12,7 +12,8 @@ class MakeNewChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const MakeNewChatAppbar(),
+      backgroundColor: AppColors.colors.whiteColors,
+        appBar:  const MakeNewChatAppbar(),
         body:
         // Column(
         //   children: [

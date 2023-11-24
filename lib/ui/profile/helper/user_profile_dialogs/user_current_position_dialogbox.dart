@@ -18,7 +18,7 @@ class UserCurrentPositionDialogBox extends ConsumerWidget {
     return SafeArea(
       child: Container(
         width: 340.w,
-        height: 400.h,
+        height: 420.h,
         padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 10.h),
         margin: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom> 0? 230 : 0),
         decoration: BoxDecoration(

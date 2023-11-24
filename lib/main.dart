@@ -1,4 +1,5 @@
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';import 'package:emploiflutter/ui/splash/splash.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';

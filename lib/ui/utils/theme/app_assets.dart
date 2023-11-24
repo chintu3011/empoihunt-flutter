@@ -34,6 +34,9 @@ class AppAssets {
   static const String bioGraphSvg = 'assets/svg/biographyIcon.svg';
   static const String skillsSvg = 'assets/svg/skillsIcon.svg';
   static const String qualificationSvg = 'assets/svg/qualificationIcon.svg';
+  static const String companyBuildingSvg = 'assets/svg/company_building_svg.svg';
+  static const String jobTitleSvg = 'assets/svg/job_title.svg';
+  static const String baselinePlaylistAddCheckCircleSvg = 'assets/svg/baseline_playlist_add_check_circle.svg';
 
 
 

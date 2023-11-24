@@ -1,9 +1,10 @@
 import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/domain_filter/domain_filter.dart';
-import 'package:emploiflutter/ui/filter_job_preference/helper/filter_job_preference_appbar.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/location_filter/location_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/mode_filter/mode_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/package_filter/package_filter.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -27,16 +28,18 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
   Widget build(BuildContext context) {
     final filterJobPrefWatch = ref.watch(filterJobPreferenceController);
     return  Scaffold(
-      appBar: const FilterJobPreferenceAppBar(),
+      appBar:  CommonAppBar(title: "Filter Job Preference",isLeadingShow: true,actions: [IconButton(onPressed: (){}, icon: Icon(Icons.check,color: AppColors.colors.blackColors,))],),
       body: DefaultTabController(
-        length: 4,
+        length:userRole==0? 4 : 3,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             filterJobPrefWatch.selectedValue[0].value.isNotEmpty || filterJobPrefWatch.selectedValue[1].value.isNotEmpty || filterJobPrefWatch.selectedValue[2].value.isNotEmpty || filterJobPrefWatch.selectedValue[3].value.isNotEmpty?
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: List.generate(
                     filterJobPrefWatch.selectedValue.length, (index) {
                   final selected = filterJobPrefWatch.selectedValue[index];
@@ -61,26 +64,28 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
                   indicatorColor: AppColors.colors.clayColors,
                   labelColor: AppColors.colors.clayColors,
                   unselectedLabelColor: AppColors.colors.blackColors,
-                  tabs:  [
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Domain"))),
+                  tabs:  userRole ==0?
+                  [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Domain"))),
                     Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Location"))),
                     Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Mode"))),
-                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Package"))),
-                  ],
+                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Package"))),]
+                      :
+                  [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Domain"))),
+                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Location"))),
+                    Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 22.w),child: const Text("Mode"))),]
+                  ,
                 ),
               ),
               const Spacer()
             ],
           ),
-            const Expanded(
+             const Expanded(
               child: SizedBox(
                 child: TabBarView(
-                    children: [
-                  DomainFilter(),
-                  LocationFilter(),
-                  ModeFilter(),
-                  PackageFilter()
-                ]),
+                    children: userRole ==0?
+                    [DomainFilter(), LocationFilter(), ModeFilter(), PackageFilter()]:
+                    [DomainFilter(), LocationFilter(), ModeFilter(),]
+                ),
               ),
             )
           ],

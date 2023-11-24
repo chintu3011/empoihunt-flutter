@@ -1,8 +1,7 @@
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import '../../frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
-import '../utils/theme/text_styles.dart';
 
 class TermsAndCondition extends ConsumerWidget {
   const TermsAndCondition({super.key});
@@ -15,13 +14,7 @@ class TermsAndCondition extends ConsumerWidget {
       ..loadHtmlString(termsPrivacyWatch.termHtmlString);
     // ..loadRequest(Uri.parse('https://flutter.dev'));
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 2.5,
-        shadowColor: Colors.grey.shade300,
-        title: Text("Terms And Condition", style: TextStyles.w500.copyWith(
-            fontSize: 16.sp, color: AppColors.colors.blackColors),),
-      ),
+      appBar: const CommonAppBar(title: "Terms And Condition",isLeadingShow: true,),
       body: termsPrivacyWatch.termHtmlString.isEmpty ? const Center(
         child: CircularProgressIndicator(),) : WebViewWidget(
         controller: webViewController,),

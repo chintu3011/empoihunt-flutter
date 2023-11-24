@@ -1,3 +1,4 @@
+import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/form_validation.dart';
@@ -15,9 +16,7 @@ class ContactUs extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final contactUsWatch = ref.watch(contactUsController);
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Contact Us",style: TextStyles.w500.copyWith(fontSize:16.sp,color: AppColors.colors.blackColors),),
-      ),
+      appBar: const CommonAppBar(title: "Contact Us",isLeadingShow: true,),
       body: Padding(
         padding:  EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
         child: SingleChildScrollView(

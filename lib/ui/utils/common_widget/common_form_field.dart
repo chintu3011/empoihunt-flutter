@@ -10,7 +10,7 @@ class CommonFormField extends StatelessWidget {
         this.obscureText =false,
         this.suffixIcon,
         this.validator,
-        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border, this.buildCounter, this.fillColor});
+        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border, this.buildCounter, this.fillColor, this.onChanged});
 
   final String hintText;
   final String? labelText;
@@ -31,12 +31,14 @@ class CommonFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final InputBorder? border;
   final Color? fillColor;
+  final void Function(String)? onChanged;
   final Widget? Function(BuildContext, {required int currentLength, required bool isFocused, required int? maxLength})? buildCounter;
 
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       buildCounter:buildCounter,
               // (context, {required currentLength,  required isFocused, maxLength}){ return const SizedBox();},
       autovalidateMode: autoValidateMode,
@@ -54,7 +56,7 @@ class CommonFormField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.colors.whiteColors,
-        errorStyle: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400),
+        errorStyle: TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.red.shade400,),
           hintText: hintText,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
@@ -81,6 +83,7 @@ class CommonFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
               borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w))),
       validator: validator,
+
     );
   }
 }

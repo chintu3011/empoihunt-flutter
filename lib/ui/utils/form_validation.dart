@@ -1,6 +1,8 @@
-String? nameValidator(String? input) {
-  if (input == null || input.trim().length < 2) {
-    return 'Name must be 2 characters long';
+import 'package:emploiflutter/ui/utils/theme/theme.dart';
+
+String? requiredFieldValidator({required String input, required String errorMgs}) {
+  if (input.trim().length < 2) {
+    return errorMgs;
   } else {
     return null;
   }
@@ -23,7 +25,7 @@ String? emailValidator(String? input) {
 
 String? phoneValidator(String? input) {
   if (input == null || input.trim().length < 10) {
-    return 'Password must be 10 characters long';
+    return 'Number must be 10 characters long';
   } else {
     return null;
   }
@@ -53,4 +55,14 @@ String? otpValidator(String? input, String otp) {
     return 'Invalid Otp';
   }
   return null;
+}
+
+notAllowSpecialChar(TextEditingController controller,String value){
+  final filteredValue = value.replaceAll(RegExp(r'\s|[!@#%^&$*(),.?":{}|<>+/;`~=-]'), '');
+  if(value != filteredValue){
+    final cursorPosition = controller.selection.baseOffset -1;
+    controller.value = TextEditingValue(
+      text: filteredValue,
+      selection: TextSelection.collapsed(offset: cursorPosition),
+    );}
 }

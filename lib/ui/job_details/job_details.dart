@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_above_part.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_appbar.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_below_part.dart';
@@ -8,7 +9,8 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class JobDetails extends ConsumerWidget {
-  const JobDetails({super.key});
+  final HomeJobDetailModel jobDetail;
+  const JobDetails({super.key,required this.jobDetail});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -17,7 +19,7 @@ class JobDetails extends ConsumerWidget {
       jobDetailsWatch.updateOffSetValue(jobDetailsWatch.scrollController.offset);
     });
     return Scaffold(
-      appBar: const JobDetailsAppBar(),
+      appBar:  JobDetailsAppBar(jobDetailModel: jobDetail,),
       body: Column(
         children: [
            Expanded(

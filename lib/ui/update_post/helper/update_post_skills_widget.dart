@@ -24,7 +24,7 @@ class UpdatePostSkillsWidget extends StatelessWidget {
                   children: [
                     Expanded(child: CommonFormField(
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
-                      hintText: "Required Technical Skills",labelText: "Developer",prefixIcon: Icon(Icons.stacked_bar_chart_rounded,color: AppColors.colors.blueColors,),)),
+                      hintText: "Developer",labelText: "Required Technical Skills",prefixIcon: Icon(Icons.stacked_bar_chart_rounded,color: AppColors.colors.blueColors,),)),
                     SizedBox(width: 10.w,),
                     IconButton(
                       onPressed: (){}, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
@@ -68,7 +68,7 @@ class UpdatePostSkillsWidget extends StatelessWidget {
                   children: [
                     Expanded(child: CommonFormField(
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
-                      hintText: "Required Soft Skills",labelText: "Required Soft Skills",prefixIcon: Icon(Icons.stacked_bar_chart_rounded,color: AppColors.colors.blueColors,),)),
+                      hintText: "Communication",labelText: "Required Soft Skills",prefixIcon: Icon(Icons.stacked_bar_chart_rounded,color: AppColors.colors.blueColors,),)),
                     SizedBox(width: 10.w,),
                     IconButton(
                       onPressed: (){}, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(

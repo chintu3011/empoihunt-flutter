@@ -29,7 +29,7 @@ class ContactUs extends ConsumerWidget {
                 textInputAction: TextInputAction.newline,
                 controller: contactUsWatch.nameController,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                validator: (val)=>nameValidator(val),
+                validator: (val)=>requiredFieldValidator(input: val!,errorMgs:"Please provide a name" ),
                 prefixIcon: Icon(Icons.person,size: 18.sp,color: AppColors.colors.blueColors,),
                 hintText: "Name",labelText: "Name",
                 labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),

@@ -1,12 +1,12 @@
 
-class PrivacyTermsCondition {
+class PrivacyTermsConditionModel {
   int? status;
   String? message;
   Data? data;
 
-  PrivacyTermsCondition({this.status, this.message, this.data});
+  PrivacyTermsConditionModel({this.status, this.message, this.data});
 
-  PrivacyTermsCondition.fromJson(Map<String, dynamic> json) {
+  PrivacyTermsConditionModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;

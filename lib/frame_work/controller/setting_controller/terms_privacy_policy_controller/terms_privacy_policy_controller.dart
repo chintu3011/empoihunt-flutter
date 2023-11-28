@@ -3,7 +3,10 @@ import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/model/privacy_and_terms/pricacy_terns.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+
+import '../../../repository/services/shared_pref_services.dart';
 
 final termsPrivacyPolicyController = ChangeNotifierProvider((ref) => TermsPrivacyPolicyController());
 
@@ -16,9 +19,10 @@ class TermsPrivacyPolicyController extends ChangeNotifier{
       // Assume DioClient.client.getData() makes the API request
       Response response = await DioClient.client.getData(
           APIEndPoint.termsAndCondition);
-      PrivacyTermsCondition privacyTermsCondition = PrivacyTermsCondition.fromJson(response.data);
+      PrivacyTermsConditionModel privacyTermsCondition = PrivacyTermsConditionModel.fromJson(response.data);
       if (privacyTermsCondition.status == 200) {
         termHtmlString = privacyTermsCondition.data!.content.toString();
+        await SharedPrefServices.services.setString(termsAndConditionStringKey,termHtmlString);
         notifyListeners(); // Notify any listeners that the data has changed
       }
     }catch(e){
@@ -34,10 +38,11 @@ class TermsPrivacyPolicyController extends ChangeNotifier{
        // Assume DioClient.client.getData() makes the API request
        Response response = await DioClient.client.getData(
            APIEndPoint.privacyPolicy);
-       PrivacyTermsCondition privacyTermsCondition = PrivacyTermsCondition.fromJson(response.data);
+       PrivacyTermsConditionModel privacyTermsCondition = PrivacyTermsConditionModel.fromJson(response.data);
        if (privacyTermsCondition.status == 200) {
            privacyPolicyHtmlString = privacyTermsCondition.data!.content.toString();
-           notifyListeners(); // Notify any listeners that the data has changed
+         await SharedPrefServices.services.setString(privacyPolicyStringKey,privacyPolicyHtmlString);
+         notifyListeners(); // Notify any listeners that the data has changed
        }
      } catch (e) {
        // Handle the error appropriately (e.g., logging, showing error messages)

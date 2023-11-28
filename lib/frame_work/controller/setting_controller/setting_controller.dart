@@ -5,6 +5,7 @@ import 'package:emploiflutter/ui/manages_jobs/manages_jobs.dart';
 import 'package:emploiflutter/ui/privacy_policy/privacy_policy.dart';
 import 'package:emploiflutter/ui/save_job/save_job.dart';
 import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/view_applylist/view_applylist.dart';
 
@@ -26,22 +27,28 @@ class SettingController extends ChangeNotifier{
   seekerNavigatingToList(int index,BuildContext context){
     switch(index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ViewApplyList()));
+        context.push(const ViewApplyList());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ViewApplyList()));
         break;
       case 1:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const JobPreference()));
+        context.push(const JobPreference());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const JobPreference()));
         break;
       case 2:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const SaveJob()));
+        context.push(const SaveJob());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const SaveJob()));
         break;
       case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ContactUs()));
+        context.push(const ContactUs());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ContactUs()));
         break;
       case 4:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const PrivacyPolicy()));
+        context.push(const PrivacyPolicy());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const PrivacyPolicy()));
         break;
       case 5:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
+        context.push(const TermsAndCondition());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
         break;
     }
   }
@@ -59,19 +66,24 @@ class SettingController extends ChangeNotifier{
   recruiterNavigatingToList(int index,BuildContext context){
     switch(index){
       case 0:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ManagesJobs()));
+        context.push(const ManagesJobs());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ManagesJobs()));
         break;
       case 1:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const AppliedCandidateList()));
+        context.push(const AppliedCandidateList());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const AppliedCandidateList()));
         break;
       case 2:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ContactUs()));
+        context.push(const ContactUs());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ContactUs()));
         break;
       case 3:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const PrivacyPolicy()));
+        context.push(const PrivacyPolicy());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const PrivacyPolicy()));
         break;
       case 4:
-        Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
+        context.push(const TermsAndCondition());
+        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
         break;
     }
   }

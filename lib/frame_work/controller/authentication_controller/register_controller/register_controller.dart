@@ -1,6 +1,9 @@
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/authentication/register/register_otp.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:page_transition/page_transition.dart';
 
 final registerController = ChangeNotifierProvider((ref) => RegisterController());
 
@@ -29,6 +32,30 @@ class RegisterController extends ChangeNotifier{
   //   "Surat",
   // ];
 
+  registerButton(BuildContext context){
+    if(registerKey.currentState!.validate()){
+      if(cityController.text !=""){
+        if(isCheck){
+          clearForms();
+          Navigator.push(context, PageTransition(child: const RegisterOTP(), type: PageTransitionType.rightToLeft,duration: const Duration(milliseconds: 300)));
+        }else{
+          showSnackBar(context: context, error: "Please Select Terms & Condition");
+        }
+      }else{
+        showSnackBar(context: context, error: "Please select city");
+      }
+    }
+    notifyListeners();
+  }
+
+  clearForms(){
+    firstNameController.clear();
+    lastNameController.clear();
+    phoneNumberController.clear();
+    emailController.clear();
+    cityController.clear();
+    notifyListeners();
+  }
   ///------------- get location List from the Shared Preference -----------////
   ///------------- btw i called api on authIntro screen and Stored in share preference -----///
   List<String> checkCity(String query){

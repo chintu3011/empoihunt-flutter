@@ -3,6 +3,8 @@
 
   const String onBoardingKey = "onBoardingKey";
   const String locationKey = "locationKey";
+  const String privacyPolicyStringKey = "privacyPolicyStringKey";
+  const String  termsAndConditionStringKey = "ConditionStringKey";
 
 ///------------ Shared Preference Keys ----------///
 

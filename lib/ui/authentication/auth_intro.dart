@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 import 'package:emploiflutter/frame_work/controller/authentication_controller/auth_intro_controller/auth_intro_controller.dart';
+import 'package:emploiflutter/frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import 'package:emploiflutter/ui/authentication/login/login.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/choose_register_type/choose_register_type.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:page_transition/page_transition.dart';
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 import '../utils/theme/theme.dart';
@@ -24,6 +26,8 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
     ///------------- calling Location api and Store in Shared Preference ----------------///
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(authIntroController).getLocationList();
+      ref.read(termsPrivacyPolicyController).termsApiRequest();
+      ref.read(termsPrivacyPolicyController).privacyPolicyApiRequest();
     });
     ///----------------------------------------------------------------------------------///
 
@@ -64,7 +68,8 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                     SizedBox(height: 50.h,),
                     ElevatedButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const Login(),));
+
+                          Navigator.push(context, PageTransition(child: const Login(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
                         },
                         style:  ElevatedButton.styleFrom(
                             onPrimary: Colors.white,
@@ -78,7 +83,7 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                     SizedBox(height: 15.h,),
                     ElevatedButton(
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ChooseRegisterType(),));
+                          Navigator.push(context, PageTransition(child: const ChooseRegisterType(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
                         },
                         style:  ElevatedButton.styleFrom(
                           onPrimary: Colors.white,

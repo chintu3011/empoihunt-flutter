@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 extension ContextExt on BuildContext {
   ///---------------------Navigation--------------------------///
   void push(Widget widget) =>
-      Navigator.push(this, MaterialPageRoute(builder: (context) => widget));
+      Navigator.push(this, PageTransition(child: widget, type: PageTransitionType.fade,duration: const Duration(milliseconds: 300)));
 
   void pop() => Navigator.pop(this);
 

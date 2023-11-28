@@ -1,10 +1,12 @@
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class JobDetailsAppBar extends ConsumerWidget implements PreferredSizeWidget {
-  const JobDetailsAppBar({super.key});
+  final HomeJobDetailModel jobDetailModel;
+  const JobDetailsAppBar({super.key,required this.jobDetailModel});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -14,7 +16,7 @@ class JobDetailsAppBar extends ConsumerWidget implements PreferredSizeWidget {
       shadowColor: Colors.grey.shade300,
       backgroundColor: AppColors.colors.whiteColors,
       centerTitle: true,
-      title: jobDetailsWatch.offset > 0? Text("Android Developer",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),): const SizedBox(),
+      title: jobDetailsWatch.offset > 0? Text(jobDetailModel.jobTitle,style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),): const SizedBox(),
       actions: [
         IconButton(onPressed: (){
         }, icon: const Icon(Icons.favorite_border_outlined))

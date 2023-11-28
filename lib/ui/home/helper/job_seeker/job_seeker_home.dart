@@ -21,7 +21,6 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
-    // final homeWatch = ref.watch(homeController);
     return Scaffold(
       appBar: const JobSeekerAppbar(),
       body: Stack(
@@ -38,14 +37,13 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                   homeJobDetailModel: jobList,
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const JobDetails()));
+                        MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
                   },
                 );
               })
               ) ,
             ),
           ),
-          // value == 0 ? const JobSeekerListTile():const RecruiterListTile(),
           Positioned(
               right: 0,
               top: 35.h,

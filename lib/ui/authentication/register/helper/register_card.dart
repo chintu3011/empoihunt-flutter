@@ -1,14 +1,17 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/login_controller/login_controller.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/privacy_and_terms/pricacy_terns.dart';
 import 'package:emploiflutter/ui/authentication/register/register_otp.dart';
+import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
-import '../../../utils/theme/text_styles.dart';
-import '../../../utils/theme/theme.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:page_transition/page_transition.dart';
 
 class RegisterCard extends ConsumerWidget {
   const RegisterCard({super.key});
@@ -39,11 +42,17 @@ class RegisterCard extends ConsumerWidget {
                     children: [
                       Expanded(
                           child: CommonFormField(
-                        autoValidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (val) => nameValidator(val),
-                        textInputAction: TextInputAction.next,
-                        keyboardType: TextInputType.name,
-                        controller: registerWatch.firstNameController,
+                            maxLength: 15,
+                            buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox() ,
+                            autoValidateMode: AutovalidateMode.onUserInteraction,
+                            validator: (val) => requiredFieldValidator(input: val!,errorMgs:"First name is required" ),
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.name,
+                            controller: registerWatch.firstNameController,
+                            onChanged: (value){
+                              notAllowSpecialChar(registerWatch.firstNameController, value);
+                              // print(registerWatch.firstNameController.text);
+                              },
                         prefixIcon: Icon(
                           Icons.person,
                           size: 18.sp,
@@ -59,11 +68,16 @@ class RegisterCard extends ConsumerWidget {
                       ),
                       Expanded(
                         child: CommonFormField(
+                          maxLength: 15,
+                          buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox(),
                           autoValidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (val) => nameValidator(val),
+                          validator: (val) => requiredFieldValidator(input: val!,errorMgs:"Last lame is required" ),
                           textInputAction: TextInputAction.newline,
                           keyboardType: TextInputType.name,
                           controller: registerWatch.lastNameController,
+                          onChanged: (value){
+                            notAllowSpecialChar(registerWatch.lastNameController, value);
+                          },
                           prefixIcon: Icon(
                             Icons.person,
                             size: 18.sp,
@@ -134,6 +148,7 @@ class RegisterCard extends ConsumerWidget {
                             size: 18.sp,
                             color: AppColors.colors.blueColors,
                           ),
+                          onChanged: (value)=>notAllowSpecialChar(registerWatch.phoneNumberController, value),
                           hintText: "9876....",
                           labelText: "Phone Number",
                           labelStyle: TextStyles.w400
@@ -162,6 +177,7 @@ class RegisterCard extends ConsumerWidget {
                     height: 10.h,
                   ),
                   CommonTypeAheadFormField(
+                    onChanged: (value)=>notAllowSpecialChar(registerWatch.cityController, value),
                       controller: registerWatch.cityController,
                       hintText: "City",
                       labelText: "City",
@@ -179,27 +195,26 @@ class RegisterCard extends ConsumerWidget {
                           onChanged: (val) {
                             registerWatch.updateIsCheck(val!);
                           }),
-                      SizedBox(
-                        width: 5.w,
-                      ),
                       Expanded(
-                          child: Text(
-                        "I have read and agreed to the terms & conditions",
-                        style: TextStyles.w400
-                            .copyWith(fontSize: 14.sp, color: Colors.black),
-                      ))
+                        child: TextButton(onPressed: (){
+                            Navigator.push(context, PageTransition(child: const TermsAndCondition(), type: PageTransitionType.rightToLeft,childCurrent: this,duration: const Duration(milliseconds: 200)));
+                        }, child: Text(
+                          "I have read and agreed to the terms & conditions",
+                          style: TextStyles.w400
+                              .copyWith(fontSize: 12.sp, color: Colors.black,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.colors.blueColors,
+                            decorationThickness: 2.0,
+                            decorationStyle: TextDecorationStyle.solid,
+                          ),
+                        )),
+                      )
                     ],
                   ),
                   CommonButton(
                       btnText: "Register",
                       onPressed: () {
-                        if (registerWatch.registerKey.currentState!
-                            .validate()) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const RegisterOTP()));
-                        }
+                        registerWatch.registerButton(context);
                       },
                       fontSize: 20.sp,
                       txtPadding: EdgeInsets.symmetric(

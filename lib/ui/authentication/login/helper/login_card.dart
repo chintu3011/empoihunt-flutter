@@ -5,6 +5,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../../../frame_work/controller/authentication_controller/login_controller/login_controller.dart';
 import '../../../utils/theme/text_styles.dart';
 import '../../../utils/theme/theme.dart';
@@ -66,6 +67,7 @@ class LoginCard extends ConsumerWidget {
                            textInputAction: TextInputAction.done,
                            keyboardType: TextInputType.phone,
                            controller: loginWatch.phoneFieldController,
+                          onChanged: (value)=>notAllowSpecialChar(loginWatch.phoneFieldController, value),
                           prefixIcon: Icon(Icons.phone,size: 18.sp,color: AppColors.colors.blueColors,),
                           hintText: "9876....",labelText: "Phone Number",)),
                       ],
@@ -74,7 +76,9 @@ class LoginCard extends ConsumerWidget {
                   CommonButton(
                       btnText: "Login",onPressed: (){
                     if(loginWatch.loginKey.currentState!.validate()){
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>const LoginOTP()));}
+                      Navigator.push(context, PageTransition(child: const LoginOTP(), type: PageTransitionType.rightToLeft,duration: const Duration(milliseconds: 300)));
+                    // Navigator.push(context, MaterialPageRoute(builder: (_)=>const LoginOTP()));
+                    }
                   },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 6.h)),
                   SizedBox(height: 15.h,),
                   Row(
@@ -82,7 +86,8 @@ class LoginCard extends ConsumerWidget {
                     children: [
                       Text("Not A Member? ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: Colors.grey),),
                       TextButton(onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_)=>const ChooseRegisterType()));
+                        Navigator.push(context, PageTransition(child: const ChooseRegisterType(), type: PageTransitionType.leftToRight,duration: const Duration(milliseconds: 300)));
+                        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ChooseRegisterType()));
                       }, child: Text("Register Now",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)),
                     ],
                   )

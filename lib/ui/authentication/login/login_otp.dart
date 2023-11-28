@@ -3,6 +3,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pinput/pinput.dart';
 import '../../utils/theme/text_styles.dart';
 import '../../utils/theme/theme.dart';
@@ -77,7 +78,7 @@ class LoginOTP extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h,),
                 CommonButton(btnText: "Verify", onPressed: (){
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+                  Navigator.pushAndRemoveUntil(context, PageTransition(child: const DashBoard(), type: PageTransitionType.topToBottom,duration: const Duration(milliseconds: 800),childCurrent: this), (route) => false);
                 },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                 SizedBox(height: 10.h,),
                 Text("Resend OTP in 30 second",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)

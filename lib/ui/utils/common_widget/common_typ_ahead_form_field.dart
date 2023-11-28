@@ -12,13 +12,15 @@ class CommonTypeAheadFormField extends StatelessWidget {
   final InputBorder? outlineInputBorder;
   final List<String> Function(String) suggestionsCallback;
   final void Function(String) onSuggestionSelected;
-const CommonTypeAheadFormField({super.key, required this.controller, required this.hintText, this.labelText, this.prefixIcon, this.contentPadding, this.outlineInputBorder, required this.suggestionsCallback, required this.onSuggestionSelected});
+  final void Function(String)? onChanged;
+const CommonTypeAheadFormField({super.key, required this.controller, required this.hintText, this.labelText, this.prefixIcon, this.contentPadding, this.outlineInputBorder, required this.suggestionsCallback, required this.onSuggestionSelected, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return TypeAheadField(
       direction: AxisDirection.up,
       textFieldConfiguration: TextFieldConfiguration(
+        onChanged: onChanged,
           controller: controller,
           decoration:InputDecoration(
               errorStyle: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400),

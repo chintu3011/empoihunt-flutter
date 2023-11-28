@@ -2,6 +2,7 @@ import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -49,7 +50,8 @@ class _SettingState extends ConsumerState<Setting> {
           children: [
             ListTile(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>const Profile()));
+                context.push(const Profile());
+                // Navigator.push(context, MaterialPageRoute(builder: (_)=>const Profile()));
               },
               contentPadding: EdgeInsets.only(left: 0,top: 6.h,bottom: 6.h),
               shape: RoundedRectangleBorder(

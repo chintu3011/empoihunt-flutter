@@ -19,6 +19,15 @@ class SharedPrefServices{
     return pref.getBool(key) ?? false;
   }
 
+
+  Future<void> setString(String key,String value)async{
+    await pref.setString(key, value);
+  }
+
+  String getString(String key,){
+    return pref.getString(key)?? "<Loading>";
+  }
+
   Future<void> setList(String key,List<String> list)async{
     await pref.setStringList(key, list);
   }

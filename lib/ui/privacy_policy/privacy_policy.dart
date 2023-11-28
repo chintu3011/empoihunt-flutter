@@ -1,4 +1,3 @@
-import 'package:emploiflutter/frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
@@ -10,7 +9,7 @@ class PrivacyPolicy extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final termsPrivacyWatch = ref.watch(termsPrivacyPolicyController);
+    // final termsPrivacyWatch = ref.watch(termsPrivacyPolicyController);
     // var html_sSting = ;
     WebViewController webViewController = WebViewController()
         ..loadHtmlString(SharedPrefServices.services.getString(privacyPolicyStringKey));

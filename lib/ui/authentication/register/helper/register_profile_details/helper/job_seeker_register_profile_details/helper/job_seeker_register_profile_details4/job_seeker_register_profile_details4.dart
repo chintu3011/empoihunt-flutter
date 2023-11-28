@@ -1,17 +1,17 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:lottie/lottie.dart';
 
-class RegisterProfileDetails3 extends ConsumerWidget {
-  const RegisterProfileDetails3({super.key});
+class JobSeekerRegisterProfileDetails4 extends ConsumerWidget {
+  const JobSeekerRegisterProfileDetails4({super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final registerProfileDetailsWatch =
-        ref.watch(registerProfileDetailsController);
+        ref.watch(jobSeekerRegisterProfileDetailsController);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       child: Column(

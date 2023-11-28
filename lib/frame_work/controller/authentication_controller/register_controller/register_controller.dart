@@ -36,8 +36,8 @@ class RegisterController extends ChangeNotifier{
     if(registerKey.currentState!.validate()){
       if(cityController.text !=""){
         if(isCheck){
-          clearForms();
           Navigator.push(context, PageTransition(child: const RegisterOTP(), type: PageTransitionType.rightToLeft,duration: const Duration(milliseconds: 300)));
+          clearForms();
         }else{
           showSnackBar(context: context, error: "Please Select Terms & Condition");
         }

@@ -1,14 +1,13 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_profile_details_controller.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import '../../../../../utils/theme/text_styles.dart';
 
-class RegisterProfileDetailsAppBar extends ConsumerWidget implements PreferredSizeWidget{
-  const RegisterProfileDetailsAppBar({super.key});
+class JobSeekerRegisterProfileDetailsAppBar extends ConsumerWidget implements PreferredSizeWidget{
+  const JobSeekerRegisterProfileDetailsAppBar({super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final registerProfileDetailWatch = ref.watch(registerProfileDetailsController);
+    final registerProfileDetailWatch = ref.watch(jobSeekerRegisterProfileDetailsController);
       return AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.colors.clayColors,
@@ -52,9 +51,9 @@ class RegisterProfileDetailsAppBar extends ConsumerWidget implements PreferredSi
              }
             ),
           ),
-        actions: [
-          TextButton(onPressed: (){}, child: Text("Skip",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.whiteColors),))
-        ],
+        // actions: [
+        //   TextButton(onPressed: (){}, child: Text("Skip",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.whiteColors),))
+        // ],
       );
   }
 

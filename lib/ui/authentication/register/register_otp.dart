@@ -1,17 +1,22 @@
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/register_profile_details.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/job_seeker_register_profile_details.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pinput/pinput.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
-class RegisterOTP extends StatelessWidget {
+import 'helper/register_profile_details/helper/recruiter_register_profile_details/recruiter_register_profile_details.dart';
+
+class RegisterOTP extends ConsumerWidget {
   const RegisterOTP({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final chooseUserRoleWatch = ref.watch(chooseUserRoleController);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -78,7 +83,12 @@ class RegisterOTP extends StatelessWidget {
                 SizedBox(height: 15.h,),
                 CommonButton(btnText: "Verify", onPressed: (){
                   Navigator.pop(context);
-                  Navigator.push(context, MaterialPageRoute(builder: (_)=>const RegisterProfileDetails()));
+                  if(chooseUserRoleWatch.selectedUserType == 0){
+                    Navigator.push(context, PageTransition(child: const JobSeekerRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: this,duration: const Duration(milliseconds: 300)));
+                  }else{
+                    Navigator.push(context, PageTransition(child: const RecruiterRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: this,duration: const Duration(milliseconds: 300)));
+
+                  }
                 },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                 SizedBox(height: 10.h,),
                 Text("Resend OTP in 30 second",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)

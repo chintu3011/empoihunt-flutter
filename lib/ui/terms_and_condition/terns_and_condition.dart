@@ -3,14 +3,13 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 
 class TermsAndCondition extends ConsumerWidget {
   const TermsAndCondition({super.key});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final termsPrivacyWatch = ref.watch(termsPrivacyPolicyController);
+    // final termsPrivacyWatch = ref.watch(termsPrivacyPolicyController);
     WebViewController webViewController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.disabled)
       ..loadHtmlString(SharedPrefServices.services.getString(termsAndConditionStringKey));

@@ -1,12 +1,13 @@
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/register_profile_details_card_view.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import 'job_seeker_register_profile_details_card_view.dart';
 
 
-class RegisterProfileDetailsBackGround extends StatelessWidget {
-  const RegisterProfileDetailsBackGround({super.key});
+
+class JobSeekerRegisterProfileDetailsBackGround extends StatelessWidget {
+  const JobSeekerRegisterProfileDetailsBackGround({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class RegisterProfileDetailsBackGround extends StatelessWidget {
         ),
         Padding(
           padding:EdgeInsets.only(bottom: 2.h),
-          child: const RegisterProfileDetailsCardView(),
+          child: const JobSeekerRegisterProfileDetailsCardView(),
         )
       ],
     );

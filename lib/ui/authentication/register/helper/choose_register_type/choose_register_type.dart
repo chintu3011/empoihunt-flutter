@@ -1,3 +1,4 @@
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/ui/authentication/register/register.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -6,11 +7,12 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:page_transition/page_transition.dart';
 
 
-class ChooseRegisterType extends StatelessWidget {
+class ChooseRegisterType extends ConsumerWidget {
   const ChooseRegisterType({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final chooseTypeWatch = ref.watch(chooseUserRoleController);
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -31,6 +33,7 @@ class ChooseRegisterType extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6.r),
                       splashColor: Colors.blue.shade100,
                       onTap: (){
+                        chooseTypeWatch.updateSelectedUserType(0);
                         Navigator.push(context, PageTransition(child: const Register(), type: PageTransitionType.leftToRight,duration: const Duration(milliseconds: 300)));
                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>const Register()));
                       },
@@ -79,6 +82,7 @@ class ChooseRegisterType extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6.r),
                       splashColor: Colors.blue.shade100,
                       onTap: (){
+                        chooseTypeWatch.updateSelectedUserType(1);
                         Navigator.push(context, PageTransition(child: const Register(), type: PageTransitionType.leftToRight,duration: const Duration(milliseconds: 300)));
                         // Navigator.push(context, MaterialPageRoute(builder: (_)=>const Register()));
                       },

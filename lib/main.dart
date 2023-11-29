@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/authentication/auth_intro.dart';
+import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.colors.blueColors),
         ),
-        home: const AuthIntro(),
+        home: const Splash(),
       ),
     );
   }

@@ -17,7 +17,9 @@ class RecruiterAppbar extends ConsumerWidget implements PreferredSizeWidget {
                 onPressed: () {},
                 icon: Icon(Icons.mic, color: AppColors.colors.blackColors)),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>const FilterJobPreference()));
+                },
                 icon: Icon(
                 Icons.filter_alt_sharp,
                 color: AppColors.colors.blackColors,

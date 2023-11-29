@@ -22,27 +22,34 @@ class UserQualificationDialogBox extends ConsumerWidget {
             color: AppColors.colors.whiteColors,
             borderRadius: BorderRadius.circular(4.r)
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Edit Qualification",style: TextStyles.w600.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),).paddingVertical(10.h),
-             CommonDropDownFormField(items: qualificationList, searchController: profileWatch.qualificationSearchController, selectedValue: profileWatch.selectedQualification, onChanged: (value){
-               profileWatch.updateSelectedQualification(value);
-             }, hintTextForDropdown: "Qualification", hintTextForField: "Qualification"),
-           const Spacer(),
-            Row(
+        child: SingleChildScrollView(
+          child: Form(
+            key: profileWatch.currentPositionFormKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Spacer(),
-                TextButton(onPressed: (){
-                  profileWatch.updateIsDialogShow();
-                }, child: Text("CANCEL",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
-                SizedBox(width: 10.w,),
-                TextButton(onPressed: (){
-                  profileWatch.updateIsDialogShow();
-                }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
+                Text("Edit Qualification",style: TextStyles.w600.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),).paddingVertical(10.h),
+                 CommonDropDownFormField(
+                     items: qualificationList, searchController: profileWatch.qualificationSearchController, selectedValue: profileWatch.selectedQualification, onChanged: (value){
+                   profileWatch.updateSelectedQualification(value);
+                 }, hintTextForDropdown: "Qualification", hintTextForField: "Qualification"),
+                profileWatch.isQualificationSelected?Text("Please select qualification",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
+                SizedBox(height: 10.h,),
+                Row(
+                  children: [
+                    const Spacer(),
+                    TextButton(onPressed: (){
+                      profileWatch.qualificationChangeCancelButton();
+                    }, child: Text("CANCEL",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
+                    SizedBox(width: 10.w,),
+                    TextButton(onPressed: (){
+                      profileWatch.qualificationChangeDoneButton();
+                    }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
+                  ],
+                ).paddingOnly(top: 10.h,)
               ],
-            ).paddingOnly(top: 10.h,)
-          ],
+            ),
+          ),
         ),
       ),
     );

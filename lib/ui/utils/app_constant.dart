@@ -7,8 +7,8 @@
   const String  termsAndConditionStringKey = "ConditionStringKey";
 
 ///------------ Shared Preference Keys ----------///
-
-const userRole = 1;
+//// 0 job Seeker, 1 Recruiter
+const userRole = 0;
 
 class FilterMode{
   static const domain = 1;

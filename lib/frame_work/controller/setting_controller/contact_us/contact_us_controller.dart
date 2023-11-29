@@ -1,10 +1,12 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 final contactUsController = ChangeNotifierProvider((ref) => ContactUsController());
 
 class ContactUsController extends ChangeNotifier{
 
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
@@ -30,4 +32,19 @@ class ContactUsController extends ChangeNotifier{
     notifyListeners();
   }
 /// ----------------------------Country Picker--------------------------------///
+
+  clearForm(){
+    nameController.clear();
+    phoneController.clear();
+    emailController.clear();
+    messageController.clear();
+    notifyListeners();
+  }
+  submitButton(BuildContext context){
+    if(formKey.currentState!.validate()){
+      context.pop();
+      clearForm();
+      print("Successs");
+    }
+  }
 }

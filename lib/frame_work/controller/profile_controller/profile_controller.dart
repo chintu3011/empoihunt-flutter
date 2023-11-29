@@ -17,16 +17,100 @@ class ProfileController extends ChangeNotifier {
   bool isDialogShow = false;
   int dialogValue = 0;
 
+  ///----------- Form keys ----------------///
+
+    final GlobalKey<FormState> userDetailFormKey = GlobalKey();
+    final GlobalKey<FormState> aboutFormKey = GlobalKey();
+    final GlobalKey<FormState> currentPositionFormKey = GlobalKey();
+    final GlobalKey<FormState> experienceAddFormKey = GlobalKey();
+    final GlobalKey<FormState> experienceUpdateFormKey = GlobalKey();
+
+  ///----------- Form keys ----------------///
+
+
+
   ///--------- User Detail Change ------------- ///
 
   final jobLocationSearchController = TextEditingController();
-  String? selectedJobLocation;
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final expertiseController = TextEditingController();
+
+  List<String> expertiseList=[];
+  bool isExpertiseAdded = false;
+  addExpertise(){
+    if(expertiseController.text !=""){
+      expertiseList.add(expertiseController.text);
+      isExpertiseAdded = false;
+      expertiseController.clear();
+    }
+    notifyListeners();
+  }
+  String? userDetailSelectedJobLocation;
+  bool isUserDetailsJobSelect = false;
   updateSelectedJobLocation(String? value) {
-    selectedJobLocation = value;
+    userDetailSelectedJobLocation = value;
+    isUserDetailsJobSelect = false;
+    notifyListeners();
+  }
+
+  userDetailChangeCancelButton(){
+    clearUserDetailForms();
+    updateIsDialogShow();
+    notifyListeners();
+  }
+
+  clearUserDetailForms(){
+    firstNameController.clear();
+    lastNameController.clear();
+    expertiseController.clear();
+    expertiseList = [];
+    userDetailSelectedJobLocation = null;
+    emailController.clear();
+    notifyListeners();
+  }
+
+  userDetailChangeDoneButton(){
+    if(userDetailFormKey.currentState!.validate()){
+      if(expertiseList.isNotEmpty){
+        isExpertiseAdded = false;
+        if(userDetailSelectedJobLocation != null){
+          isUserDetailsJobSelect = false;
+          /// Success
+          updateIsDialogShow();
+          clearUserDetailForms();
+        }else{
+          isUserDetailsJobSelect = true;
+        }
+      }else{
+        isExpertiseAdded = true;
+      }
+    }
     notifyListeners();
   }
 
   ///--------- User Detail Change ------------- ///
+
+
+  ///---------------- About Change ------------------///
+
+  final bioController = TextEditingController();
+  bioCancelButton(){
+    updateIsDialogShow();
+    bioController.clear();
+    notifyListeners();
+  }
+  bioDoneButton(){
+    if(aboutFormKey.currentState!.validate()){
+      debugPrint("Success");
+      updateIsDialogShow();
+      bioController.clear();
+    }
+    notifyListeners();
+  }
+
+  ///---------------- About Change ------------------///
 
   ///---------------- Show dialog according to its value --------------///
 
@@ -159,6 +243,8 @@ class ProfileController extends ChangeNotifier {
     }
   }
 
+
+
   /// ------ resume Edit ----////
 
   /// ------ User Experience  ----////
@@ -179,43 +265,58 @@ class ProfileController extends ChangeNotifier {
   int updateItemIndex = 0;
 
 
-  String? userExperienceAddSelectedJobLocation;
-  updateUserExperienceAddSelectedJobLocation(String? value) {
-    userExperienceAddSelectedJobLocation = value;
-    notifyListeners();
-  }
-
 
   String? userExperienceUpdateSelectedJobLocation;
+  bool isUserExperienceUpdateJobSelected = false;
   updateUserExperienceUpdateSelectedJobLocation(String? value) {
     userExperienceUpdateSelectedJobLocation = value;
+    isUserExperienceUpdateJobSelected = false;
     notifyListeners();
   }
-
+  bool checkBoxValUpdateForm = false;
+  updateCheckBoxValUpdateForm(bool value){
+    checkBoxValUpdateForm = value;
+    notifyListeners();
+  }
 
   updateListItemButton() {
-    if (userExperienceUpdateDesignFieldController.text != "" &&
-        userExperienceUpdateCompanyNameFieldController.text != "" &&
-        userExperienceUpdateSelectedJobLocation != "") {
-      userExperienceList[updateItemIndex] = UserExperienceModel(
-          designation: userExperienceUpdateDesignFieldController.text,
-          companyName: userExperienceUpdateCompanyNameFieldController.text,
-          location: userExperienceUpdateSelectedJobLocation!,
-          duration: userExperienceUpdateDurationFieldController.text);
-      userExperienceUpdateDesignFieldController.clear();
-      userExperienceUpdateCompanyNameFieldController.clear();
-      userExperienceUpdateSearchJobLocationFieldController.clear();
-      userExperienceUpdateSelectedJobLocation =null;
-      userExperienceUpdateDurationFieldController.clear();
+    if(experienceUpdateFormKey.currentState!.validate()){
+      if(userExperienceUpdateSelectedJobLocation != null){
+        isUserExperienceUpdateJobSelected = false;
+
+        userExperienceList[updateItemIndex] = UserExperienceModel(
+            designation: userExperienceUpdateDesignFieldController.text,
+            companyName: userExperienceUpdateCompanyNameFieldController.text,
+            location: userExperienceUpdateSelectedJobLocation!,
+            duration: userExperienceUpdateDurationFieldController.text);
+
+        /// Clear form after update ///
+        userExperienceUpdateDesignFieldController.clear();
+        userExperienceUpdateCompanyNameFieldController.clear();
+        userExperienceUpdateSearchJobLocationFieldController.clear();
+        userExperienceUpdateSelectedJobLocation =null;
+        userExperienceUpdateDurationFieldController.clear();
+        selectedUserExperienceListIndex = -1;
+      }else{
+        isUserExperienceUpdateJobSelected = true;
+      }
     }
     notifyListeners();
-    selectedUserExperienceListIndex = -1;
   }
+
+
+  bool checkBoxValAddForm = false;
+  updateCheckBoxValAddForm(bool value){
+    checkBoxValAddForm = value;
+    notifyListeners();
+  }
+
 
   listDeleteButton(int index){
     userExperienceList.removeAt(index);
     notifyListeners();
   }
+
   listEditButton({
     required int index,
     required String designation,
@@ -245,45 +346,50 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
-
+  String? userExperienceAddSelectedJobLocation;
+  bool isUserExperienceAddJobSelected = false;
+  updateUserExperienceAddSelectedJobLocation(String? value) {
+    userExperienceAddSelectedJobLocation = value;
+    isUserExperienceAddJobSelected = false;
+    notifyListeners();
+  }
 
   userExperienceAddButton() {
     // print(" add Button $userExperienceAddSelectedJobLocation");
     // print(" add designation $userExperienceAddDesignFieldController");
     // print(" add company name $userExperienceAddCompanyNameFieldController");
+    if(experienceAddFormKey.currentState!.validate()){
+      if(userExperienceAddSelectedJobLocation != null){
+        isUserExperienceAddJobSelected = false;
+        userExperienceList.add(UserExperienceModel(
+            designation: userExperienceAddDesignFieldController.text,
+            companyName: userExperienceAddCompanyNameFieldController.text,
+            location: userExperienceAddSelectedJobLocation!,
+            duration: userExperienceAddDurationFieldController.text));
 
-    if (userExperienceAddDesignFieldController.text != "" &&
-        userExperienceAddCompanyNameFieldController.text != "" &&
-        userExperienceAddSelectedJobLocation != "") {
-      userExperienceList.add(UserExperienceModel(
-          designation: userExperienceAddDesignFieldController.text,
-          companyName: userExperienceAddCompanyNameFieldController.text,
-          location: userExperienceAddSelectedJobLocation!,
-          duration: userExperienceAddDurationFieldController.text));
-
-      userExperienceAddDesignFieldController.clear();
-      userExperienceAddSearchJobLocationFieldController.clear();
-      userExperienceAddDurationFieldController.clear();
-      userExperienceAddSelectedJobLocation = null;
-      userExperienceAddCompanyNameFieldController.clear();
-      isExperienceAddShow = false;
-    }
-
-    notifyListeners();
-  }
-
-  experienceOkButton() {
-    isDialogShow = false;
-    isExperienceAddShow = false;
-    selectedUserExperienceListIndex = -1;
-    if (userExperienceList.isNotEmpty) {
-      isExperienceExpanded = true;
-    } else {
-      isExperienceExpanded = false;
+        /// Clear after adding ////
+        userExperienceAddDesignFieldController.clear();
+        userExperienceAddSearchJobLocationFieldController.clear();
+        userExperienceAddDurationFieldController.clear();
+        userExperienceAddSelectedJobLocation = null;
+        userExperienceAddCompanyNameFieldController.clear();
+        isExperienceAddShow = false;
+      }else{
+        isUserExperienceAddJobSelected = true;
+      }
     }
     notifyListeners();
   }
 
+  experienceOkButton(){
+    updateIsDialogShow();
+      selectedUserExperienceListIndex = -1;
+      if (userExperienceList.isNotEmpty) {
+        isExperienceExpanded = true;
+      } else {
+        isExperienceExpanded = false;
+      }
+  }
   /// ------ User Experience ----////
 
 
@@ -294,8 +400,10 @@ class ProfileController extends ChangeNotifier {
   final userCurrentPosSearchJobLocationController = TextEditingController();
 
   String? userCurrentPosSelectedJobLocation;
+  bool isUserCurrentPosJobSelected = false;
   updateUserCurrentPosSearchJobLocationController(String? value) {
     userCurrentPosSelectedJobLocation = value;
+    isUserCurrentPosJobSelected = false;
     notifyListeners();
   }
 
@@ -311,15 +419,58 @@ class ProfileController extends ChangeNotifier {
     debugPrint(workingModeList[index]);
     notifyListeners();
   }
+  clearCurrentPosForm(){
+    userCurrentPosDesignFieldController.clear();
+    userCurrentPosCompanyNameFieldController.clear();
+    userCurrentPosSelectedJobLocation = null;
+    selectedWorkingMode =0;
+    notifyListeners();
+  }
+  currentPositionCancelButton(){
+    updateIsDialogShow();
+    clearCurrentPosForm();
+  }
+  currentPositionDoneButton(){
+    if(currentPositionFormKey.currentState!.validate()){
+      if(userCurrentPosSelectedJobLocation != null){
+        isUserCurrentPosJobSelected = false;
+        debugPrint("Success");
+        updateIsDialogShow();
+        clearCurrentPosForm();
+      }else{
+        isUserCurrentPosJobSelected =true;
+      }
+      notifyListeners();
+    }
+  }
   /// ------ User Current Position ----////
 
   /// ------ User Qualification ------- ///
 
 
   final qualificationSearchController = TextEditingController();
+  bool isQualificationSelected = false;
   String? selectedQualification;
+
   updateSelectedQualification(String? value) {
     selectedQualification = value;
+    isQualificationSelected = false;
+    notifyListeners();
+  }
+  qualificationChangeCancelButton(){
+    updateIsDialogShow();
+    selectedQualification = null;
+    notifyListeners();
+  }
+
+  qualificationChangeDoneButton(){
+    if(selectedQualification != null){
+      isQualificationSelected = false;
+      updateIsDialogShow();
+      selectedQualification = null;
+    }else{
+      isQualificationSelected = true;
+    }
     notifyListeners();
   }
 

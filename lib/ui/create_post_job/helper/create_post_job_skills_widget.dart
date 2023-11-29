@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
@@ -8,12 +9,14 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CreatePostJobSkillsWidget extends StatelessWidget {
+class CreatePostJobSkillsWidget extends ConsumerWidget {
   const CreatePostJobSkillsWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final createPostJobWatch = ref.watch(createPostJobController);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// Technical Skills ///
         Container(
@@ -24,15 +27,19 @@ class CreatePostJobSkillsWidget extends StatelessWidget {
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 6.w),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     Expanded(child: CommonFormField(
+                      controller: createPostJobWatch.requiredTechnicalSkillsController,
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                       hintText: "Developer",labelText: "Required Technical Skills",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
                     SizedBox(width: 10.w,),
                     IconButton(
-                      onPressed: (){}, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
+                      onPressed: (){
+                        createPostJobWatch.addTechnicalSkill();
+                      }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shadowColor: AppColors.colors.greyRegent,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
@@ -41,23 +48,26 @@ class CreatePostJobSkillsWidget extends StatelessWidget {
                     ),)
                   ],
                 ),
-                Wrap(
-                  children: List.generate(20, (index) => Container(
-                    margin: EdgeInsets.all(10.sp),
-                    padding: EdgeInsets.all(4.sp),
-                    decoration: BoxDecoration(
-                        color: AppColors.colors.whiteColors,
-                        borderRadius: BorderRadius.circular(4.r),
-                        border: Border.all(color: AppColors.colors.blueColors,width: 0.5.w)
-                    ),
-                    child: Text("Hello broiii",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
-                  )),
+               createPostJobWatch.technicalSkillsList.isEmpty?const SizedBox(): Wrap(
+                  children: List.generate(createPostJobWatch.technicalSkillsList.length, (index) {
+                    final skill = createPostJobWatch.technicalSkillsList[index];
+                    return Container(
+                      margin: EdgeInsets.all(10.sp),
+                      padding: EdgeInsets.all(4.sp),
+                      decoration: BoxDecoration(
+                          color: AppColors.colors.whiteColors,
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(color: AppColors.colors.blueColors,width: 0.5.w)
+                      ),
+                      child: Text(skill,style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
+                    );
+                  }),
                 ),
               ],
             ),
           ),
         ),
-
+        createPostJobWatch.isTechnicalSkillEmpty?Text("Please add at least one skills",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
         /// Soft Skills ///
         Container(
@@ -68,15 +78,19 @@ class CreatePostJobSkillsWidget extends StatelessWidget {
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 6.w),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
                     Expanded(child: CommonFormField(
+                      controller: createPostJobWatch.requiredSoftSkillsController,
                       contentPadding: EdgeInsets.symmetric(vertical: 14.h),
                       hintText: "Communication",labelText: "Required Soft Skills",prefixIcon: SvgPicture.asset(AppAssets.skillsSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),)),
                     SizedBox(width: 10.w,),
                     IconButton(
-                      onPressed: (){}, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
+                      onPressed: (){
+                        createPostJobWatch.addSoftSkill();
+                      }, icon: Icon(Icons.add,size: 20.sp,),style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shadowColor: AppColors.colors.greyRegent,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4.r)),
@@ -85,22 +99,26 @@ class CreatePostJobSkillsWidget extends StatelessWidget {
                     ),)
                   ],
                 ),
-                Wrap(
-                  children: List.generate(20, (index) => Container(
-                    margin: EdgeInsets.all(10.sp),
-                    padding: EdgeInsets.all(4.sp),
-                    decoration: BoxDecoration(
-                        color: AppColors.colors.whiteColors,
-                        borderRadius: BorderRadius.circular(4.r),
-                        border: Border.all(color: AppColors.colors.blueColors,width: 0.5.w)
-                    ),
-                    child: Text("Hello broiii",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
-                  )),
+               createPostJobWatch.softSkillsList.isEmpty?const SizedBox(): Wrap(
+                  children: List.generate(createPostJobWatch.softSkillsList.length, (index) {
+                    final skill = createPostJobWatch.softSkillsList[index];
+                    return Container(
+                      margin: EdgeInsets.all(10.sp),
+                      padding: EdgeInsets.all(4.sp),
+                      decoration: BoxDecoration(
+                          color: AppColors.colors.whiteColors,
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(color: AppColors.colors.blueColors,width: 0.5.w)
+                      ),
+                      child: Text(skill,style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
+                    );
+                  }),
                 ),
               ],
             ),
           ),
-        )
+        ),
+        createPostJobWatch.isSoftSkillEmpty?Text("Please add at least one skills",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
       ],
     );
   }

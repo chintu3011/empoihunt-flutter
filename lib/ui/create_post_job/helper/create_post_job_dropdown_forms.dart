@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -19,6 +20,7 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
     final createPostJobWatch = ref.watch(createPostJobController);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CommonTypeAheadFormField(
           prefixIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
@@ -31,6 +33,8 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
             suggestionsCallback: (pattern){
           return createPostJobWatch.checkQualification(pattern);
         }),
+        createPostJobWatch.isQualificationSelected?Text("Education is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
+
         SizedBox(
           height: 10.h,
         ),
@@ -44,6 +48,8 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
           hintTextForField: "Job Location",
           selectedValue: createPostJobWatch.selectedJobLocation,
         ),
+        createPostJobWatch.isJobLocationSelect?Text("Job Location is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
+
       ],
     );
   }

@@ -1,12 +1,13 @@
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-String? requiredFieldValidator({required String input, required String errorMgs}) {
-  if (input.trim().length < 2) {
+String? requiredFieldValidator({required String? input, required String errorMgs}) {
+  if (input == null || input.isEmpty) {
     return errorMgs;
   } else {
     return null;
   }
 }
+
 String? cityValidator(String? input) {
   if (input == null) {
     return 'Please fill up city name';
@@ -14,6 +15,7 @@ String? cityValidator(String? input) {
     return null;
   }
 }
+
 String? emailValidator(String? input) {
   RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
   if (input == null || !emailRegex.hasMatch(input)) {

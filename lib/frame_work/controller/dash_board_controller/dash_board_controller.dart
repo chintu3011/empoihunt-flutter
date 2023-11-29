@@ -28,4 +28,11 @@ class DashBoardController extends ChangeNotifier{
     const CreatePostJob(),
     const Setting()
   ];
+
+
+
+  otherWidgetAllowToNavigate(int index){
+    selectedIndex = index;
+    notifyListeners();
+  }
 }

@@ -84,6 +84,9 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
                             backgroundColor: AppColors.colors.blueColors,
                             fixedSize: Size(60.w, 50.h)),
                         onPressed: () {
+                          if(registerProfileDetailWatch.index == 2){
+                            registerProfileDetailWatch.registerSubmitButton(context);
+                          }
                           registerProfileDetailWatch.forwardBtn(context);
                         },
                         icon: Icon(Icons.arrow_forward_rounded,

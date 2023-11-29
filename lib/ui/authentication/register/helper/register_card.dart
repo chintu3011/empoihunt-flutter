@@ -69,7 +69,7 @@ class RegisterCard extends ConsumerWidget {
                           maxLength: 15,
                           buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox(),
                           autoValidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (val) => requiredFieldValidator(input: val!,errorMgs:"Last lame is required" ),
+                          validator: (val) => requiredFieldValidator(input: val!,errorMgs:"Last name is required" ),
                           textInputAction: TextInputAction.newline,
                           keyboardType: TextInputType.name,
                           controller: registerWatch.lastNameController,

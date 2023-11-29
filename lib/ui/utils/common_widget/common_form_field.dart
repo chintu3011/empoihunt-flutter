@@ -56,7 +56,7 @@ class CommonFormField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         fillColor: AppColors.colors.whiteColors,
-        errorStyle: TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.red.shade400,),
+        errorStyle: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),
           hintText: hintText,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,

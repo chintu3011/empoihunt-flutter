@@ -34,14 +34,25 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
               padding: EdgeInsets.symmetric(vertical: 50.h),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                      CommonFormField(
-                      validator:(value)=> requiredFieldValidator(input: value!, errorMgs: "Please Add Company name"),
+                         maxLength: 15,
+                         buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox(),
+                       controller: registerProfileDetailsWatch.companyNameController,
+                         // autoValidateMode: AutovalidateMode.onUserInteraction,
+                         // validator: (val) => requireddFieldValidator(input: val!,errorMgs:"Please Enter company name" ),
+                         keyboardType: TextInputType.name,
+                         onChanged: (value){
+                           registerProfileDetailsWatch.updateIsCompanyEmpty(value);
+                           notAllowSpecialChar(registerProfileDetailsWatch.companyNameController, value);
+                         },
                         hintText: "Company name",
                         prefixIcon: const Icon(
                           Icons.location_city_sharp,
                         ),
                         labelText: "Company name"),
+                    registerProfileDetailsWatch.isCompanyEmpty?Text("please enter the company name",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 15.h,
                     ),
@@ -58,6 +69,7 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
                       selectedValue:
                           registerProfileDetailsWatch.selectedDesignation,
                     ),
+                    registerProfileDetailsWatch.isDesignationEmpty?Text("please Select the above Designation",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 25.h,
                     ),
@@ -73,7 +85,9 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
                       hintTextForField: "Job Location",
                       selectedValue:
                       registerProfileDetailsWatch.selectedJobLocation,
-                    )                  ],
+                    ),
+                    registerProfileDetailsWatch.isJobLocationEmpty? Text("please Select the Job Location",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox()
+                  ],
                 ),
               ),
             ),

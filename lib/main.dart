@@ -1,16 +1,40 @@
+import 'dart:io';
+
+import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
+import 'package:emploiflutter/frame_work/repository/services/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/authentication/auth_intro.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
-
+import 'package:hive_flutter/adapters.dart';
+import 'package:yaml/yaml.dart';
 
 
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const ProviderScope(child: MyApp()));
+  File f =  File("../pubspec.yaml");
+  f.readAsString().then((String text) {
+    Map yaml = loadYaml(text);
+    print(yaml['name']);
+    print(yaml['description']);
+    print(yaml['version']);
+    print(yaml['author']);
+    print(yaml['homepage']);
+    print(yaml['dependencies']);
+  });
+  ///--------- initialize Share preference --------///
   await SharedPrefServices.services.init();
+
+  /// ------- Hive open Box Service ---------///
+  await Hive.initFlutter();
+  Hive.registerAdapter(NativeDeviceDetailModelAdapter());
+  BoxService.boxService.nativeDeviceBox = await Hive.openBox<NativeDeviceDetailModel>(nativeDeviceDetailsBox);
+  runApp(const ProviderScope(child: MyApp()));
+
+
 }
 
 class MyApp extends StatelessWidget {
@@ -18,7 +42,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
     return  ScreenUtilInit(

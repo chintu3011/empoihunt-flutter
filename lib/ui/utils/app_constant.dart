@@ -7,8 +7,24 @@
   const String  termsAndConditionStringKey = "ConditionStringKey";
 
 ///------------ Shared Preference Keys ----------///
+
+///------------ Hive Box And its Keys ----------///
+
+
+  ///--------- Device Box ------------///
+  const String nativeDeviceDetailsBox = "nativeDeviceDetailsKey";
+  ////keys
+    const String deviceDetailKey = "nativeDeviceDetailsKey";
+
+///--------- Device Box ------------///
+
+
+///------------ Hive Box Keys ----------///
+
+
 //// 0 job Seeker, 1 Recruiter
 const userRole = 0;
+
 
 class FilterMode{
   static const domain = 1;

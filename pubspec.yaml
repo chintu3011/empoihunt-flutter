@@ -34,6 +34,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  yaml:
   cupertino_icons:
   shared_preferences:
   hive:
@@ -56,6 +57,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   lottie: ^2.7.0
   showcaseview: ^2.0.3
+  device_info_plus:
   json_annotation:
   webview_flutter:
   popover:

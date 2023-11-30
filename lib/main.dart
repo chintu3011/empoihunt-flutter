@@ -9,22 +9,12 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:yaml/yaml.dart';
 
 
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
-  File f =  File("../pubspec.yaml");
-  f.readAsString().then((String text) {
-    Map yaml = loadYaml(text);
-    print(yaml['name']);
-    print(yaml['description']);
-    print(yaml['version']);
-    print(yaml['author']);
-    print(yaml['homepage']);
-    print(yaml['dependencies']);
-  });
+
   ///--------- initialize Share preference --------///
   await SharedPrefServices.services.init();
 

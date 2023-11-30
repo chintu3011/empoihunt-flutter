@@ -36,9 +36,6 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   yaml:
   cupertino_icons:
-  shared_preferences:
-  hive:
-  hive_flutter:
   path_provider:
   flutter_screenutil:
   page_transition:
@@ -48,8 +45,7 @@ dependencies:
   easy_localization:
   country_picker:
   file_picker:
-  qr_flutter:
-  flutter_typeahead:
+  flutter_typeahead: ^3.1.2
   path:
   go_router:
   cached_network_image:
@@ -57,14 +53,22 @@ dependencies:
   dropdown_button2: ^2.3.9
   lottie: ^2.7.0
   showcaseview: ^2.0.3
+
+  # Device info
   device_info_plus:
+  package_info_plus:
+
+  #Local Storage
+  shared_preferences: ^2.2.2
+  hive:
+  hive_flutter:
+
   json_annotation:
   webview_flutter:
   popover:
   dio:
   flutter_animate:
 
-#  package_info_plus: ^1.0.6
 
 
 dev_dependencies:

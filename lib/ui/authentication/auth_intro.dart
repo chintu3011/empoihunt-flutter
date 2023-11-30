@@ -30,7 +30,7 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
       ref.read(authIntroController).getLocationList();
       ref.read(termsPrivacyPolicyController).termsApiRequest();
       ref.read(termsPrivacyPolicyController).privacyPolicyApiRequest();
-      print("AuthIntro Device Details  ${BoxService.boxService.nativeDeviceBox.get(deviceDetailKey)!.deviceVersion}");
+      // print("AuthIntro Device Details  ${BoxService.boxService.nativeDeviceBox.get(deviceDetailKey)!.deviceVersion}");
     });
     ///----------------------------------------------------------------------------------///
 

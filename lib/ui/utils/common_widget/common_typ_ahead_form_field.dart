@@ -56,7 +56,6 @@ const CommonTypeAheadFormField({super.key, required this.controller, required th
           title: Text(error.toString(),style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
         ),
       ),
-      onSuggestionSelected: onSuggestionSelected,
       itemBuilder: (context, itemData){
       return Container(
         height: 50.h,
@@ -65,6 +64,6 @@ const CommonTypeAheadFormField({super.key, required this.controller, required th
           title: Text(itemData.toString(),style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
         ),
       );
-    } , suggestionsCallback:suggestionsCallback ,);
+    } , suggestionsCallback:suggestionsCallback, onSuggestionSelected: onSuggestionSelected ,);
   }
 }

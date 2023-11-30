@@ -15,6 +15,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     return Theme(
       data: ThemeData(useMaterial3: false),
       child: AppBar(
+        centerTitle: true,
         leading: isLeadingShow? leading?? IconButton(
           icon: Icon(
             Icons.arrow_back_ios_new_rounded,

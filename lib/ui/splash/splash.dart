@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:emploiflutter/frame_work/controller/splash_controller/splash_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
@@ -17,14 +16,15 @@ class _SplashState extends ConsumerState<Splash> {
   initState() {
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
-      ref.read(splashController).getSplashData();
-      ref.read(splashController).getDeviceDetails();
+     await ref.read(splashController).getSplashData(context);
+     await ref.read(splashController).getDeviceDetails();
+     // await ref.read(splashController).getAppVersion();
     });
-    Timer(
-        const Duration(seconds: 3),
-            (){
-              ref.read(splashController).checkUserOpenAppFirstTime(context);
-        });
+    // Timer(
+    //     const Duration(seconds: 3),
+    //         (){
+    //           ref.read(splashController).checkUserOpenAppFirstTime(context);
+    //     });
   }
   @override
   Widget build(BuildContext context) {

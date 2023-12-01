@@ -30,12 +30,12 @@ class CommonSearchAppBar extends StatelessWidget {
             Expanded(
               child: Row(
                 children: [
-                  IconButton(onPressed: onBackArrowTap, icon: Icon(Icons.arrow_back,color: AppColors.colors.greyRegent,)),
+                  IconButton(onPressed: onBackArrowTap, icon: Icon(Icons.arrow_back,color: AppColors.colors.blackColors,)),
                   Expanded(child: CommonFormField(
                     contentPadding: EdgeInsets.symmetric(vertical: 0.h,horizontal: 10.w),
                     fillColor: Colors.transparent,
                     border: const UnderlineInputBorder(),
-                    hintText: "Search here",suffixIcon: IconButton(onPressed: searchSuffixClick,icon: const Icon(Icons.cancel_outlined),),))
+                    hintText: "Search here",suffixIcon: IconButton(onPressed: searchSuffixClick,icon: Icon(Icons.cancel_outlined,color: AppColors.colors.blackColors,),),))
                 ],
               ),
             ),

@@ -3,13 +3,15 @@ import 'package:emploiflutter/ui/campus/helper/campus_appbar.dart';
 import 'package:emploiflutter/ui/campus/helper/campus_detail_card.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import 'helper/campus_placement_appbar.dart';
+
 class Campus extends StatelessWidget {
   const Campus({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CampusAppBar(),
+      appBar: const CampusPlacementAppbar(),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Padding(

@@ -51,29 +51,30 @@ class SplashController extends ChangeNotifier{
           ///-------------- get current application version ---------------////
           int currentAppVersion = int.parse(packageInfo.buildNumber);
           print("project version $currentAppVersion");
-            if(data.isBlock == 0){
-              print(data.isBlock);
-              if(currentAppVersion == updatedVersion){
-                Future.delayed(const Duration(seconds: 2),() {
-                  checkUserOpenAppFirstTime(context);
-                },);
-              }else{
-                showModalBottomSheet(
-                  enableDrag: false,
-                  isDismissible: false,
-                  context: context, builder: (context) {
-                  return  SplashUpdateAppBottomSheet(data.tMessage);
-                },);
-              }
-            }else{
-              showModalBottomSheet(
-                enableDrag: false,
-                isDismissible: false,
-                context: context, builder: (context) {
-                return const SplashBlockedUserBottomSheet();
-              },);
-              print(data.isBlock);
-            }
+          checkUserOpenAppFirstTime(context);
+            // if(data.isBlock == 0){
+            //   print(data.isBlock);
+            //   if(currentAppVersion == updatedVersion){
+            //     Future.delayed(const Duration(seconds: 2),() {
+            //       checkUserOpenAppFirstTime(context);
+            //     },);
+            //   }else{
+            //     showModalBottomSheet(
+            //       enableDrag: false,
+            //       isDismissible: false,
+            //       context: context, builder: (context) {
+            //       return  SplashUpdateAppBottomSheet(data.tMessage);
+            //     },);
+            //   }
+            // }else{
+            //   showModalBottomSheet(
+            //     enableDrag: false,
+            //     isDismissible: false,
+            //     context: context, builder: (context) {
+            //     return const SplashBlockedUserBottomSheet();
+            //   },);
+            //   print(data.isBlock);
+            // }
         }
       }else{
         debugPrint(response.statusCode.toString());

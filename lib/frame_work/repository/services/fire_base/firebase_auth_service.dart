@@ -29,20 +29,22 @@ class FirebaseAuthService {
     }
   }
 
-  // Future<UserResponse> verifyOtp(
-  //     {required String verificationId, required String smsCode}) async {
-  //   try {
-  //     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
-  //         verificationId: verificationId, smsCode: smsCode);
-  //     final result = await FireBaseSingleton.instance.firebaseAuth
-  //         .signInWithCredential(phoneAuthCredential);
-  //     final myUser = MyUser(
-  //         userId: result.user!.uid, phoneNumber: result.user!.phoneNumber!);
-  //     return UserResponse(user: myUser);
-  //   } on FirebaseAuthException catch (e) {
-  //     return UserResponse(error: e.message.toString());
-  //   }
-  // }
+  Future verifyOtp(
+      {required String verificationId, required String smsCode}) async {
+    try {
+      PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+          verificationId: verificationId, smsCode: smsCode);
+      final result = await FireBaseSingleton.instance.firebaseAuth
+          .signInWithCredential(phoneAuthCredential);
+      return result.user!.phoneNumber;
+      // final myUser = MyUser(
+      //     userId: result.user!.uid, phoneNumber: result.user!.phoneNumber!);
+      // return UserResponse(user: myUser);
+    } on FirebaseAuthException catch (e) {
+      Future.error(e.message.toString());
+      // return UserResponse(error: e.message.toString());
+    }
+  }
 
   Future signOut() async {
     await FireBaseSingleton.instance.firebaseAuth.signOut();

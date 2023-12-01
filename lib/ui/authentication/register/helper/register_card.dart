@@ -16,7 +16,6 @@ class RegisterCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final loginWatch = ref.watch(loginController);
     final registerWatch = ref.watch(registerController);
     return Form(
       key: registerWatch.registerKey,
@@ -97,12 +96,12 @@ class RegisterCard extends ConsumerWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            loginWatch.selectCountry(context);
+                            registerWatch.selectCountry(context);
                           },
                           child: Row(
                             children: [
                               Text(
-                                loginWatch.selectedCountry.countryCode,
+                                registerWatch.selectedCountry.countryCode,
                                 style: TextStyles.w400.copyWith(
                                     fontSize: 14.sp, color: Colors.black),
                               ),
@@ -110,7 +109,7 @@ class RegisterCard extends ConsumerWidget {
                                 width: 5.w,
                               ),
                               Text(
-                                "+${loginWatch.selectedCountry.phoneCode}",
+                                "+${registerWatch.selectedCountry.phoneCode}",
                                 style: TextStyles.w400.copyWith(
                                     fontSize: 14.sp, color: Colors.black),
                               ),

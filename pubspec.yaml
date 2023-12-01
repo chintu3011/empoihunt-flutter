@@ -53,6 +53,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   lottie: ^2.7.0
   showcaseview: ^2.0.3
+  fluttertoast: ^8.2.4
 
   # Device info
   device_info_plus:

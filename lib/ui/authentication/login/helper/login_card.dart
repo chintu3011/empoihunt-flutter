@@ -66,8 +66,8 @@ class LoginCard extends ConsumerWidget {
                            ],
                            textInputAction: TextInputAction.done,
                            keyboardType: TextInputType.phone,
-                           controller: loginWatch.phoneFieldController,
-                          onChanged: (value)=>notAllowSpecialChar(loginWatch.phoneFieldController, value),
+                           controller: loginWatch.phoneNumberController,
+                          onChanged: (value)=>notAllowSpecialChar(loginWatch.phoneNumberController, value),
                           prefixIcon: Icon(Icons.phone,size: 18.sp,color: AppColors.colors.blueColors,),
                           hintText: "9876....",labelText: "Phone Number",)),
                       ],
@@ -75,10 +75,7 @@ class LoginCard extends ConsumerWidget {
                    ),
                   CommonButton(
                       btnText: "Login",onPressed: (){
-                    if(loginWatch.loginKey.currentState!.validate()){
-                      Navigator.push(context, PageTransition(child: const LoginOTP(), type: PageTransitionType.rightToLeft,duration: const Duration(milliseconds: 300)));
-                    // Navigator.push(context, MaterialPageRoute(builder: (_)=>const LoginOTP()));
-                    }
+                      loginWatch.loginButton(context);
                   },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 6.h)),
                   SizedBox(height: 15.h,),
                   Row(

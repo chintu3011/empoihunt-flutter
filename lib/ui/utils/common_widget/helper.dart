@@ -13,3 +13,14 @@ showSnackBar({required BuildContext context, required String error}) {
     duration: const Duration(seconds: 2),
   ));
 }
+
+void errorShowToast(
+    {required BuildContext context, SnackBarAction? action, required String msg}) {
+  final scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      content: Text(msg),
+      action: action ?? SnackBarAction(label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+    ),
+  );
+}

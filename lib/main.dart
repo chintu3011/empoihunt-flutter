@@ -29,7 +29,6 @@ Future<void> main() async{
   BoxService.boxService.nativeDeviceBox = await Hive.openBox<NativeDeviceDetailModel>(nativeDeviceDetailsBox);
   runApp(const ProviderScope(child: MyApp()));
 
-
 }
 
 class MyApp extends StatelessWidget {

@@ -58,6 +58,10 @@ dependencies:
   device_info_plus:
   package_info_plus:
 
+  #Fire base
+  firebase_core:
+  firebase_auth:
+
   #Local Storage
   shared_preferences: ^2.2.2
   hive:

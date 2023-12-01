@@ -36,14 +36,11 @@ class LoginController  extends ChangeNotifier{
 ///----------------------------- Timer function -----------------------------///
 
   var maxSecond = 30;
-
   Timer? time;
-
 
   void timerFunction(){
   }
-
-
 ///----------------------------- Timer function -----------------------------///
+
 
 }

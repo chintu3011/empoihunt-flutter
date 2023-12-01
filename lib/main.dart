@@ -7,14 +7,19 @@ import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
+
+import 'firebase_options.dart';
 
 
 Future<void> main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   ///--------- initialize Share preference --------///
   await SharedPrefServices.services.init();
 

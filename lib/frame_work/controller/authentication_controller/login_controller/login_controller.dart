@@ -35,10 +35,27 @@ class LoginController  extends ChangeNotifier{
 
 ///----------------------------- Timer function -----------------------------///
 
-  var maxSecond = 30;
+  static const maxSecond = 30;
   Timer? time;
+  int second = maxSecond;
 
-  void timerFunction(){
+  void timerFunction() {
+    time = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (second > 0) {
+        second--;
+        notifyListeners();
+      } else {
+        stopAndResetTimer();
+        notifyListeners();
+      }
+    });
+    notifyListeners();
+  }
+
+  void stopAndResetTimer() {
+    second = maxSecond;
+    time?.cancel();
+    notifyListeners();
   }
 ///----------------------------- Timer function -----------------------------///
 

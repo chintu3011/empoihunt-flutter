@@ -54,7 +54,7 @@ class LoginController  extends ChangeNotifier{
         }
       }else if(status.status == 404){
         if(context.mounted){
-          errorShowToast(context: context, msg: 'Opps! sorry you haven\'t register yet \n Please register',action: SnackBarAction(label: "Register", onPressed: (){
+          appCommonShowToast(context: context, msg: 'Opps! sorry you haven\'t register yet \n Please register',action: SnackBarAction(label: "Register", onPressed: (){
             phoneNumberController.clear();
             Navigator.push(context, PageTransition(
                 child: const Register(),
@@ -90,32 +90,6 @@ class LoginController  extends ChangeNotifier{
   }
 
   ///----------------------------- Check for user exist or not ----------------------------------------///
-
-///----------------------------- Timer function -----------------------------///
-
-  static const maxSecond = 30;
-  Timer? time;
-  int second = maxSecond;
-
-  void timerFunction() {
-    time = Timer.periodic(const Duration(seconds: 1), (_) {
-      if (second > 0) {
-        second--;
-        notifyListeners();
-      } else {
-        stopAndResetTimer();
-        notifyListeners();
-      }
-    });
-    notifyListeners();
-  }
-
-  void stopAndResetTimer() {
-    second = maxSecond;
-    time?.cancel();
-    notifyListeners();
-  }
-///----------------------------- Timer function -----------------------------///
 
 
 }

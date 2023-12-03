@@ -1,4 +1,6 @@
 
+import 'package:emploiflutter/frame_work/repository/model/auth_response_model/auth_response_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -29,20 +31,18 @@ class FirebaseAuthService {
     }
   }
 
-  Future verifyOtp(
+  Future<AuthResponseModel> verifyOtp(
       {required String verificationId, required String smsCode}) async {
     try {
       PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
       final result = await FireBaseSingleton.instance.firebaseAuth
           .signInWithCredential(phoneAuthCredential);
-      return result.user!.phoneNumber;
-      // final myUser = MyUser(
-      //     userId: result.user!.uid, phoneNumber: result.user!.phoneNumber!);
-      // return UserResponse(user: myUser);
+      final user = UserModel(userId: result.user!.uid, userPhone: result.user!.phoneNumber.toString());
+      print(user.userPhone);
+        return AuthResponseModel(user: user);
     } on FirebaseAuthException catch (e) {
-      Future.error(e.message.toString());
-      // return UserResponse(error: e.message.toString());
+      return AuthResponseModel(error: e.message);
     }
   }
 

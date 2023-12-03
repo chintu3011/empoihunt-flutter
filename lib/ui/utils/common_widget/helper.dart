@@ -14,7 +14,7 @@ showSnackBar({required BuildContext context, required String error}) {
   ));
 }
 
-void errorShowToast(
+void appCommonShowToast(
     {required BuildContext context, SnackBarAction? action, required String msg}) {
   final scaffold = ScaffoldMessenger.of(context);
   scaffold.showSnackBar(

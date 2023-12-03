@@ -60,14 +60,14 @@ class RegisterController extends ChangeNotifier{
             if(status.status == 404){
               if(context.mounted) {
                 Navigator.push(context, PageTransition(
-                    child: const RegisterOTP(),
+                    child:  RegisterOTP(phoneNumber: "+${selectedCountry.phoneCode}${phoneNumberController.text}",),
                     type: PageTransitionType.rightToLeft,
                     duration: const Duration(milliseconds: 300)));
                 clearForms();
               }
             }else if(status.status == 200){
               if(context.mounted){
-                errorShowToast(context: context, msg: 'Opps! sorry you\'ve already register',action: SnackBarAction(label: "Login", onPressed: (){
+                appCommonShowToast(context: context, msg: 'Opps! sorry you\'ve already register',action: SnackBarAction(label: "Login", onPressed: (){
                   context.pop();
                   clearForms();
                   context.pop();

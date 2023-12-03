@@ -1,16 +1,19 @@
 import 'dart:async';
 
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_auth_service.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/job_seeker_register_profile_details.dart';
+import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/recruiter_register_profile_details/recruiter_register_profile_details.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:path/path.dart';
 
-final loginOtpController = ChangeNotifierProvider((ref) => LoginOtpController());
+final registerOtpController = ChangeNotifierProvider((ref) => RegisterOtpController());
 
-class LoginOtpController extends ChangeNotifier{
+class RegisterOtpController extends ChangeNotifier{
 
   final otpController = TextEditingController();
 
@@ -22,15 +25,16 @@ class LoginOtpController extends ChangeNotifier{
 
   /// ------------- login with firebase otp--------------///
    Future  verifyPhoneNumber(
-      {required String phoneNumber, required BuildContext context}) async {
+      {required String phoneNumber, required BuildContext context,required int selectedUserType,Widget? childCurrent}) async {
     try {
       isLoading = true;
       await FirebaseAuthService.firebaseAuthService.signInWithPhone(
         phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
-            verifyOtp(context: context);
+            verifyOtp(context: context,selectedUserType: selectedUserType,childCurrent: childCurrent);
         },
         verificationFailed: (error) {
+          isLoading= false;
           print("verification Failed error --------------->> $error");
         },
         codeSent: (verificationId, forceResendingToken) {
@@ -54,25 +58,26 @@ class LoginOtpController extends ChangeNotifier{
 
 
   Future verifyOtp(
-      {required BuildContext context}) async {
+      {required BuildContext context,required int selectedUserType,Widget? childCurrent}) async {
     isLoading = true;
     final response = await FirebaseAuthService.firebaseAuthService
         .verifyOtp(verificationId: verId, smsCode: otpController.text);
     if (response.user != null) {
       notifyListeners();
       isLoading = false;
-        print("Logged in user phone-------> ${response.user!.userPhone}");
+        print("Verified user phone -------> ${response.user!.userPhone}");
         if(context.mounted){
-        Navigator.pushAndRemoveUntil(context, PageTransition(
-            child: const DashBoard(),
-            type: PageTransitionType.rightToLeft,
-            duration: const Duration(milliseconds: 300)), (route) => false);
+      if(selectedUserType == 0){
+        Navigator.push(context, PageTransition(child: const JobSeekerRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: childCurrent,duration: const Duration(milliseconds: 300)));
+      }else{
+        Navigator.push(context, PageTransition(child: const RecruiterRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: childCurrent,duration: const Duration(milliseconds: 300)));
+      }
         }
     } else {
       if (context.mounted) {
         isLoading= false;
-        Navigator.pop(context);
-       print("something went wrong");
+        showSnackBar(context: context, error: "OTP does not match");
+        print("something went wrong");
       }
     }
     notifyListeners();

@@ -1,6 +1,4 @@
 import 'package:emploiflutter/frame_work/controller/campus_placement_controller/campus_placement_controller.dart';
-import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
-import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_search_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';

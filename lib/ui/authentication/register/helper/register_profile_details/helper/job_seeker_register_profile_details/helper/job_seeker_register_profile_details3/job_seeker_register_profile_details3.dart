@@ -32,6 +32,7 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
               padding: EdgeInsets.symmetric(vertical: 50.h),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonDropDownFormField(
                       items: designationList,
@@ -46,6 +47,8 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
                       selectedValue:
                           registerProfileDetailsWatch.selectedJobTitle,
                     ),
+                    registerProfileDetailsWatch.isSelectedJobTitleEmt?Text("Please select Job title",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
+
                     SizedBox(
                       height: 25.h,
                     ),
@@ -61,7 +64,10 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
                       hintTextForField: "Prefer City",
                       selectedValue:
                       registerProfileDetailsWatch.selectedPreferCity,
-                    )                  ],
+                    ),
+                    registerProfileDetailsWatch.isSelectedPrefCityEmt?Text("Please select Prefer City",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
+
+                  ],
                 ),
               ),
             ),

@@ -34,21 +34,23 @@ class JobSeekerRegisterProfileDetails1 extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CommonFormField(
+                      controller: registerProfileDetailsWatch.bioController,
                       maxLength: 2000,
                       hintText: "Bio",
+                      onChanged: (value)=>registerProfileDetailsWatch.updateIsBioEmpty(value),
                       prefixIcon: const Icon(Icons.file_copy_rounded),
                       maxLine: 4,
                       contentPadding:
-                          EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),
+                          EdgeInsets.symmetric(vertical: 28, horizontal: 10.w),
                     ),
+                    registerProfileDetailsWatch.isBioControllerEmpty?  Text("Required field, please write something",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 10.h,
                     ),
                     CommonDropDownFormField(items: qualificationsList, searchController: registerProfileDetailsWatch.qualificationSearchController,selectedValue: registerProfileDetailsWatch.selectedQualification,onChanged: (value){
                       registerProfileDetailsWatch.updateSelectedQualification(value);
                     }, hintTextForDropdown: 'Qualification', hintTextForField: 'Qualification',),
-                    Text("please Select the about Qualification",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),)
-
+                   registerProfileDetailsWatch.isQualificationEmpty?Text("please Select the about Qualification",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox()
                   ],
                 ),
               ),

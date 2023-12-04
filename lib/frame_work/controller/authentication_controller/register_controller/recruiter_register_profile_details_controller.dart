@@ -23,7 +23,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier{
       registerSubmitButton(context);
       // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
     }
-    print(index);
+    // print(index);
     notifyListeners();
   }
 
@@ -37,7 +37,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier{
   }
 
   registerSubmitButton(BuildContext context){
-    print("final button called");
+    debugPrint("final button called");
     if(registerProfileDetailsGlobalKey.currentState!.validate()){
       if(selectedQualification!=null && bioController.text != ""){
         isQualificationEmpty = false;

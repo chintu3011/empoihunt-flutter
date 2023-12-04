@@ -1,4 +1,3 @@
-import 'package:emploiflutter/ui/authentication/login/login_otp.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/choose_register_type/choose_register_type.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';

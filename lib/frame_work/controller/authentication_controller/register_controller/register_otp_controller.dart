@@ -3,13 +3,10 @@ import 'dart:async';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_auth_service.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/job_seeker_register_profile_details.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/recruiter_register_profile_details/recruiter_register_profile_details.dart';
-import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:path/path.dart';
 
 final registerOtpController = ChangeNotifierProvider((ref) => RegisterOtpController());
 
@@ -35,13 +32,14 @@ class RegisterOtpController extends ChangeNotifier{
         },
         verificationFailed: (error) {
           isLoading= false;
-          print("verification Failed error --------------->> $error");
+          notifyListeners();
+          debugPrint("verification Failed error --------------->> $error");
         },
         codeSent: (verificationId, forceResendingToken) {
           isLoading= false;
           codeSend = true;
           verId = verificationId;
-          print("verification Id $verId");
+          debugPrint("verification Id $verId");
           timerFunction();
           appCommonShowToast(context: context, msg: "Code have been Sent \n to this number $phoneNumber");
           notifyListeners();
@@ -50,7 +48,7 @@ class RegisterOtpController extends ChangeNotifier{
       );
     } on FirebaseAuthException catch (e) {
       isLoading =false;
-      print("Firbase Exception ---------->>> ${e.message}");
+      debugPrint("Firbase Exception ---------->>> ${e.message}");
     }
     notifyListeners();
   }
@@ -65,7 +63,7 @@ class RegisterOtpController extends ChangeNotifier{
     if (response.user != null) {
       notifyListeners();
       isLoading = false;
-        print("Verified user phone -------> ${response.user!.userPhone}");
+      debugPrint("Verified user phone -------> ${response.user!.userPhone}");
         if(context.mounted){
       if(selectedUserType == 0){
         Navigator.push(context, PageTransition(child: const JobSeekerRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: childCurrent,duration: const Duration(milliseconds: 300)));
@@ -77,7 +75,7 @@ class RegisterOtpController extends ChangeNotifier{
       if (context.mounted) {
         isLoading= false;
         showSnackBar(context: context, error: "OTP does not match");
-        print("something went wrong");
+        debugPrint("something went wrong");
       }
     }
     notifyListeners();

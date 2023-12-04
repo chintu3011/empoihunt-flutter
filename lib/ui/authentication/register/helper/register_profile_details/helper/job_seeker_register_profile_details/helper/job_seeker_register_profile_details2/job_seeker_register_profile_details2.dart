@@ -34,14 +34,20 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
               padding: EdgeInsets.symmetric(vertical: 50.h),
               child: SingleChildScrollView(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                      CommonFormField(
+                       controller: registerProfileDetailsWatch.companyNameController,
                       validator:(value)=> requiredFieldValidator(input: value!, errorMgs: "Please Add Company name"),
                         hintText: "Company name",
                         prefixIcon: const Icon(
                           Icons.location_city_sharp,
                         ),
+                        onChanged: (value){
+                         registerProfileDetailsWatch.updateIsCompanyNameEmt(value);
+                        },
                         labelText: "Company name"),
+                    registerProfileDetailsWatch.isCompanyNameEmpty?  Text("Required field",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 15.h,
                     ),
@@ -58,6 +64,7 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                       selectedValue:
                           registerProfileDetailsWatch.selectedDesignation,
                     ),
+                    registerProfileDetailsWatch.isSelectedDesignEmpty?  Text("Please select designation",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
                       height: 25.h,
                     ),
@@ -73,7 +80,10 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                       hintTextForField: "Job Location",
                       selectedValue:
                       registerProfileDetailsWatch.selectedJobLocation,
-                    )                  ],
+                    ),
+                    registerProfileDetailsWatch.isSelectedJobLocEmpty?  Text("Please select job location",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
+
+                  ],
                 ),
               ),
             ),

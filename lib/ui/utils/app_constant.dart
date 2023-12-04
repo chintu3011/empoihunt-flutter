@@ -23,7 +23,7 @@
 
 
 //// 0 job Seeker, 1 Recruiter
-const userRole = 0;
+const userRole = 1;
 
 
 class FilterMode{

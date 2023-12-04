@@ -6,8 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/splash/splashmodel.dart';
 import 'package:emploiflutter/frame_work/repository/services/box_service.dart';
-import 'package:emploiflutter/ui/splash/helper/splash_blocked_user_bottom_sheet.dart';
-import 'package:emploiflutter/ui/splash/helper/splash_update_app_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -26,12 +24,12 @@ final splashController = ChangeNotifierProvider((ref) => SplashController());
 class SplashController extends ChangeNotifier{
 
   Future getAppVersion() async {
-    print("getAppversion call");
+    debugPrint("getAppversion call");
     try{
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
-      print("project version ${packageInfo.buildNumber}");
+      debugPrint("project version ${packageInfo.buildNumber}");
     } catch(e){
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
@@ -50,7 +48,7 @@ class SplashController extends ChangeNotifier{
           debugPrint(" update api app version--->>>> $updatedVersion");
           ///-------------- get current application version ---------------////
           int currentAppVersion = int.parse(packageInfo.buildNumber);
-          print("project version $currentAppVersion");
+          debugPrint("project version $currentAppVersion");
           checkUserOpenAppFirstTime(context);
             // if(data.isBlock == 0){
             //   print(data.isBlock);
@@ -110,19 +108,19 @@ class SplashController extends ChangeNotifier{
     try {
       if (Platform.isAndroid) {
         var build = await deviceInfoPlugin.androidInfo;
-        print("Android Device Version ----->${build.version.release}");
-        print("Android Device ID -----> ${build.id}");
-        print("Android Device name -----> ${build.model}");
-        await BoxService.boxService.addDataToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId: build.id!, deviceName: build.model!, deviceVersion: build.version.release.toString(), deviceType: 0));
+        debugPrint("Android Device Version ----->${build.version.release}");
+        debugPrint("Android Device ID -----> ${build.id}");
+        debugPrint("Android Device name -----> ${build.model}");
+        await BoxService.boxService.addDataToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId: build.id, deviceName: build.model, deviceVersion: build.version.release.toString(), deviceType: 0));
       } else if (Platform.isIOS) {
         var iosInfo = await deviceInfoPlugin.iosInfo;
-        print("IOS Device ID -----> ${iosInfo.identifierForVendor}");
-        print("IOS Device Version -----> ${iosInfo.systemVersion}");
-        print("IOS Device Name -----> ${iosInfo.name}");
+        debugPrint("IOS Device ID -----> ${iosInfo.identifierForVendor}");
+        debugPrint("IOS Device Version -----> ${iosInfo.systemVersion}");
+        debugPrint("IOS Device Name -----> ${iosInfo.name}");
         // await BoxService.boxService.addDataToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId: build.id!, deviceName: build.model!, deviceVersion: build.version.release.toString(), deviceType: 1));
       }
     } on PlatformException {
-      print('Failed to get platform version');
+      debugPrint('Failed to get platform version');
     }
   }
 

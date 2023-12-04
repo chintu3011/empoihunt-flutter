@@ -84,7 +84,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                            backgroundColor: AppColors.colors.clayColors,
                            fixedSize: Size(60.w, 50.h)),
                        onPressed: () {
-                         registerProfileDetailWatch.forwardBtn(context);
+                         registerProfileDetailWatch.experienceRegisterSubmitButton(context);
                        },
                        icon: Icon(Icons.check,
                            color: AppColors.colors.whiteColors)):
@@ -112,7 +112,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                            backgroundColor: AppColors.colors.clayColors,
                            fixedSize: Size(60.w, 50.h)),
                        onPressed: () {
-                         registerProfileDetailWatch.forwardBtn(context);
+                         registerProfileDetailWatch.freshersRegisterSubmitButton(context);
                        },
                        icon: Icon(Icons.check,
                            color: AppColors.colors.whiteColors)):

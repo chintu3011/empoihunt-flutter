@@ -1,10 +1,8 @@
 // ignore_for_file: deprecated_member_use
 import 'package:emploiflutter/frame_work/controller/authentication_controller/auth_intro_controller/auth_intro_controller.dart';
 import 'package:emploiflutter/frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
-import 'package:emploiflutter/frame_work/repository/services/box_service.dart';
 import 'package:emploiflutter/ui/authentication/login/login.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/choose_register_type/choose_register_type.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';

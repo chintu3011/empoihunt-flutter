@@ -111,7 +111,7 @@ class CreatePostJobController extends ChangeNotifier{
                 isJobLocationSelect = false;
                 if(selectedRemoteValue !=""){
                   isSelectRemoteValue = false;
-                  print("success");
+                  debugPrint("success");
 
                 }else{
                   isSelectRemoteValue = true;

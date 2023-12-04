@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';

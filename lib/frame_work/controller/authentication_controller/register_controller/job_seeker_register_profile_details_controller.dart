@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -60,6 +61,17 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   bool isQualificationEmpty = false;
 
 
+  bool isBioControllerEmpty = false;
+  updateIsBioEmpty(String? value){
+    if(value !=null){
+      isBioControllerEmpty = false;
+    }else{
+      isBioControllerEmpty = true;
+    }
+    notifyListeners();
+  }
+
+
   bool isFresher = false;
   updateFresher(){
     isFresher = true;
@@ -74,8 +86,10 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   }
 
   String? selectedQualification;
+  bool isSelectedQualificationEmpty =false;
   updateSelectedQualification(String? value) {
-    selectedQualification = value;
+      selectedQualification = value;
+      isSelectedQualificationEmpty = false;
     notifyListeners();
   }
   ///-----------------Profile1--------------///
@@ -87,15 +101,19 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   final jobSearchController = TextEditingController();
   final preferCitySearchController = TextEditingController();
 
+  bool isSelectedJobTitleEmt = false;
+  bool isSelectedPrefCityEmt = false;
   String? selectedJobTitle;
   updateSelectedJobTitle(String? value) {
     selectedJobTitle = value;
+    isSelectedJobTitleEmt = false;
     notifyListeners();
   }
 
   String? selectedPreferCity;
   updateSelectedPreferCity(String? value) {
     selectedPreferCity = value;
+    isSelectedPrefCityEmt = false;
     notifyListeners();
   }
 
@@ -130,15 +148,29 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   final designationSearchController = TextEditingController();
   final jobLocationSearchController = TextEditingController();
 
+  bool isCompanyNameEmpty = false;
+  bool isSelectedDesignEmpty = false;
+  bool isSelectedJobLocEmpty = false;
   String? selectedDesignation;
+
+  updateIsCompanyNameEmt(String? value){
+    if(value !=null){
+      isCompanyNameEmpty = false;
+    }else{
+      isCompanyNameEmpty = true;
+    }
+    notifyListeners();
+  }
   updateSelectedDesignation(String? value) {
     selectedDesignation = value;
+    isSelectedDesignEmpty = false;
     notifyListeners();
   }
 
   String? selectedJobLocation;
   updateSelectedJobLocation(String? value) {
     selectedJobLocation = value;
+    isSelectedJobLocEmpty = false;
     notifyListeners();
   }
   ///-----------------Profile3--------------///
@@ -203,6 +235,131 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   ///-----------------Profile5--------------///
 
+
+  ///---------------- register Submit button -----------------///
+
+  experienceRegisterSubmitButton(BuildContext context){
+    if(bioController.text != ""){
+      isBioControllerEmpty = false;
+      if(selectedQualification != null){
+        isQualificationEmpty = false;
+        if(companyNameController.text != ""){
+          isCompanyNameEmpty = false;
+          if(selectedDesignation !=null){
+            isSelectedDesignEmpty = false;
+            if(selectedJobLocation != null){
+              isSelectedJobLocEmpty = false;
+              if(selectedJobTitle != null){
+                isSelectedJobTitleEmt = false;
+                if(selectedPreferCity !=null){
+                  isSelectedPrefCityEmt = false;
+                  if(fileName !=null){
+                    if(profilePic !=null){
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+                    }else{
+                      showSnackBar(context: context, error: "Please Select the image");
+                    }
+                  }else{
+                    index = 3;
+                    pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+                    Curves.easeIn);
+                    showSnackBar(context: context, error: "Please Select Resume");
+                  }
+                }else{
+                  isSelectedPrefCityEmt = true;
+                  index =2;
+                  pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+                  Curves.easeIn);
+                }
+              }else{
+                isSelectedJobTitleEmt = true;
+                index =2;
+                pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+                Curves.easeIn);
+              }
+            }else{
+              index = 1;
+              isSelectedJobLocEmpty = true;
+              pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+              Curves.easeIn);
+            }
+          }else{
+            index = 1;
+            isSelectedDesignEmpty = true;
+            pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+            Curves.easeIn);
+          }
+        }else{
+          isCompanyNameEmpty =true;
+          index =1;
+          pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+          Curves.easeIn);
+        }
+      }else{
+        isQualificationEmpty = true;
+        index =0;
+        pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+        Curves.easeIn);
+      }
+    }else{
+      isBioControllerEmpty = true;
+      index =0;
+      pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+      Curves.easeIn);
+    }
+    notifyListeners();
+  }
+
+  freshersRegisterSubmitButton(BuildContext context){
+    if(bioController.text != ""){
+      isBioControllerEmpty = false;
+      if(selectedQualification != null){
+        isQualificationEmpty = false;
+        if(selectedJobTitle != null){
+          isSelectedJobTitleEmt = false;
+          if(selectedPreferCity !=null){
+            isSelectedPrefCityEmt = false;
+            if(fileName !=null){
+              if(profilePic !=null){
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+              }else{
+                showSnackBar(context: context, error: "Please Select the image");
+              }
+            }else{
+              index = 2;
+              pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+              Curves.easeIn);
+              showSnackBar(context: context, error: "Please Select Resume");
+            }
+          }else{
+            isSelectedPrefCityEmt = true;
+            index =1;
+            pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+            Curves.easeIn);
+          }
+        }else{
+          isSelectedJobTitleEmt = true;
+          index =1;
+          pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+          Curves.easeIn);
+        }
+     }else{
+       isQualificationEmpty = true;
+       index =0;
+       pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+       Curves.easeIn);
+     }
+    }else{
+      isBioControllerEmpty = true;
+      index =0;
+      pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+      Curves.easeIn);
+    }
+    notifyListeners();
+  }
+
+
+  ///---------------- register Submit button -----------------///
   @override
   void notifyListeners() {
     super.notifyListeners();

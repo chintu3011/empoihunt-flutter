@@ -1,5 +1,6 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
 import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/check_user_exist_model/check_user_exist_model.dart';
@@ -61,7 +62,10 @@ class RegisterController extends ChangeNotifier{
         if(isCheck){
             final status = await checkUserRegistered(phoneNumberController.text);
             if(status.status == 404){
+              /// assign data for register api call ///
               ref.read(recruiterRegisterProfileDetailsController).assignRegisterData(phone: phoneNumberController.text, firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
+              ref.read(jobSeekerRegisterProfileDetailsController).assignRegisterData(phone: phoneNumberController.text, firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
+              /// assign data for register api call ///
               if(context.mounted) {
                 Navigator.push(context, PageTransition(
                     child:  RegisterOTP(phoneNumber: "+${selectedCountry.phoneCode}${phoneNumberController.text}",),

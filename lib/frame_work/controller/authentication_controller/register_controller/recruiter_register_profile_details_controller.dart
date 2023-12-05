@@ -219,7 +219,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
     try {
       FormData formData = FormData.fromMap({
         "profilePic": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
-        "resume": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
+        "resume":"",
       });
       Response response = await DioClient.client.postDataWithForm(
           "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",

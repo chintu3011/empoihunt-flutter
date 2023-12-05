@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../../../ui/utils/app_constant.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
+import '../../../repository/services/hive_service/box_service.dart';
+import '../../../repository/services/shared_pref_services.dart';
 
 final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController());
 
@@ -183,8 +188,8 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   ///-----------------Profile4--------------///
 
-  String? fileName;
-  File? pdfFile;
+  String? pdfUrl;
+  String? pdfName;
   Future<void> pickPdfFile() async{
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -193,7 +198,8 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     resumeLottieController.stop();
     if(result != null){
       final PlatformFile file = result.files.first;
-      fileName = file.name;
+      pdfName = file.name;
+      pdfUrl = file.path;
       // print(file.name);
       // print(file.path);
      resumeLottieController.reset();
@@ -209,7 +215,10 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   ///-----------------Profile5--------------///
 
   bool isPicAnimationRun = false;
+  String? imgUrl;
   File? profilePic;
+  String profilePicName = "";
+
   Future<void> imagePicker() async{
     isPicAnimationRun = true;
         final result = await FilePicker.platform.pickFiles(
@@ -226,6 +235,8 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
           uploadImgLottieController.forward();
           await Future.delayed(const Duration(seconds: 3),);
           profilePic = File(file.path!);
+          imgUrl = file.path;
+          profilePicName = file.name;
           isPicAnimationRun=false;
           notifyListeners();
         }else{
@@ -241,7 +252,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   ///---------------- register Submit button -----------------///
 
-  experienceRegisterSubmitButton(BuildContext context){
+  experienceRegisterSubmitButton(BuildContext context)async{
     if(bioController.text != ""){
       isBioControllerEmpty = false;
       if(selectedQualification != null){
@@ -256,9 +267,9 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
                 isSelectedJobTitleEmt = false;
                 if(selectedPreferCity !=null){
                   isSelectedPrefCityEmt = false;
-                  if(fileName !=null){
+                  if(pdfName !=null){
                     if(profilePic !=null){
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+                      await registerApiCall(context);
                     }else{
                       showSnackBar(context: context, error: "Please Select the image");
                     }
@@ -313,7 +324,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     notifyListeners();
   }
 
-  freshersRegisterSubmitButton(BuildContext context){
+  freshersRegisterSubmitButton(BuildContext context)async{
     if(bioController.text != ""){
       isBioControllerEmpty = false;
       if(selectedQualification != null){
@@ -322,9 +333,9 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
           isSelectedJobTitleEmt = false;
           if(selectedPreferCity !=null){
             isSelectedPrefCityEmt = false;
-            if(fileName !=null){
+            if(pdfName !=null){
               if(profilePic !=null){
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+                await registerApiCall(context);
               }else{
                 showSnackBar(context: context, error: "Please Select the image");
               }
@@ -366,48 +377,59 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
 
   ///----------------- Register Api ----------------------////
+  String phoneNumber = "";
+  String email = "";
+  String lastName = "";
+  String firstName = "";
+  String city = "";
 
-  registerApiCall(){
-    try{
-      // DioClient.client.postData(APIEndPoint.registerUserApi,
-      //     {
-      //       "iRole":1,
-      //       "vFirebaseId":"required",
-      //       "vMobile":"required",
-      //       "vDeviceId":"",
-      //       "vDeviceType":"",
-      //       "vOSVersion":"",
-      //       "tDeviceToken":"",
-      //       "tDeviceName":"",
-      //       "vFirstName":"",
-      //       "vLastName":"",
-      //       "vEmail":"",
-      //       "tBio":"",
-      //       "vCity":"",
-      //       "vCurrentCompany":"",
-      //       "vDesignation":"",
-      //       "vJobLocation":"",
-      //       "vDuration":"",
-      //       "vPreferCity":"",
-      //       "vPreferJobTitle":"",
-      //       "vQualification":"",
-      //       "vWorkingMode":"",
-      //       "tTagLine":"",
-      //       "fbid":"",
-      //       "googleid":"",
-      //       "tLatitude":"",
-      //       "tLongitude":"",
-      //       "tAppVersion":""
-      //
-      //     });
-    }catch (e){
-      Future.error(e);
-    }
+  assignRegisterData(
+      {required String phone,
+        required String firstName,
+        required String lastName,
+        required String city,
+        required String email}) {
+    phoneNumber = phone;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.city = city;
+    notifyListeners();
   }
 
-  ///----------------- Register Api ----------------------////
+  bool isLoading = false;
 
-
+  Future registerApiCall(BuildContext context) async {
+    isLoading = true;
+    final uid = FireBaseSingleton.instance.firebaseAuth.currentUser!.uid;
+    final deviceData =
+    BoxService.boxService.nativeDeviceBox.get(deviceDetailKey)!;
+    print("FCM Token------->${SharedPrefServices.services.getString(fcmTokenKey)}");
+    print(uid);
+    try {
+      FormData formData = FormData.fromMap({
+        "profilePic": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
+        "resume":await MultipartFile.fromFile(pdfUrl!, filename: pdfName),
+      });
+      Response response = await DioClient.client.postDataWithForm(
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text??""}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
+          formData: formData);
+      if (response.statusCode == 200) {
+        isLoading = false;
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const DashBoard()),
+                  (route) => false);
+        }
+        print("Succesfully register");
+      }
+    } catch (e) {
+      isLoading = false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
   @override
   void notifyListeners() {
     super.notifyListeners();

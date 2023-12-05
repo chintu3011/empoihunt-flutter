@@ -54,7 +54,7 @@ class JobSeekerRegisterProfileDetails4 extends ConsumerWidget {
                           children: [
                             Image.asset(AppAssets.resumeUpload,scale: 27,color: AppColors.colors.blueColors,),
                             SizedBox(width: 8.w,),
-                            Expanded(child: Text(registerProfileDetailsWatch.fileName !=null ? "${registerProfileDetailsWatch.fileName}" : "Choose Pdf File",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),softWrap: true,))
+                            Expanded(child: Text(registerProfileDetailsWatch.pdfName !=null ? "${registerProfileDetailsWatch.pdfName}" : "Choose Pdf File",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),softWrap: true,))
                           ],
                         ),
                       ),

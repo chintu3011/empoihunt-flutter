@@ -5,7 +5,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/splash/splashmodel.dart';
-import 'package:emploiflutter/frame_work/repository/services/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -111,7 +111,7 @@ class SplashController extends ChangeNotifier{
         debugPrint("Android Device Version ----->${build.version.release}");
         debugPrint("Android Device ID -----> ${build.id}");
         debugPrint("Android Device name -----> ${build.model}");
-        await BoxService.boxService.addDataToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId: build.id, deviceName: build.model, deviceVersion: build.version.release.toString(), deviceType: 0));
+        await BoxService.boxService.addNativeDeviceDetailsToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId: build.id, deviceName: build.model, deviceVersion: build.version.release.toString(), deviceType: 0));
       } else if (Platform.isIOS) {
         var iosInfo = await deviceInfoPlugin.iosInfo;
         debugPrint("IOS Device ID -----> ${iosInfo.identifierForVendor}");

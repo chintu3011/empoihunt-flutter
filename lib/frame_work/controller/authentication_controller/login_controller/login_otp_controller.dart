@@ -1,10 +1,17 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
+import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_auth_service.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../../repository/services/hive_service/box_service.dart';
 
 final loginOtpController = ChangeNotifierProvider((ref) => LoginOtpController());
 
@@ -26,7 +33,7 @@ class LoginOtpController extends ChangeNotifier{
       await FirebaseAuthService.firebaseAuthService.signInWithPhone(
         phoneNumber: phoneNumber,
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
-            verifyOtp(context: context);
+            verifyOtp(context: context,number: phoneNumber);
         },
         verificationFailed: (error) {
           debugPrint("verification Failed error --------------->> $error");
@@ -52,11 +59,12 @@ class LoginOtpController extends ChangeNotifier{
 
 
   Future verifyOtp(
-      {required BuildContext context}) async {
+      {required BuildContext context, required String number}) async {
     isLoading = true;
     final response = await FirebaseAuthService.firebaseAuthService
         .verifyOtp(verificationId: verId, smsCode: otpController.text);
     if (response.user != null) {
+      await userDetailGetApi(number);
       notifyListeners();
       isLoading = false;
       debugPrint("Logged in user phone-------> ${response.user!.userPhone}");
@@ -78,6 +86,44 @@ class LoginOtpController extends ChangeNotifier{
 /// ------------- login with firebase otp--------------///
 
 
+
+
+  ///----------------------------- get user data and store in hive storage ---------------------///
+
+    Future userDetailGetApi(String number) async{
+     isLoading = true;
+
+     final data = BoxService.boxService.nativeDeviceBox.get(deviceDetailKey);
+     try{
+
+       print("User Detail number ---------- $number");
+       debugPrint("Android Device Version ----->${data!.deviceVersion}");
+       debugPrint("Android Device ID -----> ${data.deviceId}");
+       debugPrint("Android Device name -----> ${data.deviceName}");
+       Response response = await DioClient.client.postData(APIEndPoint.loginApi,
+           {
+             "vMobile": number,
+             "vDeviceId": data.deviceId,
+             "vOSVersion": data.deviceVersion,
+             "tDeviceToken": "string",
+             "tDeviceName": data.deviceName,
+             "vFirebaseId": "string"
+           });
+       if(response.statusCode == 200){
+         isLoading= false;
+         UserGetDetailModel user = UserGetDetailModel.fromJson(response.data);
+         BoxService.boxService.addUserDetailToHive(userDetailKey, UserGetDetailModel(status: user.status, message: user.message, data: user.data));
+         print(BoxService.boxService.userGetDetailBox.get(userDetailKey)!.data.user.tUpadatedAt);
+         print(response.data);
+       }
+     }catch (e){
+       isLoading = false;
+       Future.error(e);
+     }
+    notifyListeners();
+    }
+
+  ///----------------------------- get user data and store in hive storage ---------------------///
 
   ///----------------------------- Timer function -----------------------------///
 

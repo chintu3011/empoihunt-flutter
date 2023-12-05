@@ -16,6 +16,14 @@
   ////keys
     const String deviceDetailKey = "nativeDeviceDetailsKey";
 
+  ///---------- User Detail Box -------///
+  const String  userDetailsBox = "userDetailsBoxKey";
+  ////keys
+  const String userDetailKey = "nativeDeviceDetailsKey";
+
+
+
+
 ///--------- Device Box ------------///
 
 

@@ -1,16 +1,25 @@
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_model.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:hive/hive.dart';
 
 class BoxService{
   late Box<NativeDeviceDetailModel> nativeDeviceBox;
-  
+  late Box<UserGetDetailModel> userGetDetailBox;
+
   BoxService._private();
   static BoxService boxService = BoxService._private();
 
-  Future<void> addDataToHive(dynamic key,NativeDeviceDetailModel deviceDetail)async{
+  Future<void> addNativeDeviceDetailsToHive(dynamic key,NativeDeviceDetailModel deviceDetail)async{
     //this will add data to the hive with specific key
     await nativeDeviceBox.put(key,deviceDetail);
+    //this will add data to hive and it will automatically generate key value of that
+    // await boxNote.add(userNote);
+  }
+
+  Future<void> addUserDetailToHive(dynamic key,UserGetDetailModel userDetails)async{
+    //this will add data to the hive with specific key
+    await userGetDetailBox.put(key,userDetails);
     //this will add data to hive and it will automatically generate key value of that
     // await boxNote.add(userNote);
   }

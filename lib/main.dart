@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
-import 'package:emploiflutter/frame_work/repository/services/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_model.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import 'firebase_options.dart';
+import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
 
 Future<void> main() async{
@@ -22,9 +24,10 @@ Future<void> main() async{
   await SharedPrefServices.services.init();
 
   /// ------- Hive open Box Service ---------///
+  registerHiveAdapters();
   await Hive.initFlutter();
-  Hive.registerAdapter(NativeDeviceDetailModelAdapter());
   BoxService.boxService.nativeDeviceBox = await Hive.openBox<NativeDeviceDetailModel>(nativeDeviceDetailsBox);
+  BoxService.boxService.userGetDetailBox = await Hive.openBox<UserGetDetailModel>(userDetailsBox);
   runApp(const ProviderScope(child: MyApp()));
 
 }

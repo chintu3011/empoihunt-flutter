@@ -67,7 +67,7 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                       keyboardType: TextInputType.phone,
                       length: 6,
                       onCompleted: (val){
-                        loginOtp.verifyOtp(context: context);
+                        loginOtp.verifyOtp(context: context,number: widget.number);
                       },
                       errorPinTheme: PinTheme(
                           height: 50.h,
@@ -101,7 +101,7 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                   ),
                   SizedBox(height: 15.h,),
                   CommonButton(btnText: "Verify", onPressed: (){
-                    loginOtp.verifyOtp(context: context,);
+                    loginOtp.verifyOtp(context: context, number: widget.number,);
 
                     // Navigator.pushAndRemoveUntil(context, PageTransition(child: const DashBoard(), type: PageTransitionType.topToBottom,duration: const Duration(milliseconds: 800),childCurrent: this), (route) => false);
                   },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),

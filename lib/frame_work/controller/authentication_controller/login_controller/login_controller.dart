@@ -73,11 +73,11 @@ class LoginController  extends ChangeNotifier{
 
   Future<CheckUserExistModel> checkUserRegistered(String number) async{
     try{
-      debugPrint(number);
-      debugPrint(selectedCountry.phoneCode);
+      print(number);
+      print(selectedCountry.phoneCode);
       Response response = await DioClient.client.getData("${APIEndPoint.checkUserExisting}${selectedCountry.phoneCode}$number");
       if(response.statusCode == 200){
-        debugPrint(response.data);
+        print(response.data);
         CheckUserExistModel checkUserExistModel = CheckUserExistModel.fromJson(response.data);
         return CheckUserExistModel(status: checkUserExistModel.status);
       }else{
@@ -89,7 +89,7 @@ class LoginController  extends ChangeNotifier{
     }
   }
 
-  ///----------------------------- Check for user exist or not ----------------------------------------///
+///----------------------------- Check for user exist or not ----------------------------------------///
 
 
 }

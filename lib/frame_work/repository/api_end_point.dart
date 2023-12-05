@@ -10,4 +10,5 @@ class APIEndPoint{
   static const String  getLocationsList = '/city/cities';
   static const String  splashUpdateApp = '/update_app/get_latest_app_version_code?iUserId=0';
   static const String  checkUserExisting = '/signin/check_user_existing?mobile=%2B';
+  static const String  loginApi = '/signin/login';
 }

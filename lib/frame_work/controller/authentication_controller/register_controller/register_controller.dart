@@ -1,5 +1,7 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
+import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/check_user_exist_model/check_user_exist_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/authentication/login/login.dart';
@@ -13,10 +15,11 @@ import 'package:page_transition/page_transition.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
 
-final registerController = ChangeNotifierProvider((ref) => RegisterController());
+final registerController = ChangeNotifierProvider((ref) => RegisterController(ref));
 
 class RegisterController extends ChangeNotifier{
-
+    final Ref ref;
+    RegisterController(this.ref);
   final GlobalKey<FormState> registerKey = GlobalKey();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -58,6 +61,7 @@ class RegisterController extends ChangeNotifier{
         if(isCheck){
             final status = await checkUserRegistered(phoneNumberController.text);
             if(status.status == 404){
+              ref.read(recruiterRegisterProfileDetailsController).assignRegisterData(phone: phoneNumberController.text, firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
               if(context.mounted) {
                 Navigator.push(context, PageTransition(
                     child:  RegisterOTP(phoneNumber: "+${selectedCountry.phoneCode}${phoneNumberController.text}",),

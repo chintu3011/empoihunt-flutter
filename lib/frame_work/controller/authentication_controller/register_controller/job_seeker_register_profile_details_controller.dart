@@ -4,6 +4,9 @@ import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../../repository/api_end_point.dart';
+import '../../../repository/dio_client.dart';
+
 final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController());
 
 class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
@@ -360,6 +363,51 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
 
   ///---------------- register Submit button -----------------///
+
+
+  ///----------------- Register Api ----------------------////
+
+  registerApiCall(){
+    try{
+      // DioClient.client.postData(APIEndPoint.registerUserApi,
+      //     {
+      //       "iRole":1,
+      //       "vFirebaseId":"required",
+      //       "vMobile":"required",
+      //       "vDeviceId":"",
+      //       "vDeviceType":"",
+      //       "vOSVersion":"",
+      //       "tDeviceToken":"",
+      //       "tDeviceName":"",
+      //       "vFirstName":"",
+      //       "vLastName":"",
+      //       "vEmail":"",
+      //       "tBio":"",
+      //       "vCity":"",
+      //       "vCurrentCompany":"",
+      //       "vDesignation":"",
+      //       "vJobLocation":"",
+      //       "vDuration":"",
+      //       "vPreferCity":"",
+      //       "vPreferJobTitle":"",
+      //       "vQualification":"",
+      //       "vWorkingMode":"",
+      //       "tTagLine":"",
+      //       "fbid":"",
+      //       "googleid":"",
+      //       "tLatitude":"",
+      //       "tLongitude":"",
+      //       "tAppVersion":""
+      //
+      //     });
+    }catch (e){
+      Future.error(e);
+    }
+  }
+
+  ///----------------- Register Api ----------------------////
+
+
   @override
   void notifyListeners() {
     super.notifyListeners();

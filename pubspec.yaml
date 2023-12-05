@@ -55,6 +55,7 @@ dependencies:
   showcaseview: ^2.0.3
   fluttertoast: ^8.2.4
 
+
   # Device info
   device_info_plus:
   package_info_plus:
@@ -62,7 +63,7 @@ dependencies:
   #Fire base
   firebase_core:
   firebase_auth:
-
+  firebase_messaging: ^14.7.6
   #Local Storage
   shared_preferences: ^2.2.2
   hive:

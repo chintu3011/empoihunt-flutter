@@ -54,7 +54,7 @@ class RegisterOtpController extends ChangeNotifier{
   }
 
 
-
+  String uid ="";
   Future verifyOtp(
       {required BuildContext context,required int selectedUserType,Widget? childCurrent}) async {
     isLoading = true;
@@ -63,6 +63,7 @@ class RegisterOtpController extends ChangeNotifier{
     if (response.user != null) {
       notifyListeners();
       isLoading = false;
+      uid = response.user!.userId;
       debugPrint("Verified user phone -------> ${response.user!.userPhone}");
         if(context.mounted){
       if(selectedUserType == 0){

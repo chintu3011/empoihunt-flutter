@@ -100,7 +100,8 @@ class LoginOtpController extends ChangeNotifier{
        debugPrint("Android Device Version ----->${data!.deviceVersion}");
        debugPrint("Android Device ID -----> ${data.deviceId}");
        debugPrint("Android Device name -----> ${data.deviceName}");
-       Response response = await DioClient.client.postData(APIEndPoint.loginApi,
+
+       Response response = await DioClient.client.postDataWithJson(APIEndPoint.loginApi,
            {
              "vMobile": number,
              "vDeviceId": data.deviceId,

@@ -3,6 +3,7 @@
 
   const String onBoardingKey = "onBoardingKey";
   const String locationKey = "locationKey";
+  const String fcmTokenKey = "fcmTokenKey";
   const String privacyPolicyStringKey = "privacyPolicyStringKey";
   const String  termsAndConditionStringKey = "ConditionStringKey";
 

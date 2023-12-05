@@ -9,7 +9,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
@@ -20,8 +20,13 @@ Future<void> main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+
   ///--------- initialize Share preference --------///
   await SharedPrefServices.services.init();
+  SharedPrefServices.services.setString(fcmTokenKey, fcmToken!);
+  print("FCM Token ${SharedPrefServices.services.getString(fcmTokenKey)}");
 
   /// ------- Hive open Box Service ---------///
   registerHiveAdapters();

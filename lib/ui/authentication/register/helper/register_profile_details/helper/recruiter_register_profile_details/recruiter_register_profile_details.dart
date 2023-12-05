@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/recruiter_register_profile_details/helper/recruiter_register_profile_details_appbar.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_loading.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -31,15 +32,18 @@ class _RegisterProfileDetailsState extends ConsumerState<RecruiterRegisterProfil
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
-    return const Scaffold(
-      backgroundColor:  Colors.white,
-      appBar: RecruiterRegisterProfileDetailsAppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-                  RecruiterRegisterProfileDetailsBackGround(),
-            ],
+    return CommonLoading(
+      show: ref.watch(recruiterRegisterProfileDetailsController).isLoading,
+      child: const Scaffold(
+        backgroundColor:  Colors.white,
+        appBar: RecruiterRegisterProfileDetailsAppBar(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                    RecruiterRegisterProfileDetailsBackGround(),
+              ],
+            ),
           ),
         ),
       ),

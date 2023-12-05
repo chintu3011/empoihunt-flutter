@@ -9,9 +9,14 @@ class DioClient{
   BaseOptions baseUrl = BaseOptions(baseUrl: APIEndPoint.baseUrl);
   static Dio dio =Dio();
 
-  Future postData(String endpoint, Map<String, dynamic> requestBody) async{
+  Future postDataWithJson(String endpoint, Map<String, dynamic> requestBody) async{
   dio.options = baseUrl;
   return dio.post(endpoint, data: jsonEncode(requestBody));
+  }
+
+  Future postDataWithForm(String endpoint, {required FormData formData}) async{
+    dio.options = baseUrl;
+    return dio.post(endpoint, data: formData);
   }
 
   Future getData(String endpoint)async{

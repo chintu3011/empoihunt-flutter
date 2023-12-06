@@ -14,10 +14,11 @@ class APIEndPoint{
   static const String  registerUserApi = '/signin/register_user';
 
 
-
   ///------------------------------------- job seeker ------------------------------///
 
   static const String  jobPostApi = '/job/jobs?iJobPreferenceId=0&current_page=1';
+  static const String  jobAppliedApi = '/job/jobs?jobId=';
+  static const String  saveJobApi = '/job/save?jobId=';
 
 ///------------------------------------- job seeker ------------------------------///
 }

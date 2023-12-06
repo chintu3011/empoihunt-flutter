@@ -31,10 +31,23 @@ class JobDetails extends ConsumerWidget {
               ),
             ),
           ),
+
+          jobDetail.iIsApplied == 1?
+          CommonButton(
+            btnText: "Already Applied",
+            fontSize: 16.sp,
+            onPressed: null,
+            txtPadding: EdgeInsets.symmetric(horizontal: 80.w, vertical: 10.h),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.r)),
+            backgroundColor: const Color(0xff85AFA6),
+          ):
           CommonButton(
             btnText: "Apply",
             fontSize: 16.sp,
-            onPressed: () {},
+            onPressed: () {
+              jobDetailsWatch.appliedApi(jobDetail.id.toString(), context, jobDetail.vCompanyName!);
+            },
             txtPadding: EdgeInsets.symmetric(horizontal: 120.w, vertical: 10.h),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.r)),

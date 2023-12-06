@@ -1,6 +1,6 @@
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
@@ -36,6 +36,7 @@ class _SettingState extends ConsumerState<Setting> {
   @override
   Widget build(BuildContext context) {
     final settingWatch = ref.watch(settingController);
+    final userRoleWatch = ref.watch(chooseUserRoleController);
     return  Scaffold(
       appBar: CommonAppBar(title: "Settings",actions: [ IconButton(onPressed: (){
         showModalBottomSheet(
@@ -67,17 +68,17 @@ class _SettingState extends ConsumerState<Setting> {
             ),
             SizedBox(height: 25.h,),
             ...List.generate(
-              userRole == 0?
+                userRoleWatch.userRole == 0?
                 settingWatch.seekerSettingList.length:
                   settingWatch.recruiterSettingList.length
                 , (index) {
-              final setting = userRole ==0? settingWatch.seekerSettingList[index] : settingWatch.recruiterSettingList[index];
+              final setting = userRoleWatch.userRole ==0? settingWatch.seekerSettingList[index] : settingWatch.recruiterSettingList[index];
               return  Container(
                 margin: EdgeInsets.only(bottom: 8.h),
                 height: 45.h,
                 child: ListTile(
                   onTap: (){
-                    if(userRole == 0){
+                    if(userRoleWatch.userRole == 0){
                     settingWatch.seekerNavigatingToList(index, context);
                     }else{
                       settingWatch.recruiterNavigatingToList(index, context);

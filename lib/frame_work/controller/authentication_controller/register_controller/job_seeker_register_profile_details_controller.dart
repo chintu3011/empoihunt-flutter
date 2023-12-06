@@ -5,10 +5,12 @@ import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../../../ui/utils/app_constant.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
+import '../../../repository/model/user_model/user_detail_data_model.dart';
 import '../../../repository/services/hive_service/box_service.dart';
 import '../../../repository/services/shared_pref_services.dart';
 
@@ -405,6 +407,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     final deviceData =
     BoxService.boxService.nativeDeviceBox.get(deviceDetailKey)!;
     print("FCM Token------->${SharedPrefServices.services.getString(fcmTokenKey)}");
+    notifyListeners();
     print(uid);
     try {
       FormData formData = FormData.fromMap({
@@ -412,17 +415,20 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
         "resume":await MultipartFile.fromFile(pdfUrl!, filename: pdfName),
       });
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text??""}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
+          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text??""}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;
-        if (context.mounted) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const DashBoard()),
-                  (route) => false);
+        UserDetailDataModel user = UserDetailDataModel.fromJson(response.data["data"]);
+        BoxService.boxService.addUserDetailToHive(userDetailKey, UserDetailDataModel(tAuthToken: user.tAuthToken, iUserId: user.iUserId, tDeviceToken: user.tDeviceToken, user: user.user));
+        await SharedPrefServices.services.setBool(isUserLoggedIn, true);
+        if(context.mounted){
+          Navigator.pushAndRemoveUntil(context, PageTransition(
+              child: const DashBoard(),
+              type: PageTransitionType.rightToLeft,
+              duration: const Duration(milliseconds: 300)), (route) => false);
         }
-        print("Succesfully register");
+        debugPrint("Successfully register");
       }
     } catch (e) {
       isLoading = false;

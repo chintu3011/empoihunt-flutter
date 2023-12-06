@@ -48,7 +48,7 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("+91886649266 ",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),),
+                      Text("+91${widget.number} ",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),),
                       Text("Change phone number?",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors,decoration: TextDecoration.underline,decorationColor: AppColors.colors.blueColors),),
                     ],
                   ),

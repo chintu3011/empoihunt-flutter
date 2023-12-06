@@ -5,9 +5,10 @@ import 'package:emploiflutter/ui/profile/helper/profile_experience_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_qualification_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_resume_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_user_detail_tile.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+
+import '../../frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 
 class ProfileUserDetails extends ConsumerWidget {
   const ProfileUserDetails({super.key});
@@ -15,6 +16,8 @@ class ProfileUserDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final profileWatch = ref.watch(profileController);
+    final userRoleWatch = ref.watch(chooseUserRoleController);
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -31,23 +34,23 @@ class ProfileUserDetails extends ConsumerWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 4.w),
-            child: const Column(
+            child:  Column(
               children: [
 
                 /// User Details///
-                ProfileUserDetailTile(),
+                const ProfileUserDetailTile(),
 
                 /// User About Section ///
-                ProfileAboutTile(),
+                const ProfileAboutTile(),
 
                 ///User Qualification ///
-                ProfileQualificationTile(),
+                const ProfileQualificationTile(),
 
                 ///User Experience OR User Current Position ///
-                userRole == 0? ProfileExperienceTile() : ProfileCurrentPositionTile(),
+                userRoleWatch.userRole == 0? const ProfileExperienceTile() : const ProfileCurrentPositionTile(),
 
                 /// User Resume ////
-               userRole == 0? ProfileResumeTile(): SizedBox()
+                userRoleWatch.userRole == 0? const ProfileResumeTile(): const SizedBox()
               ],
             ),
           ),

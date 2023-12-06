@@ -101,7 +101,7 @@ class UserDetailsDialogBox extends ConsumerWidget {
 
 
                       CommonDropDownFormField(
-                        items: SharedPrefServices.services.getList(locationKey)??["No Data"],
+                        items: SharedPrefServices.services.getList(locationListKey)??["No Data"],
                         searchController: profileWatch.jobLocationSearchController,
                         onChanged: (value) {
                           profileWatch.updateSelectedJobLocation(value);

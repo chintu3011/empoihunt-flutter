@@ -1,11 +1,12 @@
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:hive/hive.dart';
 
 class BoxService{
   late Box<NativeDeviceDetailModel> nativeDeviceBox;
-  late Box<UserGetDetailModel> userGetDetailBox;
+  late Box<UserDetailDataModel> userGetDetailBox;
+  late Box<UserModel> userModelBox;
 
   BoxService._private();
   static BoxService boxService = BoxService._private();
@@ -17,9 +18,10 @@ class BoxService{
     // await boxNote.add(userNote);
   }
 
-  Future<void> addUserDetailToHive(dynamic key,UserGetDetailModel userDetails)async{
+  Future<void> addUserDetailToHive(dynamic userDetailDataKey,UserDetailDataModel userDetails)async{
     //this will add data to the hive with specific key
-    await userGetDetailBox.put(key,userDetails);
+    await userGetDetailBox.put(userDetailDataKey,userDetails);
+    // await userModelBox.put(userModelKey, userDetails.user);
     //this will add data to hive and it will automatically generate key value of that
     // await boxNote.add(userNote);
   }
@@ -35,7 +37,10 @@ class BoxService{
     await nativeDeviceBox.putAt(key, deviceDetail);
   }
 
-
+  Future<void> clearAllBoxes() async {
+    await userGetDetailBox.clear();
+    await userModelBox.clear();
+  }
   // List<UserNote> searchUserNotes(String query){
   //     return boxNote.values.toList().where((note) => note.title.toLowerCase().contains(query.toLowerCase())).toList();
   // }

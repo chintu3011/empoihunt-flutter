@@ -3,9 +3,11 @@
 import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/splash/splashmodel.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -18,10 +20,12 @@ import '../../repository/dio_client.dart';
 import '../../repository/services/shared_pref_services.dart';
 
 
-final splashController = ChangeNotifierProvider((ref) => SplashController());
+final splashController = ChangeNotifierProvider((ref) => SplashController(ref));
 
 
 class SplashController extends ChangeNotifier{
+  Ref ref;
+  SplashController(this.ref);
 
   Future getAppVersion() async {
     debugPrint("getAppversion call");
@@ -49,12 +53,12 @@ class SplashController extends ChangeNotifier{
           ///-------------- get current application version ---------------////
           int currentAppVersion = int.parse(packageInfo.buildNumber);
           debugPrint("project version $currentAppVersion");
-          checkUserOpenAppFirstTime(context);
+            await userAuthenticatedOrNot(context);
             // if(data.isBlock == 0){
             //   print(data.isBlock);
             //   if(currentAppVersion == updatedVersion){
             //     Future.delayed(const Duration(seconds: 2),() {
-            //       checkUserOpenAppFirstTime(context);
+            //       userAuthenticatedOrNot(context);
             //     },);
             //   }else{
             //     showModalBottomSheet(
@@ -82,7 +86,24 @@ class SplashController extends ChangeNotifier{
     }
   }
   ///------------------------------- Version Update call Api -----------------------------////
+  userAuthenticatedOrNot(BuildContext context){
+    bool value = SharedPrefServices.services.getBool(isUserLoggedIn);
+    print("is log in -----> $value");
 
+
+    if(value){
+      final user  = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
+      print(user.iRole);
+      ref.watch(chooseUserRoleController).updateSelectedUserType(user.iRole);
+      Navigator.pushAndRemoveUntil(context, PageTransition(
+          child: const DashBoard(),
+          type: PageTransitionType.rightToLeft,
+          duration: const Duration(milliseconds: 300)), (route) => false);
+    }else{
+      checkUserOpenAppFirstTime(context);
+    }
+    notifyListeners();
+  }
 
   ///--------------- on boarding Check --------------////
   checkUserOpenAppFirstTime(BuildContext context){

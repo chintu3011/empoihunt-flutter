@@ -1,45 +1,9 @@
 import 'package:hive/hive.dart';
 
-part 'user_detail_model.g.dart';
+part 'user_detail_data_model.g.dart';
 
 @HiveType(typeId: 2)
-class UserGetDetailModel extends HiveObject {
-  @HiveField(0)
-  int status;
-
-  @HiveField(1)
-  String message;
-
-  @HiveField(2)
-  Data data;
-
-  UserGetDetailModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
-
-  // Factory method to create a UserGetDetailModel from JSON
-  factory UserGetDetailModel.fromJson(Map<String, dynamic> json) {
-    return UserGetDetailModel(
-      status: json['status'],
-      message: json['message'],
-      data: Data.fromJson(json['data']),
-    );
-  }
-
-  // Method to convert UserGetDetailModel to JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'message': message,
-      'data': data.toJson(),
-    };
-  }
-}
-
-@HiveType(typeId: 3)
-class Data extends HiveObject {
+class UserDetailDataModel extends HiveObject {
   @HiveField(0)
   String tAuthToken;
 
@@ -50,9 +14,9 @@ class Data extends HiveObject {
   String tDeviceToken;
 
   @HiveField(3)
-  User user;
+  UserModel user;
 
-  Data({
+  UserDetailDataModel({
     required this.tAuthToken,
     required this.iUserId,
     required this.tDeviceToken,
@@ -60,12 +24,12 @@ class Data extends HiveObject {
   });
 
   // Factory method to create a Data from JSON
-  factory Data.fromJson(Map<String, dynamic> json) {
-    return Data(
+  factory UserDetailDataModel.fromJson(Map<String, dynamic> json) {
+    return UserDetailDataModel(
       tAuthToken: json['tAuthToken'],
       iUserId: json['iUserId'],
       tDeviceToken: json['tDeviceToken'],
-      user: User.fromJson(json['user']),
+      user: UserModel.fromJson(json['user']),
     );
   }
 
@@ -80,8 +44,8 @@ class Data extends HiveObject {
   }
 }
 
-@HiveType(typeId: 4)
-class User extends HiveObject {
+@HiveType(typeId: 3)
+class UserModel extends HiveObject {
   @HiveField(0)
   String vFirstName;
 
@@ -152,12 +116,12 @@ class User extends HiveObject {
   String? tProfileBannerUrl;
 
   @HiveField(23)
-  String tUpadatedAt;
+  String? tUpadatedAt;
 
   @HiveField(24)
   String? vDesignation;
 
-  User({
+  UserModel({
     required this.vFirstName,
      this.vJobLocation,
      this.tResumeUrl,
@@ -181,13 +145,13 @@ class User extends HiveObject {
     required this.iRole,
      this.vCurrentCompany,
      this.tProfileBannerUrl,
-    required this.tUpadatedAt,
+     this.tUpadatedAt,
      this.vDesignation,
   });
 
   // Factory method to create a User from JSON
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       vFirstName: json['vFirstName'],
       vJobLocation: json['vJobLocation'],
       tResumeUrl: json['tResumeUrl'],

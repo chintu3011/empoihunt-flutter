@@ -1,19 +1,26 @@
 
+import 'package:emploiflutter/frame_work/controller/dash_board_controller/dash_board_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/authentication/auth_intro.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:page_transition/page_transition.dart';
 
-class SettingBottomSheet extends StatefulWidget{
+class SettingBottomSheet extends ConsumerStatefulWidget{
   const SettingBottomSheet({super.key});
 
   @override
-  State<SettingBottomSheet> createState() => _SettingBottomSheetState();
+  ConsumerState<SettingBottomSheet> createState() => _SettingBottomSheetState();
 }
 
-class _SettingBottomSheetState extends State<SettingBottomSheet> with SingleTickerProviderStateMixin {
+class _SettingBottomSheetState extends ConsumerState<SettingBottomSheet> with SingleTickerProviderStateMixin {
 
   late AnimationController logoutController;
 
@@ -52,8 +59,21 @@ class _SettingBottomSheetState extends State<SettingBottomSheet> with SingleTick
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CommonButton(btnText: "Yes", onPressed: (){},backgroundColor: AppColors.colors.blueColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h)),
-              CommonButton(btnText: "No", onPressed: (){},backgroundColor: AppColors.colors.whiteColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r),side: BorderSide(color: AppColors.colors.blueColors)),textColor: AppColors.colors.blueColors,fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),onPrimary: Colors.grey,),
+              CommonButton(btnText: "Yes", onPressed: ()async{
+
+                await BoxService.boxService.clearAllBoxes();
+                ref.watch(dashBoardController).otherWidgetAllowToNavigate(0);
+                SharedPrefServices.services.setBool(isUserLoggedIn, false);
+                if(context.mounted) {
+                  Navigator.pushAndRemoveUntil(context, PageTransition(
+                    child: const AuthIntro(),
+                    type: PageTransitionType.bottomToTopJoined,
+                    childCurrent: widget,), (route) => false);
+                }
+              },backgroundColor: AppColors.colors.blueColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h)),
+              CommonButton(btnText: "No", onPressed: (){
+                context.pop();
+              },backgroundColor: AppColors.colors.whiteColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r),side: BorderSide(color: AppColors.colors.blueColors)),textColor: AppColors.colors.blueColors,fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),onPrimary: Colors.grey,),
             ],
           )
         ],

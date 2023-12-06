@@ -18,7 +18,7 @@ class AuthIntroController extends ChangeNotifier{
         LocationListModel locationList = LocationListModel.fromJson(response.data);
         if(locationList.status == 200){
           // print(locationList.data);
-           await SharedPrefServices.services.setList(locationKey, locationList.data!);
+           await SharedPrefServices.services.setList(locationListKey, locationList.data!);
            // print(SharedPrefServices.services.getList(locationKey));
         }
       }else{

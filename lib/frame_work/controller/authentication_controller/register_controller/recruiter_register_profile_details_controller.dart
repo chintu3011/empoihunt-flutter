@@ -10,6 +10,9 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../../repository/model/user_model/user_detail_data_model.dart';
 
 final recruiterRegisterProfileDetailsController = ChangeNotifierProvider(
     (ref) => RecruiterRegisterProfileDetailsController(ref));
@@ -226,11 +229,14 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;
-        if (context.mounted) {
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (_) => const DashBoard()),
-              (route) => false);
+        UserDetailDataModel user = UserDetailDataModel.fromJson(response.data["data"]);
+        BoxService.boxService.addUserDetailToHive(userDetailKey, UserDetailDataModel(tAuthToken: user.tAuthToken, iUserId: user.iUserId, tDeviceToken: user.tDeviceToken, user: user.user));
+        await SharedPrefServices.services.setBool(isUserLoggedIn, true);
+        if(context.mounted){
+          Navigator.pushAndRemoveUntil(context, PageTransition(
+              child: const DashBoard(),
+              type: PageTransitionType.rightToLeft,
+              duration: const Duration(milliseconds: 300)), (route) => false);
         }
         print("Succesfully register");
       }

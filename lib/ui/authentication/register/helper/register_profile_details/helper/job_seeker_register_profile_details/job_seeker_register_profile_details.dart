@@ -1,6 +1,7 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/helper/job_seeker_register_profile_details_appbar.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/helper/job_seeker_register_profile_details_backrgound.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_loading.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -33,15 +34,18 @@ class _RegisterProfileDetailsState extends ConsumerState<JobSeekerRegisterProfil
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
-    return const Scaffold(
-      backgroundColor:  Colors.white,
-      appBar: JobSeekerRegisterProfileDetailsAppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-                  JobSeekerRegisterProfileDetailsBackGround(),
-            ],
+    return CommonLoading(
+      show: ref.watch(jobSeekerRegisterProfileDetailsController).isLoading,
+      child: const Scaffold(
+        backgroundColor:  Colors.white,
+        appBar: JobSeekerRegisterProfileDetailsAppBar(),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                    JobSeekerRegisterProfileDetailsBackGround(),
+              ],
+            ),
           ),
         ),
       ),

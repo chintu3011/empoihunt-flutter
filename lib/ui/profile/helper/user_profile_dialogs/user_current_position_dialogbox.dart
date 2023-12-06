@@ -51,7 +51,7 @@ class UserCurrentPositionDialogBox extends ConsumerWidget {
                         hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.leave_bags_at_home_sharp,color: AppColors.colors.blueColors,),),
                       SizedBox(height: 20.h,),
                       CommonDropDownFormField(
-                        items: SharedPrefServices.services.getList(locationKey)??["No data"],
+                        items: SharedPrefServices.services.getList(locationListKey)??["No data"],
                         searchController: profileWatch.userCurrentPosSearchJobLocationController,
                         onChanged: (value) {
                           profileWatch.updateUserCurrentPosSearchJobLocationController(value);

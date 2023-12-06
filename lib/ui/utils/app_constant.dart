@@ -2,10 +2,11 @@
 ///------------ Shared Preference Keys ----------///
 
   const String onBoardingKey = "onBoardingKey";
-  const String locationKey = "locationKey";
+  const String locationListKey = "locationKey";
   const String fcmTokenKey = "fcmTokenKey";
   const String privacyPolicyStringKey = "privacyPolicyStringKey";
   const String  termsAndConditionStringKey = "ConditionStringKey";
+  const String  isUserLoggedIn = "isUserLoggedInKey";
 
 ///------------ Shared Preference Keys ----------///
 
@@ -19,6 +20,7 @@
 
   ///---------- User Detail Box -------///
   const String  userDetailsBox = "userDetailsBoxKey";
+  const String  userModel = "userModelBoxKey";
   ////keys
   const String userDetailKey = "nativeDeviceDetailsKey";
 
@@ -32,7 +34,7 @@
 
 
 //// 0 job Seeker, 1 Recruiter
-const userRole = 1;
+// int userRole = 1;
 
 
 class FilterMode{

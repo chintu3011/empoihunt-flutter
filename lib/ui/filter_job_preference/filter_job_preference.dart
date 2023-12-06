@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import '../utils/theme/text_styles.dart';
 
 
@@ -27,10 +28,12 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
   @override
   Widget build(BuildContext context) {
     final filterJobPrefWatch = ref.watch(filterJobPreferenceController);
+    final userRoleWatch = ref.watch(chooseUserRoleController);
+
     return  Scaffold(
       appBar:  CommonAppBar(title: "Filter Job Preference",isLeadingShow: true,actions: [IconButton(onPressed: (){}, icon: Icon(Icons.check,color: AppColors.colors.blackColors,))],),
       body: DefaultTabController(
-        length:userRole==0? 4 : 3,
+        length:userRoleWatch.userRole ==0? 4 : 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,7 +67,7 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
                   indicatorColor: AppColors.colors.clayColors,
                   labelColor: AppColors.colors.clayColors,
                   unselectedLabelColor: AppColors.colors.blackColors,
-                  tabs:  userRole ==0?
+                  tabs:  userRoleWatch.userRole  ==0?
                   [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Domain"))),
                     Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Location"))),
                     Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Mode"))),
@@ -79,12 +82,12 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
               const Spacer()
             ],
           ),
-             const Expanded(
+              Expanded(
               child: SizedBox(
                 child: TabBarView(
-                    children: userRole ==0?
-                    [DomainFilter(), LocationFilter(), ModeFilter(), PackageFilter()]:
-                    [DomainFilter(), LocationFilter(), ModeFilter(),]
+                    children: userRoleWatch.userRole  ==0?
+                    [const DomainFilter(), const LocationFilter(), const ModeFilter(), const PackageFilter()]:
+                    [const DomainFilter(), const LocationFilter(), const ModeFilter(),]
                 ),
               ),
             )

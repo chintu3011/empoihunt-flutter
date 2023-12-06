@@ -1,5 +1,5 @@
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
@@ -22,17 +22,17 @@ Future<void> main() async{
   );
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   final fcmToken = await FirebaseMessaging.instance.getToken();
-
   ///--------- initialize Share preference --------///
   await SharedPrefServices.services.init();
-  SharedPrefServices.services.setString(fcmTokenKey, fcmToken!);
+  await SharedPrefServices.services.pref.setString(fcmTokenKey,fcmToken!);
   print("FCM Token ${SharedPrefServices.services.getString(fcmTokenKey)}");
 
   /// ------- Hive open Box Service ---------///
   registerHiveAdapters();
   await Hive.initFlutter();
   BoxService.boxService.nativeDeviceBox = await Hive.openBox<NativeDeviceDetailModel>(nativeDeviceDetailsBox);
-  BoxService.boxService.userGetDetailBox = await Hive.openBox<UserGetDetailModel>(userDetailsBox);
+  BoxService.boxService.userGetDetailBox = await Hive.openBox<UserDetailDataModel>(userDetailsBox);
+  BoxService.boxService.userModelBox = await Hive.openBox<UserModel>(userModel);
   runApp(const ProviderScope(child: MyApp()));
 
 }

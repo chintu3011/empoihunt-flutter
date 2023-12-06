@@ -23,4 +23,9 @@ class DioClient{
     dio.options = baseUrl;
     return dio.get(endpoint);
   }
+  Future getDataWithBearerToken(String endpoint,Options options)async{
+    dio.options = baseUrl;
+    return dio.get(endpoint,options: options);
+  }
+
 }

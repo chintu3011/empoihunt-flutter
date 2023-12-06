@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_banner_image_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_current_position_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_experience_dialogbox.dart';
@@ -7,13 +8,15 @@ import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_detail
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_profile_image_change_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_qualification_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_resume_dialogbox.dart';
-import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 
-final profileController = ChangeNotifierProvider((ref) => ProfileController());
+final profileController = ChangeNotifierProvider((ref) => ProfileController(ref));
 
 class ProfileController extends ChangeNotifier {
+  Ref ref;
+  ProfileController(this.ref);
+
   bool isDialogShow = false;
   int dialogValue = 0;
 
@@ -127,6 +130,7 @@ class ProfileController extends ChangeNotifier {
 
   /// ------------ for Job Seeker ------------///
   jobSeekerShowDialogs() {
+    final userRoleWatch = ref.watch(chooseUserRoleController);
     if (dialogValue == 0) {
       return const UserBannerImageDialogBox();
     } else if (dialogValue == 1) {
@@ -138,7 +142,7 @@ class ProfileController extends ChangeNotifier {
     } else if (dialogValue == 4) {
       return const UserQualificationDialogBox();
     }else if(dialogValue == 5){
-      return userRole == 0? const UserExperienceDialogBox() : const UserCurrentPositionDialogBox();
+      return userRoleWatch.userRole  == 0? const UserExperienceDialogBox() : const UserCurrentPositionDialogBox();
     }else if(dialogValue == 6){
       return const UserResumeDialogBox();
     }

@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_auth_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
@@ -64,16 +65,13 @@ class LoginOtpController extends ChangeNotifier{
     final response = await FirebaseAuthService.firebaseAuthService
         .verifyOtp(verificationId: verId, smsCode: otpController.text);
     if (response.user != null) {
-      await userDetailGetApi(number);
+      if(context.mounted){
+      await userDetailGetApi(number,context);
+      }
       notifyListeners();
       isLoading = false;
       debugPrint("Logged in user phone-------> ${response.user!.userPhone}");
-        if(context.mounted){
-        Navigator.pushAndRemoveUntil(context, PageTransition(
-            child: const DashBoard(),
-            type: PageTransitionType.rightToLeft,
-            duration: const Duration(milliseconds: 300)), (route) => false);
-        }
+
     } else {
       if (context.mounted) {
         isLoading= false;
@@ -90,7 +88,7 @@ class LoginOtpController extends ChangeNotifier{
 
   ///----------------------------- get user data and store in hive storage ---------------------///
 
-    Future userDetailGetApi(String number) async{
+    Future userDetailGetApi(String number,BuildContext context) async{
      isLoading = true;
 
      final data = BoxService.boxService.nativeDeviceBox.get(deviceDetailKey);
@@ -112,14 +110,24 @@ class LoginOtpController extends ChangeNotifier{
            });
        if(response.statusCode == 200){
          isLoading= false;
-         UserGetDetailModel user = UserGetDetailModel.fromJson(response.data);
-         BoxService.boxService.addUserDetailToHive(userDetailKey, UserGetDetailModel(status: user.status, message: user.message, data: user.data));
-         print(BoxService.boxService.userGetDetailBox.get(userDetailKey)!.data.user.tUpadatedAt);
-         print(response.data);
+         // print(response.data["data"]);
+         otpController.clear();
+         UserDetailDataModel user = UserDetailDataModel.fromJson(response.data["data"]);
+         await SharedPrefServices.services.setBool(isUserLoggedIn, true);
+         BoxService.boxService.addUserDetailToHive(userDetailKey, UserDetailDataModel(tAuthToken: user.tAuthToken, iUserId: user.iUserId, tDeviceToken: user.tDeviceToken, user: user.user));
+         // print(BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.tUpadatedAt);
+         if(context.mounted){
+           Navigator.pushAndRemoveUntil(context, PageTransition(
+               child: const DashBoard(),
+               type: PageTransitionType.rightToLeft,
+               duration: const Duration(milliseconds: 300)), (route) => false);
+         }
        }
      }catch (e){
        isLoading = false;
        Future.error(e);
+       otpController.clear();
+       notifyListeners();
      }
     notifyListeners();
     }

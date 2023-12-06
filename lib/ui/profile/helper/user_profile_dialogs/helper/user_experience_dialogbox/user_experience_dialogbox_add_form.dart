@@ -48,7 +48,7 @@ class _UserExperienceDialogBoxAddFormState extends ConsumerState<UserExperienceD
               hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
             SizedBox(height: 20.h,),
             CommonDropDownFormField(
-              items: SharedPrefServices.services.getList(locationKey)??["No data"],
+              items: SharedPrefServices.services.getList(locationListKey)??["No data"],
               searchController: profileWatch.userExperienceAddSearchJobLocationFieldController,
               onChanged: (value) {
                 profileWatch.updateUserExperienceAddSelectedJobLocation(value);

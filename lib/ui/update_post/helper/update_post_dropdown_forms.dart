@@ -28,7 +28,7 @@ class UpdatePostDropDownForms extends ConsumerWidget {
           height: 10.h,
         ),
         CommonDropDownFormField(
-          items: SharedPrefServices.services.getList(locationKey)??["No data"],
+          items: SharedPrefServices.services.getList(locationListKey)??["No data"],
           searchController: updatePostWatch.jobLocationSearchController,
           onChanged: (value) {
             updatePostWatch.updateSelectedJobLocation(value);

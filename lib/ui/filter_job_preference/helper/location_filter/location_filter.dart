@@ -14,14 +14,14 @@ class LocationFilter extends ConsumerWidget {
           spacing: 8,
           runSpacing: 3,
           children: [
-            if (SharedPrefServices.services.getList(locationKey) !=null )
+            if (SharedPrefServices.services.getList(locationListKey) !=null )
             ...List.generate(
                 growable: true,
-                SharedPrefServices.services.getList(locationKey)!.length,
+                SharedPrefServices.services.getList(locationListKey)!.length,
                 // filterJobPrefWatch.domainList.length,
                     (index) {
                   // final filter = filterJobPrefWatch.domainList[index];
-                  final filter = SharedPrefServices.services.getList(locationKey)![index];
+                  final filter = SharedPrefServices.services.getList(locationListKey)![index];
                   return FilterChip(
                     label: Text(filter),
                     onSelected: (selected) {

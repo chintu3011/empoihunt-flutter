@@ -69,7 +69,7 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                       height: 25.h,
                     ),
                     CommonDropDownFormField(
-                      items: SharedPrefServices.services.getList(locationKey)??["No data"],
+                      items: SharedPrefServices.services.getList(locationListKey)??["No data"],
                       searchController: registerProfileDetailsWatch
                           .jobLocationSearchController,
                       onChanged: (value) {

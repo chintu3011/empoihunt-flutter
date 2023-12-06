@@ -63,8 +63,8 @@ class RegisterController extends ChangeNotifier{
             final status = await checkUserRegistered(phoneNumberController.text);
             if(status.status == 404){
               /// assign data for register api call ///
-              ref.read(recruiterRegisterProfileDetailsController).assignRegisterData(phone: phoneNumberController.text, firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
-              ref.read(jobSeekerRegisterProfileDetailsController).assignRegisterData(phone: phoneNumberController.text, firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
+              ref.read(recruiterRegisterProfileDetailsController).assignRegisterData(phone: "${selectedCountry.phoneCode}${phoneNumberController.text}", firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
+              ref.read(jobSeekerRegisterProfileDetailsController).assignRegisterData(phone: "${selectedCountry.phoneCode}${phoneNumberController.text}", firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
               /// assign data for register api call ///
               if(context.mounted) {
                 Navigator.push(context, PageTransition(
@@ -108,7 +108,7 @@ class RegisterController extends ChangeNotifier{
   ///------------- btw i called api on authIntro screen and Stored in share preference -----///
   List<String> checkCity(String query){
     query = query.toUpperCase().trim();
-    return SharedPrefServices.services.getList(locationKey)!.where((city) => city.toUpperCase().trim().contains(query)).toList();
+    return SharedPrefServices.services.getList(locationListKey)!.where((city) => city.toUpperCase().trim().contains(query)).toList();
   }
 
 

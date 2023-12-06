@@ -4,10 +4,11 @@ final chooseUserRoleController = ChangeNotifierProvider((ref) => ChooseUserRoleC
 
 class ChooseUserRoleController extends ChangeNotifier{
 
-  int? selectedUserType;
+  int userRole = 0;
   updateSelectedUserType(int role){
-    selectedUserType = role;
-    debugPrint("UserRole-->>>>> $selectedUserType");
+    userRole = role;
+    debugPrint("UserRole-->>>>> $userRole");
     notifyListeners();
   }
+
 }

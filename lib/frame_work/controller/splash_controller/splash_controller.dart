@@ -102,7 +102,6 @@ class SplashController extends ChangeNotifier{
     }else{
       checkUserOpenAppFirstTime(context);
     }
-    notifyListeners();
   }
 
   ///--------------- on boarding Check --------------////
@@ -145,5 +144,10 @@ class SplashController extends ChangeNotifier{
     }
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
 }

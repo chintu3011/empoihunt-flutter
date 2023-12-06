@@ -12,4 +12,12 @@ class APIEndPoint{
   static const String  checkUserExisting = '/signin/check_user_existing?mobile=%2B';
   static const String  loginApi = '/signin/login';
   static const String  registerUserApi = '/signin/register_user';
+
+
+
+  ///------------------------------------- job seeker ------------------------------///
+
+  static const String  jobPostApi = '/job/jobs?iJobPreferenceId=0&current_page=1';
+
+///------------------------------------- job seeker ------------------------------///
 }

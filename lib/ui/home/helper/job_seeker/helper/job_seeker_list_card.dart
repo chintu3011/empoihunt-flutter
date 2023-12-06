@@ -1,13 +1,13 @@
-import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class JobSeekerListCard extends StatelessWidget {
-  final HomeJobDetailModel homeJobDetailModel;
+  final JobPostModel jobPostModel;
   final void Function()? onTap;
-  const JobSeekerListCard({super.key, required this.homeJobDetailModel, this.onTap});
+  const JobSeekerListCard({super.key, required this.jobPostModel, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class JobSeekerListCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        homeJobDetailModel.jobTitle,
+                        jobPostModel.vJobTitle ?? "",
                         style: TextStyles.w500.copyWith(
                             fontSize: 14.sp, color: AppColors.colors.blackColors),
                       ),
                     ),
                     Text(
-                      "${homeJobDetailModel.lpa} LPA+",
+                      "${jobPostModel.vSalaryPackage} LPA+",
                       style: TextStyles.w500.copyWith(
                           fontSize: 14.sp, color: AppColors.colors.blackColors),
                     ),
@@ -57,7 +57,7 @@ class JobSeekerListCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(4.r),
                             color: AppColors.colors.clayColors),
                         child: Text(
-                          "${homeJobDetailModel.year} Years",
+                          "${jobPostModel.vExperience} Years",
                           style: TextStyles.w400.copyWith(
                               fontSize: 12.sp, color: AppColors.colors.whiteColors),
                         ),
@@ -75,7 +75,7 @@ class JobSeekerListCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4.r),
                               color: AppColors.colors.clayColors),
                           child: Text(
-                            homeJobDetailModel.degree,
+                            jobPostModel.vEducation!,
                             style: TextStyles.w400.copyWith(
                                 fontSize: 12.sp, color: AppColors.colors.whiteColors),
                           ),
@@ -91,12 +91,12 @@ class JobSeekerListCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      homeJobDetailModel.companyName,
+                      jobPostModel.vCompanyName!,
                       style: TextStyles.w500.copyWith(
                           fontSize: 12.sp, color: AppColors.colors.blackColors),
                     ),
                     Text(
-                      "${homeJobDetailModel.vacancy} Vacancy",
+                      "${jobPostModel.iNumberOfVacancy} Vacancy",
                       style: TextStyles.w500.copyWith(
                           fontSize: 12.sp, color: AppColors.colors.blackColors),
                     ),
@@ -109,23 +109,42 @@ class JobSeekerListCard extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        const CircleAvatar(
-                          radius: 12,
-                          backgroundImage: AssetImage(
-                            AppAssets.profilePicPng,
+                         Container(
+                           height: 28.h,
+                          width: 28.w,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle
                           ),
-                          foregroundImage: AssetImage(AppAssets.profilePicPng),
+                          child:jobPostModel.tCompanyLogoUrl !=""?
+                          Image.network(
+                            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                              if (loadingProgress == null) {
+                                return child;
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
+                            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                              return const Center(
+                                child: Text('Error loading image'),
+                              );
+                            },
+                            "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.fill,):
+                          Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
                         ),
                         SizedBox(width: 5.w),
                         Text(
-                          homeJobDetailModel.hrName,
+                          "${jobPostModel.user!.vFirstName} ${jobPostModel.user!.vLastName}",
                           style: TextStyles.w400.copyWith(
                               fontSize: 11.sp, color: AppColors.colors.blackColors),
                         ),
                       ],
                     ),
                     Text(
-                      homeJobDetailModel.location,
+                      jobPostModel.vAddress!,
                       style: TextStyles.w400
                           .copyWith(fontSize: 11.sp, color: Colors.grey),
                     ),
@@ -143,13 +162,17 @@ class JobSeekerListCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                       homeJobDetailModel.description,
-                        style: TextStyles.w400
-                            .copyWith(fontSize: 10.sp, color: Colors.grey),
+                      Expanded(
+                        child: Text(
+                         jobPostModel.tDes!,
+                          maxLines: 1,
+                          style: TextStyles.w400
+                              .copyWith(fontSize: 10.sp, color: Colors.grey),overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      SizedBox(width: 10.w,),
                       Text(
-                        "${homeJobDetailModel.days} days ago",
+                        "5 days ago",
                         style: TextStyles.w400
                             .copyWith(fontSize: 10.sp, color: Colors.grey),
                       ),

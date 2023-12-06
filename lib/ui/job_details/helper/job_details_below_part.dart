@@ -3,12 +3,14 @@
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import '../../utils/theme/app_assets.dart';
 import '../../utils/theme/app_color.dart';
 import '../../utils/theme/text_styles.dart';
 
 class JobDetailsBelowPart extends StatelessWidget {
-  const JobDetailsBelowPart({super.key});
+  final JobPostModel jobPostModel;
+  const JobDetailsBelowPart({required this.jobPostModel,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +36,9 @@ class JobDetailsBelowPart extends StatelessWidget {
                   ],
                 ),
                 Text("Techinical Skills",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),),
-                Text("Html",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),),
+                Text(jobPostModel.tTechnicalSkill!,style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),),
                 Text("Soft Skills",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),),
-                Text("Communication",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),),
+                Text(jobPostModel.tSoftSkill!,style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),),
               ],
             ),
           ),
@@ -64,7 +66,7 @@ class JobDetailsBelowPart extends StatelessWidget {
                   style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),
                   children: [
                     TextSpan(
-                      text: "5+ Years",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors)
+                      text: "${jobPostModel.vExperience}+ Years",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors)
                     )
                   ]
                 ) ),
@@ -73,7 +75,7 @@ class JobDetailsBelowPart extends StatelessWidget {
                     style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),
                     children: [
                       TextSpan(
-                          text: "BE",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors)
+                          text: jobPostModel.vEducation!,style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors)
                       )
                     ]
                 ) )

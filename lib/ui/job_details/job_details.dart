@@ -1,5 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/home_job_detail_model/home_job_detail_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_above_part.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_appbar.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_below_part.dart';
@@ -9,7 +9,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class JobDetails extends ConsumerWidget {
-  final HomeJobDetailModel jobDetail;
+  final JobPostModel jobDetail;
   const JobDetails({super.key,required this.jobDetail});
 
   @override
@@ -27,7 +27,7 @@ class JobDetails extends ConsumerWidget {
               physics: const BouncingScrollPhysics(),
               controller: jobDetailsWatch.scrollController,
               child:  Column(
-                children: [const JobDetailsAbovePart(), const JobDetailsBelowPart(),Container(height: 500,)],
+                children: [ JobDetailsAbovePart(jobPostModel: jobDetail,),  JobDetailsBelowPart(jobPostModel: jobDetail,),Container(height: 100,)],
               ),
             ),
           ),

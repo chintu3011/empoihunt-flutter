@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+
+import '../../../repository/api_end_point.dart';
 
 final jobSeekerHomeController = ChangeNotifierProvider((ref) => JobSeekerHomeController());
 
@@ -19,7 +20,8 @@ class JobSeekerHomeController extends ChangeNotifier{
 
 
   List<JobPostModel> jobPostList = [];
-
+  int? totalPages;
+  int currentPage= 2;
   bool isLoading = false;
 
   Future jobsPostApiCall()async{
@@ -27,6 +29,8 @@ class JobSeekerHomeController extends ChangeNotifier{
       jobPostList=[];
       isLoading = true;
       notifyListeners();
+      loadMoreData = false;
+      currentPage = 2;
         final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
         if(user !=null) {
           Options options = Options(
@@ -35,11 +39,12 @@ class JobSeekerHomeController extends ChangeNotifier{
                 'Authorization': 'Bearer ${user.tAuthToken}',
               }
           );
-          Response response =await DioClient.client.getDataWithBearerToken(APIEndPoint.jobPostApi, options);
+          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}1", options);
           if(response.statusCode == 200){
             isLoading = false;
             print(response.data["data"]);
             List responseData = response.data["data"];
+            totalPages = response.data["total_pages"];
             for(dynamic i in responseData){
               JobPostModel jobPostModel = JobPostModel.fromJson(i);
               jobPostList.add(jobPostModel);
@@ -56,6 +61,47 @@ class JobSeekerHomeController extends ChangeNotifier{
     }
     notifyListeners();
   }
+
+  bool loadMoreData = false;
+
+  Future<void> fetchItems() async {
+    if(currentPage <= totalPages!) {
+      loadMoreData = true;
+      notifyListeners();
+      try {
+        final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+        if (user != null) {
+          Options options = Options(
+              headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ${user.tAuthToken}',
+              }
+          );
+          Response response = await DioClient.client.getDataWithBearerToken(
+              "${APIEndPoint.jobPostApi}$currentPage", options);
+
+
+          if (response.statusCode == 200) {
+            loadMoreData = false;
+            List responseData = response.data["data"];
+            if (responseData.isNotEmpty) {
+              for (dynamic i in responseData) {
+                JobPostModel jobPostModel = JobPostModel.fromJson(i);
+                jobPostList.add(jobPostModel);
+              }
+              currentPage ++;
+            }
+          }
+        }
+      } catch (e) {
+        loadMoreData = false;
+        Future.error(e);
+      }
+      loadMoreData = false;
+    }
+    notifyListeners();
+  }
+
 
   String getTimeAgo(int epochTime) {
     final now = DateTime.now().toUtc();

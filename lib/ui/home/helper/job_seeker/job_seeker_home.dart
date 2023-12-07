@@ -18,6 +18,7 @@ class JobSeekerHome extends ConsumerStatefulWidget {
 }
 
 class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -26,9 +27,17 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(jobSeekerHomeController).jobsPostApiCall();
     });
-    print("init");
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent){
+        // Fetch more items when reaching the end of the list
+        ref.read(jobSeekerHomeController).fetchItems();
+      }
+    });
   }
-  
+
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -37,57 +46,70 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     final jobSeekerHomeWatch = ref.watch(jobSeekerHomeController);
     return Scaffold(
       appBar: const JobSeekerAppbar(),
-      body: Stack(
-        children: [
-          jobSeekerHomeWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-          jobSeekerHomeWatch.jobPostList.isEmpty?  const Center(child: CircularProgressIndicator(),):
-          SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Padding(
-              padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
-              child: Column(
-                  children:
-                  List.generate(jobSeekerHomeWatch.jobPostList.length, (index) {
-                final jobList = jobSeekerHomeWatch.jobPostList[index];
-                return JobSeekerListCard(
-                  jobPostModel: jobList,
-                  onTap: () async{
-                    if(jobList.iIsApplied != 1){
-                      ref.watch(jobDetailsController).intAppliedValue();
-                    }
-                    if(jobList.iIsSaved != 1){
-                      ref.watch(jobDetailsController).provideFavoriteValue(false);
-                    }else {
-                      ref.watch(jobDetailsController).provideFavoriteValue(true);
-                    }
-                    await Navigator.push(context,
-                        MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
-                  },
-                );
-              })
-              ) ,
+      body: RefreshIndicator(
+        onRefresh:()async{
+          await Future.delayed(const Duration(microseconds: 200));
+          jobSeekerHomeWatch.jobsPostApiCall();
+        },
+        child: Stack(
+          children: [
+            jobSeekerHomeWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
+            jobSeekerHomeWatch.jobPostList.isEmpty?  const Center(child: Text("No Data Found"),):
+            SingleChildScrollView(
+              controller: _scrollController,
+              physics: const BouncingScrollPhysics(),
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
+                child: Column(
+                    children:
+                    List.generate(
+                      jobSeekerHomeWatch.loadMoreData?
+                      jobSeekerHomeWatch.jobPostList.length +1:
+                        jobSeekerHomeWatch.jobPostList.length, (index) {
+                        if(index < jobSeekerHomeWatch.jobPostList.length){
+                  final jobList = jobSeekerHomeWatch.jobPostList[index];
+                  return JobSeekerListCard(
+                    jobPostModel: jobList,
+                    onTap: () async{
+                      if(jobList.iIsApplied != 1){
+                        ref.watch(jobDetailsController).intAppliedValue();
+                      }
+                      if(jobList.iIsSaved != 1){
+                        ref.watch(jobDetailsController).provideFavoriteValue(false);
+                      }else {
+                        ref.watch(jobDetailsController).provideFavoriteValue(true);
+                      }
+                      await Navigator.push(context,
+                          MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
+                    },
+                  );}else{
+                        return  const Center(child: CircularProgressIndicator());
+                        }
+                })
+                ) ,
+              ),
             ),
-          ),
-          Positioned(
-              right: 0,
-              top: 35.h,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Messenger()));
-                },
-                child: Container(
-                  height: 80.h,
-                  width: 10.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.colors.clayColors,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.r),
-                        bottomLeft: Radius.circular(16.r)),
+            Positioned(
+                right: 0,
+                top: 35.h,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const Messenger()));
+                  },
+                  child: Container(
+                    height: 80.h,
+                    width: 10.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.colors.clayColors,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.r),
+                          bottomLeft: Radius.circular(16.r)),
+                    ),
                   ),
-                ),
-              ))
-        ],
+                ))
+          ],
+        ),
       ),
     );
   }

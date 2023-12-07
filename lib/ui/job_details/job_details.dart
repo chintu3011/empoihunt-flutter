@@ -23,9 +23,8 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(widget.jobDetail.iIsApplied);
-    print(widget.jobDetail.iIsSaved);
-    print(ref.read(jobDetailsController).isFavorite);
+    print("Is applied ${widget.jobDetail.iIsApplied}");
+    print("Is Saved ${widget.jobDetail.iIsSaved}");
   }
   @override
   Widget build(BuildContext context) {

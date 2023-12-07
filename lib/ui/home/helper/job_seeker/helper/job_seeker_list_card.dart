@@ -65,9 +65,6 @@ class JobSeekerListCard extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 10.w,
-                    ),
                     Card(
                       child: Container(
                         padding:
@@ -77,6 +74,7 @@ class JobSeekerListCard extends ConsumerWidget {
                             color: AppColors.colors.clayColors),
                         child: Text(
                           jobPostModel.vEducation!,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyles.w400.copyWith(
                               fontSize: 12.sp, color: AppColors.colors.whiteColors),
                         ),

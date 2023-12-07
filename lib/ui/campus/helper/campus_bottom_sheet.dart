@@ -44,7 +44,7 @@ class _SettingBottomSheetState extends State<CampusBottomSheet> with SingleTicke
             alignment: Alignment.center,
               child: Lottie.asset(
                 controller: alertController,
-                AppAssets.execlaminationMarkLottie,width: 180.w,
+                AppAssets.exclamationMarkLottie,width: 180.w,
                 height: 150.h,
                 onLoaded: (_){
                   alertController.repeat();

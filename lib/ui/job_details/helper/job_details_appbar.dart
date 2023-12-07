@@ -18,9 +18,14 @@ class JobDetailsAppBar extends ConsumerWidget implements PreferredSizeWidget {
       centerTitle: true,
       title: jobDetailsWatch.offset > 0? Text(jobDetailModel.vJobTitle!,style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),): const SizedBox(),
       actions: [
-        IconButton(onPressed:jobDetailModel.iIsSaved == 1? null: ()async{
-         await jobDetailsWatch.jobSavedApi(jobDetailModel.id.toString());
-        }, icon:jobDetailModel.iIsSaved == 1? Icon(Icons.favorite,color: AppColors.colors.clayColors,): const Icon(Icons.favorite_border_outlined,))
+        IconButton(onPressed:(){
+            jobDetailsWatch.updateFavoriteValue();
+            if(jobDetailsWatch.isFavorite){
+              jobDetailsWatch.jobSavedApi(jobDetailModel.id.toString());
+            }else{
+              jobDetailsWatch.jobUnSavedApi(jobDetailModel.id.toString());
+            }
+        }, icon: jobDetailsWatch.isFavorite ? Icon(Icons.favorite,color: AppColors.colors.clayColors,): const Icon(Icons.favorite_border_outlined,))
       ],
     );
   }

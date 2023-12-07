@@ -47,7 +47,8 @@ class AppAssets {
   static const String logOutLottie = 'assets/lottie/logout.json';
   static const String blockLottie = 'assets/lottie/block.json';
   static const String updateLottie = 'assets/lottie/update.json';
-  static const String execlaminationMarkLottie = 'assets/lottie/excemilation_mark.json';
+  static const String exclamationMarkLottie = 'assets/lottie/excemilation_mark.json';
   static const String bannerLoadingLottie = 'assets/lottie/imag_lodding_rectangle.json';
+  static const String applySuccessLottie = 'assets/lottie/apply_success.json';
 }
 

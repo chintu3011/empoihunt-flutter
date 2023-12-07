@@ -24,7 +24,9 @@ class JobSeekerHomeController extends ChangeNotifier{
 
   Future jobsPostApiCall()async{
     try{
+      jobPostList=[];
       isLoading = true;
+      notifyListeners();
         final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
         if(user !=null) {
           Options options = Options(
@@ -42,10 +44,10 @@ class JobSeekerHomeController extends ChangeNotifier{
               JobPostModel jobPostModel = JobPostModel.fromJson(i);
               jobPostList.add(jobPostModel);
             }
+            notifyListeners();
             print("List Data $jobPostList");
             // JobPostModel data = JobPostModel.fromJson(response.data["data"]);
             // print(data);
-
           }
         }
     }catch(e) {
@@ -55,4 +57,23 @@ class JobSeekerHomeController extends ChangeNotifier{
     notifyListeners();
   }
 
+  String getTimeAgo(int epochTime) {
+    final now = DateTime.now().toUtc();
+    final dateTime = DateTime.fromMillisecondsSinceEpoch(epochTime * 1000).toUtc();
+
+    final difference = now.difference(dateTime);
+
+    if (difference.inSeconds < 60) {
+      return '${difference.inSeconds} seconds ago';
+    } else if (difference.inMinutes < 60) {
+      return '${difference.inMinutes} minutes ago';
+    } else if (difference.inHours < 24) {
+      return '${difference.inHours} hours ago';
+    } else if (difference.inDays < 30) {
+      return '${difference.inDays} days ago';
+    } else {
+      final months = difference.inDays ~/ 30;
+      return '$months months ago';
+    }
+  }
 }

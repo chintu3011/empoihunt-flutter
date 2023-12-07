@@ -1,16 +1,18 @@
+import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-class JobSeekerListCard extends StatelessWidget {
+class JobSeekerListCard extends ConsumerWidget {
   final JobPostModel jobPostModel;
   final void Function()? onTap;
   const JobSeekerListCard({super.key, required this.jobPostModel, this.onTap});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final jobSeekerHomeWatch = ref.watch(jobSeekerHomeController);
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: onTap,
@@ -66,22 +68,21 @@ class JobSeekerListCard extends StatelessWidget {
                     SizedBox(
                       width: 10.w,
                     ),
-                    Expanded(
-                      child: Card(
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4.r),
-                              color: AppColors.colors.clayColors),
-                          child: Text(
-                            jobPostModel.vEducation!,
-                            style: TextStyles.w400.copyWith(
-                                fontSize: 12.sp, color: AppColors.colors.whiteColors),
-                          ),
+                    Card(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.r),
+                            color: AppColors.colors.clayColors),
+                        child: Text(
+                          jobPostModel.vEducation!,
+                          style: TextStyles.w400.copyWith(
+                              fontSize: 12.sp, color: AppColors.colors.whiteColors),
                         ),
                       ),
                     ),
+                    const Expanded(child: SizedBox())
                   ],
                 ),
                 SizedBox(
@@ -172,7 +173,7 @@ class JobSeekerListCard extends StatelessWidget {
                       ),
                       SizedBox(width: 10.w,),
                       Text(
-                        "5 days ago",
+                        jobSeekerHomeWatch.getTimeAgo(int.parse(jobPostModel.tCreatedAt!)),
                         style: TextStyles.w400
                             .copyWith(fontSize: 10.sp, color: Colors.grey),
                       ),

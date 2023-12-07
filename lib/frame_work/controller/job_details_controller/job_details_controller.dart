@@ -21,11 +21,32 @@ class JobDetailsController extends ChangeNotifier{
   bool isApplied = false;
   bool isFavorite = false;
 
-  int applied = 0;
+  intAppliedValue(){
+    isApplied = false;
+    notifyListeners();
+  }
+
+  provideFavoriteValue(bool value){
+    isFavorite = value;
+    notifyListeners();
+  }
+
+
+  updateFavoriteValue(){
+    isFavorite = !isFavorite;
+    notifyListeners();
+  }
+
+
+
+  bool isAnythingUpdated = false;
+  updateIsAnythingUpdated(){
+    isAnythingUpdated = false;
+    notifyListeners();
+  }
 
   Future appliedApi(String jobId,BuildContext context,String companyName)async{
     try{
-     // Response response =await DioClient.client.getData("${APIEndPoint.jobAppliedApi}$jobId");
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       if(user !=null) {
         Options options = Options(
@@ -34,9 +55,11 @@ class JobDetailsController extends ChangeNotifier{
               'Authorization': 'Bearer ${user.tAuthToken}',
             }
         );
-     Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobAppliedApi}$jobId",options);
+     Response response =await DioClient.client.postDataWithBearerToken("${APIEndPoint.jobAppliedApi}$jobId",options);
      if(response.statusCode == 200){
        isApplied = true;
+       isAnythingUpdated = true;
+       print(response.data);
        if(context.mounted){
        showModalBottomSheet(
            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
@@ -46,6 +69,7 @@ class JobDetailsController extends ChangeNotifier{
      }}
     }catch(e){
       isApplied = false;
+      isAnythingUpdated = false;
       Future.error(e);
     }
     notifyListeners();
@@ -53,6 +77,7 @@ class JobDetailsController extends ChangeNotifier{
 
 
   Future jobSavedApi(String jobId)async{
+    print("Save api call");
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       if(user !=null) {
@@ -62,16 +87,39 @@ class JobDetailsController extends ChangeNotifier{
               'Authorization': 'Bearer ${user.tAuthToken}',
             }
         );
-        Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.saveJobApi}$jobId$jobId",options);
+        Response response =await DioClient.client.postDataWithBearerToken("${APIEndPoint.saveJobApi}$jobId",options);
         if(response.statusCode == 200){
-          isFavorite = true;
-          print("You've saved job");
+          isAnythingUpdated = true;
+          print(response.data);
         }}
     }catch(e){
-      isFavorite = false;
+      isAnythingUpdated = false;
       Future.error(e);
     }
     notifyListeners();
   }
 
+  Future jobUnSavedApi(String jobId)async{
+    print("UnSave api call");
+
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      if(user !=null) {
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
+        );
+        Response response =await DioClient.client.postDataWithBearerToken("${APIEndPoint.unSaveJobApi}$jobId",options);
+        if(response.statusCode == 200){
+          isAnythingUpdated = true;
+          print(response.data);
+        }}
+    }catch(e){
+      isAnythingUpdated = false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
 }

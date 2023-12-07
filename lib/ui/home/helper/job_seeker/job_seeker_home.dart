@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
+import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar.dart';
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_list_card.dart';
 import 'package:emploiflutter/ui/job_details/job_details.dart';
@@ -25,7 +26,9 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(jobSeekerHomeController).jobsPostApiCall();
     });
+    print("init");
   }
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -48,8 +51,16 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                 final jobList = jobSeekerHomeWatch.jobPostList[index];
                 return JobSeekerListCard(
                   jobPostModel: jobList,
-                  onTap: () {
-                    Navigator.push(context,
+                  onTap: () async{
+                    if(jobList.iIsApplied != 1){
+                      ref.watch(jobDetailsController).intAppliedValue();
+                    }
+                    if(jobList.iIsSaved != 1){
+                      ref.watch(jobDetailsController).provideFavoriteValue(false);
+                    }else {
+                      ref.watch(jobDetailsController).provideFavoriteValue(true);
+                    }
+                    await Navigator.push(context,
                         MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
                   },
                 );

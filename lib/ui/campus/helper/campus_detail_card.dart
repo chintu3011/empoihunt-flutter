@@ -1,5 +1,4 @@
 import 'package:emploiflutter/frame_work/controller/campus_placement_controller/campus_placement_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/campus_job_details_model/campus_job_detail_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/campus_placement_model/campus_placement_model.dart';
 import 'package:emploiflutter/ui/campus/helper/campus_bottom_sheet.dart';
 import 'package:emploiflutter/ui/campus/helper/campus_detail_table.dart';
@@ -8,8 +7,9 @@ import '../../utils/theme/app_color.dart';
 import '../../utils/theme/text_styles.dart';
 
 class CampusDetailCard extends ConsumerWidget {
+  final int currentIndex;
   final CampusPlacementModel campusJobDetailModel;
-  const CampusDetailCard({super.key, required this.campusJobDetailModel, });
+  const CampusDetailCard(this.currentIndex, {super.key, required this.campusJobDetailModel, });
 
 
   @override
@@ -86,22 +86,23 @@ class CampusDetailCard extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("Required job Role",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
-                        // campusPlacementWatch.getJobRoleList(campusJobDetailModel.tVacancy!).length >=3?
-                        // IconButton(onPressed: (){
-                        //   campusPlacementWatch.updateIsShowAllTheJobRole();
-                        // }, icon:campusPlacementWatch.isShowAllTheJobRole?const Icon(Icons.arrow_downward_outlined):const Icon(Icons.arrow_upward_outlined)):
-                        // const SizedBox()
+                        campusPlacementWatch.getJobRoleList(campusJobDetailModel.tVacancy!).length >=3?
+                        IconButton(onPressed: (){
+                          campusPlacementWatch.updateIsShowAllTheJobRole(currentIndex);
+                        }, icon:campusPlacementWatch.isShowAllTheJobRole? Icon(Icons.arrow_downward_outlined,size: 16.sp,): Icon(Icons.arrow_upward_outlined,size: 16.sp,)):
+                        const SizedBox()
                       ],
                     ),
-                    SizedBox(height: 12.h,),
-                    CampusDetailTable(campusJobDetailModel),
+                    CampusDetailTable(campusJobDetailModel,currentIndex),
                     SizedBox(height: 12.h,),
                     Text("Required qualification",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
                     SizedBox(height: 12.h,),
                     Row(
-                      children: List.generate(campusPlacementWatch.getQualification(campusJobDetailModel.vQualification!).length, (index) {
+                      children: List.generate(
+                          campusPlacementWatch.getQualification(campusJobDetailModel.vQualification!).length, (index) {
                         final qualification = campusPlacementWatch.getQualification(campusJobDetailModel.vQualification!)[index];
                         return Container(
                           margin: EdgeInsets.symmetric(horizontal: 5.w,vertical: 3.h),
@@ -119,21 +120,21 @@ class CampusDetailCard extends ConsumerWidget {
                 ),
               ),
               GestureDetector(
-                onTap: (){
+                onTap:campusJobDetailModel.iIsApplied==1?null: (){
                   showModalBottomSheet(
                       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
                       context: context,
-                      builder: (context) =>  CampusBottomSheet(companyName: campusJobDetailModel.vCampusName!));
+                      builder: (context) =>  CampusBottomSheet(model: campusJobDetailModel));
                 },
                 child: Container(
                   alignment: Alignment.center,
                   width: size.width,
                   padding: EdgeInsets.symmetric(vertical: 4.h),
                   decoration: BoxDecoration(
-                    color: AppColors.colors.blueColors,
+                    color:campusJobDetailModel.iIsApplied==1?AppColors.colors.greyRegent:AppColors.colors.blueColors,
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(10.r))
                   ),
-                  child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),),
+                  child: Text(campusJobDetailModel.iIsApplied==1?"Already Applied":"Register",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),),
                 ),
               )
             ],

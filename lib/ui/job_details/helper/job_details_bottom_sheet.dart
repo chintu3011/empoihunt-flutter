@@ -40,16 +40,18 @@ class _SettingBottomSheetState extends ConsumerState<JobDetailsBottomSheet> with
         mainAxisSize: MainAxisSize.min,
         children: [
           Text("Thank you dear Candidate. Please wait ${widget.companyName} HR will contact soon",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),),
-          Align(
-            alignment: Alignment.center,
-              child: Lottie.asset(
-                controller: logoutController,
-                AppAssets.logOutLottie,width: 180.w,
-                height: 180.h,
-                onLoaded: (_){
-                  logoutController.repeat();
-                },
-                fit: BoxFit.fill,)),
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+                child: Lottie.asset(
+                  controller: logoutController,
+                  AppAssets.applyLottie,width: 130.w,
+                  height: 130.h,
+                  onLoaded: (_){
+                    logoutController.repeat();
+                  },
+                  fit: BoxFit.fill,)),
+          ),
           Align(
             alignment: Alignment.center,
             child: CommonButton(btnText: "No", onPressed: (){

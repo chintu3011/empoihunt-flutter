@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/campus_placement_model/campus_placement_model.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../ui/utils/app_constant.dart';
 import '../../repository/api_end_point.dart';
@@ -79,7 +81,7 @@ class CampusPlacementController extends ChangeNotifier{
                 'Authorization': 'Bearer ${user.tAuthToken}',
               }
           );
-          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}&tag=${searchController.text}&current_page=$currentPage", options);
+          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.campusPlacementApi}&tag=""&current_page=$currentPage", options);
           if (response.statusCode == 200) {
             loadMoreData = false;
             List responseData = response.data["data"];
@@ -102,10 +104,145 @@ class CampusPlacementController extends ChangeNotifier{
   }
   ///-------------------------------------- Fetch more data from api -----------------------------------------------///
 
+
+  ///------------------------------------- placement Applied --------------------------------////
+  //
+  // bool isApplied = false;
+  //
+  // intAppliedValue(){
+  //   isApplied = false;
+  //   notifyListeners();
+  // }
+
+  Future appliedApi(String campusId,BuildContext context)async{
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      if(user !=null) {
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
+        );
+        Response response =await DioClient.client.postDataWithBearerToken("${APIEndPoint.campusPlacementAppliedApi}$campusId",options);
+        if(response.statusCode == 200){
+          // isApplied = true;
+          print("Successfully applied ----campus placement");
+          if(context.mounted){
+          context.pop();
+          campusPlacementApiCall();
+          }
+          print(response.data);
+        }}
+    }catch(e){
+      // isApplied = false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+
+  ///------------------------------------- placement Applied --------------------------------////
+
+
+
+
+
+  ///---------------------------------------- Search Feature ----------------------------------------///
+
+  ///------------- text to speech --------------///
+  final SpeechToText speechToText = SpeechToText();
+
+  listeningVoice(BuildContext context)async{
+    isVoiceListening= true;
+    if(isVoiceListening) {
+      final available = await speechToText.initialize();
+      if (available) {
+        speechToText.listen(
+          onResult: (result) {
+            searchController.text = result.recognizedWords;
+            notifyListeners();
+            if (result.finalResult) {
+              isVoiceListening= false;
+              context.pop();
+              Future.delayed(const Duration(milliseconds: 800), () {
+                searchedData();
+              });
+            }else{
+              isVoiceListening= false;
+              speechToText.stop();
+            }
+          },
+          listenMode: ListenMode.search,
+        );
+      } else {
+        speechToText.stop();
+        isVoiceListening= false;
+        notifyListeners();
+      }
+    } else {
+      speechToText.stop();
+      isVoiceListening= false;
+      notifyListeners();
+    }
+    notifyListeners();
+  }
+
+  bool isVoiceListening= false;
+  dialogCancelButton(){
+    isVoiceListening = false;
+    speechToText.stop();
+    notifyListeners();
+  }
+
+  ///------------- text to speech --------------///
+
+  Future searchedData()async{
+    print("Search function call");
+    try{
+      campusPlacementList=[];
+      isLoading = true;
+      notifyListeners();
+      loadMoreData = false;
+      currentPage = 1;
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      if(user !=null) {
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
+        );
+        Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.campusPlacementApi}&tag=${searchController.text}&current_page=$currentPage", options);
+        if(response.statusCode == 200){
+          isLoading = false;
+          currentPage += 1;
+          print(response.data["data"]);
+          List responseData = response.data["data"];
+          totalPages = response.data["total_pages"];
+          for(dynamic i in responseData){
+            CampusPlacementModel jobPostModel = CampusPlacementModel.fromJson(i);
+            campusPlacementList.add(jobPostModel);
+          }
+          notifyListeners();
+          print("List Data $campusPlacementList");
+          searchController.clear();
+        }
+      }
+    }catch(e) {
+      isLoading = false;
+      searchController.clear();
+      Future.error(e);
+    }
+    notifyListeners();
+
+  }
+
+  ///---------------------------------------- Search Feature ----------------------------------------///
+
   bool isShowAllTheJobRole = true;
-  updateIsShowAllTheJobRole(){
+  updateIsShowAllTheJobRole(int index){
     isShowAllTheJobRole = !isShowAllTheJobRole;
-    return isShowAllTheJobRole;
+    notifyListeners();
   }
 
   List<String> getQualification(String qualification){

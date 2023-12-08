@@ -1,25 +1,24 @@
-import 'package:emploiflutter/frame_work/controller/setting_controller/save_job/save_job_controller.dart';
-import 'package:emploiflutter/ui/save_job/helper/save_job_list_card.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploiflutter/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
 import '../../frame_work/controller/job_details_controller/job_details_controller.dart';
 import '../job_details/job_details.dart';
+import '../save_job/helper/save_job_list_card.dart';
 import '../utils/common_widget/common_no_data_found_layout.dart';
+import '../utils/theme/app_assets.dart';
+import '../utils/theme/text_styles.dart';
 
-class SaveJob extends ConsumerStatefulWidget {
-  const SaveJob({super.key});
+class ViewAppliedJobList extends ConsumerStatefulWidget {
+  const ViewAppliedJobList({super.key});
 
   @override
-  ConsumerState<SaveJob> createState() => _SaveJobState();
+  ConsumerState<ViewAppliedJobList> createState() => _ViewAppliedJobListState();
 }
 
-class _SaveJobState extends ConsumerState<SaveJob> {
-
+class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -27,39 +26,41 @@ class _SaveJobState extends ConsumerState<SaveJob> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(saveJobController).saveListApiCall();
+      ref.read(viewApplyListController).appliedListApiCall();
     });
     debugPrint("Job seeker Home init call");
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent){
         // Fetch more items when reaching the end of the list
-        ref.read(saveJobController).fetchItems();
+        ref.read(viewApplyListController).fetchItems();
       }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: AppColors.colors.clayColors,
-  ));
+      statusBarColor: AppColors.colors.clayColors,
+    ));
 
-    final saveJobWatch = ref.watch(saveJobController);
-
+    final applyListWatch = ref.watch(viewApplyListController);
     return Scaffold(
       appBar: AppBar(
-        title:  Text("Save Job",style: TextStyles.w500.copyWith(fontSize:16.sp,color: AppColors.colors.blackColors)),
+        title: Text(
+          "Your Applied job",
+          style: TextStyles.w400
+              .copyWith(fontSize: 16.sp, color: AppColors.colors.blackColors),
+        ),
       ),
       body: RefreshIndicator(
         onRefresh:()async{
           await Future.delayed(const Duration(microseconds: 200));
-          saveJobWatch.saveListApiCall();
+          applyListWatch.appliedListApiCall();
         },
         child: Stack(
           children: [
-            saveJobWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-            saveJobWatch.saveJobList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
+            applyListWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
+            applyListWatch.appliedJobList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
             SingleChildScrollView(
               controller: _scrollController,
               physics: const BouncingScrollPhysics(),
@@ -68,11 +69,11 @@ class _SaveJobState extends ConsumerState<SaveJob> {
                 child: Column(
                     children:
                     List.generate(
-                        saveJobWatch.loadMoreData?
-                        saveJobWatch.saveJobList.length +1:
-                        saveJobWatch.saveJobList.length, (index) {
-                      if(index < saveJobWatch.saveJobList.length){
-                        final jobList = saveJobWatch.saveJobList[index];
+                        applyListWatch.loadMoreData?
+                        applyListWatch.appliedJobList.length +1:
+                        applyListWatch.appliedJobList.length, (index) {
+                      if(index < applyListWatch.appliedJobList.length){
+                        final jobList = applyListWatch.appliedJobList[index];
                         return SaveJobListCard(
                           saveJobModel: jobList.job!,
                           onTap: () async{
@@ -85,7 +86,7 @@ class _SaveJobState extends ConsumerState<SaveJob> {
                               ref.watch(jobDetailsController).provideFavoriteValue(true);
                             }
                             await Navigator.push(context,
-                                MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList.job!,)));
+                                MaterialPageRoute(builder: (_) => JobDetails(jobDetail: jobList.job!,)));
                           },
                         );}else{
                         return  const Center(child: CircularProgressIndicator());
@@ -96,7 +97,7 @@ class _SaveJobState extends ConsumerState<SaveJob> {
             ),
           ],
         ),
-      )
+      ),
     );
   }
 }

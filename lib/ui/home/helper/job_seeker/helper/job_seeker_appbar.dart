@@ -32,10 +32,9 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
     ], searchSuffixClick: () {
             jobSeekerHomeWatch.searchController.clear();
     }, onBackArrowTap: (){
-            // if(jobSeekerHomeWatch.searchController.text != ""){
               jobSeekerHomeWatch.searchController.clear();
               jobSeekerHomeWatch.jobsPostApiCall();
-            // }
+
       jobSeekerHomeWatch.updateIsSearchFiledVisible();
     },)
         : Theme(
@@ -60,7 +59,7 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
                 IconButton(
                     onPressed: () {
                        jobSeekerHomeWatch.listeningVoice(context);
-                      showDialog(context: context,
+                       showDialog(context: context,
                         barrierDismissible: false,
                         builder: (context) {
                         return const Dialog(

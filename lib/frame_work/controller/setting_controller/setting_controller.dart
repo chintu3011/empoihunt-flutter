@@ -7,7 +7,7 @@ import 'package:emploiflutter/ui/save_job/save_job.dart';
 import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/ui/view_applylist/view_applylist.dart';
+import 'package:emploiflutter/ui/view_applylist/view_applied_job_list.dart';
 
 final settingController = ChangeNotifierProvider((ref) => SettingController());
 
@@ -27,7 +27,7 @@ class SettingController extends ChangeNotifier{
   seekerNavigatingToList(int index,BuildContext context){
     switch(index){
       case 0:
-        context.push(const ViewApplyList());
+        context.push(const ViewAppliedJobList());
         // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ViewApplyList()));
         break;
       case 1:

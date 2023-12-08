@@ -176,7 +176,6 @@ isVoiceListening= true;
             }
         );
         Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}&tag=${searchController.text}&current_page=$currentPage", options);
-        // Response response = await DioClient.dio.get("http://192.168.1.3:5000/api/job/jobs?iJobPreferenceId=0&tag=${searchController.text.trimRight()}&current_page=$currentPage",options: options);
         if(response.statusCode == 200){
           isLoading = false;
           currentPage += 1;

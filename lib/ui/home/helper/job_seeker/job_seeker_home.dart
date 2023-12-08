@@ -10,6 +10,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
+import '../../../utils/theme/app_assets.dart';
+
 
 class JobSeekerHome extends ConsumerStatefulWidget {
   const JobSeekerHome({super.key});
@@ -55,7 +57,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         child: Stack(
           children: [
             jobSeekerHomeWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-            jobSeekerHomeWatch.jobPostList.isEmpty?  const CommonNoDataFoundLayout():
+            jobSeekerHomeWatch.jobPostList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
             SingleChildScrollView(
               controller: _scrollController,
               physics: const BouncingScrollPhysics(),

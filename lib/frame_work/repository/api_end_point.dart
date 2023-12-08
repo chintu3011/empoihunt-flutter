@@ -22,6 +22,11 @@ class APIEndPoint{
   static const String  unSaveJobApi = '/job/unSave?jobId=';
 
   static const String  campusPlacementApi = '/campus_placement/campus?';
+  static const String  campusPlacementAppliedApi = '/campus_placement/apply?campusId=';
+
+
+  static const String  saveListApi = '/job/saveList?';
+  static const String  appliedListApi = '/job/applyList?';
 
 ///------------------------------------- job seeker ------------------------------///
 }

@@ -1,5 +1,7 @@
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
+import 'package:emploiflutter/frame_work/controller/setting_controller/save_job/save_job_controller.dart';
+import 'package:emploiflutter/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_above_part.dart';
 import 'package:emploiflutter/ui/job_details/helper/job_details_appbar.dart';
@@ -37,6 +39,8 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
       onPopInvoked: (value){
         if(value == jobDetailsWatch.isAnythingUpdated){
           ref.watch(jobSeekerHomeController).jobsPostApiCall();
+          ref.watch(saveJobController).saveListApiCall();
+          ref.watch(viewApplyListController).appliedListApiCall();
         }
         jobDetailsWatch.updateIsAnythingUpdated();
       },

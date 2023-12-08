@@ -5,6 +5,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../utils/common_widget/common_no_data_found_layout.dart';
+import '../utils/theme/app_assets.dart';
 import 'helper/campus_placement_appbar.dart';
 
 class Campus extends ConsumerStatefulWidget {
@@ -42,7 +43,7 @@ class _CampusState extends ConsumerState<Campus> {
           campusPlacementWatch.campusPlacementApiCall();
         },
         child:campusPlacementWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-        campusPlacementWatch.campusPlacementList.isEmpty?  const CommonNoDataFoundLayout():
+        campusPlacementWatch.campusPlacementList.isEmpty?  const CommonNoDataFoundLayout(img:  AppAssets.jobSearch, errorTxt: 'Sorry! at this moment no any campus placement are available',):
         SingleChildScrollView(
           controller: _scrollController,
           physics: const BouncingScrollPhysics(),
@@ -55,7 +56,7 @@ class _CampusState extends ConsumerState<Campus> {
                     campusPlacementWatch.campusPlacementList.length, (index) {
                   if(index < campusPlacementWatch.campusPlacementList.length){
                    final campusJobDetail = campusPlacementWatch.campusPlacementList[index];
-                   return  CampusDetailCard(campusJobDetailModel: campusJobDetail,);
+                   return  CampusDetailCard(campusJobDetailModel: campusJobDetail,index);
                    }else{
                     return  const Center(child: CircularProgressIndicator());
 

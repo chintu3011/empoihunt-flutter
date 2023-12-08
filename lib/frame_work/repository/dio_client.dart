@@ -14,10 +14,16 @@ class DioClient{
   return dio.post(endpoint, data: jsonEncode(requestBody));
   }
 
+  Future postDataWithJsonWithBearerToken(String endpoint, Map<String, dynamic> requestBody,Options options) async{
+    dio.options = baseUrl;
+    return dio.post(endpoint, data: jsonEncode(requestBody),options:options);
+  }
+
   Future postDataWithForm(String endpoint, {required FormData formData}) async{
     dio.options = baseUrl;
     return dio.post(endpoint, data: formData);
   }
+
   Future postDataWithBearerToken(String endpoint,Options options) async{
     dio.options = baseUrl;
     return dio.post(endpoint,options: options);

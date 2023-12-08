@@ -173,6 +173,7 @@ class RegisterCard extends ConsumerWidget {
                     height: 10.h,
                   ),
                   CommonTypeAheadFormField(
+                    direction: AxisDirection.up,
                     onChanged: (value)=>notAllowSpecialChar(registerWatch.cityController, value),
                       controller: registerWatch.cityController,
                       hintText: "City",

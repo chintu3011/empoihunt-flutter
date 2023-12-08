@@ -23,6 +23,7 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CommonTypeAheadFormField(
+          direction: AxisDirection.up,
           prefixIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
           controller: createPostJobWatch.qualificationSearchController,
             hintText: "Bachelor of Engineering(BE)",

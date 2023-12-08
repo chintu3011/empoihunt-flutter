@@ -1,6 +1,13 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:dio/dio.dart';
+import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+
+import '../../../../ui/utils/app_constant.dart';
+import '../../../repository/api_end_point.dart';
+import '../../../repository/dio_client.dart';
+import '../../../repository/services/hive_service/box_service.dart';
 
 final contactUsController = ChangeNotifierProvider((ref) => ContactUsController());
 
@@ -33,6 +40,35 @@ class ContactUsController extends ChangeNotifier{
   }
 /// ----------------------------Country Picker--------------------------------///
 
+
+  ///---------------------------- contact us Api ---------------------------///
+
+
+  Future contactUsApi(BuildContext context) async{
+    try{
+      final data = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Response response = await DioClient.client.postDataWithJson(APIEndPoint.contactUsApi,
+          {
+            "name": nameController.text,
+            "email": emailController.text,
+            "mobile": "+${selectedCountry.phoneCode}${phoneController.text}",
+            "message": messageController.text,
+            "iUserId": data !=null? data.user.id:0
+          });
+      if(response.statusCode == 200){
+        if(context.mounted){
+          context.pop();
+          showSnackBar(context: context, error: "You've Successfully Submitted");
+        }
+      }
+    }catch (e){
+      Future.error(e);
+      if(context.mounted){showSnackBar(context: context, error: "Something went wrong");}
+    }
+  }
+
+  ///---------------------------- contact us Api ---------------------------///
+
   clearForm(){
     nameController.clear();
     phoneController.clear();
@@ -40,11 +76,10 @@ class ContactUsController extends ChangeNotifier{
     messageController.clear();
     notifyListeners();
   }
-  submitButton(BuildContext context){
+  submitButton(BuildContext context)async{
     if(formKey.currentState!.validate()){
-      context.pop();
+      await contactUsApi(context);
       clearForm();
-      debugPrint("Successs");
     }
   }
 }

@@ -90,6 +90,7 @@ class ContactUs extends ConsumerWidget {
                   SizedBox(height: 15.h,),
                   CommonFormField(
                     maxLength: 5000,
+                    controller: contactUsWatch.messageController,
                     hintText: "Message",
                     autoValidateMode: AutovalidateMode.onUserInteraction,
                     validator: (val)=>requiredFieldValidator(input: val!, errorMgs: "Description is required"),

@@ -1,6 +1,8 @@
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
@@ -37,6 +39,7 @@ class _SettingState extends ConsumerState<Setting> {
   Widget build(BuildContext context) {
     final settingWatch = ref.watch(settingController);
     final userRoleWatch = ref.watch(chooseUserRoleController);
+    final localData = BoxService.boxService.userGetDetailBox.get(userDetailKey);
     return  Scaffold(
       appBar: CommonAppBar(title: "Settings",actions: [ IconButton(onPressed: (){
         showModalBottomSheet(
@@ -52,7 +55,6 @@ class _SettingState extends ConsumerState<Setting> {
             ListTile(
               onTap: (){
                 context.push(const Profile());
-                // Navigator.push(context, MaterialPageRoute(builder: (_)=>const Profile()));
               },
               contentPadding: EdgeInsets.only(left: 0,top: 6.h,bottom: 6.h),
               shape: RoundedRectangleBorder(
@@ -61,10 +63,35 @@ class _SettingState extends ConsumerState<Setting> {
               ),
               leading: CircleAvatar(
                 radius: 34.r,
-                foregroundImage: const AssetImage(AppAssets.profilePicPng),
+                child: Container(
+                    height: 56.h,
+                    width: 56.w,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle
+                    ),
+                    child: localData != null?
+                    Image.network(
+                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                      errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                        return const Center(
+                          child: Text('Error loading image'),
+                        );
+                      },
+                      "https://api.emploihunt.com${localData.user.tProfileUrl}",fit: BoxFit.fill,):
+                    Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
+                ),
               ),
-              title: Text("Parth Rathod",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
-              subtitle: Text("Amri Systen",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+              title: Text(localData != null? "${localData.user.vFirstName} ${localData.user.vLastName}":"Unknown User",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
+              subtitle: Text(localData != null? localData.user.vCurrentCompany! :"Amri Systen",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
             ),
             SizedBox(height: 25.h,),
             ...List.generate(

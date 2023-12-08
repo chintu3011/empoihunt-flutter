@@ -16,6 +16,27 @@ import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
 Future<void> main() async{
 
+  String initString =  "Android Developer - 2 (Fresher),Web Developer - 1 (1 Year exp),Flutter Developer - 1 (1 Year exp),.NET Developer - 1 (1 Year exp),Anguler Developer - 1 (1 Year exp)";
+  List<String> firstSlit = initString.split(",");
+  List<String> secondSplit =[];
+  List<String> third =[];
+
+  List<String> jobRole = [];
+  List<String> vacancy = [];
+  print(firstSlit);
+  for(String i in firstSlit){
+    print(i);
+    secondSplit = i.split("-");
+    jobRole.add(secondSplit[0]);
+    print(secondSplit[0]);
+    third = secondSplit[1].split("");
+    vacancy.add(third[1]);
+    print(third[1]);
+  }
+  print(jobRole);
+  print(vacancy);
+
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

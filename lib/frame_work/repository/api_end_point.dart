@@ -16,10 +16,12 @@ class APIEndPoint{
 
   ///------------------------------------- job seeker ------------------------------///
 
-  static const String  jobPostApi = '/job/jobs?iJobPreferenceId=0&current_page=';
+  static const String  jobPostApi = '/job/jobs?iJobPreferenceId=0';
   static const String  jobAppliedApi = '/job/apply?jobId=';
   static const String  saveJobApi = '/job/save?jobId=';
   static const String  unSaveJobApi = '/job/unSave?jobId=';
+
+  static const String  campusPlacementApi = '/campus_placement/campus?';
 
 ///------------------------------------- job seeker ------------------------------///
 }

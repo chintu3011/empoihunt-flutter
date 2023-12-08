@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
+import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_home_search_dialog.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_search_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -12,7 +13,12 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final jobSeekerHomeWatch = ref.watch(jobSeekerHomeController);
     return jobSeekerHomeWatch.isSearchFiledVisible
-        ? CommonSearchAppBar(action: [
+        ? CommonSearchAppBar(
+          controller: jobSeekerHomeWatch.searchController,
+          onFieldSubmitted: (value){
+              jobSeekerHomeWatch.searchedData();
+          },
+          action: [
             IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.mic, color: AppColors.colors.blackColors)),
@@ -23,7 +29,13 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
                 color: AppColors.colors.blackColors,
           ))
 
-    ], searchSuffixClick: () {}, onBackArrowTap: (){
+    ], searchSuffixClick: () {
+            jobSeekerHomeWatch.searchController.clear();
+    }, onBackArrowTap: (){
+            // if(jobSeekerHomeWatch.searchController.text != ""){
+              jobSeekerHomeWatch.searchController.clear();
+              jobSeekerHomeWatch.jobsPostApiCall();
+            // }
       jobSeekerHomeWatch.updateIsSearchFiledVisible();
     },)
         : Theme(
@@ -46,7 +58,16 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
                           color: AppColors.colors.blackColors,
                         )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                       jobSeekerHomeWatch.listeningVoice(context);
+                      showDialog(context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                        return const Dialog(
+                          child: JobSeekerHomeSearchDialog(),
+                        );
+                      },);
+                    },
                     icon: Icon(
                       Icons.mic,
                       color: AppColors.colors.blackColors,
@@ -65,6 +86,5 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(50.h);
 }

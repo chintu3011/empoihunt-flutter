@@ -6,8 +6,10 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 class CommonSearchAppBar extends StatelessWidget {
   final List<Widget> action;
   final  void Function()? searchSuffixClick;
+  final TextEditingController? controller;
   final  void Function()? onBackArrowTap;
-  const CommonSearchAppBar({super.key, required this.action,required this.searchSuffixClick,required this.onBackArrowTap});
+  final void Function(String)? onFieldSubmitted;
+  const CommonSearchAppBar({super.key, required this.action,required this.searchSuffixClick,required this.onBackArrowTap, this.controller, this.onFieldSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,9 @@ class CommonSearchAppBar extends StatelessWidget {
                 children: [
                   IconButton(onPressed: onBackArrowTap, icon: Icon(Icons.arrow_back,color: AppColors.colors.blackColors,)),
                   Expanded(child: CommonFormField(
+                    onFieldSubmitted: onFieldSubmitted,
+                    textInputAction: TextInputAction.search,
+                    controller: controller,
                     contentPadding: EdgeInsets.symmetric(vertical: 0.h,horizontal: 10.w),
                     fillColor: Colors.transparent,
                     border: const UnderlineInputBorder(),

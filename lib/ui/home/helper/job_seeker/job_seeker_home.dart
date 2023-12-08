@@ -4,6 +4,7 @@ import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_list_card.dart';
 import 'package:emploiflutter/ui/job_details/job_details.dart';
 import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
@@ -27,7 +28,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(jobSeekerHomeController).jobsPostApiCall();
     });
-
+    debugPrint("Job seeker Home init call");
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent){
@@ -54,7 +55,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         child: Stack(
           children: [
             jobSeekerHomeWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-            jobSeekerHomeWatch.jobPostList.isEmpty?  const Center(child: Text("No Data Found"),):
+            jobSeekerHomeWatch.jobPostList.isEmpty?  const CommonNoDataFoundLayout():
             SingleChildScrollView(
               controller: _scrollController,
               physics: const BouncingScrollPhysics(),

@@ -54,7 +54,8 @@ dependencies:
   lottie: ^2.7.0
   showcaseview: ^2.0.3
   fluttertoast: ^8.2.4
-
+  avatar_glow: ^2.0.2
+  speech_to_text: ^6.4.1
 
   # Device info
   device_info_plus:

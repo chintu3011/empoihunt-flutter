@@ -39,11 +39,6 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
           ref.watch(jobSeekerHomeController).jobsPostApiCall();
         }
         jobDetailsWatch.updateIsAnythingUpdated();
-        // if(value == jobDetailsWatch.isApplied || value == jobDetailsWatch.isFavorite){
-        //   ref.watch(jobSeekerHomeController).jobsPostApiCall();
-        // }else if (jobDetailsWatch.isFavorite == false){
-        //   ref.watch(jobSeekerHomeController).jobsPostApiCall();
-        // }
       },
       child: Scaffold(
         appBar:  JobDetailsAppBar(jobDetailModel: widget.jobDetail,),

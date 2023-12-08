@@ -10,13 +10,14 @@ class CommonFormField extends StatelessWidget {
         this.obscureText =false,
         this.suffixIcon,
         this.validator,
-        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border, this.buildCounter, this.fillColor, this.onChanged});
+        this.initialValue, this.controller, this.textInputAction, this.keyboardType, this.inputFormatters, this.labelText, this.prefixIcon, this.maxLength, this.hintStyle, this.labelStyle, this.maxLine = 1, this.contentPadding, this.autoValidateMode, this.border, this.buildCounter, this.fillColor, this.onChanged, this.onFieldSubmitted});
 
   final String hintText;
   final String? labelText;
   final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final void Function(String)? onFieldSubmitted;
   final String? initialValue;
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
@@ -38,6 +39,7 @@ class CommonFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: onFieldSubmitted,
       onChanged: onChanged,
       buildCounter:buildCounter,
               // (context, {required currentLength,  required isFocused, maxLength}){ return const SizedBox();},

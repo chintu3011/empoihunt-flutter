@@ -1,14 +1,16 @@
+import 'package:emploiflutter/frame_work/controller/campus_placement_controller/campus_placement_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/campus_placement_model/campus_placement_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/frame_work/repository/model/campus_job_details_model/campus_job_detail_model.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
-class CampusDetailTable extends StatelessWidget {
-  final CampusJobDetailModel campusJobDetailModel;
-  const CampusDetailTable({super.key, required this.campusJobDetailModel});
+class CampusDetailTable extends ConsumerWidget {
+  final CampusPlacementModel campusPlacementModel;
+  const CampusDetailTable(this.campusPlacementModel, {super.key,});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final campusPlacement = ref.watch(campusPlacementController);
     final size = MediaQuery.of(context).size;
     return  Column(
       children: [
@@ -37,32 +39,35 @@ class CampusDetailTable extends StatelessWidget {
             ),
           ],
         ),
-        ...List.generate(campusJobDetailModel.tableData.length, (index) {
-          final tableData = campusJobDetailModel.tableData[index];
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Container(
-                  color: const Color(0xffdee8e7),
-                  padding: EdgeInsets.symmetric(vertical: 2.h,horizontal: 6.w),
-                  child: Text(
-                    tableData.jobRole,
-                    style: TextStyles.w400.copyWith(fontSize: 12.sp, color: AppColors.colors.blueColors),
+        ...List.generate(campusPlacement.getJobRoleList(campusPlacementModel.tVacancy!).length, (index) {
+          final tableData = campusPlacement.getJobRoleList(campusPlacementModel.tVacancy!)[index];
+          return Visibility(
+            visible: true,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Container(
+                    color: const Color(0xffdee8e7),
+                    padding: EdgeInsets.symmetric(vertical: 2.h,horizontal: 6.w),
+                    child: Text(
+                      tableData["role"],
+                      style: TextStyles.w400.copyWith(fontSize: 12.sp, color: AppColors.colors.blueColors),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                width: size.width * 0.3,
-                alignment: Alignment.center,
-                color: const Color(0xffE0EEEA),
-                padding: EdgeInsets.symmetric(vertical: 2.h),
-                child: Text(
-                  tableData.vacancy.toString(),
-                  style: TextStyles.w400.copyWith(fontSize: 12.sp, color: AppColors.colors.blueDark),
+                Container(
+                  width: size.width * 0.3,
+                  alignment: Alignment.center,
+                  color: const Color(0xffE0EEEA),
+                  padding: EdgeInsets.symmetric(vertical: 2.h),
+                  child: Text(
+                    tableData["vacancy"],
+                    style: TextStyles.w400.copyWith(fontSize: 12.sp, color: AppColors.colors.blueDark),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         })
       ],

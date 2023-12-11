@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -6,7 +7,8 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class ProfileUserDetailTile extends ConsumerWidget {
-  const ProfileUserDetailTile({super.key});
+  final UserModel user;
+  const ProfileUserDetailTile({super.key,required this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +28,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Job Seeker",
+                  user.iRole == 0 ?"Job Seeker":"Recruiter",
                   style: TextStyles.w600.copyWith(
                       fontSize: 16.sp,
                       color: AppColors.colors.blueDark),
@@ -46,13 +48,13 @@ class ProfileUserDetailTile extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Parth Rathod",
+                  "${user.vFirstName} ${user.vLastName}",
                   style: TextStyles.w600.copyWith(
                       fontSize: 22.sp,
                       color: AppColors.colors.blueDark),
                 ),
                 Text(
-                  "Ahmedabad",
+                  user.vJobLocation!,
                   style: TextStyles.w600.copyWith(
                       fontSize: 12.sp,
                       color: AppColors.colors.blueColors),
@@ -63,7 +65,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
               children: [
                 Icon(Icons.home_work_outlined,size: 20.sp,color: AppColors.colors.blueColors,),
                 Text(
-                  "  Amri Systems",
+                  " ${user.vCurrentCompany}",
                   style: TextStyles.w600.copyWith(
                       fontSize: 16.sp,
                       color: AppColors.colors.blueDark),
@@ -73,7 +75,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
             Row(
               children: [
                 Tooltip(
-                  message:"1234567890",
+                  message:user.vMobile,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: AppColors.colors.greyRegent.withOpacity(0.8),width: 0.5),
@@ -101,7 +103,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
                   ),
                 ),
                 Tooltip(
-                  message:"xyz@gmail.com",
+                  message:user.vEmail,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: AppColors.colors.greyRegent.withOpacity(0.8),width: 0.5),

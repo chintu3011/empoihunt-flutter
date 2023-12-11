@@ -37,13 +37,7 @@ class ProfileExperienceTile extends ConsumerWidget {
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),
             SizedBox(height: 10.h,),
-            Row(
-              children: [
-                const Spacer(),
-                Image.asset(AppAssets.experienceEmptyIcon,scale: 14,),
-                const Spacer(),
-              ],
-            ),
+            profileWatch.userExperienceList.isEmpty? const SizedBox():
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
               width: size.width * 0.90 ,

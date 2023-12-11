@@ -1,10 +1,12 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class ProfileQualificationTile extends ConsumerWidget {
-  const ProfileQualificationTile({super.key});
+  final UserModel user;
+  const ProfileQualificationTile({super.key,required this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,7 +37,7 @@ class ProfileQualificationTile extends ConsumerWidget {
             ),
             SizedBox(height: 10.h,),
             Text(
-              "content Goes here",
+              user.vQualification!=""? user.vQualification!:"",
               style: TextStyles.w500.copyWith(
                   fontSize: 12.sp,
                   color: AppColors.colors.greyRegent),

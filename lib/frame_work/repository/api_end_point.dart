@@ -36,4 +36,8 @@ class APIEndPoint{
   static const String  jobPreferenceUpdateApi = '/jobPreference/update_preference';
 
 ///------------------------------------- job seeker ------------------------------///
+
+///------------------------------------- Profile --------------------------------///
+    static const String userExperienceApi = '/experince/experince';
+///------------------------------------- Profile --------------------------------///
 }

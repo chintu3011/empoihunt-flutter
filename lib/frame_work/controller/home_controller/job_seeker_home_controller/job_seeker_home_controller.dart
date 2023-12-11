@@ -176,7 +176,7 @@ isVoiceListening= true;
               'Authorization': 'Bearer ${user.tAuthToken}',
             }
         );
-        Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}&tag=${searchController.text}&current_page=$currentPage", options);
+        Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}0&tag=${searchController.text}&current_page=$currentPage", options);
         if(response.statusCode == 200){
           isLoading = false;
           currentPage += 1;
@@ -246,8 +246,6 @@ isVoiceListening= true;
   }
 
   List<Map<String,dynamic>> jobPreferenceList = [];
-  // int? totalPages;
-  // int currentPage= 1;
   int  lenghtOfList = 1;
 
   Future getJobPrefApiCall()async{
@@ -271,7 +269,6 @@ isVoiceListening= true;
           print(response.data["data"]);
           List responseData = response.data["data"];
           totalPages = response.data["total_pages"];
-          List<String> preferTitleList = [];
           jobPreferenceList.add({"For you":0});
           selectedPostJob = jobPreferenceList[0];
           print(selectedPostJob);

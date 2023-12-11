@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
+import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
+import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_banner_image_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_current_position_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_experience_dialogbox.dart';
@@ -10,6 +14,9 @@ import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_qualif
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_resume_dialogbox.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
+import '../../../ui/utils/app_constant.dart';
+import '../../repository/model/user_model/user_experience_model.dart';
+import '../../repository/services/hive_service/box_service.dart';
 
 final profileController = ChangeNotifierProvider((ref) => ProfileController(ref));
 
@@ -19,6 +26,45 @@ class ProfileController extends ChangeNotifier {
 
   bool isDialogShow = false;
   int dialogValue = 0;
+
+
+  ///---------------- get user data from hive storage --------------------///
+  ///
+  final userModelData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
+
+
+  ///---------------- get user data from hive storage --------------------///
+
+
+  ///----------------User Experience Api call and Store Data on hive -----------------------///
+
+    List<UserExperienceModel> userExperienceList = [];
+    Future getUserExperienceApi()async{
+      userExperienceList = [];
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user?.tAuthToken}',
+            }
+        );
+      Response response = await DioClient.client.getDataWithBearerToken(APIEndPoint.userExperienceApi,options);
+      if(response.statusCode == 200){
+        List responseData = response.data["data"];
+        for(dynamic i in responseData) {
+          UserExperienceModel job = UserExperienceModel.fromJson(i);
+            userExperienceList.add(job);
+        }
+        print(response.data['data']);
+      }
+    }catch(e){
+      Future.error(e);
+    }
+    }
+
+  ///----------------User Experience Api call and Store Data on hive -----------------------///
+
 
   ///----------- Form keys ----------------///
 
@@ -52,6 +98,7 @@ class ProfileController extends ChangeNotifier {
   }
   String? userDetailSelectedJobLocation;
   bool isUserDetailsJobSelect = false;
+
   updateSelectedJobLocation(String? value) {
     userDetailSelectedJobLocation = value;
     isUserDetailsJobSelect = false;
@@ -188,8 +235,8 @@ class ProfileController extends ChangeNotifier {
   /// ------ Banner Image ----///
 
 
-  /// ------ Banner Image ----///
 
+  /// ------ Banner Image ----///
   late AnimationController uploadProfileImgLottieController;
 
   bool isProfileImgAnimationRun = false;
@@ -222,6 +269,7 @@ class ProfileController extends ChangeNotifier {
   }
   /// ------ Banner Image ----///
 
+
   /// ------ resume Edit ----////
   late AnimationController resumeLottieController;
 
@@ -246,10 +294,10 @@ class ProfileController extends ChangeNotifier {
       resumeLottieController.stop();
     }
   }
-
-
-
   /// ------ resume Edit ----////
+
+
+
 
   /// ------ User Experience  ----////
 
@@ -258,16 +306,13 @@ class ProfileController extends ChangeNotifier {
   final userExperienceAddSearchJobLocationFieldController = TextEditingController();
   final userExperienceAddDurationFieldController = TextEditingController();
 
-
   final userExperienceUpdateDesignFieldController = TextEditingController();
   final userExperienceUpdateCompanyNameFieldController = TextEditingController();
   final userExperienceUpdateSearchJobLocationFieldController = TextEditingController();
   final userExperienceUpdateDurationFieldController = TextEditingController();
 
-  List<UserExperienceModel> userExperienceList = [];
   int selectedUserExperienceListIndex = -1;
   int updateItemIndex = 0;
-
 
 
   String? userExperienceUpdateSelectedJobLocation;
@@ -278,6 +323,7 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
   bool checkBoxValUpdateForm = false;
+
   updateCheckBoxValUpdateForm(bool value){
     checkBoxValUpdateForm = value;
     notifyListeners();
@@ -289,10 +335,10 @@ class ProfileController extends ChangeNotifier {
         isUserExperienceUpdateJobSelected = false;
 
         userExperienceList[updateItemIndex] = UserExperienceModel(
-            designation: userExperienceUpdateDesignFieldController.text,
-            companyName: userExperienceUpdateCompanyNameFieldController.text,
-            location: userExperienceUpdateSelectedJobLocation!,
-            duration: userExperienceUpdateDurationFieldController.text);
+            vDesignation: userExperienceUpdateDesignFieldController.text,
+            vCompanyName: userExperienceUpdateCompanyNameFieldController.text,
+            vJobLocation: userExperienceUpdateSelectedJobLocation!,
+            vDuration: userExperienceUpdateDurationFieldController.text);
 
         /// Clear form after update ///
         userExperienceUpdateDesignFieldController.clear();
@@ -366,10 +412,10 @@ class ProfileController extends ChangeNotifier {
       if(userExperienceAddSelectedJobLocation != null){
         isUserExperienceAddJobSelected = false;
         userExperienceList.add(UserExperienceModel(
-            designation: userExperienceAddDesignFieldController.text,
-            companyName: userExperienceAddCompanyNameFieldController.text,
-            location: userExperienceAddSelectedJobLocation!,
-            duration: userExperienceAddDurationFieldController.text));
+            vDesignation: userExperienceAddDesignFieldController.text,
+            vCompanyName: userExperienceAddCompanyNameFieldController.text,
+            vJobLocation: userExperienceAddSelectedJobLocation!,
+            vDuration: userExperienceAddDurationFieldController.text));
 
         /// Clear after adding ////
         userExperienceAddDesignFieldController.clear();
@@ -395,6 +441,7 @@ class ProfileController extends ChangeNotifier {
       }
   }
   /// ------ User Experience ----////
+
 
 
   /// ------ User Current Position ----////
@@ -434,6 +481,7 @@ class ProfileController extends ChangeNotifier {
     updateIsDialogShow();
     clearCurrentPosForm();
   }
+
   currentPositionDoneButton(){
     if(currentPositionFormKey.currentState!.validate()){
       if(userCurrentPosSelectedJobLocation != null){
@@ -449,8 +497,9 @@ class ProfileController extends ChangeNotifier {
   }
   /// ------ User Current Position ----////
 
-  /// ------ User Qualification ------- ///
 
+
+  /// ------ User Qualification ------- ///
 
   final qualificationSearchController = TextEditingController();
   bool isQualificationSelected = false;
@@ -461,6 +510,7 @@ class ProfileController extends ChangeNotifier {
     isQualificationSelected = false;
     notifyListeners();
   }
+
   qualificationChangeCancelButton(){
     updateIsDialogShow();
     selectedQualification = null;
@@ -484,16 +534,3 @@ class ProfileController extends ChangeNotifier {
 }
 
 
-
-class UserExperienceModel {
-  final String designation;
-  final String companyName;
-  final String location;
-  final String? duration;
-
-  UserExperienceModel(
-      {required this.designation,
-      required this.companyName,
-      required this.location,
-      this.duration});
-}

@@ -1,17 +1,33 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/profile_profile_pic.dart';
 import 'package:emploiflutter/ui/profile/profile_user_details.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_show_dialog_layout.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../utils/theme/text_styles.dart';
 
-class Profile extends ConsumerWidget {
+class Profile extends ConsumerStatefulWidget{
   const Profile({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends ConsumerState<Profile> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(profileController).getUserExperienceApi();
+    });
+  }
+  @override
+  Widget build(BuildContext context,) {
     final profileWatch = ref.watch(profileController);
     return CommonShowDialogLayout(
       show: profileWatch.isDialogShow,
@@ -24,11 +40,11 @@ class Profile extends ConsumerWidget {
             children: [
               Stack(
                 children: [
-                  const ProfileUserDetails(),
+                   ProfileUserDetails(userModel: profileWatch.userModelData,),
                   Positioned(
                     left: 120.w,
                       top: 70.h,
-                      child: const ProfileProfilePic())
+                      child: ProfileProfilePic(userModel: profileWatch.userModelData,))
                 ],
               ),
             ],

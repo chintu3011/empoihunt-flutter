@@ -1,10 +1,12 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class ProfileAboutTile extends ConsumerWidget {
-  const ProfileAboutTile({super.key});
+  final UserModel user;
+  const ProfileAboutTile({super.key,required this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +29,7 @@ class ProfileAboutTile extends ConsumerWidget {
                 color: AppColors.colors.blackColors),
           ),
           subtitle: Text(
-            "content goes here ",
+            user.tBio!=""? user.tBio! :"",
             style: TextStyles.w500.copyWith(
                 fontSize: 14.sp,
                 color: AppColors.colors.greyRegent),

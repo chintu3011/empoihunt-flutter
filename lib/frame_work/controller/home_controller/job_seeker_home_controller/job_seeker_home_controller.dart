@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../repository/api_end_point.dart';
+import '../../../repository/model/job_preference_model/job_preference_model.dart';
 
 final jobSeekerHomeController = ChangeNotifierProvider((ref) => JobSeekerHomeController());
 
@@ -25,8 +26,9 @@ class JobSeekerHomeController extends ChangeNotifier{
   int? totalPages;
   int currentPage= 1;
   bool isLoading = false;
+  String preferenceId = "0";
 
-  Future jobsPostApiCall()async{
+  Future jobsPostApiCall(   )async{
     try{
       jobPostList=[];
       isLoading = true;
@@ -41,11 +43,10 @@ class JobSeekerHomeController extends ChangeNotifier{
                 'Authorization': 'Bearer ${user.tAuthToken}',
               }
           );
-          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}&tag=""&current_page=$currentPage", options);
+          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.jobPostApi}$preferenceId&tag=""&current_page=$currentPage", options);
           if(response.statusCode == 200){
             isLoading = false;
             currentPage += 1;
-            print(response.data["data"]);
             List responseData = response.data["data"];
             totalPages = response.data["total_pages"];
             for(dynamic i in responseData){
@@ -224,4 +225,76 @@ isVoiceListening= true;
   }
 ///----------------------------------- take epochTime and return how long ago the post is --------------------------///
 
+
+///----------------------------------- Job Preference if given ---------------------------------------------------///
+
+
+  // List<String> postJobList  =[
+  //   'Web Developer',
+  //   'Flutter Developer React Native Developer,',
+  //   'React Native Developer, ',
+  //   '.Net Developer',
+  // ];
+
+  Map<String,dynamic> selectedPostJob = {};
+  updateSelectedPostJob(Map<String,dynamic> value){
+    selectedPostJob = value;
+    preferenceId = value.values.first.toString();
+    jobsPostApiCall();
+    print(value.values.first);
+    notifyListeners();
+  }
+
+  List<Map<String,dynamic>> jobPreferenceList = [];
+  // int? totalPages;
+  // int currentPage= 1;
+  int  lenghtOfList = 1;
+
+  Future getJobPrefApiCall()async{
+    try{
+      jobPreferenceList= [];
+      isLoading = true;
+      notifyListeners();
+      // currentPage = 1;
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      if(user !=null) {
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
+        );
+        Response response =await DioClient.client.getDataWithBearerToken(APIEndPoint.jobPreferenceApi, options);
+        if(response.statusCode == 200){
+          isLoading = false;
+          // currentPage += 1;
+          print(response.data["data"]);
+          List responseData = response.data["data"];
+          totalPages = response.data["total_pages"];
+          List<String> preferTitleList = [];
+          jobPreferenceList.add({"For you":0});
+          selectedPostJob = jobPreferenceList[0];
+          print(selectedPostJob);
+          for(dynamic i in responseData) {
+            JobPreferenceModel job = JobPreferenceModel.fromJson(i);
+            // jobPreferenceList.add(job.vJobTitle!);
+            jobPreferenceList.add({"${job.vJobTitle!} - ${job.vJobLocation!} - ${job.vExpectedSalary}":job.id});
+          }
+
+          // jobPreferenceList = jobPreferenceList + preferTitleList;
+          lenghtOfList = jobPreferenceList.length;
+          notifyListeners();
+          print("Preference Data------->$jobPreferenceList");
+        }
+      }
+    }catch(e) {
+      jobPreferenceList = [];
+      isLoading = false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+
+
+///----------------------------------- Job Preference if given ---------------------------------------------------///
 }

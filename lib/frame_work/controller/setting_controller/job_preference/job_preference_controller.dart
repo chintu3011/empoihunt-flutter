@@ -60,7 +60,7 @@ class JobPreferenceController extends ChangeNotifier{
   int? totalPages;
   // int currentPage= 1;
   bool isLoading = false;
-  int  lenghtOfList = 1;
+  int  lenghtOfList = 0;
 
   Future jobPreferenceApiCall()async{
     try{

@@ -16,6 +16,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../../ui/utils/app_constant.dart';
 import '../../repository/model/user_model/user_experience_model.dart';
+import '../../repository/model/user_model/user_experience_model.dart';
+import '../../repository/model/user_model/user_experience_model.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
 final profileController = ChangeNotifierProvider((ref) => ProfileController(ref));
@@ -324,17 +326,13 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
-  updateListItemButton() {
+  updateListItemButton(UserExperienceModel model) async{
     if(experienceUpdateFormKey.currentState!.validate()){
       if(userExperienceUpdateSelectedJobLocation != null){
         isUserExperienceUpdateJobSelected = false;
 
-        userExperienceList[updateItemIndex] = UserExperienceModel(
-            vDesignation: userExperienceUpdateDesignFieldController.text,
-            vCompanyName: userExperienceUpdateCompanyNameFieldController.text,
-            vJobLocation: userExperienceUpdateSelectedJobLocation!,
-            vDuration: userExperienceUpdateDurationFieldController.text);
-
+        await  updateExperienceApi(model);
+        await getUserExperienceApi();
         /// Clear form after update ///
         userExperienceUpdateDesignFieldController.clear();
         userExperienceUpdateCompanyNameFieldController.clear();
@@ -357,8 +355,9 @@ class ProfileController extends ChangeNotifier {
   }
 
 
-  listDeleteButton(int index){
-    userExperienceList.removeAt(index);
+  listDeleteButton(UserExperienceModel model)async{
+    await deleteExperienceApi(model);
+    await getUserExperienceApi();
     notifyListeners();
   }
 
@@ -385,11 +384,16 @@ class ProfileController extends ChangeNotifier {
   bool isExperienceExpanded = false;
   bool isExperienceAddShow = false;
 
-  updateIsExperienceAddShow() {
-    isExperienceAddShow = !isExperienceAddShow;
-    isExperienceExpanded = true;
+  updateIsExperienceAddShow(bool value) {
+    isExperienceAddShow = value;
     notifyListeners();
   }
+
+  updateIsExperienceExpanded(bool value){
+    isExperienceExpanded = value;
+    notifyListeners();
+  }
+
 
   String? userExperienceAddSelectedJobLocation;
   bool isUserExperienceAddJobSelected = false;
@@ -407,7 +411,7 @@ class ProfileController extends ChangeNotifier {
       if(userExperienceAddSelectedJobLocation != null){
         isUserExperienceAddJobSelected = false;
         insertExperienceApi();
-
+        getUserExperienceApi();
         /// Clear after adding ////
         userExperienceAddDesignFieldController.clear();
         userExperienceAddSearchJobLocationFieldController.clear();
@@ -425,11 +429,7 @@ class ProfileController extends ChangeNotifier {
   experienceOkButton(){
     updateIsDialogShow();
       selectedUserExperienceListIndex = -1;
-      if (userExperienceList.isNotEmpty) {
-        isExperienceExpanded = true;
-      } else {
-        isExperienceExpanded = false;
-      }
+     notifyListeners();
   }
   /// ------ User Experience ----////
 
@@ -572,7 +572,7 @@ class ProfileController extends ChangeNotifier {
           {
             "vDesignation": userExperienceAddDesignFieldController.text,
             "vCompany": userExperienceAddCompanyNameFieldController.text,
-            "vDuration":checkBoxValAddForm? userExperienceAddDurationFieldController.text:"Present",
+            "vDuration":checkBoxValAddForm?"Present": userExperienceAddDurationFieldController.text,
             "vJobLocation": userExperienceAddSelectedJobLocation,
             "bIsCurrentCompany":checkBoxValAddForm? 1: 0
           },options);
@@ -591,21 +591,22 @@ class ProfileController extends ChangeNotifier {
   }
 
 
-  Future updateExperienceApi(int index,UserExperienceModel model)async{
+  Future updateExperienceApi(UserExperienceModel model)async{
     isExperienceLoading= true;
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      print(options.headers);
       Response response = await
       DioClient.client.postDataWithJsonWithBearerToken(
           APIEndPoint.userExperienceUpdateApi,
           {
             "id": model.id,
-            "vDesignation": userExperienceAddDesignFieldController.text,
-            "vCompany": userExperienceAddCompanyNameFieldController.text,
-            "vDuration":checkBoxValAddForm? userExperienceAddDurationFieldController.text:"Present",
-            "vJobLocation": userExperienceAddSelectedJobLocation,
-            "bIsCurrentCompany":checkBoxValAddForm? 1: 0
+            "vDesignation": userExperienceUpdateDesignFieldController.text,
+            "vCompany": userExperienceUpdateCompanyNameFieldController.text,
+            "vDuration":checkBoxValUpdateForm? "Present":userExperienceUpdateDurationFieldController.text,
+            "vJobLocation": userExperienceUpdateSelectedJobLocation,
+            "bIsCurrentCompany":checkBoxValUpdateForm? 1: 0
           },options);
       if(response.statusCode == 200){
         // var responseData = response.data["data"];
@@ -620,9 +621,52 @@ class ProfileController extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+
+  Future deleteExperienceApi(UserExperienceModel model)async{
+    isExperienceLoading= true;
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      print(options.headers);
+      Response response = await
+      DioClient.client.postDataWithBearerToken(
+          "${APIEndPoint.userExperienceDeleteApi}?id=${model.id}",options);
+      if(response.statusCode == 200){
+        isExperienceLoading= false;
+        notifyListeners();
+      }
+    }catch(e){
+      isExperienceLoading= false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+
+
+   Future userProfileDetailUpdateApi() async{
+
+    String tagline ="";
+    for(String i in expertiseList){
+      tagline = "$tagline$i,";
+    }
+    print(tagline);
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      Response response = await
+      DioClient.client.postDataWithBearerToken("${APIEndPoint.userUpdateProfileApi}?vFirstName=${user!.user.vFirstName}&vLastName=${user.user.vLastName}&vEmail=${user.user.vEmail}&tBio=${user.user.tBio}&vcity=${user.user.vCity}&vCurrentCompany=${user.user.vCurrentCompany}&vDesignation=${user.user.vDesignation}&vJobLocation=${user.user.vJobLocation}&vQualification=${user.user.vQualification}&vWorkingMode=${user.user.vWorkingMode}&tTagLine=$tagline",
+          options);
+      if(response.statusCode == 200){
+        print("Success update profile Screen to the local data base");
+        notifyListeners();
+      }
+    }catch(e){
+      Future.error(e);
+    }
+    notifyListeners();
+  }
 ///----------------User Experience Api call and Store Data on hive -----------------------///
-
-
 }
 
 

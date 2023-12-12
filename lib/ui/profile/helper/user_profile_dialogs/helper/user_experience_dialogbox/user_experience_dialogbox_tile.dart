@@ -10,9 +10,10 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final profileWatch = ref.watch(profileController);
-    return Column(
-      children: List.generate(profileWatch.userExperienceList.length, (index) {
-
+    return profileWatch.isExperienceLoading? const Center(child: CircularProgressIndicator(),):
+      Column(
+      children:
+      List.generate(profileWatch.userExperienceList.length, (index) {
         final experience = profileWatch.userExperienceList[index];
         return Stack(
           children: [
@@ -49,7 +50,7 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
                   ),
                 ),
                 SizedBox(height: 10.h,),
-                profileWatch.selectedUserExperienceListIndex == index ? const UserExperienceDialogBoxUpdateFrom(): const SizedBox()
+                profileWatch.selectedUserExperienceListIndex == index ?  UserExperienceDialogBoxUpdateFrom(model: experience,): const SizedBox()
               ],
             ),
             Positioned(
@@ -63,7 +64,7 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
                   }, icon: Icon(profileWatch.selectedUserExperienceListIndex == index ? Icons.cancel_outlined :Icons.edit,color: AppColors.colors.whiteColors,size: 18.sp),style:  ElevatedButton.styleFrom(backgroundColor: AppColors.colors.blueColors,padding: EdgeInsets.all(4.sp)),),
                   SizedBox(width: 5.w,),
                   IconButton(onPressed: (){
-                    profileWatch.listDeleteButton(index);
+                    profileWatch.listDeleteButton(experience);
                   }, icon: Icon(Icons.delete,color: AppColors.colors.whiteColors,size: 18.sp),style:  ElevatedButton.styleFrom(backgroundColor: AppColors.colors.blueColors,padding: EdgeInsets.all(6.sp)),),
                 ],
               ),

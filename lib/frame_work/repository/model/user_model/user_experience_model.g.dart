@@ -21,7 +21,7 @@ class UserExperienceModelAdapter extends TypeAdapter<UserExperienceModel> {
       iUserId: fields[1] as int?,
       vDesignation: fields[2] as String?,
       vCompanyName: fields[3] as String?,
-      vDuration: fields[4] as dynamic,
+      vDuration: fields[4] as String?,
       vJobLocation: fields[5] as String?,
       bIsCurrentCompany: fields[6] as int?,
       tCreatedAt: fields[7] as String?,

@@ -22,6 +22,7 @@
   const String  userDetailsBox = "userDetailsBoxKey";
   const String  userModelBox = "userModelBoxKey";
   const String  userExperienceBox = "userExperienceBox";
+  const String  experienceModelBox = "experienceModelBox";
   ////keys
   const String userDetailKey = "nativeDeviceDetailsKey";
   const String userExperienceKey = "userExperienceKey";

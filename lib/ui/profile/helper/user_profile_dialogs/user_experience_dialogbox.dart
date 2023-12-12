@@ -47,7 +47,8 @@ class UserExperienceDialogBox extends ConsumerWidget {
                           Text("Add New Experience",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),),
                           const Spacer(),
                           IconButton(onPressed: (){
-                            profileWatch.updateIsExperienceAddShow();
+                            profileWatch.updateIsExperienceAddShow(true);
+                            profileWatch.updateIsExperienceExpanded(true);
                           }, icon: Icon(Icons.add,size: 18.sp,color: AppColors.colors.blueColors,)).paddingOnly(right: 6.w)
                         ],
                       ),
@@ -61,6 +62,9 @@ class UserExperienceDialogBox extends ConsumerWidget {
             ),
           TextButton(onPressed: (){
             profileWatch.experienceOkButton();
+            profileWatch.getUserExperienceApi();
+            profileWatch.updateIsExperienceAddShow(false);
+            profileWatch.updateIsExperienceExpanded(false);
           }, child: Text("Ok",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),))],
         ),
       ),

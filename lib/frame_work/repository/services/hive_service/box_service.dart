@@ -4,6 +4,8 @@ import 'package:emploiflutter/frame_work/repository/model/user_model/user_experi
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:hive/hive.dart';
 
+import '../../model/user_model/user_experience_model.dart';
+
 class BoxService{
   late Box<NativeDeviceDetailModel> nativeDeviceBox;
   late Box<UserDetailDataModel> userGetDetailBox;

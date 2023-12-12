@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
@@ -34,12 +35,17 @@ class ProfileExperienceTile extends ConsumerWidget {
                 IconButton(onPressed: (){
                   profileWatch.setDialogValue(5);
                   profileWatch.updateIsDialogShow();
+                  profileWatch.userExperienceList.isEmpty? profileWatch.updateIsExperienceExpanded(false):profileWatch.updateIsExperienceExpanded(true);
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),
             SizedBox(height: 10.h,),
-            profileWatch.isExperienceLoading? const Center(child: CircularProgressIndicator(),):
-            profileWatch.userExperienceList.isEmpty?  const SizedBox():
-                Column(
+            SizedBox(
+              height: 170.h,
+              child:  profileWatch.isExperienceLoading? const Center(child: CircularProgressIndicator(),):
+              profileWatch.userExperienceList.isEmpty?  const SizedBox():
+              SingleChildScrollView(
+                padding: EdgeInsets.only(bottom: 8.h),
+                child: Column(
                   children: List.generate(profileWatch.userExperienceList.length, (index) {
                     final experience = profileWatch.userExperienceList[index];
                     return Container(
@@ -64,9 +70,11 @@ class ProfileExperienceTile extends ConsumerWidget {
                           )
                         ],
                       ),
-                    );
+                    ).paddingOnly(bottom: 5.h);
                   }),
-                )
+                ),
+              ),
+            )
           ],
         ),
       ),

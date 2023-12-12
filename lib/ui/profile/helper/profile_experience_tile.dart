@@ -37,30 +37,36 @@ class ProfileExperienceTile extends ConsumerWidget {
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),
             SizedBox(height: 10.h,),
-            profileWatch.userExperienceList.isEmpty? const SizedBox():
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
-              width: size.width * 0.90 ,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4.r),
-                  border: Border.all(color: AppColors.colors.blueDark,width: 1.5.w),
-                  color: AppColors.colors.whiteColors
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("CTO (Chief Techonologieskjfhjha)",overflow:TextOverflow.ellipsis,style: TextStyles.w500.copyWith(fontSize: 20.sp,color: AppColors.colors.blueDark),),
-                  Text("6xxu",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Ahmedabad",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
-                      Text("Present",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),)
-                    ],
-                  )
-                ],
-              ),
-            )
+            profileWatch.isExperienceLoading? const Center(child: CircularProgressIndicator(),):
+            profileWatch.userExperienceList.isEmpty?  const SizedBox():
+                Column(
+                  children: List.generate(profileWatch.userExperienceList.length, (index) {
+                    final experience = profileWatch.userExperienceList[index];
+                    return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+                      width: size.width * 0.90 ,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4.r),
+                          border: Border.all(color: AppColors.colors.blueDark,width: 1.5.w),
+                          color: AppColors.colors.whiteColors
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(experience.vDesignation??"",overflow:TextOverflow.ellipsis,style: TextStyles.w500.copyWith(fontSize: 20.sp,color: AppColors.colors.blueDark),),
+                          Text(experience.vCompanyName??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(experience.vJobLocation??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
+                              Text(experience.bIsCurrentCompany == 1? "Present":"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),)
+                            ],
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+                )
           ],
         ),
       ),

@@ -17,7 +17,7 @@ class UserExperienceModel {
    String? vCompanyName;
 
   @HiveField(4)
-   dynamic vDuration;
+   String? vDuration;
 
   @HiveField(5)
    String? vJobLocation;

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
@@ -39,7 +38,9 @@ class ProfileController extends ChangeNotifier {
   ///----------------User Experience Api call and Store Data on hive -----------------------///
 
     List<UserExperienceModel> userExperienceList = [];
+    bool isExperienceLoading = false;
     Future getUserExperienceApi()async{
+      isExperienceLoading= true;
       userExperienceList = [];
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
@@ -56,11 +57,14 @@ class ProfileController extends ChangeNotifier {
           UserExperienceModel job = UserExperienceModel.fromJson(i);
             userExperienceList.add(job);
         }
+        isExperienceLoading= false;
         print(response.data['data']);
       }
     }catch(e){
+      isExperienceLoading= false;
       Future.error(e);
     }
+    notifyListeners();
     }
 
   ///----------------User Experience Api call and Store Data on hive -----------------------///

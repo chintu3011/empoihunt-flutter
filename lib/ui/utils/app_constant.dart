@@ -20,9 +20,11 @@
 
   ///---------- User Detail Box -------///
   const String  userDetailsBox = "userDetailsBoxKey";
-  const String  userModel = "userModelBoxKey";
+  const String  userModelBox = "userModelBoxKey";
+  const String  userExperienceBox = "userExperienceBox";
   ////keys
   const String userDetailKey = "nativeDeviceDetailsKey";
+  const String userExperienceKey = "userExperienceKey";
 
 
 

@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
@@ -15,27 +16,6 @@ import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
 
 Future<void> main() async{
-
-  String initString =  "Android Developer - 2 (Fresher),Web Developer - 1 (1 Year exp),Flutter Developer - 1 (1 Year exp),.NET Developer - 1 (1 Year exp),Anguler Developer - 1 (1 Year exp)";
-  List<String> firstSlit = initString.split(",");
-  List<String> secondSplit =[];
-  List<String> third =[];
-
-  List<String> jobRole = [];
-  List<String> vacancy = [];
-  print(firstSlit);
-  for(String i in firstSlit){
-    print(i);
-    secondSplit = i.split("-");
-    jobRole.add(secondSplit[0]);
-    print(secondSplit[0]);
-    third = secondSplit[1].split("");
-    vacancy.add(third[1]);
-    print(third[1]);
-  }
-  print(jobRole);
-  print(vacancy);
-
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -53,7 +33,8 @@ Future<void> main() async{
   await Hive.initFlutter();
   BoxService.boxService.nativeDeviceBox = await Hive.openBox<NativeDeviceDetailModel>(nativeDeviceDetailsBox);
   BoxService.boxService.userGetDetailBox = await Hive.openBox<UserDetailDataModel>(userDetailsBox);
-  BoxService.boxService.userModelBox = await Hive.openBox<UserModel>(userModel);
+  BoxService.boxService.userModelBox = await Hive.openBox<UserModel>(userModelBox);
+  BoxService.boxService.userExperienceBox = await Hive.openBox<UserExperienceModel>(userExperienceBox);
   runApp(const ProviderScope(child: MyApp()));
 
 }

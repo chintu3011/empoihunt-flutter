@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:hive/hive.dart';
 
@@ -7,23 +8,21 @@ class BoxService{
   late Box<NativeDeviceDetailModel> nativeDeviceBox;
   late Box<UserDetailDataModel> userGetDetailBox;
   late Box<UserModel> userModelBox;
+  late Box<UserExperienceModel> userExperienceBox;
 
   BoxService._private();
   static BoxService boxService = BoxService._private();
 
   Future<void> addNativeDeviceDetailsToHive(dynamic key,NativeDeviceDetailModel deviceDetail)async{
-    //this will add data to the hive with specific key
     await nativeDeviceBox.put(key,deviceDetail);
-    //this will add data to hive and it will automatically generate key value of that
-    // await boxNote.add(userNote);
   }
 
   Future<void> addUserDetailToHive(dynamic userDetailDataKey,UserDetailDataModel userDetails)async{
-    //this will add data to the hive with specific key
     await userGetDetailBox.put(userDetailDataKey,userDetails);
-    // await userModelBox.put(userModelKey, userDetails.user);
-    //this will add data to hive and it will automatically generate key value of that
-    // await boxNote.add(userNote);
+  }
+
+  Future<void> addUserExperienceToHive(dynamic useExperienceKey,UserExperienceModel userExperience)async{
+    await userExperienceBox.put(useExperienceKey,userExperience);
   }
 
   Future<void> deleteData(int index)async{

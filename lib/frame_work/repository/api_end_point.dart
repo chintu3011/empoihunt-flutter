@@ -39,5 +39,7 @@ class APIEndPoint{
 
 ///------------------------------------- Profile --------------------------------///
     static const String userExperienceApi = '/experince/experince';
+    static const String userExperienceInsertApi = '/experince/insert_experince';
+    static const String userExperienceUpdateApi = '/experince/update_experince';
 ///------------------------------------- Profile --------------------------------///
 }

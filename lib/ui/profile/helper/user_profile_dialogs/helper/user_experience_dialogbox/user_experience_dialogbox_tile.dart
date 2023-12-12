@@ -34,13 +34,13 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(experience.vDesignation!,style: TextStyles.w400.copyWith(fontSize: 18.sp,color: AppColors.colors.blueColors),),
-                          Text(experience.vCompanyName!,style: TextStyles.w300.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                          Text(experience.vDesignation??"",style: TextStyles.w400.copyWith(fontSize: 18.sp,color: AppColors.colors.blueColors),),
+                          Text(experience.vCompanyName??"",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(experience.vJobLocation!,style: TextStyles.w300.copyWith(fontSize: 14.sp,color: AppColors.colors.greyRegent),),
-                              Text(experience.vDuration! !=""? experience.vDuration! : "Present",style: TextStyles.w300.copyWith(fontSize: 14.sp,color: AppColors.colors.clayColors),),
+                              Text(experience.vJobLocation??"",style: TextStyles.w300.copyWith(fontSize: 14.sp,color: AppColors.colors.greyRegent),),
+                              Text(experience.vDuration ?? "Present",style: TextStyles.w300.copyWith(fontSize: 14.sp,color: AppColors.colors.clayColors),),
                             ],
                           )
                         ],
@@ -59,7 +59,7 @@ class UserExperienceDialogBoxTile extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(onPressed: (){
-                    profileWatch.listEditButton(index: index, designation: experience.vDesignation!, companyName: experience.vCompanyName!,jobLocation: experience.vJobLocation!,duration: experience.vDuration!);
+                    profileWatch.listEditButton(index: index, designation: experience.vDesignation??"", companyName: experience.vCompanyName??"",jobLocation: experience.vJobLocation??"",duration: experience.vDuration??"");
                   }, icon: Icon(profileWatch.selectedUserExperienceListIndex == index ? Icons.cancel_outlined :Icons.edit,color: AppColors.colors.whiteColors,size: 18.sp),style:  ElevatedButton.styleFrom(backgroundColor: AppColors.colors.blueColors,padding: EdgeInsets.all(4.sp)),),
                   SizedBox(width: 5.w,),
                   IconButton(onPressed: (){

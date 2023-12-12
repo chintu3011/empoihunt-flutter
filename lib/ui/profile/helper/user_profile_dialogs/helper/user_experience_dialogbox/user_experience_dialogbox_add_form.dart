@@ -58,7 +58,6 @@ class _UserExperienceDialogBoxAddFormState extends ConsumerState<UserExperienceD
               selectedValue: profileWatch.userExperienceAddSelectedJobLocation,
             ),
             profileWatch.isUserExperienceAddJobSelected?Text("Please select job location",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
-
             Row(
               children: [
                 Checkbox(value: profileWatch.checkBoxValAddForm, onChanged: (val){
@@ -68,13 +67,14 @@ class _UserExperienceDialogBoxAddFormState extends ConsumerState<UserExperienceD
                 Expanded(child: Text("Are you working here ?",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: Colors.black),))
               ],
             ).paddingOnly(top: 15.h,bottom: 10.h),
-           profileWatch.checkBoxValAddForm? Column(
+           profileWatch.checkBoxValAddForm? const SizedBox():Column(
              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CommonFormField(
                   controller: profileWatch.userExperienceAddDurationFieldController,
                   hintText: "Duration",labelText: "Duration",prefixIcon: Icon(Icons.person,color: AppColors.colors.blueColors,),),
-                Text("Enter Duration in years",style: TextStyles.w300.copyWith(fontSize: 10.sp,color: AppColors.colors.greyRegent),),],):const SizedBox(),
+                SizedBox(height: 5.h,),
+                Text("Enter Duration in years",style: TextStyles.w300.copyWith(fontSize: 10.sp,color: AppColors.colors.greyRegent),),],),
             Row(
               children: [
                 const Spacer(),

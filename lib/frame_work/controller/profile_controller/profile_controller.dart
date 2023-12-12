@@ -36,41 +36,6 @@ class ProfileController extends ChangeNotifier {
   ///---------------- get user data from hive storage --------------------///
 
 
-  ///----------------User Experience Api call and Store Data on hive -----------------------///
-
-    List<UserExperienceModel> userExperienceList = [];
-    bool isExperienceLoading = false;
-    Future getUserExperienceApi()async{
-      isExperienceLoading= true;
-      userExperienceList = [];
-    try{
-      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
-        Options options = Options(
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer ${user?.tAuthToken}',
-            }
-        );
-      Response response = await DioClient.client.getDataWithBearerToken(APIEndPoint.userExperienceApi,options);
-      if(response.statusCode == 200){
-        List responseData = response.data["data"];
-        for(dynamic i in responseData) {
-          UserExperienceModel job = UserExperienceModel.fromJson(i);
-            userExperienceList.add(job);
-        }
-        isExperienceLoading= false;
-        print(response.data['data']);
-      }
-    }catch(e){
-      isExperienceLoading= false;
-      Future.error(e);
-    }
-    notifyListeners();
-    }
-
-  ///----------------User Experience Api call and Store Data on hive -----------------------///
-
-
   ///----------- Form keys ----------------///
 
     final GlobalKey<FormState> userDetailFormKey = GlobalKey();
@@ -441,11 +406,7 @@ class ProfileController extends ChangeNotifier {
     if(experienceAddFormKey.currentState!.validate()){
       if(userExperienceAddSelectedJobLocation != null){
         isUserExperienceAddJobSelected = false;
-        userExperienceList.add(UserExperienceModel(
-            vDesignation: userExperienceAddDesignFieldController.text,
-            vCompanyName: userExperienceAddCompanyNameFieldController.text,
-            vJobLocation: userExperienceAddSelectedJobLocation!,
-            vDuration: userExperienceAddDurationFieldController.text));
+        insertExperienceApi();
 
         /// Clear after adding ////
         userExperienceAddDesignFieldController.clear();
@@ -563,9 +524,104 @@ class ProfileController extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-
 /// ------ User Qualification ------- ///
+
+
+
+  ///----------------User Experience Api call and Store Data on hive -----------------------///
+
+  List<UserExperienceModel> userExperienceList = [];
+  bool isExperienceLoading = false;
+  Future getUserExperienceApi()async{
+    isExperienceLoading= true;
+    userExperienceList = [];
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ${user?.tAuthToken}',
+          }
+      );
+      Response response = await DioClient.client.getDataWithBearerToken(APIEndPoint.userExperienceApi,options);
+      if(response.statusCode == 200){
+        List responseData = response.data["data"];
+        for(dynamic i in responseData) {
+          UserExperienceModel job = UserExperienceModel.fromJson(i);
+          userExperienceList.add(job);
+        }
+        isExperienceLoading= false;
+        notifyListeners();
+        print(response.data['data']);
+      }
+    }catch(e){
+      isExperienceLoading= false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+
+  Future insertExperienceApi()async{
+    isExperienceLoading= true;
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      Response response = await
+      DioClient.client.postDataWithJsonWithBearerToken(
+          APIEndPoint.userExperienceInsertApi,
+          {
+            "vDesignation": userExperienceAddDesignFieldController.text,
+            "vCompany": userExperienceAddCompanyNameFieldController.text,
+            "vDuration":checkBoxValAddForm? userExperienceAddDurationFieldController.text:"Present",
+            "vJobLocation": userExperienceAddSelectedJobLocation,
+            "bIsCurrentCompany":checkBoxValAddForm? 1: 0
+          },options);
+      if(response.statusCode == 200){
+        // var responseData = response.data["data"];
+         var responseData = UserExperienceModel.fromJson(response.data["data"]);
+        userExperienceList.add(responseData);
+        isExperienceLoading= false;
+        notifyListeners();
+      }
+    }catch(e){
+      isExperienceLoading= false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+
+
+  Future updateExperienceApi(int index,UserExperienceModel model)async{
+    isExperienceLoading= true;
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      Response response = await
+      DioClient.client.postDataWithJsonWithBearerToken(
+          APIEndPoint.userExperienceUpdateApi,
+          {
+            "id": model.id,
+            "vDesignation": userExperienceAddDesignFieldController.text,
+            "vCompany": userExperienceAddCompanyNameFieldController.text,
+            "vDuration":checkBoxValAddForm? userExperienceAddDurationFieldController.text:"Present",
+            "vJobLocation": userExperienceAddSelectedJobLocation,
+            "bIsCurrentCompany":checkBoxValAddForm? 1: 0
+          },options);
+      if(response.statusCode == 200){
+        // var responseData = response.data["data"];
+        var responseData = UserExperienceModel.fromJson(response.data["data"]);
+        userExperienceList.add(responseData);
+        isExperienceLoading= false;
+        notifyListeners();
+      }
+    }catch(e){
+      isExperienceLoading= false;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+///----------------User Experience Api call and Store Data on hive -----------------------///
+
 
 }
 

@@ -35,6 +35,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
                 ),
                 IconButton(onPressed: (){
                   profileWatch.setDialogValue(2);
+                  profileWatch.addUserDetailToDialog(user);
                   profileWatch.updateIsDialogShow();
                 }, icon: Icon(
                   Icons.edit,

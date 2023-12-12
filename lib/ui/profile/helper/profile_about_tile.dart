@@ -36,6 +36,7 @@ class ProfileAboutTile extends ConsumerWidget {
           ),
           trailing:  IconButton(onPressed: (){
             profileWatch.setDialogValue(3);
+            profileWatch.addBioToDialog(user);
             profileWatch.updateIsDialogShow();
           },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),),
         ),

@@ -30,7 +30,7 @@ class UserQualificationDialogBox extends ConsumerWidget {
               children: [
                 Text("Edit Qualification",style: TextStyles.w600.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),).paddingVertical(10.h),
                  CommonDropDownFormField(
-                     items: qualificationList, searchController: profileWatch.qualificationSearchController, selectedValue: profileWatch.selectedQualification, onChanged: (value){
+                     items: qualificationsList, searchController: profileWatch.qualificationSearchController, selectedValue: profileWatch.selectedQualification, onChanged: (value){
                    profileWatch.updateSelectedQualification(value);
                  }, hintTextForDropdown: "Qualification", hintTextForField: "Qualification"),
                 profileWatch.isQualificationSelected?Text("Please select qualification",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),

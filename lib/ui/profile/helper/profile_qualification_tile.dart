@@ -32,6 +32,7 @@ class ProfileQualificationTile extends ConsumerWidget {
                 ),
                 IconButton(onPressed: (){
                   profileWatch.setDialogValue(4);
+                  profileWatch.addQualificationToDialog(user);
                   profileWatch.updateIsDialogShow();
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),

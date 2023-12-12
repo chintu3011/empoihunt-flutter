@@ -29,7 +29,7 @@ class BoxService{
     await nativeDeviceBox.deleteAt(index);
   }
 
-  Future<void> updateData(int key,NativeDeviceDetailModel deviceDetail)async{
+  Future<void> updateNativeDeviceDetails(int key,NativeDeviceDetailModel deviceDetail)async{
     final box = Hive.box(nativeDeviceDetailsBox);
     // ignore: unrelated_type_equality_checks
     box.values.toList().indexWhere((element) => (element as NativeDeviceDetailModel).deviceId == key);

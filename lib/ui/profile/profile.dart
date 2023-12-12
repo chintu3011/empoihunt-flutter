@@ -40,11 +40,11 @@ class _ProfileState extends ConsumerState<Profile> {
             children: [
               Stack(
                 children: [
-                   ProfileUserDetails(userModel: profileWatch.userModelData,),
+                   ProfileUserDetails(userModel: profileWatch.userModelData.user,),
                   Positioned(
                     left: 120.w,
                       top: 70.h,
-                      child: ProfileProfilePic(userModel: profileWatch.userModelData,))
+                      child: ProfileProfilePic(userModel: profileWatch.userModelData.user,))
                 ],
               ),
             ],

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_banner_image_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_current_position_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_experience_dialogbox.dart';
@@ -29,7 +30,7 @@ class ProfileController extends ChangeNotifier {
 
   ///---------------- get user data from hive storage --------------------///
   ///
-  final userModelData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
+  final userModelData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
 
 
   ///---------------- get user data from hive storage --------------------///
@@ -91,6 +92,15 @@ class ProfileController extends ChangeNotifier {
   final expertiseController = TextEditingController();
 
   List<String> expertiseList=[];
+
+  addUserDetailToDialog(UserModel user){
+    userDetailSelectedJobLocation = user.vJobLocation??"";
+    firstNameController.text = user.vFirstName;
+    lastNameController.text = user.vLastName;
+    emailController.text = user.vEmail;
+    notifyListeners();
+  }
+
   bool isExpertiseAdded = false;
   addExpertise(){
     if(expertiseController.text !=""){
@@ -110,30 +120,35 @@ class ProfileController extends ChangeNotifier {
   }
 
   userDetailChangeCancelButton(){
-    clearUserDetailForms();
+    // clearUserDetailForms();
     updateIsDialogShow();
     notifyListeners();
   }
 
-  clearUserDetailForms(){
-    firstNameController.clear();
-    lastNameController.clear();
-    expertiseController.clear();
-    expertiseList = [];
-    userDetailSelectedJobLocation = null;
-    emailController.clear();
-    notifyListeners();
-  }
+  // clearUserDetailForms(){
+  //   firstNameController.clear();
+  //   lastNameController.clear();
+  //   expertiseController.clear();
+  //   expertiseList = [];
+  //   userDetailSelectedJobLocation = null;
+  //   emailController.clear();
+  //   notifyListeners();
+  // }
 
   userDetailChangeDoneButton(){
+    userModelData.user.vFirstName = firstNameController.text;
+    userModelData.user.vLastName = lastNameController.text;
+    userModelData.user.vJobLocation = userDetailSelectedJobLocation;
+    userModelData.user.vEmail = emailController.text;
     if(userDetailFormKey.currentState!.validate()){
       if(expertiseList.isNotEmpty){
         isExpertiseAdded = false;
         if(userDetailSelectedJobLocation != null){
           isUserDetailsJobSelect = false;
           /// Success
+          BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
           updateIsDialogShow();
-          clearUserDetailForms();
+          // clearUserDetailForms();
         }else{
           isUserDetailsJobSelect = true;
         }
@@ -150,16 +165,24 @@ class ProfileController extends ChangeNotifier {
   ///---------------- About Change ------------------///
 
   final bioController = TextEditingController();
+
+  addBioToDialog(UserModel user){
+    bioController.text = user.tBio??"";
+    notifyListeners();
+  }
+
   bioCancelButton(){
     updateIsDialogShow();
     bioController.clear();
     notifyListeners();
   }
   bioDoneButton(){
+    userModelData.user.tBio = bioController.text;
     if(aboutFormKey.currentState!.validate()){
       debugPrint("Success");
+      BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
       updateIsDialogShow();
-      bioController.clear();
+      // bioController.clear();
     }
     notifyListeners();
   }
@@ -279,7 +302,10 @@ class ProfileController extends ChangeNotifier {
 
   String? fileName;
   File? pdfFile;
-
+  addResumeNameToDialog(String name){
+  fileName = name;
+  notifyListeners();
+  }
   Future<void> pickPdfFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -515,6 +541,10 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
+  addQualificationToDialog(UserModel  user){
+    selectedQualification = user.vQualification;
+    notifyListeners();
+  }
   qualificationChangeCancelButton(){
     updateIsDialogShow();
     selectedQualification = null;
@@ -522,8 +552,10 @@ class ProfileController extends ChangeNotifier {
   }
 
   qualificationChangeDoneButton(){
+    userModelData.user.vQualification = selectedQualification;
     if(selectedQualification != null){
       isQualificationSelected = false;
+      BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
       updateIsDialogShow();
       selectedQualification = null;
     }else{

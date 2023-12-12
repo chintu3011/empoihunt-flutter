@@ -49,7 +49,7 @@ class ProfileUserDetails extends ConsumerWidget {
                  ProfileQualificationTile(user: userModel,),
 
                 ///User Experience OR User Current Position ///
-                userRoleWatch.userRole == 0?  ProfileExperienceTile() : const ProfileCurrentPositionTile(),
+                userRoleWatch.userRole == 0?  const ProfileExperienceTile() : const ProfileCurrentPositionTile(),
 
                 /// User Resume ////
                 userRoleWatch.userRole == 0?  ProfileResumeTile(user: userModel,): const SizedBox()

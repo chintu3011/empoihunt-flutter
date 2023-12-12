@@ -1,7 +1,7 @@
 
 
 /// ------ Qualification List -------///
-List<String> qualificationList = [
+List<String> qualificationList1 = [
   'Arts',
   'Science',
   'Commerce',

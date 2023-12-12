@@ -12,9 +12,9 @@ class ProfileResumeTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileWatch = ref.watch(profileController);
-    String resumeName = "";
-    final url = user.tResumeUrl!.split("/");
-    resumeName = url[4];
+    // String resumeName = "";
+    // final url = user.tResumeUrl!.split("/");
+    // resumeName = url[4];
     return  Card(
       color: AppColors.colors.whiteColors,
       elevation: 6,
@@ -36,15 +36,13 @@ class ProfileResumeTile extends ConsumerWidget {
             padding: EdgeInsets.only(top: 10.h),
             child: Row(
               children: [
-                Expanded(
-                  child: Text(
-                    user.tResumeUrl !=""? resumeName :"",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyles.w500.copyWith(
-                        fontSize: 14.sp,
-                        color: AppColors.colors.greyRegent),
-                  ),
+                Text(
+                  user.tResumeUrl !=""? "${user.vFirstName}'s Resume" :"",
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyles.w500.copyWith(
+                      fontSize: 14.sp,
+                      color: AppColors.colors.greyRegent),
                 ),
                 SizedBox(
                   width: 5.w,
@@ -58,6 +56,7 @@ class ProfileResumeTile extends ConsumerWidget {
           ),
           trailing: IconButton(onPressed: (){
             profileWatch.setDialogValue(6);
+            profileWatch.addResumeNameToDialog("${user.vFirstName}'s Resume");
             profileWatch.updateIsDialogShow();
           },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),),
         ),

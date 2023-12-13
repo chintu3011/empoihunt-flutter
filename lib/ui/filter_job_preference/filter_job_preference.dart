@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/domain_filter/domain_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/location_filter/location_filter.dart';
 import 'package:emploiflutter/ui/filter_job_preference/helper/mode_filter/mode_filter.dart';
@@ -28,12 +29,13 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
   @override
   Widget build(BuildContext context) {
     final filterJobPrefWatch = ref.watch(filterJobPreferenceController);
-    final userRoleWatch = ref.watch(chooseUserRoleController);
+    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
+    // final userRoleWatch = ref.watch(userRoleController);
 
     return  Scaffold(
       appBar:  CommonAppBar(title: "Filter Job Preference",isLeadingShow: true,actions: [IconButton(onPressed: (){}, icon: Icon(Icons.check,color: AppColors.colors.blackColors,))],),
       body: DefaultTabController(
-        length:userRoleWatch.userRole ==0? 4 : 3,
+        length:userData.iRole ==0? 4 : 3,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -67,7 +69,7 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
                   indicatorColor: AppColors.colors.clayColors,
                   labelColor: AppColors.colors.clayColors,
                   unselectedLabelColor: AppColors.colors.blackColors,
-                  tabs:  userRoleWatch.userRole  ==0?
+                  tabs:  userData.iRole  ==0?
                   [Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Domain"))),
                     Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Location"))),
                     Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 6.w),child: const Text("Mode"))),
@@ -85,7 +87,7 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
               Expanded(
               child: SizedBox(
                 child: TabBarView(
-                    children: userRoleWatch.userRole  ==0?
+                    children: userData.iRole  ==0?
                     [const DomainFilter(), const LocationFilter(), const ModeFilter(), const PackageFilter()]:
                     [const DomainFilter(), const LocationFilter(), const ModeFilter(),]
                 ),

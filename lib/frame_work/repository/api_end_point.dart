@@ -42,6 +42,9 @@ class APIEndPoint{
     static const String userExperienceInsertApi = '/experince/insert_experince';
     static const String userExperienceUpdateApi = '/experince/update_experince';
     static const String userExperienceDeleteApi = '/experince/delete_experince';
-    static const String userUpdateProfileApi = '/user/update_profile_details';
+    static const String userUpdateProfileDetailsApi = '/user/update_profile_details';
+    static const String userUpdateBannerPicApi = '/user/update_banner_pic';
+    static const String userUpdateProfilePicApi = '/user/update_profile_pic';
+    static const String userUpdateResumeApi = '/user/update_resume';
 ///------------------------------------- Profile --------------------------------///
 }

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -7,7 +9,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 class UserBannerImageDialogBox extends ConsumerStatefulWidget {
-  const UserBannerImageDialogBox({super.key});
+  final UserModel userModel;
+  const UserBannerImageDialogBox({required this.userModel,super.key});
 
   @override
   ConsumerState<UserBannerImageDialogBox> createState() => _UserBannerImageDialogBoxState();
@@ -49,7 +52,6 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
             Expanded(
               child: Stack(
                 children: [
-
                   ///------------- Banner --------------///
                   Container(
                     height: 130.h,
@@ -62,9 +64,12 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
                     child:
                     profileWatch.isBannerAnimationRun?
                      Center(child: Lottie.asset(AppAssets.bannerLoadingLottie),) :
-                     profileWatch.bannerImg != null? Image.file(profileWatch.bannerImg!,fit: BoxFit.fill,): Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fill,),
+                   profileWatch.bannerImg != null? Image.file(profileWatch.bannerImg!,fit: BoxFit.fill,): widget.userModel.tProfileBannerUrl !=""?
+                   CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userModel.tProfileBannerUrl}",
+                       placeholder: (context, url) => const CircularProgressIndicator(),
+                       errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
+                        : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.contain,),
                   ),
-
                   ///---------- Image Picker Icon --------///
                   Positioned(
                     left: 130.w,
@@ -93,6 +98,7 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
                   profileWatch.updateIsDialogShow();
+                  profileWatch.bannerImgName!=""? profileWatch.bannerImgApiCall(profileWatch.bannerImgName, profileWatch.bannerImgUrl!):null;
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)

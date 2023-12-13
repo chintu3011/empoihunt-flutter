@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_about_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_current_position_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_experience_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_qualification_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_resume_tile.dart';
 import 'package:emploiflutter/ui/profile/helper/profile_user_detail_tile.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
@@ -18,8 +21,7 @@ class ProfileUserDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final profileWatch = ref.watch(profileController);
-    final userRoleWatch = ref.watch(chooseUserRoleController);
-
+    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -31,7 +33,11 @@ class ProfileUserDetails extends ConsumerWidget {
             child: SizedBox(
               height: 120.h,
               width: double.infinity,
-              child: Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,),
+              child: userModel.tProfileBannerUrl !=""?
+              CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userModel.tProfileBannerUrl}",
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
+                  : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.contain,),
             ),
           ),
           Padding(
@@ -49,10 +55,10 @@ class ProfileUserDetails extends ConsumerWidget {
                  ProfileQualificationTile(user: userModel,),
 
                 ///User Experience OR User Current Position ///
-                userRoleWatch.userRole == 0?  const ProfileExperienceTile() : const ProfileCurrentPositionTile(),
+                userData.iRole == 0?  const ProfileExperienceTile() : const ProfileCurrentPositionTile(),
 
                 /// User Resume ////
-                userRoleWatch.userRole == 0?  ProfileResumeTile(user: userModel,): const SizedBox()
+                userData.iRole == 0?  ProfileResumeTile(user: userModel,): const SizedBox()
               ],
             ),
           ),

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
@@ -14,9 +15,11 @@ import '../../../repository/model/user_model/user_detail_data_model.dart';
 import '../../../repository/services/hive_service/box_service.dart';
 import '../../../repository/services/shared_pref_services.dart';
 
-final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController());
+final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController(ref));
 
 class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
+  Ref ref;
+  JobSeekerRegisterProfileDetailsController(this.ref);
 
   final GlobalKey<FormState> registerProfileDetailsGlobalKey = GlobalKey();
 

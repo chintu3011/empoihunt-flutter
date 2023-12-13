@@ -55,13 +55,14 @@ class ProfileUserDetailTile extends ConsumerWidget {
                       color: AppColors.colors.blueDark),
                 ),
                 Text(
-                  user.vJobLocation!,
+                  user.vCity??"",
                   style: TextStyles.w600.copyWith(
                       fontSize: 12.sp,
                       color: AppColors.colors.blueColors),
                 )
               ],
             ),
+            user.vCurrentCompany != null?
             Row(
               children: [
                 Icon(Icons.home_work_outlined,size: 20.sp,color: AppColors.colors.blueColors,),
@@ -72,7 +73,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
                       color: AppColors.colors.blueDark),
                 )
               ],
-            ).paddingOnly(top: 10.h),
+            ).paddingOnly(top: 10.h):const SizedBox(),
             Row(
               children: [
                 Tooltip(

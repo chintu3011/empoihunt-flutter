@@ -24,6 +24,7 @@ class _SettingState extends ConsumerState<Setting> {
 
   @override
   void initState() {
+    print(BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.vCurrentCompany);
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
        ref.read(termsPrivacyPolicyController).termsApiRequest();
@@ -38,8 +39,7 @@ class _SettingState extends ConsumerState<Setting> {
   @override
   Widget build(BuildContext context) {
     final settingWatch = ref.watch(settingController);
-    final userRoleWatch = ref.watch(chooseUserRoleController);
-    final localData = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
     return  Scaffold(
       appBar: CommonAppBar(title: "Settings",actions: [ IconButton(onPressed: (){
         showModalBottomSheet(
@@ -70,7 +70,7 @@ class _SettingState extends ConsumerState<Setting> {
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle
                     ),
-                    child: localData != null?
+                    child: userData.tProfileUrl != null?
                     Image.network(
                       loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) {
@@ -86,26 +86,26 @@ class _SettingState extends ConsumerState<Setting> {
                           child: Text('Error loading image'),
                         );
                       },
-                      "https://api.emploihunt.com${localData.user.tProfileUrl}",fit: BoxFit.fill,):
+                      "https://api.emploihunt.com${userData.tProfileUrl}",fit: BoxFit.fill,):
                     Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
                 ),
               ),
-              title: Text(localData != null? "${localData.user.vFirstName} ${localData.user.vLastName}":"Unknown User",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
-              subtitle: Text(localData != null? localData.user.vCurrentCompany! :"Amri Systen",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+              title: Text(userData.vFirstName !=""? "${userData.vFirstName} ${userData.vLastName}":"",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
+              subtitle: userData.vCurrentCompany !=null ? Text(userData.vCurrentCompany??"",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),):const SizedBox(),
             ),
             SizedBox(height: 25.h,),
             ...List.generate(
-                userRoleWatch.userRole == 0?
+                userData.iRole == 0?
                 settingWatch.seekerSettingList.length:
                   settingWatch.recruiterSettingList.length
                 , (index) {
-              final setting = userRoleWatch.userRole ==0? settingWatch.seekerSettingList[index] : settingWatch.recruiterSettingList[index];
+              final setting = userData.iRole ==0? settingWatch.seekerSettingList[index] : settingWatch.recruiterSettingList[index];
               return  Container(
                 margin: EdgeInsets.only(bottom: 8.h),
                 height: 45.h,
                 child: ListTile(
                   onTap: (){
-                    if(userRoleWatch.userRole == 0){
+                    if(userData.iRole == 0){
                     settingWatch.seekerNavigatingToList(index, context);
                     }else{
                       settingWatch.recruiterNavigatingToList(index, context);

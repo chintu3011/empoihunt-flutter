@@ -31,7 +31,7 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
     return SafeArea(
       child: Container(
         width: 340.w,
-        height:profileWatch.fileName !=null ? 480.h : 380.h,
+        height:profileWatch.resumeName !=null ? 480.h : 380.h,
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
         decoration: BoxDecoration(
             color: AppColors.colors.whiteColors,
@@ -46,7 +46,7 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
                 children: [
                   GestureDetector(
                     onTap:(){
-                      profileWatch.pickPdfFile();
+                      profileWatch.pickResumeFile();
                     },
                     child: Lottie.asset(
                       height: 200.h,
@@ -59,8 +59,8 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
                 ],
               ).paddingOnly(left: 60.w),
             ),
-            profileWatch.fileName !=null ?
-            Text(profileWatch.fileName!,style: TextStyles.w600.copyWith(fontSize: 20.sp,color: AppColors.colors.blueColors),softWrap: true,):const SizedBox(),
+            profileWatch.resumeName !="" ?
+            Text(profileWatch.resumeName,style: TextStyles.w600.copyWith(fontSize: 20.sp,color: AppColors.colors.blueColors),softWrap: true,):const SizedBox(),
             Row(
               children: [
                 const Spacer(),
@@ -70,6 +70,7 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
                   profileWatch.updateIsDialogShow();
+                  profileWatch.resumeName != ""? profileWatch.resumeApiCall(profileWatch.resumeName, profileWatch.resumeUrl!):null;
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)

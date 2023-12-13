@@ -9,6 +9,8 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../../utils/app_string_constant.dart';
+
 class UserDetailsDialogBox extends ConsumerWidget {
   const UserDetailsDialogBox({super.key});
 
@@ -99,9 +101,8 @@ class UserDetailsDialogBox extends ConsumerWidget {
                       ),
                       profileWatch.isExpertiseAdded?Text("Please add expertise",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(5.h):const SizedBox(),
 
-
                       CommonDropDownFormField(
-                        items: SharedPrefServices.services.getList(locationListKey)??["No Data"],
+                        items: SharedPrefServices.services.getList(locationListKey)!,
                         searchController: profileWatch.jobLocationSearchController,
                         onChanged: (value) {
                           profileWatch.updateSelectedJobLocation(value);
@@ -111,7 +112,6 @@ class UserDetailsDialogBox extends ConsumerWidget {
                         selectedValue: profileWatch.userDetailSelectedJobLocation,
                       ).paddingOnly(top: 10.h),
                       profileWatch.isUserDetailsJobSelect?Text("Please select job location",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingOnly(bottom: 5.h):const SizedBox(),
-
 
                       CommonFormField(
                       controller: profileWatch.emailController,

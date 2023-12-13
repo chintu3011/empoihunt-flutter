@@ -23,11 +23,18 @@ class DioClient{
     dio.options = baseUrl;
     return dio.post(endpoint, data: formData);
   }
+  Future postDataWithFormWithBearerToken(String endpoint, {required FormData formData,required Options options}) async{
+    dio.options = baseUrl;
+    return dio.post(endpoint, data: formData,options:options);
+  }
+
 
   Future postDataWithBearerToken(String endpoint,Options options) async{
     dio.options = baseUrl;
     return dio.post(endpoint,options: options);
   }
+
+
   Future getData(String endpoint)async{
     dio.options = baseUrl;
     return dio.get(endpoint);

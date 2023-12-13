@@ -61,7 +61,7 @@ class ProfileController extends ChangeNotifier {
   List<String> expertiseList=[];
 
   addUserDetailToDialog(UserModel user){
-    userDetailSelectedJobLocation = user.vJobLocation??"";
+    userDetailSelectedJobLocation = user.vCity;
     firstNameController.text = user.vFirstName;
     lastNameController.text = user.vLastName;
     emailController.text = user.vEmail;
@@ -171,11 +171,11 @@ class ProfileController extends ChangeNotifier {
 
   /// ------------ for Job Seeker ------------///
   jobSeekerShowDialogs() {
-    final userRoleWatch = ref.watch(chooseUserRoleController);
+    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
     if (dialogValue == 0) {
-      return const UserBannerImageDialogBox();
+      return UserBannerImageDialogBox(userModel: userModelData.user,);
     } else if (dialogValue == 1) {
-      return const UserProfileImageChangeDialogBox();
+      return UserProfileImageChangeDialogBox(userModel:  userModelData.user,);
     } else if (dialogValue == 2) {
       return const UserDetailsDialogBox();
     } else if (dialogValue == 3) {
@@ -183,7 +183,7 @@ class ProfileController extends ChangeNotifier {
     } else if (dialogValue == 4) {
       return const UserQualificationDialogBox();
     }else if(dialogValue == 5){
-      return userRoleWatch.userRole  == 0? const UserExperienceDialogBox() : const UserCurrentPositionDialogBox();
+      return userData.iRole  == 0? const UserExperienceDialogBox() : const UserCurrentPositionDialogBox();
     }else if(dialogValue == 6){
       return const UserResumeDialogBox();
     }
@@ -198,7 +198,9 @@ class ProfileController extends ChangeNotifier {
   late AnimationController uploadBannerLottieController;
 
   bool isBannerAnimationRun = false;
+  String? bannerImgUrl;
   File? bannerImg;
+  String bannerImgName ="";
 
   Future<void> pickBannerImg() async{
     isBannerAnimationRun = true;
@@ -206,16 +208,17 @@ class ProfileController extends ChangeNotifier {
         type: FileType.custom,
         allowedExtensions: ['jpg','png','jpeg']
     );
-    bannerImg = null;
+    bannerImgUrl = null;
     notifyListeners();
     uploadBannerLottieController.stop();
     if(result != null){
       final PlatformFile file = result.files.first;
-      // print("image name --->${file.name}");
       uploadBannerLottieController.reset();
       uploadBannerLottieController.forward();
       await Future.delayed(const Duration(seconds: 3),);
       bannerImg = File(file.path!);
+      bannerImgUrl = file.path;
+      bannerImgName = file.name;
       isBannerAnimationRun=false;
       notifyListeners();
     }else{
@@ -226,14 +229,43 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
+
+  Future bannerImgApiCall(String bannerName,String bannerUrl)async{
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      FormData formData = FormData.fromMap({
+        "bannerPic": await MultipartFile.fromFile(bannerUrl, filename: bannerName),
+      });
+      Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateBannerPicApi, formData: formData, options: options);
+      if(response.statusCode == 200){
+       UserModel user = UserModel.fromJson(response.data["data"]);
+        userModelData.user.tProfileBannerUrl = user.tProfileBannerUrl;
+       BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+       print("banner url------->${userModelData.user.tProfileBannerUrl} ");
+        bannerImgUrl=null;
+        bannerImgName="";
+       bannerImg=null;
+       notifyListeners();
+      }
+    }catch(e){
+      bannerImg=null;
+      bannerImgUrl=null;
+      bannerImgName="";
+      Future.error(e);
+    }
+    notifyListeners();
+  }
   /// ------ Banner Image ----///
 
 
 
-  /// ------ Banner Image ----///
+  /// ------ profile Image ----///
   late AnimationController uploadProfileImgLottieController;
 
   bool isProfileImgAnimationRun = false;
+  String? profileImgUrl;
+  String profileImgName = "";
   File? profileImg;
 
   Future<void> pickProfileImg() async{
@@ -252,6 +284,8 @@ class ProfileController extends ChangeNotifier {
       uploadProfileImgLottieController.forward();
       await Future.delayed(const Duration(seconds: 5),);
       profileImg = File(file.path!);
+      profileImgUrl = file.path;
+      profileImgName = file.name;
       isProfileImgAnimationRun=false;
       notifyListeners();
     }else{
@@ -261,35 +295,90 @@ class ProfileController extends ChangeNotifier {
     }
     notifyListeners();
   }
-  /// ------ Banner Image ----///
+
+
+  Future profileImgApiCall(String profileName,String profilePicUrl)async{
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      FormData formData = FormData.fromMap({
+        "profilePic": await MultipartFile.fromFile(profilePicUrl, filename: profileName),
+      });
+      Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateProfilePicApi, formData: formData, options: options);
+      if(response.statusCode == 200){
+        UserModel user = UserModel.fromJson(response.data["data"]);
+        userModelData.user.tProfileUrl = user.tProfileUrl;
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+        print("Image url------->${userModelData.user.tProfileBannerUrl} ");
+        profileImgUrl=null;
+        profileImgName="";
+        profileImg=null;
+        notifyListeners();
+      }
+    }catch(e){
+      profileImgUrl=null;
+      profileImgName="";
+      profileImg=null;
+      Future.error(e);
+    }
+    notifyListeners();
+  }
+  /// ------ profile Image ----///
 
 
   /// ------ resume Edit ----////
   late AnimationController resumeLottieController;
 
-  String? fileName;
-  File? pdfFile;
+  String resumeName="";
+  String? resumeUrl;
+  // File? pdfFile;
+
   addResumeNameToDialog(String name){
-  fileName = name;
+  resumeName = name;
   notifyListeners();
   }
-  Future<void> pickPdfFile() async {
+
+  Future<void> pickResumeFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
     );
     resumeLottieController.stop();
     if (result != null) {
-      // print(file.name);
-      // print(file.path);
       resumeLottieController.reset();
       resumeLottieController.forward();
       final PlatformFile file = result.files.first;
-      fileName = file.name;
+      resumeUrl = file.path;
+      resumeName = file.name;
       notifyListeners();
     } else {
       resumeLottieController.stop();
     }
+  }
+
+  Future resumeApiCall(String resumeName,String resumeUrl)async{
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      FormData formData = FormData.fromMap({
+        "resume": await MultipartFile.fromFile(resumeUrl, filename: resumeName),
+      });
+      Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateResumeApi, formData: formData, options: options);
+      if(response.statusCode == 200){
+        UserModel user = UserModel.fromJson(response.data["data"]);
+        userModelData.user.tResumeUrl = user.tResumeUrl;
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+        print("resume url------->${userModelData.user.tProfileBannerUrl} ");
+        this.resumeUrl = null;
+        this.resumeName="";
+        notifyListeners();
+      }
+    }catch(e){
+      this.resumeUrl = null;
+      this.resumeName="";
+      Future.error(e);
+    }
+    notifyListeners();
   }
   /// ------ resume Edit ----////
 
@@ -655,7 +744,7 @@ class ProfileController extends ChangeNotifier {
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
       Response response = await
-      DioClient.client.postDataWithBearerToken("${APIEndPoint.userUpdateProfileApi}?vFirstName=${user!.user.vFirstName}&vLastName=${user.user.vLastName}&vEmail=${user.user.vEmail}&tBio=${user.user.tBio}&vcity=${user.user.vCity}&vCurrentCompany=${user.user.vCurrentCompany}&vDesignation=${user.user.vDesignation}&vJobLocation=${user.user.vJobLocation}&vQualification=${user.user.vQualification}&vWorkingMode=${user.user.vWorkingMode}&tTagLine=$tagline",
+      DioClient.client.postDataWithBearerToken("${APIEndPoint.userUpdateProfileDetailsApi}?vFirstName=${user!.user.vFirstName}&vLastName=${user.user.vLastName}&vEmail=${user.user.vEmail}&tBio=${user.user.tBio}&vcity=${user.user.vCity}&vCurrentCompany=${user.user.vCurrentCompany}&vDesignation=${user.user.vDesignation}&vJobLocation=${user.user.vJobLocation}&vQualification=${user.user.vQualification}&vWorkingMode=${user.user.vWorkingMode}&tTagLine=$tagline",
           options);
       if(response.statusCode == 200){
         print("Success update profile Screen to the local data base");

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -7,7 +9,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 class UserProfileImageChangeDialogBox extends ConsumerStatefulWidget {
-  const UserProfileImageChangeDialogBox({super.key});
+  final UserModel userModel;
+  const UserProfileImageChangeDialogBox({required this.userModel,super.key});
 
   @override
   ConsumerState<UserProfileImageChangeDialogBox> createState() => _UserBannerImageDialogBoxState();
@@ -61,9 +64,12 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
                     child:
                     profileWatch.isProfileImgAnimationRun?
                      Center(child: Lottie.asset(AppAssets.imgLoadingLottie,),) :
-                     profileWatch.profileImg != null? Image.file(profileWatch.profileImg!,fit: BoxFit.fill,): Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,),
+                    profileWatch.profileImg != null? Image.file(profileWatch.profileImg!,fit: BoxFit.fill,): widget.userModel.tProfileUrl !=""?
+                        CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userModel.tProfileUrl}",
+                          placeholder: (context, url) => const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
+                        : Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,),
                   ),
-
                   const Spacer(),
                   ///---------- Image Picker Icon --------///
                   Container(
@@ -89,6 +95,7 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
                   profileWatch.updateIsDialogShow();
+                  profileWatch.profileImgName!=""? profileWatch.profileImgApiCall(profileWatch.profileImgName,profileWatch.profileImgUrl!):null;
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)
@@ -98,3 +105,24 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
     );
   }
 }
+
+
+/*
+                    Image.network(
+                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child;
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                      },
+                      errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                        return const Center(
+                          child: Text('No Image Provided'),
+                        );
+                      },
+                      "https://api.emploihunt.com${widget.userModel.tProfileUrl}",fit: BoxFit.fill,)
+
+ */

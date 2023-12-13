@@ -15,9 +15,6 @@ class DashBoard extends ConsumerStatefulWidget {
 
 class _DashBoardState extends ConsumerState<DashBoard> {
 
-
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -36,9 +33,9 @@ class _DashBoardState extends ConsumerState<DashBoard> {
   @override
   Widget build(BuildContext context) {
     final dashBoardWatch  = ref.watch(dashBoardController);
-    final userRoleWatch = ref.watch(chooseUserRoleController);
+    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey);
     return Scaffold(
-      body:userRoleWatch.userRole  == 0 ? dashBoardWatch.jobSeekerPages[dashBoardWatch.selectedIndex] : dashBoardWatch.recruiterPages[dashBoardWatch.selectedIndex],
+      body: userData!.user.iRole  == 0 ? dashBoardWatch.jobSeekerPages[dashBoardWatch.selectedIndex] : dashBoardWatch.recruiterPages[dashBoardWatch.selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColors.colors.clayColors,
         unselectedItemColor: AppColors.colors.blueColors,
@@ -48,8 +45,8 @@ class _DashBoardState extends ConsumerState<DashBoard> {
              label: "Home"
            ),
           BottomNavigationBarItem(
-              icon: Icon(userRoleWatch.userRole  == 0?Icons.location_city_outlined : Icons.add_box_sharp),
-              label: userRoleWatch.userRole  == 0? "Campus": "Post"
+              icon: Icon(userData.user.iRole == 0?Icons.location_city_outlined : Icons.add_box_sharp),
+              label: userData.user.iRole  == 0? "Campus": "Post"
           ),
           const BottomNavigationBarItem(
               icon: Icon(Icons.settings),

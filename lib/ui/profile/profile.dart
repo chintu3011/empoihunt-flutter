@@ -1,7 +1,10 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/profile/profile_profile_pic.dart';
 import 'package:emploiflutter/ui/profile/profile_user_details.dart';
 import 'package:emploiflutter/ui/profile/helper/common_show_dialog_layout.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
@@ -18,6 +21,7 @@ class Profile extends ConsumerStatefulWidget{
 class _ProfileState extends ConsumerState<Profile> {
   @override
   void initState() {
+    print(SharedPrefServices.services.getList(locationListKey));
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(profileController).getUserExperienceApi();

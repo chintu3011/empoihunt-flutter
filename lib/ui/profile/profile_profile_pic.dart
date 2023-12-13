@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploiflutter/ui/profile/profile_image_viewer.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -13,33 +15,37 @@ class ProfileProfilePic extends ConsumerWidget {
     final profileWatch = ref.watch(profileController);
     return Stack(
       children: [
-        Container(
-          height: 120.h,
-          width: 140.w,
-          padding: EdgeInsets.all(6.sp),
-          clipBehavior: Clip.hardEdge,
-          decoration:  BoxDecoration(
-            color: AppColors.colors.whiteColors, 
-            shape:BoxShape.circle
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (_)=>ProfileImageViewer(userModel: userModel)));
+          },
+          child: Container(
+            height: 130.h,
+            width: 150.w,
+            padding: EdgeInsets.all(6.sp),
+            clipBehavior: Clip.hardEdge,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            child: Container(
+              height: 120.h,
+              width: 140.w,
+              clipBehavior: Clip.hardEdge,
+              decoration:  BoxDecoration(
+                color: AppColors.colors.whiteColors,
+                shape:BoxShape.circle
+              ),
+              child:userModel.tProfileUrl !=""?
+              Hero(
+                tag: "profileHero",
+                child: CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userModel.tProfileUrl}",
+                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill),
+              )
+                  : Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,),
+            ),
           ),
-          child:userModel.tProfileUrl !=""?
-          Image.network(
-            loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-              return const Center(
-                child: Text('Error loading image'),
-              );
-            },
-            "https://api.emploihunt.com${userModel.tProfileUrl}",fit: BoxFit.fill,)
-              : Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,),
         ),
         Positioned(
           bottom: 0,

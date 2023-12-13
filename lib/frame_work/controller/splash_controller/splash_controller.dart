@@ -92,9 +92,6 @@ class SplashController extends ChangeNotifier{
 
 
     if(value){
-      final user  = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
-      print(user.iRole);
-      ref.watch(chooseUserRoleController).updateSelectedUserType(user.iRole);
       Navigator.pushAndRemoveUntil(context, PageTransition(
           child: const DashBoard(),
           type: PageTransitionType.rightToLeft,

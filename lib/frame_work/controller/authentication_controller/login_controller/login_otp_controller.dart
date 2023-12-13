@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
@@ -14,9 +15,11 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../repository/services/hive_service/box_service.dart';
 
-final loginOtpController = ChangeNotifierProvider((ref) => LoginOtpController());
+final loginOtpController = ChangeNotifierProvider((ref) => LoginOtpController(ref));
 
 class LoginOtpController extends ChangeNotifier{
+  Ref ref;
+  LoginOtpController(this.ref);
 
   final otpController = TextEditingController();
 
@@ -66,7 +69,7 @@ class LoginOtpController extends ChangeNotifier{
         .verifyOtp(verificationId: verId, smsCode: otpController.text);
     if (response.user != null) {
       if(context.mounted){
-      await userDetailGetApi(number,context);
+       await userDetailGetApi(number,context);
       }
       notifyListeners();
       isLoading = false;
@@ -90,7 +93,6 @@ class LoginOtpController extends ChangeNotifier{
 
     Future userDetailGetApi(String number,BuildContext context) async{
      isLoading = true;
-
      final data = BoxService.boxService.nativeDeviceBox.get(deviceDetailKey);
      try{
 
@@ -114,8 +116,8 @@ class LoginOtpController extends ChangeNotifier{
          otpController.clear();
          UserDetailDataModel user = UserDetailDataModel.fromJson(response.data["data"]);
          await SharedPrefServices.services.setBool(isUserLoggedIn, true);
+         // print("opt screen company name ------>${user.user.vCurrentCompany}");
          BoxService.boxService.addUserDetailToHive(userDetailKey, UserDetailDataModel(tAuthToken: user.tAuthToken, iUserId: user.iUserId, tDeviceToken: user.tDeviceToken, user: user.user));
-         // print(BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.tUpadatedAt);
          if(context.mounted){
            Navigator.pushAndRemoveUntil(context, PageTransition(
                child: const DashBoard(),
@@ -160,4 +162,8 @@ class LoginOtpController extends ChangeNotifier{
   }
 ///----------------------------- Timer function -----------------------------///
 
+@override
+  void dispose() {
+    super.dispose();
+  }
 }

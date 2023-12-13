@@ -14,7 +14,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
-
 Future<void> main() async{
 
   WidgetsFlutterBinding.ensureInitialized();

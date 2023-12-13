@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../frame_work/repository/model/user_model/user_detail_data_model.dart';
 import '../utils/theme/theme.dart';

@@ -33,11 +33,11 @@ class ProfileUserDetails extends ConsumerWidget {
             child: SizedBox(
               height: 120.h,
               width: double.infinity,
-              child: userModel.tProfileBannerUrl !=""?
+              child:
               CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userModel.tProfileBannerUrl}",
                   placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
-                  : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.contain,),
+                  errorWidget: (context, url, error) => Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,),fit: BoxFit.fitWidth,)
+
             ),
           ),
           Padding(

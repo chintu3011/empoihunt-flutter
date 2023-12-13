@@ -47,10 +47,13 @@ class ProfileResumeTile extends ConsumerWidget {
                 SizedBox(
                   width: 5.w,
                 ),
-                Icon(
-                  Icons.get_app_sharp,
-                  color: AppColors.colors.blackColors,
-                )
+              IconButton(onPressed: (){
+
+                }, icon: Icon(
+                Icons.get_app_sharp,
+                color: AppColors.colors.blackColors,
+              )
+              )
               ],
             ),
           ),

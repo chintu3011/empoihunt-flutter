@@ -34,6 +34,7 @@ class ProfileUserDetailTile extends ConsumerWidget {
                       color: AppColors.colors.blueDark),
                 ),
                 IconButton(onPressed: (){
+                  profileWatch.taglineToExpertiseList(user);
                   profileWatch.setDialogValue(2);
                   profileWatch.addUserDetailToDialog(user);
                   profileWatch.updateIsDialogShow();
@@ -55,14 +56,14 @@ class ProfileUserDetailTile extends ConsumerWidget {
                       color: AppColors.colors.blueDark),
                 ),
                 Text(
-                  user.vCity??"",
+                  user.vCity,
                   style: TextStyles.w600.copyWith(
                       fontSize: 12.sp,
                       color: AppColors.colors.blueColors),
                 )
               ],
             ),
-            user.vCurrentCompany != null?
+            user.vCurrentCompany != ""?
             Row(
               children: [
                 Icon(Icons.home_work_outlined,size: 20.sp,color: AppColors.colors.blueColors,),

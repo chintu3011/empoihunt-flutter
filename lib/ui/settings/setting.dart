@@ -61,7 +61,8 @@ class _SettingState extends ConsumerState<Setting> {
                 borderRadius: BorderRadius.circular(8.r),
                 side: BorderSide(color: AppColors.colors.blueColors,width: 1.w)
               ),
-              leading: CircleAvatar(
+              leading:userData.tProfileUrl != null?
+              CircleAvatar(
                 radius: 34.r,
                 child: Container(
                     height: 56.h,
@@ -89,7 +90,7 @@ class _SettingState extends ConsumerState<Setting> {
                       "https://api.emploihunt.com${userData.tProfileUrl}",fit: BoxFit.fill,):
                     Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
                 ),
-              ),
+              ):const SizedBox(),
               title: Text(userData.vFirstName !=""? "${userData.vFirstName} ${userData.vLastName}":"",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
               subtitle: userData.vCurrentCompany !=null ? Text(userData.vCurrentCompany??"",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),):const SizedBox(),
             ),

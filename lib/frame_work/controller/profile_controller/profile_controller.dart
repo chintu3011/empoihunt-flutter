@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
@@ -15,8 +14,6 @@ import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_resume
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 import '../../../ui/utils/app_constant.dart';
-import '../../repository/model/user_model/user_experience_model.dart';
-import '../../repository/model/user_model/user_experience_model.dart';
 import '../../repository/model/user_model/user_experience_model.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
@@ -59,6 +56,28 @@ class ProfileController extends ChangeNotifier {
   final expertiseController = TextEditingController();
 
   List<String> expertiseList=[];
+
+  taglineToExpertiseList(UserModel model){
+    expertiseList=[];
+    if(model.tTagLine != ""){
+      List<String> list = [];
+      list = model.tTagLine!.split(" || ");
+      list.removeLast();
+    for(String i in list){
+      expertiseList.add(i);
+     }
+    }
+    notifyListeners();
+  }
+
+  String tagline ="";
+
+  expertiseToTagline(){
+    tagline ="";
+    for(String i in expertiseList){
+      tagline = "$tagline${i.trim()} || ";
+    }
+  }
 
   addUserDetailToDialog(UserModel user){
     userDetailSelectedJobLocation = user.vCity;
@@ -103,10 +122,12 @@ class ProfileController extends ChangeNotifier {
   // }
 
   userDetailChangeDoneButton(){
+    expertiseToTagline();
     userModelData.user.vFirstName = firstNameController.text;
     userModelData.user.vLastName = lastNameController.text;
-    userModelData.user.vJobLocation = userDetailSelectedJobLocation;
+    userModelData.user.vCity = userDetailSelectedJobLocation!;
     userModelData.user.vEmail = emailController.text;
+    userModelData.user.tTagLine = tagline;
     if(userDetailFormKey.currentState!.validate()){
       if(expertiseList.isNotEmpty){
         isExpertiseAdded = false;
@@ -242,7 +263,7 @@ class ProfileController extends ChangeNotifier {
        UserModel user = UserModel.fromJson(response.data["data"]);
         userModelData.user.tProfileBannerUrl = user.tProfileBannerUrl;
        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
-       print("banner url------->${userModelData.user.tProfileBannerUrl} ");
+       debugPrint("banner url------->${userModelData.user.tProfileBannerUrl} ");
         bannerImgUrl=null;
         bannerImgName="";
        bannerImg=null;
@@ -309,7 +330,7 @@ class ProfileController extends ChangeNotifier {
         UserModel user = UserModel.fromJson(response.data["data"]);
         userModelData.user.tProfileUrl = user.tProfileUrl;
         BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
-        print("Image url------->${userModelData.user.tProfileBannerUrl} ");
+        debugPrint("Image url------->${userModelData.user.tProfileBannerUrl} ");
         profileImgUrl=null;
         profileImgName="";
         profileImg=null;
@@ -368,7 +389,7 @@ class ProfileController extends ChangeNotifier {
         UserModel user = UserModel.fromJson(response.data["data"]);
         userModelData.user.tResumeUrl = user.tResumeUrl;
         BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
-        print("resume url------->${userModelData.user.tProfileBannerUrl} ");
+        debugPrint("resume url------->${userModelData.user.tProfileBannerUrl} ");
         this.resumeUrl = null;
         this.resumeName="";
         notifyListeners();
@@ -538,18 +559,40 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
+  addCurrentPositionToDialog(UserModel user){
+    userCurrentPosDesignFieldController.text = user.vDesignation!;
+    userCurrentPosCompanyNameFieldController.text = user.vCurrentCompany!;
+    userCurrentPosSelectedJobLocation = user.vJobLocation!;
+    setValueOfWorkingMode(user.vWorkingMode!);
+    notifyListeners();
+  }
+
   List<String> workingModeList=[
     "On-Site",
     "Remote",
     "Hybrid",
   ];
 
+  setValueOfWorkingMode(String site){
+    if(site == "On-Site"){
+      selectedWorkingMode=0;
+    }else if(site == "Remote"){
+      selectedWorkingMode=1;
+    }else if(site == "Hybrid"){
+      selectedWorkingMode=2;
+    }
+    notifyListeners();
+  }
+
   int selectedWorkingMode = 0;
+  String selectedWorkingText = "";
   updateWorkingMode(int index){
     selectedWorkingMode = index;
     debugPrint(workingModeList[index]);
+    selectedWorkingText = workingModeList[index];
     notifyListeners();
   }
+
   clearCurrentPosForm(){
     userCurrentPosDesignFieldController.clear();
     userCurrentPosCompanyNameFieldController.clear();
@@ -563,9 +606,14 @@ class ProfileController extends ChangeNotifier {
   }
 
   currentPositionDoneButton(){
+    userModelData.user.vDesignation = userCurrentPosDesignFieldController.text;
+    userModelData.user.vCurrentCompany = userCurrentPosCompanyNameFieldController.text;
+    userModelData.user.vJobLocation = userCurrentPosSelectedJobLocation;
+    userModelData.user.vWorkingMode = selectedWorkingText;
     if(currentPositionFormKey.currentState!.validate()){
       if(userCurrentPosSelectedJobLocation != null){
         isUserCurrentPosJobSelected = false;
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
         debugPrint("Success");
         updateIsDialogShow();
         clearCurrentPosForm();
@@ -641,7 +689,7 @@ class ProfileController extends ChangeNotifier {
         }
         isExperienceLoading= false;
         notifyListeners();
-        print(response.data['data']);
+        // print(response.data['data']);
       }
     }catch(e){
       isExperienceLoading= false;
@@ -685,7 +733,7 @@ class ProfileController extends ChangeNotifier {
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
-      print(options.headers);
+      // print(options.headers);
       Response response = await
       DioClient.client.postDataWithJsonWithBearerToken(
           APIEndPoint.userExperienceUpdateApi,
@@ -717,7 +765,6 @@ class ProfileController extends ChangeNotifier {
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
-      print(options.headers);
       Response response = await
       DioClient.client.postDataWithBearerToken(
           "${APIEndPoint.userExperienceDeleteApi}?id=${model.id}",options);
@@ -734,12 +781,7 @@ class ProfileController extends ChangeNotifier {
 
 
    Future userProfileDetailUpdateApi() async{
-
-    String tagline ="";
-    for(String i in expertiseList){
-      tagline = "$tagline$i,";
-    }
-    print(tagline);
+     expertiseToTagline();
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
@@ -747,7 +789,7 @@ class ProfileController extends ChangeNotifier {
       DioClient.client.postDataWithBearerToken("${APIEndPoint.userUpdateProfileDetailsApi}?vFirstName=${user!.user.vFirstName}&vLastName=${user.user.vLastName}&vEmail=${user.user.vEmail}&tBio=${user.user.tBio}&vcity=${user.user.vCity}&vCurrentCompany=${user.user.vCurrentCompany}&vDesignation=${user.user.vDesignation}&vJobLocation=${user.user.vJobLocation}&vQualification=${user.user.vQualification}&vWorkingMode=${user.user.vWorkingMode}&tTagLine=$tagline",
           options);
       if(response.statusCode == 200){
-        print("Success update profile Screen to the local data base");
+        debugPrint("Success update profile Screen to the local data base");
         notifyListeners();
       }
     }catch(e){

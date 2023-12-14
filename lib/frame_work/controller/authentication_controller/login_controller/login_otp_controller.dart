@@ -5,6 +5,7 @@ import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_auth_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
@@ -101,6 +102,9 @@ class LoginOtpController extends ChangeNotifier{
        debugPrint("Android Device ID -----> ${data.deviceId}");
        debugPrint("Android Device name -----> ${data.deviceName}");
 
+
+       final uid = FireBaseSingleton.instance.firebaseAuth.currentUser!.uid;
+       print(uid);
        Response response = await DioClient.client.postDataWithJson(APIEndPoint.loginApi,
            {
              "vMobile": number,
@@ -108,7 +112,7 @@ class LoginOtpController extends ChangeNotifier{
              "vOSVersion": data.deviceVersion,
              "tDeviceToken": "string",
              "tDeviceName": data.deviceName,
-             "vFirebaseId": "string"
+             "vFirebaseId": uid
            });
        if(response.statusCode == 200){
          isLoading= false;

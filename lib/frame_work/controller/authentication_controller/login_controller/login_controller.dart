@@ -46,10 +46,10 @@ class LoginController  extends ChangeNotifier{
       final status = await checkUserRegistered(phoneNumberController.text);
       if(status.status == 200){
         if(context.mounted) {
-          Navigator.push(context, PageTransition(
+          Navigator.pushAndRemoveUntil(context, PageTransition(
               child:  LoginOTP("+${selectedCountry.phoneCode}${phoneNumberController.text}"),
               type: PageTransitionType.rightToLeft,
-              duration: const Duration(milliseconds: 300)));
+              duration: const Duration(milliseconds: 300)), (route) => false);
           phoneNumberController.clear();
         }
       }else if(status.status == 404){

@@ -12,6 +12,7 @@ class APIEndPoint{
   static const String  checkUserExisting = '/signin/check_user_existing?mobile=%2B';
   static const String  loginApi = '/signin/login';
   static const String  registerUserApi = '/signin/register_user';
+  static const String  signOutApi = '/signin/signout';
 
 
   ///------------------------------------- job seeker ------------------------------///

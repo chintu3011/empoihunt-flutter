@@ -90,7 +90,6 @@ class SplashController extends ChangeNotifier{
     bool value = SharedPrefServices.services.getBool(isUserLoggedIn);
     print("is log in -----> $value");
 
-
     if(value){
       Navigator.pushAndRemoveUntil(context, PageTransition(
           child: const DashBoard(),

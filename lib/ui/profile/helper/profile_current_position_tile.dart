@@ -1,11 +1,13 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class ProfileCurrentPositionTile extends ConsumerWidget {
-  const ProfileCurrentPositionTile({super.key});
+  final UserModel user;
+  const ProfileCurrentPositionTile({super.key,required this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,18 +35,12 @@ class ProfileCurrentPositionTile extends ConsumerWidget {
                 ),
                 IconButton(onPressed: (){
                   profileWatch.setDialogValue(5);
+                  profileWatch.addCurrentPositionToDialog(user);
                   profileWatch.updateIsDialogShow();
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),
             SizedBox(height: 10.h,),
-            Row(
-              children: [
-                const Spacer(),
-                Image.asset(AppAssets.experienceEmptyIcon,scale: 14,),
-                const Spacer(),
-              ],
-            ),
-            Container(
+            user.vWorkingMode != ""?             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
               width: size.width * 0.90 ,
               decoration: BoxDecoration(
@@ -55,17 +51,24 @@ class ProfileCurrentPositionTile extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("CTO (Chief Techonologieskjfhjha)",overflow:TextOverflow.ellipsis,style: TextStyles.w500.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),),
-                  Text("6xxu",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                  Text(user.vDesignation??"",overflow:TextOverflow.ellipsis,style: TextStyles.w500.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),),
+                  Text(user.vCurrentCompany ??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("logicFlash solution",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
-                      Text("On-Site",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),)
+                      Text(user.vJobLocation??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
+                      Text(user.vWorkingMode ??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),)
                     ],
                   )
                 ],
               ),
+            ):
+            Row(
+              children: [
+                const Spacer(),
+                Image.asset(AppAssets.experienceEmptyIcon,scale: 14,),
+                const Spacer(),
+              ],
             )
           ],
         ),

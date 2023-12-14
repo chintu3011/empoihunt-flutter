@@ -1,6 +1,7 @@
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploiflutter/ui/profile/profile_pdf_viewer.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -48,7 +49,8 @@ class ProfileResumeTile extends ConsumerWidget {
                   width: 5.w,
                 ),
               IconButton(onPressed: (){
-
+                print(user.tResumeUrl);
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=> ProfilePDFViewer(user: user,)));
                 }, icon: Icon(
                 Icons.get_app_sharp,
                 color: AppColors.colors.blackColors,

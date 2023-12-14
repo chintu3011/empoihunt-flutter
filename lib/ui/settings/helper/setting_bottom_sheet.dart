@@ -1,8 +1,7 @@
-
-import 'package:emploiflutter/frame_work/controller/dash_board_controller/dash_board_controller.dart';
+import 'package:emploiflutter/frame_work/controller/setting_controller/setting_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/authentication/auth_intro.dart';
+import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
@@ -12,6 +11,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:page_transition/page_transition.dart';
+
+import '../../authentication/auth_intro.dart';
 
 class SettingBottomSheet extends ConsumerStatefulWidget{
   const SettingBottomSheet({super.key});
@@ -37,6 +38,7 @@ class _SettingBottomSheetState extends ConsumerState<SettingBottomSheet> with Si
   }
   @override
   Widget build(BuildContext context) {
+    final settingWatch = ref.watch(settingController);
     return Container(
       height: 300.h,
       width: double.infinity,
@@ -60,16 +62,10 @@ class _SettingBottomSheetState extends ConsumerState<SettingBottomSheet> with Si
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CommonButton(btnText: "Yes", onPressed: ()async{
-
-                await BoxService.boxService.clearAllBoxes();
-                ref.watch(dashBoardController).otherWidgetAllowToNavigate(0);
+                await settingWatch.singOutApi(context);
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
-                if(context.mounted) {
-                  Navigator.pushAndRemoveUntil(context, PageTransition(
-                    child: const AuthIntro(),
-                    type: PageTransitionType.bottomToTopJoined,
-                    childCurrent: widget,), (route) => false);
-                }
+                await BoxService.boxService.userGetDetailBox.clear();
+                await BoxService.boxService.userModelBox.clear();
               },backgroundColor: AppColors.colors.blueColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h)),
               CommonButton(btnText: "No", onPressed: (){
                 context.pop();

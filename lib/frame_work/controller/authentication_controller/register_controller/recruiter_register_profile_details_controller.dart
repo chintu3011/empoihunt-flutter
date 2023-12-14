@@ -125,6 +125,23 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   bool isDesignationEmpty = false;
   bool isJobLocationEmpty = false;
 
+
+
+  List<String> workingModeList=[
+    "On-Site",
+    "Remote",
+    "Hybrid",
+  ];
+
+  int selectedWorkingMode = 0;
+  String selectedWorkingModeText = "";
+  updateWorkingMode(int index){
+    selectedWorkingMode = index;
+    selectedWorkingModeText = workingModeList[index];
+    debugPrint(selectedWorkingModeText);
+    notifyListeners();
+  }
+
   updateIsCompanyEmpty(String value) {
     if (value != "") {
       isCompanyEmpty = false;
@@ -213,6 +230,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   bool isLoading = false;
 
   Future registerApiCall(BuildContext context) async {
+    debugPrint(selectedWorkingModeText);
     isLoading = true;
     final uid = FireBaseSingleton.instance.firebaseAuth.currentUser!.uid;
     final deviceData =
@@ -226,7 +244,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
         "resume":"",
       });
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;

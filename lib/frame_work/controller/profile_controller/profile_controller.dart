@@ -60,10 +60,8 @@ class ProfileController extends ChangeNotifier {
   taglineToExpertiseList(UserModel model){
     expertiseList=[];
     if(model.tTagLine != ""){
-      List<String> list = [];
-      list = model.tTagLine!.split(" || ");
-      list.removeLast();
-    for(String i in list){
+       List<String>  list = model.tTagLine!.split(" || ");
+       for(String i in list){
       expertiseList.add(i);
      }
     }
@@ -74,9 +72,8 @@ class ProfileController extends ChangeNotifier {
 
   expertiseToTagline(){
     tagline ="";
-    for(String i in expertiseList){
-      tagline = "$tagline${i.trim()} || ";
-    }
+    tagline = expertiseList.join(" || ");
+    notifyListeners();
   }
 
   addUserDetailToDialog(UserModel user){

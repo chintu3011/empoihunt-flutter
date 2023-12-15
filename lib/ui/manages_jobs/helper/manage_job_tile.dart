@@ -1,3 +1,5 @@
+import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/update_post/update_post.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -6,10 +8,12 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import '../../utils/theme/text_styles.dart';
 
 class ManageJobTile extends ConsumerWidget {
-  const ManageJobTile({super.key});
+  final JobPostModel jobPost;
+  const ManageJobTile({super.key,required this.jobPost});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final manageJobPostWatch = ref.watch(manageJobPostController);
     return Stack(
       alignment: Alignment.centerLeft,
       children: [
@@ -25,8 +29,8 @@ class ManageJobTile extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Android Developer",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),),
-                  Text("12 LPA +",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.clayColors),)
+                  Text(jobPost.vJobTitle??"",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blueColors),),
+                  Text("${jobPost.vSalaryPackage} LPA +",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.clayColors),)
                 ],
               ),
               SizedBox(height: 10.h,),
@@ -42,7 +46,7 @@ class ManageJobTile extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(4.r),
                           color: AppColors.colors.clayColors),
                       child: Text(
-                        "2 Years",
+                        "${jobPost.vExperience} Years",
                         style: TextStyles.w400.copyWith(
                             fontSize: 14.sp, color: AppColors.colors.whiteColors),
                       ),
@@ -57,7 +61,7 @@ class ManageJobTile extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(4.r),
                           color: AppColors.colors.clayColors),
                       child: Text(
-                        "Bachelor of Hotel Management(BHM)",
+                        jobPost.vEducation??"",
                         style: TextStyles.w400.copyWith(
                             fontSize: 14.sp, color: AppColors.colors.whiteColors),
                       ),
@@ -69,9 +73,9 @@ class ManageJobTile extends ConsumerWidget {
 
               Row(
                 children: [
-                  Text("test • ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                  Text("${jobPost.vCompanyName} • ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
                   SizedBox(width: 8.w,),
-                  Text("5 Vacancy",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)
+                  Text("${jobPost.iNumberOfVacancy} Vacancy",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)
                 ],
               ),
               SizedBox(height: 8.h,),
@@ -79,8 +83,8 @@ class ManageJobTile extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Ahmedabad",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
-                  Text("23 hours ago",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),)
+                  Text(jobPost.vAddress??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
+                  Text(manageJobPostWatch.getTimeAgo(int.parse(jobPost.tCreatedAt!)),style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),)
                 ],
               )
             ],
@@ -92,21 +96,33 @@ class ManageJobTile extends ConsumerWidget {
           right: 5.w,
           child: Row(
             children: [
-              IconButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>const UpdatePost()));
-              }, icon: Icon(Icons.edit,color: AppColors.colors.whiteColors,size: 22.sp,),style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(5.sp),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
-                  elevation: 8,
-                  backgroundColor: AppColors.colors.blueColors
-              ),),
-              SizedBox(width: 8.w,),
-              IconButton(onPressed: (){}, icon: Icon(Icons.delete,color: AppColors.colors.whiteColors,size: 22.sp,),style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(5.sp),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
-                  elevation: 8,
-                  backgroundColor: AppColors.colors.blueColors
-              ),),
+              SizedBox(
+                height: 40.h,
+                child: FittedBox(
+                  child: IconButton(onPressed: (){
+                    manageJobPostWatch.addJobDetailToField(jobPost);
+                    Navigator.push(context, MaterialPageRoute(builder: (_)=> UpdatePost(jobPostModel: jobPost,)));
+                  }, icon: Icon(Icons.edit,color: AppColors.colors.whiteColors,size: 20.sp,),style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(3.sp),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
+                      elevation: 8,
+                      backgroundColor: AppColors.colors.blueColors
+                  ),),
+                ),
+              ),
+              SizedBox(
+                height: 40.h,
+                child: FittedBox(
+                  child: IconButton(onPressed: (){
+                    manageJobPostWatch.deleteJobAPi(jobPost.id!, context);
+                  }, icon: Icon(Icons.delete,color: AppColors.colors.whiteColors,size: 20.sp,),style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(3.sp),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(color: Colors.grey.withOpacity(0.3))),
+                      elevation: 8,
+                      backgroundColor: AppColors.colors.blueColors
+                  ),),
+                ),
+              ),
             ],
           ),
         )

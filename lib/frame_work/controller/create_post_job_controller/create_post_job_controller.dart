@@ -59,20 +59,19 @@ class CreatePostJobController extends ChangeNotifier{
   String? techSkillTagline;
 
   techSkillToTagline(){
-    techSkillTagline =null;
-    for(String i in technicalSkillsList){
-      techSkillTagline = "$technicalSkillsList${i.trim()},";
-    }
+    techSkillTagline = "";
+    techSkillTagline = technicalSkillsList.join(" || ");
+    notifyListeners();
   }
 
   String? softSkillTagline;
 
   softSkillToTagline(){
-    softSkillTagline =null;
-    for(String i in softSkillsList){
-      softSkillTagline = "$softSkillsList${i.trim()},";
-    }
+    softSkillTagline = "";
+    softSkillTagline = softSkillsList.join(" || ");
+    notifyListeners();
   }
+
   addTechnicalSkill(){
     if(requiredTechnicalSkillsController.text != ""){
       technicalSkillsList.add(requiredTechnicalSkillsController.text);
@@ -156,19 +155,20 @@ class CreatePostJobController extends ChangeNotifier{
         isFileSelected = true;
       }
     }else{
-      jobTitleFocusNode.requestFocus();
     }
     notifyListeners();
   }
   cancelButton(){
+    technicalSkillsList = [];
+    softSkillsList = [];
     final dashBoardWatch = ref.watch(dashBoardController);
     dashBoardWatch.otherWidgetAllowToNavigate(0);
     notifyListeners();
     imageName ="";
     imgUrl =null;
     imageFile = null;
-    techSkillTagline=null;
-    softSkillTagline = null;
+    techSkillTagline="";
+    softSkillTagline = "";
     jobTitleFieldController.clear();
     companyNameFieldController.clear();
     jobDescriptionFieldController.clear();
@@ -180,14 +180,17 @@ class CreatePostJobController extends ChangeNotifier{
     requiredSoftSkillsController.clear();
     jobLocationSearchController.clear();
     educationSearchController.clear();
+    notifyListeners();
   }
 
   clearForm(){
+    technicalSkillsList = [];
+    softSkillsList = [];
     imageName ="";
     imgUrl =null;
     imageFile = null;
-    techSkillTagline=null;
-    softSkillTagline = null;
+    techSkillTagline="";
+    softSkillTagline = "";
     jobTitleFieldController.clear();
     companyNameFieldController.clear();
     jobDescriptionFieldController.clear();

@@ -136,7 +136,8 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                         })
                     ) ,
                   ),
-                ),)
+                ),
+                )
               ],
             ),
 

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_bottom_button.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_dropdown_forms.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_skills_widget.dart';
@@ -15,7 +17,8 @@ import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 
 class UpdatePost extends ConsumerWidget {
-  const UpdatePost({super.key});
+  final JobPostModel jobPostModel;
+  const UpdatePost({super.key,required this.jobPostModel});
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -62,18 +65,19 @@ class UpdatePost extends ConsumerWidget {
                   ),
                   child: Row(
                     children: [
-                      manageJobPost.imageFile !=null? Container(
+                      jobPostModel.tCompanyLogoUrl!=""? Container(
                         height: 80.h,
                         width: 80.w,
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(
                             shape: BoxShape.circle
                         ),
-                        child: Image.file(manageJobPost.imageFile!,fit: BoxFit.fill,),
+                        child:jobPostModel.tCompanyLogoUrl!=""?CachedNetworkImage(imageUrl: "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.fill,):
+                        Image.file(manageJobPost.imageFile!,fit: BoxFit.fill,),
                       ):
                       Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
                       SizedBox(width: 10.w,),
-                      Text(manageJobPost.imageName !=""? manageJobPost.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
+                      Expanded(child: Text(manageJobPost.imageName !=""? manageJobPost.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 13.sp,color: AppColors.colors.blackColors),))
                     ],
                   ),
                 ),

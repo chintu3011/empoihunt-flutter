@@ -10,6 +10,7 @@ class UpdatePostWorkingMode extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final managePostJobWatch = ref.watch(manageJobPostController);
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           color: Colors.white,
@@ -27,6 +28,7 @@ class UpdatePostWorkingMode extends ConsumerWidget {
                         managePostJobWatch.workingModeList.length, (index) {
                       final radioButton = managePostJobWatch.workingModeList[index];
                       return RadioListTile(
+                        selected: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
                           title: Text(
                             radioButton.title,

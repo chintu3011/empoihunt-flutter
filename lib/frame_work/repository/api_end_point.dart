@@ -56,6 +56,10 @@ class APIEndPoint{
   ///---------------------------- Jobs ---------------------------------///
 
   static const String jobInsertApi = '/job/insert_jobs';
+  static const String jobUpdateApi = '/job/update_jobs';
+  static const String jobGetJobByHrIdApi = '/job/jobs_by_hrId';
+  static const String jobDeleteApi = '/job/delete';
+
 
   ///---------------------------- Jobs ---------------------------------///
 

@@ -48,4 +48,11 @@ class APIEndPoint{
     static const String userUpdateProfilePicApi = '/user/update_profile_pic';
     static const String userUpdateResumeApi = '/user/update_resume';
 ///------------------------------------- Profile --------------------------------///
+
+
+///--------------------------------- Recruiter ------------------------------------///
+
+  static const String getJobSeekerApi = '/jobSeeker/get_jobSeeker';
+
+///--------------------------------- Recruiter ------------------------------------///
 }

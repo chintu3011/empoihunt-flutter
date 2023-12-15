@@ -20,7 +20,16 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
           },
           action: [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  jobSeekerHomeWatch.listeningVoice(context);
+                  showDialog(context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return const Dialog(
+                        child: JobSeekerHomeSearchDialog(),
+                      );
+                    },);
+                },
                 icon: Icon(Icons.mic, color: AppColors.colors.blackColors)),
             IconButton(
                 onPressed: () {},

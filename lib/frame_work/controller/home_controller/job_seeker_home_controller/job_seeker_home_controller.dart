@@ -28,7 +28,7 @@ class JobSeekerHomeController extends ChangeNotifier{
   bool isLoading = false;
   String preferenceId = "0";
 
-  Future jobsPostApiCall(   )async{
+  Future jobsPostApiCall()async{
     try{
       jobPostList=[];
       isLoading = true;

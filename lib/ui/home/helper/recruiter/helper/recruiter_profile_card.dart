@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class RecruiterProfileCard extends StatelessWidget {
-  const RecruiterProfileCard({super.key});
+  final UserModel user;
+  const RecruiterProfileCard({required this.user,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +33,19 @@ class RecruiterProfileCard extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 20.h,),
-                CircleAvatar(
-                  radius: 43.r,
-                  child: Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,),
+                Container(
+                  height: 80.h,
+                  width: 80.w,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle
+                  ),
+                  child: CachedNetworkImage(imageUrl: "https://api.emploihunt.com${user.tProfileUrl}",
+                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,),fit: BoxFit.cover,),
                 ),
                 SizedBox(height: 15.h,),
-                Text("Nand Vaghela",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.blueColors),softWrap: true,)
+                Text("${user.vFirstName} ${user.vLastName}",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.blueColors),softWrap: true,)
               ],
             ),
           ),

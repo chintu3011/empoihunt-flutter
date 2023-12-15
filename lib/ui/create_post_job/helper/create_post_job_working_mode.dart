@@ -35,7 +35,7 @@ class CreatePostJobWorkingMode extends ConsumerWidget {
                             fontSize: 12.sp, color: AppColors.colors.blackColors),
                       ),
                       value: radioButton.value,
-                      groupValue: createPostJobWatch.selectedRemoteValue,
+                      groupValue: createPostJobWatch.selectedWorkingModeValue,
                       onChanged: (value) {
                         createPostJobWatch.updateSelectedValue(value!);
                       });

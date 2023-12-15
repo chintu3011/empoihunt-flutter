@@ -25,16 +25,16 @@ class CreatePostJobDropDownForms extends ConsumerWidget {
         CommonTypeAheadFormField(
           direction: AxisDirection.up,
           prefixIcon: SvgPicture.asset(AppAssets.qualificationSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),
-          controller: createPostJobWatch.qualificationSearchController,
+          controller: createPostJobWatch.educationSearchController,
             hintText: "Bachelor of Engineering(BE)",
             labelText: "Required Education",
             onSuggestionSelected: (value) {
-              createPostJobWatch.qualificationSearchController.text = value;
+              createPostJobWatch.educationSearchController.text = value;
             },
             suggestionsCallback: (pattern){
-          return createPostJobWatch.checkQualification(pattern);
+          return createPostJobWatch.checkEducation(pattern);
         }),
-        createPostJobWatch.isQualificationSelected?Text("Education is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
+        createPostJobWatch.isEducationSelected?Text("Education is required",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
         SizedBox(
           height: 10.h,

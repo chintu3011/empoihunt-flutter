@@ -1,3 +1,4 @@
+import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_bottom_button.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_dropdown_forms.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_skills_widget.dart';
@@ -7,65 +8,134 @@ import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../utils/form_validation.dart';
+import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 
-class UpdatePost extends StatelessWidget {
+class UpdatePost extends ConsumerWidget {
   const UpdatePost({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final manageJobPost = ref.watch(manageJobPostController);
     return  Scaffold(
       appBar: const CommonAppBar(title: "Update post",isLeadingShow: true),
       body: SingleChildScrollView(
+        controller: manageJobPost.scrollController,
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 15.h),
-        child: Column(
-          children: [
-            CommonFormField(hintText: "Job Title",labelText: "job Title",prefixIcon: Icon(Icons.cases_outlined,color: AppColors.colors.blueColors,),),
-            SizedBox(height: 10.h,),
-            CommonFormField(hintText: "Company name",labelText: "Company name",prefixIcon: Icon(Icons.maps_home_work_outlined,color: AppColors.colors.blueColors,),),
+        child: Form(
+          key: manageJobPost.formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CommonFormField(
+                focusNode: manageJobPost.jobTitleFocusNode,
+                controller: manageJobPost.jobTitleFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.name,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value)=>requiredFieldValidator(input: value, errorMgs: "Please enter job title"),
+                hintText: "Android Developer",labelText: "job Title",prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
+              SizedBox(height: 10.h,),
+              CommonFormField(
+                controller: manageJobPost.companyNameFieldController,
+                textInputAction: TextInputAction.none,
+                keyboardType: TextInputType.text,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value)=>requiredFieldValidator(input:value,errorMgs: "Please Enter company name"),
+                hintText: "Tellva Still Texus",labelText: "Company name",prefixIcon: SvgPicture.asset(AppAssets.companyBuildingSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
 
-            /// Company Logo ///
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              alignment: Alignment.center,
-              height: 100.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.colors.greyRegent.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(16.r)
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,).paddingOnly(right: 6.w),
-                  Text("Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
-                ],
-              ),
-            ).paddingVertical(10.h),
+              /// Company Logo ///
+              GestureDetector(
+                onTap: manageJobPost.imagePicker,
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  alignment: Alignment.center,
+                  height: 100.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: AppColors.colors.greyRegent.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(16.r)
+                  ),
+                  child: Row(
+                    children: [
+                      manageJobPost.imageFile !=null? Container(
+                        height: 80.h,
+                        width: 80.w,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle
+                        ),
+                        child: Image.file(manageJobPost.imageFile!,fit: BoxFit.fill,),
+                      ):
+                      Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
+                      SizedBox(width: 10.w,),
+                      Text(manageJobPost.imageName !=""? manageJobPost.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
+                    ],
+                  ),
+                ),
+              ).paddingVertical(10.h),
+              manageJobPost.isFileSelected?Text("Please Select organization logo",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),):const SizedBox(),
 
-            CommonFormField(hintText: "Job Description Here", prefixIcon: Icon(Icons.file_copy,color: AppColors.colors.blueColors,), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
-            CommonFormField(hintText: "Job Role & Responsibility", prefixIcon: Icon(Icons.storage_rounded,color: AppColors.colors.blueColors,), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
-            CommonFormField(hintText: "Required Experience",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
+              CommonFormField(
+                controller: manageJobPost.jobDescriptionFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.text,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job description"),
+                hintText: "Job Description Here", prefixIcon: SvgPicture.asset(AppAssets.bioGraphSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
+              CommonFormField(
+                controller: manageJobPost.jobRoleRespFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.text,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job role & Responsibility"),
+                hintText: "Job Role & Responsibility", prefixIcon: SvgPicture.asset(AppAssets.baselinePlaylistAddCheckCircleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
+              CommonFormField(
+                controller: manageJobPost.experienceFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: (value)=>notAllowSpecialChar(manageJobPost.experienceFieldController, value),
+                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter experience in year"),
+                hintText: "2 years",labelText: "Required Experience",prefixIcon: Icon(Icons.star,color: AppColors.colors.blueColors,),).paddingOnly(top: 10.h),
 
-            /// Job Skills Forms ///
-            const UpdatePostSkillsWidget(),
+              /// Job Skills Forms ///
+              const UpdatePostSkillsWidget(),
 
-            /// Job DropDown Forms ///
-            const UpdatePostDropDownForms(),
+              /// Job DropDown Forms ///
+              const UpdatePostDropDownForms(),
 
-            SizedBox(height: 10.h,),
-            CommonFormField(hintText: "Salary Package",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
+              SizedBox(height: 10.h,),
+              CommonFormField(
+                controller: manageJobPost.salaryFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: (value){notAllowSpecialChar(manageJobPost.salaryFieldController, value);},
+                validator:(val) =>requiredFieldValidator(input: val, errorMgs: "Please enter salary in LPA"),
+                hintText: "12 LPA",labelText: "Salary Package",prefixIcon: Icon(Icons.currency_rupee,color: AppColors.colors.blueColors,),),
 
-            /// Working Mode
-            const UpdatePostWorkingMode(),
+              /// Working Mode
+              const UpdatePostWorkingMode(),
 
-            CommonFormField(hintText: "Need of Employees",labelText: "Number of Employees",prefixIcon: Icon(Icons.people,color: AppColors.colors.blueColors,),),
+              CommonFormField(
+                controller: manageJobPost.numberOfEmpFieldController,
+                textInputAction: TextInputAction.next,
+                keyboardType: TextInputType.phone,
+                autoValidateMode: AutovalidateMode.onUserInteraction,
+                onChanged: (value)=>notAllowSpecialChar(manageJobPost.numberOfEmpFieldController, value),
+                validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter number of employee"),
+                hintText: "Need of Employees",labelText: "Number of Employees",prefixIcon: Icon(Icons.people,color: AppColors.colors.blueColors,),),
+              SizedBox(height: 10.h,),
+              /// Bottom Button ///
+              const UpdatePostBottomButton()
 
-            SizedBox(height: 10.h,),
-            /// Bottom Button ///
-            const UpdatePostBottomButton()
-          ],
+            ],
+          ),
         ),
       ),
     );

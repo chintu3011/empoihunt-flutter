@@ -25,6 +25,7 @@ class CreatePostJob extends ConsumerWidget {
     return  Scaffold(
       appBar: const CommonAppBar(title: "Create Job Post",),
       body: SingleChildScrollView(
+        controller: createPostJobWatch.scrollController,
         physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 15.h),
         child: Form(
@@ -33,11 +34,11 @@ class CreatePostJob extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonFormField(
+                focusNode: createPostJobWatch.jobTitleFocusNode,
                 controller: createPostJobWatch.jobTitleFieldController,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.name,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=> notAllowSpecialChar(createPostJobWatch.jobTitleFieldController, value),
                 validator: (value)=>requiredFieldValidator(input: value, errorMgs: "Please enter job title"),
                 hintText: "Android Developer",labelText: "job Title",prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
               SizedBox(height: 10.h,),
@@ -46,7 +47,6 @@ class CreatePostJob extends ConsumerWidget {
                 textInputAction: TextInputAction.none,
                 keyboardType: TextInputType.text,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.companyNameFieldController, value),
                 validator: (value)=>requiredFieldValidator(input:value,errorMgs: "Please Enter company name"),
                 hintText: "Tellva Still Texus",labelText: "Company name",prefixIcon: SvgPicture.asset(AppAssets.companyBuildingSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
 
@@ -64,18 +64,18 @@ class CreatePostJob extends ConsumerWidget {
               ),
               child: Row(
                 children: [
-                  createPostJobWatch.logoPicFile !=null? Container(
+                  createPostJobWatch.imageFile !=null? Container(
                     height: 80.h,
                     width: 80.w,
                     clipBehavior: Clip.hardEdge,
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle
                     ),
-                    child: Image.file(createPostJobWatch.logoPicFile!,fit: BoxFit.fill,),
+                    child: Image.file(createPostJobWatch.imageFile!,fit: BoxFit.fill,),
                   ):
                   Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
                   SizedBox(width: 10.w,),
-                  Text(createPostJobWatch.fileName !=null? createPostJobWatch.fileName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
+                  Text(createPostJobWatch.imageName !=""? createPostJobWatch.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),)
                 ],
               ),
             ),
@@ -87,7 +87,6 @@ class CreatePostJob extends ConsumerWidget {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.jobDescriptionFieldController, value),
                 validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job description"),
                 hintText: "Job Description Here", prefixIcon: SvgPicture.asset(AppAssets.bioGraphSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),).paddingVertical(10.h),
               CommonFormField(
@@ -95,7 +94,6 @@ class CreatePostJob extends ConsumerWidget {
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.text,
                 autoValidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.jobRoleRespFieldController, value),
                 validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter job role & Responsibility"),
                 hintText: "Job Role & Responsibility", prefixIcon: SvgPicture.asset(AppAssets.baselinePlaylistAddCheckCircleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w), maxLine: 4, contentPadding: EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),),
               CommonFormField(

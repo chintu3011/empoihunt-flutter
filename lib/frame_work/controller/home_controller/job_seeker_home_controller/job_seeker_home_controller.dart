@@ -128,7 +128,7 @@ isVoiceListening= true;
             if (result.finalResult) {
               isVoiceListening= false;
               context.pop();
-              Future.delayed(const Duration(milliseconds: 800), () {
+              Future.delayed(const Duration(seconds: 2), () {
                 searchedData();
               });
             }else{

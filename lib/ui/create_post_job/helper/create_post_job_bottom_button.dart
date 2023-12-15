@@ -12,12 +12,7 @@ class CreatePostJobBottomButton extends ConsumerWidget {
     return Row(
       children: [
         Expanded(child: CommonButton(onPressed: (){
-          createJobWatch.postButton();
-          // if(createJobWatch.formKey.currentState!.validate()){
-          //   Text("validation");
-          // }else{
-          //   Text("not");
-          // }
+          createJobWatch.postButton(context);
         }, btnText: "Post Job",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 18.sp,)),
         SizedBox(width:8.w,),
         Expanded(child: CommonButton(onPressed: (){

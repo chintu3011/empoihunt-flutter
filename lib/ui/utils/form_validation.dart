@@ -1,7 +1,7 @@
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 String? requiredFieldValidator({required String? input, required String errorMgs}) {
-  if (input == null || input.isEmpty || input.trim().length <= 1 ) {
+  if (input == null ||  input.trim().isEmpty ) {
     return errorMgs;
   } else {
     return null;

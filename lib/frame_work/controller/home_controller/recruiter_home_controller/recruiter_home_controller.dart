@@ -83,7 +83,7 @@ class RecruiterHomeController extends ChangeNotifier{
                 'Authorization': 'Bearer ${user.tAuthToken}',
               }
           );
-          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.getJobSeekerApi}&tag=${searchController.text}&current_page=$currentPage", options);
+          Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.getJobSeekerApi}?&tag=${searchController.text}&current_page=$currentPage", options);
           if (response.statusCode == 200) {
             loadMoreData = false;
             List responseData = response.data["data"];
@@ -123,7 +123,7 @@ class RecruiterHomeController extends ChangeNotifier{
             if (result.finalResult) {
               isVoiceListening= false;
               context.pop();
-              Future.delayed(const Duration(milliseconds: 800), () {
+              Future.delayed(const Duration(seconds: 2), () {
                 searchedData();
               });
             }else{
@@ -171,7 +171,7 @@ class RecruiterHomeController extends ChangeNotifier{
               'Authorization': 'Bearer ${user.tAuthToken}',
             }
         );
-        Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.getJobSeekerApi}&tag=${searchController.text}&current_page=$currentPage", options);
+        Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.getJobSeekerApi}?&tag=${searchController.text}&current_page=$currentPage", options);
         if(response.statusCode == 200){
           isLoading = false;
           currentPage += 1;

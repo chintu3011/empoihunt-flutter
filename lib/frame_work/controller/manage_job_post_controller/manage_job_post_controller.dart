@@ -1,22 +1,20 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/controller/dash_board_controller/dash_board_controller.dart';
-import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
-import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
 import 'package:emploiflutter/ui/utils/app_string_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 
 import '../../../ui/utils/app_constant.dart';
+import '../../../ui/utils/common_widget/helper.dart';
+import '../../repository/api_end_point.dart';
+import '../../repository/dio_client.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
-final createPostJobController = ChangeNotifierProvider((ref) => CreatePostJobController(ref));
+final manageJobPostController = ChangeNotifierProvider((ref) => ManageJobPostController());
 
-class CreatePostJobController extends ChangeNotifier{
-  final Ref ref;
-   CreatePostJobController(this.ref);
+class ManageJobPostController extends ChangeNotifier{
 
   final GlobalKey<FormState> formKey = GlobalKey();
 
@@ -44,9 +42,9 @@ class CreatePostJobController extends ChangeNotifier{
     notifyListeners();
     // print(selectedValue);
   }
-///--------------- Working Mode ----------------///
+  ///--------------- Working Mode ----------------///
 
-/// -------Required Skills ----------------------///
+  /// -------Required Skills ----------------------///
 
   List<String> technicalSkillsList = [];
   List<String> softSkillsList = [];
@@ -91,10 +89,10 @@ class CreatePostJobController extends ChangeNotifier{
     notifyListeners();
   }
 
-/// -------Required Skills ----------------------///
+  /// -------Required Skills ----------------------///
 
 
-///----------------- DropDown Filed -----------------///
+  ///----------------- DropDown Filed -----------------///
   final jobLocationSearchController = TextEditingController();
   String? selectedJobLocation;
   bool isJobLocationSelect = false;
@@ -118,9 +116,9 @@ class CreatePostJobController extends ChangeNotifier{
     query = query.toUpperCase().trim();
     return qualificationsList.where((education) => education.toUpperCase().trim().contains(query)).toList();
   }
-///----------------- DropDown Filed -----------------///
+  ///----------------- DropDown Filed -----------------///
 
-/// ------------------ Bottom Buttons -----------------///
+  /// ------------------ Bottom Buttons -----------------///
   postButton(BuildContext context)async{
     if(formKey.currentState!.validate()){
       if(imageName != ""){
@@ -161,8 +159,6 @@ class CreatePostJobController extends ChangeNotifier{
     notifyListeners();
   }
   cancelButton(){
-    final dashBoardWatch = ref.watch(dashBoardController);
-    dashBoardWatch.otherWidgetAllowToNavigate(0);
     notifyListeners();
     imageName ="";
     imgUrl =null;
@@ -201,9 +197,9 @@ class CreatePostJobController extends ChangeNotifier{
     educationSearchController.clear();
     notifyListeners();
   }
-/// ------------------ Bottom Buttons -----------------///
+  /// ------------------ Bottom Buttons -----------------///
 
-///------------------ Pick Company Logo ---------------------///
+  ///------------------ Pick Company Logo ---------------------///
   String imageName ="";
   String? imgUrl;
   bool isFileSelected = false;
@@ -224,19 +220,19 @@ class CreatePostJobController extends ChangeNotifier{
     notifyListeners();
   }
 
-///------------------ Pick Company Logo ---------------------///
+  ///------------------ Pick Company Logo ---------------------///
 
-    Future postJobInsertApi(BuildContext context)async{
+  Future postJobInsertApi(BuildContext context)async{
     try{
       techSkillToTagline();
       softSkillToTagline();
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       if(user != null) {
         Options options = Options(
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ${user.tAuthToken}',
-          }
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
         );
         FormData formData = FormData.fromMap(
             {
@@ -256,16 +252,16 @@ class CreatePostJobController extends ChangeNotifier{
             curve: Curves.easeInOut,
           );
           if(context.mounted){
-          showSnackBar(context: context, error: "Your Job Posted");}
+            showSnackBar(context: context, error: "Your Job Posted");}
           notifyListeners();
         }
       }
     }catch(e){
-      
+
       Future.error("Post Job Insert API-------> $e");
     }
     notifyListeners();
-    }
+  }
 
 
 }

@@ -1,9 +1,11 @@
+import 'package:emploiflutter/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class AppliedCandidateQualificationTile extends ConsumerWidget {
-  const AppliedCandidateQualificationTile({super.key});
+  final UserJobPrefModel userJobPref;
+  const AppliedCandidateQualificationTile({super.key,required this.userJobPref});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +29,7 @@ class AppliedCandidateQualificationTile extends ConsumerWidget {
               height: 10.h,
             ),
             Text(
-              "content Goes here",
+              userJobPref.vQualification??"",
               style: TextStyles.w500.copyWith(
                   fontSize: 12.sp, color: AppColors.colors.greyRegent),
             )

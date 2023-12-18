@@ -400,6 +400,8 @@ class ManageJobPostController extends ChangeNotifier {
         }
       }
     } catch (e) {
+      isLoading = true;
+      jobPostList = [];
       Future.error("Post Job Insert API-------> $e");
     }
     notifyListeners();

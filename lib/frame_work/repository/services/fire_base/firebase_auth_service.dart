@@ -1,6 +1,6 @@
 
 import 'package:emploiflutter/frame_work/repository/model/auth_response_model/auth_response_model.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_login_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -39,7 +39,7 @@ class FirebaseAuthService {
           verificationId: verificationId, smsCode: smsCode);
       final result = await FireBaseSingleton.instance.firebaseAuth
           .signInWithCredential(phoneAuthCredential);
-      final user = UserModel(userId: result.user!.uid, userPhone: result.user!.phoneNumber.toString());
+      final user = UserLoginModel(userId: result.user!.uid, userPhone: result.user!.phoneNumber.toString());
       debugPrint(user.userPhone.toString());
         return AuthResponseModel(user: user);
     } on FirebaseAuthException catch (e) {

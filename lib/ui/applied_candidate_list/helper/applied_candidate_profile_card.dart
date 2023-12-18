@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:emploiflutter/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class AppliedCandidateProfileCard extends StatelessWidget {
-  const AppliedCandidateProfileCard({super.key});
+  final UserJobPrefModel userJobPref;
+  const AppliedCandidateProfileCard({super.key,required this.userJobPref});
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +33,19 @@ class AppliedCandidateProfileCard extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 20.h,),
-                CircleAvatar(
-                  radius: 43.r,
-                  child: Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,),
+                Container(
+                  height: 80.h,
+                  width: 80.w,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle
+                  ),
+                  child: CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userJobPref.tProfileUrl}",
+                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,),fit: BoxFit.cover,),
                 ),
                 SizedBox(height: 15.h,),
-                Text("Nand Vaghela",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.blueColors),softWrap: true,)
+                Text("${userJobPref.vFirstName} ${userJobPref.vLastName}",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.blueColors),softWrap: true,)
               ],
             ),
           ),

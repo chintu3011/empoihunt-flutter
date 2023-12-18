@@ -1,7 +1,7 @@
-import '../user_model/user_model.dart';
+import '../user_model/user_login_model.dart';
 
 class AuthResponseModel{
-  final UserModel? user;
+  final UserLoginModel? user;
   final String? error;
 
   AuthResponseModel({this.user,this.error});

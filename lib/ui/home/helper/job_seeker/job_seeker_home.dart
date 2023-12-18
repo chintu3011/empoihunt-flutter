@@ -69,7 +69,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                   },
                   surfaceTintColor: AppColors.colors.whiteColors,
                   color: AppColors.colors.whiteColors,
-                  child: Card(
+                   child: Card(
                      shadowColor: Colors.grey.withOpacity(0.5),
                     elevation: 6,
                     child: Container(
@@ -79,7 +79,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
-                      child: Text(jobSeekerHomeWatch.selectedPostJob.keys.first,style: TextStyles.w400.copyWith(fontSize: 14.sp, color: AppColors.colors.blackColors),),
+                      child: Text(jobSeekerHomeWatch.selectedPostJob.keys.first,style: TextStyles.w400.copyWith(fontSize: 14.sp, color: AppColors.colors.blueColors),),
                     ),
                   ),
                   itemBuilder: (context) {

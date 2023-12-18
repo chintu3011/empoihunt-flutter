@@ -1,3 +1,4 @@
+import 'package:emploiflutter/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
@@ -5,7 +6,8 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class AppliedCandidateDetailTile extends ConsumerWidget {
-  const AppliedCandidateDetailTile({super.key});
+  final UserJobPrefModel userJobPref;
+  const AppliedCandidateDetailTile({super.key,required this.userJobPref});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,12 +21,13 @@ class AppliedCandidateDetailTile extends ConsumerWidget {
             color: AppColors.colors.whiteColors,
             borderRadius: BorderRadius.circular(6.r)),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Job Seeker",
+                 userJobPref.iRole == 0?"Job Seeker":"Recruiter",
                   style: TextStyles.w600.copyWith(
                       fontSize: 16.sp,
                       color: AppColors.colors.blueDark),
@@ -37,34 +40,40 @@ class AppliedCandidateDetailTile extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Parth Rathod",
+                  "${userJobPref.vFirstName} ${userJobPref.vLastName}",
                   style: TextStyles.w600.copyWith(
                       fontSize: 22.sp,
                       color: AppColors.colors.blueDark),
                 ),
                 Text(
-                  "Ahmedabad",
+                  userJobPref.vCity??"",
                   style: TextStyles.w600.copyWith(
                       fontSize: 12.sp,
                       color: AppColors.colors.blueColors),
                 )
               ],
             ),
-            Row(
+            Text(
+              userJobPref.tTagLine??"",
+              style: TextStyles.w600.copyWith(
+                  fontSize: 16.sp,
+                  color: AppColors.colors.blueDark),
+            ),
+            userJobPref.vCurrentCompany !=null? Row(
               children: [
                 Icon(Icons.home_work_outlined,size: 20.sp,color: AppColors.colors.blueColors,),
                 Text(
-                  "  Amri Systems",
+                  "  ${userJobPref.vCurrentCompany}",
                   style: TextStyles.w600.copyWith(
                       fontSize: 16.sp,
                       color: AppColors.colors.blueDark),
                 )
               ],
-            ).paddingOnly(top: 10.h),
+            ).paddingOnly(top: 10.h):const SizedBox(),
             Row(
               children: [
                 Tooltip(
-                  message:"1234567890",
+                  message:userJobPref.vMobile,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: AppColors.colors.greyRegent.withOpacity(0.8),width: 0.5),
@@ -92,7 +101,7 @@ class AppliedCandidateDetailTile extends ConsumerWidget {
                   ),
                 ),
                 Tooltip(
-                  message:"xyz@gmail.com",
+                  message:userJobPref.vEmail,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: AppColors.colors.greyRegent.withOpacity(0.8),width: 0.5),

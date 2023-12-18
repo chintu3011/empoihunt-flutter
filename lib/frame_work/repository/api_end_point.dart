@@ -60,6 +60,9 @@ class APIEndPoint{
   static const String jobGetJobByHrIdApi = '/job/jobs_by_hrId';
   static const String jobDeleteApi = '/job/delete';
 
+  static const String jobsByHrIdWOPagination = '/job/jobs_by_hrId_withoutpagination';
+  static const String getAppliedUserByTagApi = '/jobSeeker/get_applied_jobSeeker';
+  static const String getAppliedUserExpByIdApi = '/experince/get_experince_by_id';
 
   ///---------------------------- Jobs ---------------------------------///
 

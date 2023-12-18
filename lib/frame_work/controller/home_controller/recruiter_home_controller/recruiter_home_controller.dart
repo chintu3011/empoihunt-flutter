@@ -49,7 +49,6 @@ class RecruiterHomeController extends ChangeNotifier{
           currentPage += 1;
           List responseData = response.data["data"];
           print(responseData);
-          totalPages = response.data["total_pages"];
           for(dynamic i in responseData){
             UserModel jobSeeker = UserModel.fromJson(i);
             jobSeekerList.add(jobSeeker);

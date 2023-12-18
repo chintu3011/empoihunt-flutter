@@ -2,8 +2,11 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../../frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
+
 class AppliedCandidateAboutTile extends ConsumerWidget {
-  const AppliedCandidateAboutTile({super.key});
+  final UserJobPrefModel userJobPref;
+  const AppliedCandidateAboutTile({super.key,required this.userJobPref});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +28,7 @@ class AppliedCandidateAboutTile extends ConsumerWidget {
                 color: AppColors.colors.blackColors),
           ),
           subtitle: Text(
-            "content goes here ",
+            userJobPref.tBio??"",
             style: TextStyles.w500.copyWith(
                 fontSize: 14.sp,
                 color: AppColors.colors.greyRegent),

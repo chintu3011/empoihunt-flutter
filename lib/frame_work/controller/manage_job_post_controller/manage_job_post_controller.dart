@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
@@ -6,6 +7,7 @@ import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../ui/utils/app_constant.dart';
 import '../../../ui/utils/common_widget/helper.dart';
@@ -21,6 +23,38 @@ class ManageJobPostController extends ChangeNotifier {
   final GlobalKey<FormState> formKey = GlobalKey();
 
   final ScrollController scrollController = ScrollController();
+
+
+  bool isFetchingImage = false;
+  Future<void> saveNetworkImageToFile(JobPostModel jobPostModel) async {
+    isLoading = true;
+    try{
+      final response = await DioClient.dio.get('https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl}', options: Options(responseType: ResponseType.bytes));
+      if(response.statusCode == 200){
+        final Uint8List bytes = Uint8List.fromList(response.data);
+        final Directory appDocDir = await getApplicationDocumentsDirectory();
+        final String appDocPath = appDocDir.path;
+        List<String> list = jobPostModel.tCompanyLogoUrl!.split("/");
+        String fileName = list[4].trim();
+        isFetchingImage = false;
+        imageName = list[4].trim();
+        final File file = File('$appDocPath/$fileName');
+        await file.writeAsBytes(bytes);
+        imageFile = file;
+        imgUrl = file.path;
+        notifyListeners();
+      }
+    }catch(e){
+      isFetchingImage = false;
+      Future.error("network image to file error-------$e");
+    }
+    notifyListeners();
+  }
+
+
+
+
+
 
   final jobTitleFocusNode = FocusNode();
   final jobTitleFieldController = TextEditingController();

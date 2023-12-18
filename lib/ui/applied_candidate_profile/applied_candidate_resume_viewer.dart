@@ -1,33 +1,33 @@
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/controller/applied_candidate_list_controller/applied_candidate_profile_controller.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import '../../frame_work/repository/model/user_model/user_detail_data_model.dart';
+
 import '../utils/theme/app_color.dart';
 import '../utils/theme/theme.dart';
 
-class ProfilePDFViewer extends ConsumerStatefulWidget {
-  final UserModel user;
-   const ProfilePDFViewer({super.key,required this.user});
+class AppliedCandidateResumeViewer extends ConsumerStatefulWidget {
+  final String pdfUrl;
+  const AppliedCandidateResumeViewer({super.key,required this.pdfUrl});
 
   @override
-  ConsumerState<ProfilePDFViewer> createState() => _ProfilePDFViewerState();
+  ConsumerState createState() => _AppliedCandidateResumeViewerState();
 }
 
-class _ProfilePDFViewerState extends ConsumerState<ProfilePDFViewer> {
+class _AppliedCandidateResumeViewerState extends ConsumerState<AppliedCandidateResumeViewer> {
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      ref.read(profileController).urlToFilePdf(widget.user.tResumeUrl!);
+      ref.read(appliedCandidateProfileController).urlToFilePdf(widget.pdfUrl);
     });
   }
   @override
   Widget build(BuildContext context) {
-    final profileWatch = ref.watch(profileController);
+    final appliedCandidateWatch = ref.watch(appliedCandidateProfileController);
     return Scaffold(
       backgroundColor: AppColors.colors.whiteColors,
       body: SafeArea(
@@ -38,14 +38,14 @@ class _ProfilePDFViewerState extends ConsumerState<ProfilePDFViewer> {
                 const Expanded(child: SizedBox()),
                 IconButton(
                     onPressed: (){
-                      context.pop();
-                    }, icon: Icon(Icons.close,size: 30,color: AppColors.colors.blueColors,))
+                  context.pop();
+                }, icon: Icon(Icons.close,size: 30,color: AppColors.colors.blueColors,))
               ],
             ),
             Expanded(
-                child: profileWatch.pdfFile ==null?const Center(child: CircularProgressIndicator(),):
+                child: appliedCandidateWatch.pdfFile ==null?const Center(child: CircularProgressIndicator(),):
                 PDFView(
-                  filePath: profileWatch.pdfFile!.path,
+                filePath: appliedCandidateWatch.pdfFile! .path,
                 ))
           ],
         ).paddingOnly(top: 10.h),

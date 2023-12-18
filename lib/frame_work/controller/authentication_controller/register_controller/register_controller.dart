@@ -2,7 +2,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
-import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/check_user_exist_model/check_user_exist_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/authentication/login/login.dart';

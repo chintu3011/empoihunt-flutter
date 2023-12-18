@@ -65,6 +65,16 @@ class APIEndPoint{
   static const String getAppliedUserExpByIdApi = '/experince/get_experince_by_id';
 
   ///---------------------------- Jobs ---------------------------------///
-
 ///--------------------------------- Recruiter ------------------------------------///
+
+///----------------------------------Filter---------------------------------///
+
+  ///---------------- Recruiter ----------///
+  static const String getJobSeekerFilterApiApi = '/jobSeeker/get_jobSeeker_filter';
+
+  ///---------- job seeker module ------///
+  static const String jobFilterApi = '/job/jobs_filter';
+
+///----------------------------------Filter---------------------------------///
+
 }

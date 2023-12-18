@@ -1,4 +1,3 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';

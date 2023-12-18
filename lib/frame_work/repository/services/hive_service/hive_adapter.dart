@@ -3,7 +3,6 @@ import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
 import 'package:hive/hive.dart';
 
-import '../../model/user_model/user_experience_model.dart';
 
 void registerHiveAdapters() {
   Hive.registerAdapter(NativeDeviceDetailModelAdapter());

@@ -24,7 +24,7 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
     // TODO: implement initState
     super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
-      await ref.read(registerOtpController).verifyPhoneNumber(phoneNumber: widget.phoneNumber, context: context, selectedUserType: ref.read(chooseUserRoleController).userRole!,childCurrent: widget);
+      await ref.read(registerOtpController).verifyPhoneNumber(phoneNumber: widget.phoneNumber, context: context, selectedUserType: ref.read(chooseUserRoleController).userRole,childCurrent: widget);
     });
   }
   @override
@@ -67,7 +67,7 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
                       keyboardType: TextInputType.phone,
                       length: 6,
                       onCompleted: (val){
-                        registerOtpWatch.verifyOtp(context: context, selectedUserType: chooseUserRoleWatch.userRole!,childCurrent: widget);
+                        registerOtpWatch.verifyOtp(context: context, selectedUserType: chooseUserRoleWatch.userRole,childCurrent: widget);
                       },
                       errorPinTheme: PinTheme(
                           height: 50.h,
@@ -102,7 +102,7 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
                   SizedBox(height: 15.h,),
                   CommonButton(btnText: "Verify", onPressed: ()async{
                     Navigator.pop(context);
-                    await registerOtpWatch.verifyOtp(context: context, selectedUserType:chooseUserRoleWatch.userRole! ,childCurrent: widget);
+                    await registerOtpWatch.verifyOtp(context: context, selectedUserType:chooseUserRoleWatch.userRole ,childCurrent: widget);
                   },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                   SizedBox(height: 10.h,),
                   Text("Resend OTP in ${registerOtpWatch.second} second",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)

@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
+import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class ModeFilter extends ConsumerWidget {
@@ -10,9 +11,9 @@ class ModeFilter extends ConsumerWidget {
     return Wrap(
         spacing: 8,
         runSpacing: 3,
-        children: List.generate(filterJobPrefWatch.modeList.length,
+        children: List.generate(modeList.length,
                 (index) {
-              final filter = filterJobPrefWatch.modeList[index];
+              final filter = modeList[index];
               return FilterChip(
                 label: Text(filter),
                 onSelected: (selected) {

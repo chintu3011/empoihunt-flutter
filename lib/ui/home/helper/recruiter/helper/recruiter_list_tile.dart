@@ -6,7 +6,6 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../utils/theme/app_assets.dart';
 
 class RecruiterListTile extends StatelessWidget {
   final UserModel user;

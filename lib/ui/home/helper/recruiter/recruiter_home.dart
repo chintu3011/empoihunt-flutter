@@ -19,7 +19,8 @@ class RecruiterHome extends ConsumerStatefulWidget {
 
 class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
   final ScrollController _scrollController = ScrollController();
-
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -31,7 +32,7 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
     debugPrint("Recruiter Home init call");
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent){
+          _scrollController.position.maxScrollExtent) {
         // Fetch more items when reaching the end of the list
         ref.read(recruiterHomeController).fetchItems();
       }
@@ -47,43 +48,43 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
     return Scaffold(
       appBar: const RecruiterAppbar(),
       body: RefreshIndicator(
-        onRefresh:()async{
-          await Future.delayed(const Duration(microseconds: 200));
+        onRefresh: () async {
+          await Future.delayed(const Duration(milliseconds: 200));
           recruiterHomeWatch.getJobSeekerApiCall();
         },
         child: Stack(
           children: [
             Padding(
               padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
-              child: Column(
-                  children:[
-                    Expanded(child:
-                    recruiterHomeWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-                    recruiterHomeWatch.jobSeekerList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
-                    SingleChildScrollView(
-                      controller: _scrollController,
-                      physics: const BouncingScrollPhysics(),
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
-                        child: Column(
-                            children:
-                            List.generate(
-                                recruiterHomeWatch.loadMoreData?
-                                recruiterHomeWatch.jobSeekerList.length +1:
-                                recruiterHomeWatch.jobSeekerList.length, (index) {
-                              if(index < recruiterHomeWatch.jobSeekerList.length){
-                                final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
-                                return  RecruiterListTile(user:jobSeeker );
-                              }else{
-                                return  const Center(child: CircularProgressIndicator());
-                              }
-                            })
-                        ) ,
-                      ),
-                    ),)
-
-                  ]
-              ) ,
+              child: Column(children: [
+                Expanded(
+                  child: recruiterHomeWatch.isLoading
+                      ? const Center(child: CircularProgressIndicator(),)
+                      : recruiterHomeWatch.jobSeekerList.isEmpty ?
+                  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)
+                          : SingleChildScrollView(
+                              controller: _scrollController,
+                              physics: const BouncingScrollPhysics(),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 8.h, left: 10.w, right: 10.w),
+                                child: Column(
+                                    children: List.generate(
+                                        recruiterHomeWatch.loadMoreData ?
+                                        recruiterHomeWatch.jobSeekerList.length + 1
+                                            : recruiterHomeWatch.jobSeekerList.length, (index) {
+                                  if (index < recruiterHomeWatch.jobSeekerList.length) {
+                                    final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
+                                    return RecruiterListTile(user: jobSeeker);
+                                  } else {
+                                    return const Center(child: CircularProgressIndicator());
+                                  }
+                                }),
+                                ),
+                              ),
+                  ),
+                )
+              ]),
             ),
             // value == 0 ? const JobSeekerListTile():const RecruiterListTile(),
             Positioned(
@@ -111,5 +112,3 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
     );
   }
 }
-
-

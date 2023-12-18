@@ -1,7 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
-import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';

@@ -12,12 +12,8 @@ import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/view_applylist/view_applied_job_list.dart';
-import 'package:page_transition/page_transition.dart';
-
-import '../../../ui/authentication/auth_intro.dart';
 import '../../../ui/utils/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';
-import '../../repository/services/shared_pref_services.dart';
 
 final settingController = ChangeNotifierProvider((ref) => SettingController());
 

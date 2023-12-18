@@ -294,4 +294,24 @@ isVoiceListening= true;
 
 
 ///----------------------------------- Job Preference if given ---------------------------------------------------///
+
+
+
+  ///------------ methods for Filter ------------///
+
+  updateLoading(bool value){
+    isLoading = value;
+    notifyListeners();
+  }
+
+  loadFilterData(List<JobPostModel> userModel){
+    if(userModel.isNotEmpty){
+      jobPostList =[];
+      jobPostList.addAll(userModel);
+    }else{
+      jobPostList = [];
+    }
+    notifyListeners();
+  }
+
 }

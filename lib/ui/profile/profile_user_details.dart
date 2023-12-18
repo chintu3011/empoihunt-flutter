@@ -12,7 +12,6 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 
 class ProfileUserDetails extends ConsumerWidget {
   final UserModel userModel;

@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/ui/update_post/helper/update_post_bottom_button.dart';
@@ -10,18 +11,33 @@ import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../utils/form_validation.dart';
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 
-class UpdatePost extends ConsumerWidget {
+class UpdatePost extends ConsumerStatefulWidget {
   final JobPostModel jobPostModel;
   const UpdatePost({super.key,required this.jobPostModel});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<UpdatePost> createState() => _UpdatePostState();
+}
+
+class _UpdatePostState extends ConsumerState<UpdatePost> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(manageJobPostController).saveNetworkImageToFile(widget.jobPostModel);
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
     final manageJobPost = ref.watch(manageJobPostController);
     return  Scaffold(
       appBar: const CommonAppBar(title: "Update post",isLeadingShow: true),
@@ -65,19 +81,20 @@ class UpdatePost extends ConsumerWidget {
                   ),
                   child: Row(
                     children: [
-                      jobPostModel.tCompanyLogoUrl!=""? Container(
+                      widget.jobPostModel.tCompanyLogoUrl!=""?
+                      Container(
                         height: 80.h,
                         width: 80.w,
                         clipBehavior: Clip.hardEdge,
                         decoration: const BoxDecoration(
                             shape: BoxShape.circle
                         ),
-                        child:jobPostModel.tCompanyLogoUrl!=""?CachedNetworkImage(imageUrl: "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.fill,):
-                        Image.file(manageJobPost.imageFile!,fit: BoxFit.fill,),
-                      ):
+                      child:manageJobPost.imageFile == null? const Center(child: CircularProgressIndicator(),):
+                      Image.file(manageJobPost.imageFile!,fit: BoxFit.fill,),) :
+
                       Icon(Icons.cloud_upload,color: AppColors.colors.blueColors,size: 25.sp,),
                       SizedBox(width: 10.w,),
-                      Expanded(child: Text(manageJobPost.imageName !=""? manageJobPost.imageName.toString(): "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 13.sp,color: AppColors.colors.blackColors),))
+                      Expanded(child: Text(widget.jobPostModel.tCompanyLogoUrl!=""? "${widget.jobPostModel.vCompanyName}": "Select your Organization logo",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),))
                     ],
                   ),
                 ),

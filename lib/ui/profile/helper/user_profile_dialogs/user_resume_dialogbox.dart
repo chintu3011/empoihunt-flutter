@@ -31,7 +31,7 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
     return SafeArea(
       child: Container(
         width: 340.w,
-        height:profileWatch.resumeName !=null ? 480.h : 380.h,
+        height:profileWatch.resumeName !="" ? 480.h : 380.h,
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
         decoration: BoxDecoration(
             color: AppColors.colors.whiteColors,

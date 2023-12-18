@@ -86,6 +86,7 @@ class RecruiterHomeController extends ChangeNotifier{
           if (response.statusCode == 200) {
             loadMoreData = false;
             List responseData = response.data["data"];
+            totalPages = response.data["total_pages"];
             if (responseData.isNotEmpty) {
               for (dynamic i in responseData) {
                 UserModel jobPostModel = UserModel.fromJson(i);
@@ -198,5 +199,21 @@ class RecruiterHomeController extends ChangeNotifier{
 
 
 
+///------------ methods for Filter ------------///
+
+updateLoading(bool value){
+    isLoading = value;
+    notifyListeners();
+}
+
+loadFilterData(List<UserModel> userModel){
+    if(userModel.isNotEmpty){
+      jobSeekerList =[];
+      jobSeekerList.addAll(userModel);
+    }else{
+      jobSeekerList = [];
+    }
+    notifyListeners();
+}
 
 }

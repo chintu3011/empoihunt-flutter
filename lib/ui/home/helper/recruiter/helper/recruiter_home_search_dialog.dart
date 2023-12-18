@@ -4,8 +4,6 @@ import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-
-import '../../../../../frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import '../../../../utils/theme/app_color.dart';
 import '../../../../utils/theme/text_styles.dart';
 

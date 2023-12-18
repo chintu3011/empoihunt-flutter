@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
@@ -13,6 +14,8 @@ import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_qualif
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_resume_dialogbox.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../../ui/utils/app_constant.dart';
 import '../../repository/model/user_model/user_experience_model.dart';
 import '../../repository/services/hive_service/box_service.dart';
@@ -107,16 +110,6 @@ class ProfileController extends ChangeNotifier {
     updateIsDialogShow();
     notifyListeners();
   }
-
-  // clearUserDetailForms(){
-  //   firstNameController.clear();
-  //   lastNameController.clear();
-  //   expertiseController.clear();
-  //   expertiseList = [];
-  //   userDetailSelectedJobLocation = null;
-  //   emailController.clear();
-  //   notifyListeners();
-  // }
 
   userDetailChangeDoneButton(){
     expertiseToTagline();
@@ -795,6 +788,33 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 ///----------------User Experience Api call and Store Data on hive -----------------------///
+
+  File? pdfFile;
+  bool isFetchingPdf= false;
+
+  Future urlToFilePdf(String pdfUrl)async{
+    try{
+      isFetchingPdf = true;
+      final response = await DioClient.dio.get("https://api.emploihunt.com$pdfUrl", options: Options(responseType: ResponseType.bytes));
+      if(response.statusCode == 200){
+        final Uint8List bytes = Uint8List.fromList(response.data);
+        List<String> list = pdfUrl.split("/");
+        String baseName = list[4].trim();
+        final filename = basename(baseName);
+        final dir = await getApplicationDocumentsDirectory();
+        var file = File('${dir.path}/$filename');
+        await file.writeAsBytes(bytes, flush: true);
+        pdfFile = file;
+        isFetchingPdf = false;
+        notifyListeners();
+      }
+    }catch(e){
+      isFetchingPdf = false;
+      Future.error("fetch pdf error-----> $e");
+    }
+    notifyListeners();
+  }
+
 }
 
 

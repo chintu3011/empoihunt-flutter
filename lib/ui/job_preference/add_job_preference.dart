@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:emploiflutter/frame_work/controller/setting_controller/job_preference/job_preference_controller.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';

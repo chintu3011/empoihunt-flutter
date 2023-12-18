@@ -6,10 +6,10 @@ import 'package:emploiflutter/ui/filter_job_preference/helper/mode_filter/mode_f
 import 'package:emploiflutter/ui/filter_job_preference/helper/package_filter/package_filter.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
 import '../utils/theme/text_styles.dart';
 
 
@@ -30,10 +30,17 @@ class _FilterJobPreferenceState extends ConsumerState<FilterJobPreference> with 
   Widget build(BuildContext context) {
     final filterJobPrefWatch = ref.watch(filterJobPreferenceController);
     final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
-    // final userRoleWatch = ref.watch(userRoleController);
 
     return  Scaffold(
-      appBar:  CommonAppBar(title: "Filter Job Preference",isLeadingShow: true,actions: [IconButton(onPressed: (){}, icon: Icon(Icons.check,color: AppColors.colors.blackColors,))],),
+      appBar:  CommonAppBar(title: "Filter Job Preference",isLeadingShow: true,actions: [IconButton(onPressed: ()async{
+        if(userData.iRole == 0){
+          context.pop();
+          await filterJobPrefWatch.filterApiForJobSeeker(context);
+        }else if(userData.iRole ==1){
+          context.pop();
+          await filterJobPrefWatch.filterApiForRecruiter(context);
+        }
+      }, icon: Icon(Icons.check,color: AppColors.colors.blackColors,))],),
       body: DefaultTabController(
         length:userData.iRole ==0? 4 : 3,
         child: Column(

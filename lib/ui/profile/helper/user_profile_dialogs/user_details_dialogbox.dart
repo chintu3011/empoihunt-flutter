@@ -9,7 +9,6 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-import '../../../utils/app_string_constant.dart';
 
 class UserDetailsDialogBox extends ConsumerWidget {
   const UserDetailsDialogBox({super.key});

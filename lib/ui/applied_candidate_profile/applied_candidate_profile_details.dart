@@ -49,7 +49,7 @@ class AppliedCandidateProfileDetails extends ConsumerWidget {
                 const AppliedCandidateJobPreferenceTile(),
 
                 /// Candidate Resume ////
-                 const AppliedCandidateResumeTile()
+                AppliedCandidateResumeTile(userJobPref: userJobPref,)
               ],
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:pinput/pinput.dart';
 
 import '../../../utils/common_widget/common_no_data_found_layout.dart';
 import '../../../utils/theme/app_assets.dart';
@@ -47,67 +48,58 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
     final recruiterHomeWatch = ref.watch(recruiterHomeController);
     return Scaffold(
       appBar: const RecruiterAppbar(),
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await Future.delayed(const Duration(milliseconds: 200));
-          recruiterHomeWatch.getJobSeekerApiCall();
-        },
-        child: Stack(
-          children: [
-            Padding(
+      body: Stack(
+        children: [
+          RefreshIndicator(
+            onRefresh: () async {
+              await Future.delayed(const Duration(milliseconds: 200));
+              recruiterHomeWatch.getJobSeekerApiCall();
+            },
+            child: Padding(
               padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
-              child: Column(children: [
-                Expanded(
-                  child: recruiterHomeWatch.isLoading
-                      ? const Center(child: CircularProgressIndicator(),)
-                      : recruiterHomeWatch.jobSeekerList.isEmpty ?
-                  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)
-                          : SingleChildScrollView(
-                              controller: _scrollController,
-                              physics: const BouncingScrollPhysics(),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    top: 8.h, left: 10.w, right: 10.w),
-                                child: Column(
-                                    children: List.generate(
-                                        recruiterHomeWatch.loadMoreData ?
-                                        recruiterHomeWatch.jobSeekerList.length + 1
-                                            : recruiterHomeWatch.jobSeekerList.length, (index) {
-                                  if (index < recruiterHomeWatch.jobSeekerList.length) {
-                                    final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
-                                    return RecruiterListTile(user: jobSeeker);
-                                  } else {
-                                    return const Center(child: CircularProgressIndicator());
-                                  }
-                                }),
-                                ),
-                              ),
-                  ),
-                )
-              ]),
+              child: recruiterHomeWatch.isLoading
+                  ? const Center(child: CircularProgressIndicator(),)
+                  : recruiterHomeWatch.jobSeekerList.isEmpty ?
+              const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)
+                  :
+              ListView.builder(
+                controller: recruiterHomeWatch.jobSeekerList.length >=20? _scrollController:null,
+                physics:recruiterHomeWatch.jobSeekerList.length >=20? const BouncingScrollPhysics():null,
+                itemCount:  recruiterHomeWatch.loadMoreData ?
+                recruiterHomeWatch.jobSeekerList.length + 1
+                    : recruiterHomeWatch.jobSeekerList.length,
+                itemBuilder: (context, index) {
+                if (index < recruiterHomeWatch.jobSeekerList.length) {
+                  final jobSeeker = recruiterHomeWatch.jobSeekerList[index];
+                  return RecruiterListTile(user: jobSeeker);
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },),
             ),
-            // value == 0 ? const JobSeekerListTile():const RecruiterListTile(),
-            Positioned(
-                right: 0,
-                top: 35.h,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const Messenger()));
-                  },
-                  child: Container(
-                    height: 80.h,
-                    width: 10.w,
-                    decoration: BoxDecoration(
-                      color: AppColors.colors.clayColors,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16.r),
-                          bottomLeft: Radius.circular(16.r)),
-                    ),
+          ),
+
+
+          Positioned(
+              right: 0,
+              top: 35.h,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Messenger()));
+                },
+                child: Container(
+                  height: 80.h,
+                  width: 10.w,
+                  decoration: BoxDecoration(
+                    color: AppColors.colors.clayColors,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.r),
+                        bottomLeft: Radius.circular(16.r)),
                   ),
-                ))
-          ],
-        ),
+                ),
+              ))
+        ],
       ),
     );
   }

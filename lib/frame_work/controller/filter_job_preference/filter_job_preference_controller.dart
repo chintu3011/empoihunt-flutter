@@ -104,14 +104,25 @@ class FilterJobPreferenceController extends ChangeNotifier{
           }
           jobSeekerHomeWatch.loadFilterData(jobPostList);
           notifyListeners();
+          selectedValue = [
+            FilterValueAndMode(mode: FilterMode.domain, value: ""),
+            FilterValueAndMode(mode: FilterMode.location, value: ""),
+            FilterValueAndMode(mode: FilterMode.mode, value: ""),
+            FilterValueAndMode(mode: FilterMode.package, value: "")
+          ];
         }
       }
     }catch(e){
       jobSeekerHomeWatch.loadFilterData(jobPostList);
       jobSeekerHomeWatch.updateLoading(false);
+      selectedValue = [
+        FilterValueAndMode(mode: FilterMode.domain, value: ""),
+        FilterValueAndMode(mode: FilterMode.location, value: ""),
+        FilterValueAndMode(mode: FilterMode.mode, value: ""),
+        FilterValueAndMode(mode: FilterMode.package, value: "")
+      ];
       Future.error("Filter api----->$e");
     }
-    notifyListeners();
   }
 
 
@@ -140,14 +151,25 @@ class FilterJobPreferenceController extends ChangeNotifier{
           }
           recruiterHomeWatch.loadFilterData(jobSeekerList);
           notifyListeners();
+          selectedValue = [
+            FilterValueAndMode(mode: FilterMode.domain, value: ""),
+            FilterValueAndMode(mode: FilterMode.location, value: ""),
+            FilterValueAndMode(mode: FilterMode.mode, value: ""),
+            FilterValueAndMode(mode: FilterMode.package, value: "")
+          ];
         }
       }
     }catch(e){
       recruiterHomeWatch.loadFilterData(jobSeekerList);
       recruiterHomeWatch.updateLoading(false);
+      selectedValue = [
+        FilterValueAndMode(mode: FilterMode.domain, value: ""),
+        FilterValueAndMode(mode: FilterMode.location, value: ""),
+        FilterValueAndMode(mode: FilterMode.mode, value: ""),
+        FilterValueAndMode(mode: FilterMode.package, value: "")
+      ];
       Future.error("Filter api----->$e");
     }
-    notifyListeners();
   }
 ///---------------------------- Filter for Recruiter Home screen -------------------------------------///
 

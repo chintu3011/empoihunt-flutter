@@ -101,11 +101,9 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
 
                 ///----------------------- above list widget -----------------///
                 Expanded(child:
-                jobSeekerHomeWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-                jobSeekerHomeWatch.jobPostList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
                 SingleChildScrollView(
-                  controller: _scrollController,
-                  physics: const BouncingScrollPhysics(),
+                  controller: jobSeekerHomeWatch.jobPostList.length >= 20? _scrollController:null,
+                  physics: jobSeekerHomeWatch.jobPostList.length >= 20? const BouncingScrollPhysics():null,
                   child: Padding(
                     padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
                     child: Column(

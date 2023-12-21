@@ -1,52 +1,62 @@
-import 'package:emploiflutter/ui/messenger_modul/personal_chat/model/chat_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/messenger_model/message_data_model.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 import '../../../utils/theme/text_styles.dart';
 
-class ChatBubble extends StatelessWidget {
-  final ChatModel chat;
+class ChatBubble extends ConsumerStatefulWidget {
+  final String chatPersonFId;
+  final MessageDataModel chat;
 
-  const ChatBubble({super.key, required this.chat});
+  const ChatBubble({super.key, required this.chat,required this.chatPersonFId});
 
   @override
+  ConsumerState<ChatBubble> createState() => _ChatBubbleState();
+}
+
+class _ChatBubbleState extends ConsumerState<ChatBubble> {
+  @override
   Widget build(BuildContext context) {
+    final currentUserId = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.vFirebaseId;
     return Row(
       mainAxisAlignment:
-          chat.isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+          widget.chat.fromId ==  currentUserId ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
           constraints: const BoxConstraints(maxWidth: 275),
           margin: EdgeInsets.only(top: 12.h),
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           decoration: BoxDecoration(
-              color: chat.isUser ? AppColors.colors.clayColors : AppColors.colors.blueColors,
+              color: widget.chat.fromId ==  currentUserId ? AppColors.colors.clayColors : AppColors.colors.blueColors,
               borderRadius: BorderRadius.only(
                 topRight:
-                    chat.isUser ? Radius.circular(0.r) : Radius.circular(16.r),
+                widget.chat.fromId ==  currentUserId ?  Radius.circular(0.r) : Radius.circular(16.r),
                 topLeft:
-                    chat.isUser ? Radius.circular(16..r) : Radius.circular(0.r),
+                widget.chat.fromId ==  currentUserId ?  Radius.circular(16..r) : Radius.circular(0.r),
                 bottomRight: Radius.circular(16.r),
                 bottomLeft: Radius.circular(16.r),
               )),
           child: Column(
             crossAxisAlignment:
-                chat.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            widget.chat.fromId ==  currentUserId ?  CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
-              Text(chat.message,
+              Text(widget.chat.message,
                   style: TextStyles.w400.copyWith(
                       fontSize: 12.sp,
                       color:Colors.white
                          )),
-              Text(chat.time,
+              Text(widget.chat.timeStamp,
                   style: TextStyles.w400.copyWith(
-                      fontSize: 10.sp,
+                      fontSize: 8.sp,
                       color: AppColors.colors.greyRegent
                           ))
             ],
           ),
         ),
       ],
-    );
+    ).paddingHorizontal(4.w);
   }
 }

@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -8,7 +7,8 @@ import 'package:flutter/services.dart';
 class PersonalChat extends StatelessWidget {
   final String profileUrl;
   final String personName;
-  const PersonalChat({super.key,required this.profileUrl,required this.personName});
+  final String chatPersonFId;
+  const PersonalChat({super.key,required this.profileUrl,required this.personName,required this.chatPersonFId});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class PersonalChat extends StatelessWidget {
     return  Scaffold(
       body: Stack(
         children: [
-           PersonalChatBackWidget(personName:personName,),
+           PersonalChatBackWidget(personName:personName, chatPersonFId: chatPersonFId,),
           Positioned(
             top: 30.h,
               left: 6.w,

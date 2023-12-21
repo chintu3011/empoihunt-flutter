@@ -40,8 +40,7 @@ class Messenger extends StatelessWidget {
               elevation: 6,
               child: GestureDetector(
                 onTap: (){
-
-                  Navigator.push(context, MaterialPageRoute(builder: (_)=>const PersonalChat()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (_)=>const PersonalChat()));
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 6.h,horizontal: 10.w),
@@ -65,8 +64,8 @@ class Messenger extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Chintan Patel",style: TextStyles.w400.copyWith(fontSize: 18.sp,color: AppColors.colors.blueColors),),
-                          Text("Recent Message",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.greyRegent))
+                          Text("Chintan Patel",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),),
+                          Text("Recent Message",style: TextStyles.w400.copyWith(fontSize: 12 .sp,color: AppColors.colors.greyRegent))
                         ],
                       )
                     ],

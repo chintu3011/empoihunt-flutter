@@ -1,3 +1,4 @@
+import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import '../../../utils/theme/app_color.dart';
@@ -5,11 +6,13 @@ import '../../../utils/theme/text_styles.dart';
 import '../model/chat_model.dart';
 import 'chat_bubble.dart';
 
-class PersonalChatBackWidget extends StatelessWidget {
-  const PersonalChatBackWidget({super.key});
+class PersonalChatBackWidget extends ConsumerWidget {
+  final String personName;
+  const PersonalChatBackWidget({super.key,required this.personName});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final personalChatWatch = ref.watch(personalChatController);
     final size = MediaQuery.of(context).size;
 
     return Column(children: [
@@ -18,7 +21,7 @@ class PersonalChatBackWidget extends StatelessWidget {
         padding: EdgeInsets.only(left: 100.w, top: 35.h, bottom: 15.h),
         color: AppColors.colors.clayColors,
         child: Text(
-          "Chintan Patel",
+          personName,
           style: TextStyles.w400
               .copyWith(fontSize: 18.sp, color: AppColors.colors.whiteColors),
         ),
@@ -51,15 +54,18 @@ class PersonalChatBackWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(100.r),
               ),
               child: TextFormField(
+                controller: personalChatWatch.inputController,
+                onChanged: (value){
+                  personalChatWatch.updateIsSendButtonOn(value);
+                },
                 decoration: InputDecoration(
                   hintText: "Message",
                   border: InputBorder.none,
                   prefixIcon: IconButton(
                     onPressed:(){
-
                     },
                     icon: Icon(
-                    Icons.add,
+                      Icons.add,
                     size: 35.sp,
                     color: AppColors.colors.blueColors,
                   ),),
@@ -72,9 +78,14 @@ class PersonalChatBackWidget extends StatelessWidget {
         SizedBox(width: 3.w),
         IconButton(
           onPressed: () {
+            if(personalChatWatch.isSendButtonOn){
+
+            }else{
+
+            }
           },
           icon: Icon(
-            Icons.mic,
+            personalChatWatch.isSendButtonOn?Icons.send: Icons.mic,
             size: 22.sp,
             color: Colors.white,
           ),

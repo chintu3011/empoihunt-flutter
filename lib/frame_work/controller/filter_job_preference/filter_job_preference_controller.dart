@@ -84,7 +84,7 @@ class FilterJobPreferenceController extends ChangeNotifier{
   Future filterApiForJobSeeker(BuildContext context)async{
     final jobSeekerHomeWatch = ref.watch(jobSeekerHomeController);
     try{
-      jobSeekerList = [];
+      jobPostList = [];
       jobSeekerHomeWatch.updateLoading(true);
       jobSeekerHomeWatch.loadFilterData(jobPostList);
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
@@ -99,8 +99,8 @@ class FilterJobPreferenceController extends ChangeNotifier{
           List responseData = response.data["data"];
           print(responseData);
           for(dynamic i in responseData){
-            UserModel jobSeeker = UserModel.fromJson(i);
-            jobSeekerList.add(jobSeeker);
+            JobPostModel jobSeeker = JobPostModel.fromJson(i);
+            jobPostList.add(jobSeeker);
           }
           jobSeekerHomeWatch.loadFilterData(jobPostList);
           notifyListeners();
@@ -115,6 +115,7 @@ class FilterJobPreferenceController extends ChangeNotifier{
     }catch(e){
       jobSeekerHomeWatch.loadFilterData(jobPostList);
       jobSeekerHomeWatch.updateLoading(false);
+      jobPostList = [];
       selectedValue = [
         FilterValueAndMode(mode: FilterMode.domain, value: ""),
         FilterValueAndMode(mode: FilterMode.location, value: ""),

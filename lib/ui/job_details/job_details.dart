@@ -38,7 +38,7 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
       canPop: true,
       onPopInvoked: (value){
         if(value == jobDetailsWatch.isAnythingUpdated){
-          ref.watch(jobSeekerHomeController).jobsPostApiCall();
+          ref.watch(jobSeekerHomeController).getJobsPostApiCall();
           ref.watch(saveJobController).saveListApiCall();
           ref.watch(viewApplyListController).appliedListApiCall();
         }

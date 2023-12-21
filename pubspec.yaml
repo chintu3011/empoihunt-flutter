@@ -70,6 +70,8 @@ dependencies:
   firebase_core:
   firebase_auth:
   firebase_messaging: ^14.7.6
+  firebase_database: ^10.3.8
+
   #Local Storage
   shared_preferences: ^2.2.2
   hive:

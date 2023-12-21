@@ -20,8 +20,6 @@ class RecruiterHome extends ConsumerStatefulWidget {
 
 class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
   final ScrollController _scrollController = ScrollController();
-  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {

@@ -42,7 +42,7 @@ class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
             jobSeekerHomeWatch.searchController.clear();
     }, onBackArrowTap: (){
               jobSeekerHomeWatch.searchController.clear();
-              jobSeekerHomeWatch.jobsPostApiCall();
+              jobSeekerHomeWatch.getJobsPostApiCall();
 
       jobSeekerHomeWatch.updateIsSearchFiledVisible();
     },)

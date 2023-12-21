@@ -28,7 +28,7 @@ class JobSeekerHomeController extends ChangeNotifier{
   bool isLoading = false;
   String preferenceId = "0";
 
-  Future jobsPostApiCall()async{
+  Future getJobsPostApiCall()async{
     try{
       jobPostList=[];
       isLoading = true;
@@ -61,7 +61,7 @@ class JobSeekerHomeController extends ChangeNotifier{
         }
     }catch(e) {
       isLoading = false;
-      Future.error(e);
+      Future.error("get job error---->$e");
     }
     notifyListeners();
   }
@@ -87,6 +87,7 @@ class JobSeekerHomeController extends ChangeNotifier{
           if (response.statusCode == 200) {
             loadMoreData = false;
             List responseData = response.data["data"];
+            totalPages = response.data["total_pages"];
             if (responseData.isNotEmpty) {
               for (dynamic i in responseData) {
                 JobPostModel jobPostModel = JobPostModel.fromJson(i);
@@ -98,7 +99,7 @@ class JobSeekerHomeController extends ChangeNotifier{
         }
       } catch (e) {
         loadMoreData = false;
-        Future.error(e);
+        Future.error("job fetch error------->$e");
       }
       loadMoreData = false;
     }
@@ -195,7 +196,7 @@ isVoiceListening= true;
     }catch(e) {
       isLoading = false;
       searchController.clear();
-      Future.error(e);
+      Future.error("Search job error------->$e");
     }
     notifyListeners();
 
@@ -229,18 +230,11 @@ isVoiceListening= true;
 ///----------------------------------- Job Preference if given ---------------------------------------------------///
 
 
-  // List<String> postJobList  =[
-  //   'Web Developer',
-  //   'Flutter Developer React Native Developer,',
-  //   'React Native Developer, ',
-  //   '.Net Developer',
-  // ];
-
   Map<String,dynamic> selectedPostJob = {};
   updateSelectedPostJob(Map<String,dynamic> value){
     selectedPostJob = value;
     preferenceId = value.values.first.toString();
-    jobsPostApiCall();
+    getJobsPostApiCall();
     print(value.values.first);
     notifyListeners();
   }
@@ -268,7 +262,6 @@ isVoiceListening= true;
           // currentPage += 1;
           print(response.data["data"]);
           List responseData = response.data["data"];
-          totalPages = response.data["total_pages"];
           jobPreferenceList.add({"For you":0});
           selectedPostJob = jobPreferenceList[0];
           print(selectedPostJob);
@@ -287,7 +280,7 @@ isVoiceListening= true;
     }catch(e) {
       jobPreferenceList = [];
       isLoading = false;
-      Future.error(e);
+      Future.error("Job Pre Error------->$e");
     }
     notifyListeners();
   }

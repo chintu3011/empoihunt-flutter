@@ -30,7 +30,7 @@ class RecruiterListTile extends StatelessWidget {
                  Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(user.vPreferJobTitle??"",style: TextStyles.w500.copyWith(fontSize: 15.sp,color: AppColors.colors.blueColors),),
+                    Text(user.vPreferJobTitle??"",style: TextStyles.w500.copyWith(fontSize: 15.sp,color: AppColors.colors.blueColors),overflow: TextOverflow.ellipsis,),
                     SizedBox(height: 10.h,),
                     Text(user.vQualification??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),overflow: TextOverflow.ellipsis,),
                     SizedBox(height: 15.h,),
@@ -130,8 +130,7 @@ class RecruiterListTile extends StatelessWidget {
                       child: Icon(Icons.mail,size: 15.sp,),
                     ),
                   ),
-                )
-,
+                ),
               ],
             ),
           )

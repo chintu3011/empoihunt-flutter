@@ -81,7 +81,7 @@ class SplashController extends ChangeNotifier{
         debugPrint(response.statusCode.toString());
       }
     }catch(e){
-      Future.error(e);
+      Future.error("Get Splash Data error----->$e");
     }
   }
   ///------------------------------- Version Update call Api -----------------------------////

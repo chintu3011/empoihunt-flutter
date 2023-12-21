@@ -1,64 +1,102 @@
+import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/make_new_chat_controller/make_new_chat_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_chat_appbar.dart';
+import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_chat_card.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/personal_chat.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:page_transition/page_transition.dart';
+import '../../utils/common_widget/common_no_data_found_layout.dart';
 import '../../utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import '../../utils/theme/text_styles.dart';
 
-class MakeNewChat extends StatelessWidget {
+class MakeNewChat extends ConsumerStatefulWidget {
   const MakeNewChat({super.key});
 
   @override
+  ConsumerState<MakeNewChat> createState() => _MakeNewChatState();
+}
+
+class _MakeNewChatState extends ConsumerState<MakeNewChat> {
+  final ScrollController _scrollController = ScrollController();
+  final user= BoxService.boxService.userGetDetailBox.get(userDetailKey);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      user!.user.iRole == 0? ref.read(makeNewChatController).getRecruiterApiCall(): ref.read(makeNewChatController).getJobSeekerApiCall();
+    });
+    debugPrint("Recruiter Home init call");
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        // Fetch more items when reaching the end of the list
+       user!.user.iRole == 0? ref.read(makeNewChatController).fetchMoreRecruiter(): ref.read(makeNewChatController).fetchItemsOfJobSeeker();
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final makeNewChatWatch = ref.watch(makeNewChatController);
     return Scaffold(
       backgroundColor: AppColors.colors.whiteColors,
         appBar:  const MakeNewChatAppbar(),
         body:
-        // Column(
-        //   children: [
-        //     const Expanded(child: SizedBox(),),
-        //     Image.asset(AppAssets.jobSearch,color: AppColors.colors.clayColors,),
-        //     Text("Sorry you have no any chats, Please add chat user using below Add People",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),textAlign: TextAlign.center,),
-        //     const Expanded(child: SizedBox(),),
-        //   ],
-        // ).paddingHorizontal(10.w),
-        SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-              children: List.generate(10, (index) => Card(
-                elevation: 6,
-                child: GestureDetector(
+        Padding(
+          padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
+          child: makeNewChatWatch.isLoading
+              ? const Center(child: CircularProgressIndicator(),)
+              :
+          user!.user.iRole == 0?
+          makeNewChatWatch.jobPostList.isEmpty ?
+          const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'There is no data ',)
+              :
+          ListView.builder(
+            controller: _scrollController,
+            physics:const BouncingScrollPhysics(),
+            itemCount:  makeNewChatWatch.loadMoreData ?
+            makeNewChatWatch.jobPostList.length + 1
+                : makeNewChatWatch.jobPostList.length,
+            itemBuilder: (context, index) {
+              if (index < makeNewChatWatch.jobPostList.length) {
+                final recruiter = makeNewChatWatch.jobPostList[index];
+                return MakeNewChatCard(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (_)=>const PersonalChat()));
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 6.h,horizontal: 10.w),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.r),
-                        color: AppColors.colors.whiteColors
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 60.h,
-                          width: 60.w,
-                          clipBehavior: Clip.hardEdge,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle
-                          ),
-                          child: Image.asset(AppAssets.profilePicPng),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text("All Users",style: TextStyles.w500.copyWith(fontSize: 18.sp,color: AppColors.colors.blueColors),)
-                      ],
-                    ),
-                  ),
-                ),
-              ).paddingOnly(top: 6.h,left: 6.w,right: 6.w))
-          ),
-        )
-    );
+                  Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}",), type: PageTransitionType.rightToLeft,childCurrent: widget));
+                },
+                  profileUrl: recruiter.tProfileUrl!,
+                  personName: "${recruiter.vFirstName} ${recruiter.vLastName}", );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },)
+              :
+          makeNewChatWatch.jobSeekerList.isEmpty ?
+          const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'There is no data ',)
+              :
+          ListView.builder(
+            controller: _scrollController,
+            physics:const BouncingScrollPhysics(),
+            itemCount:  makeNewChatWatch.loadMoreData ?
+            makeNewChatWatch.jobSeekerList.length + 1
+                : makeNewChatWatch.jobSeekerList.length,
+            itemBuilder: (context, index) {
+              if (index < makeNewChatWatch.jobSeekerList.length) {
+                final jobSeeker = makeNewChatWatch.jobSeekerList[index];
+                return MakeNewChatCard(
+                  onTap: (){
+                  Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: jobSeeker.tProfileUrl!, personName: "${jobSeeker.vFirstName} ${jobSeeker.vLastName}",), type: PageTransitionType.rightToLeft,childCurrent: widget));
+                },
+                  profileUrl: jobSeeker.tProfileUrl!,
+                  personName: '${jobSeeker.vFirstName} ${jobSeeker.vLastName}', );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            },),
+        )    );
   }
 }

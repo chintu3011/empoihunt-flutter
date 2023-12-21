@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.colors.blueColors),
         ),
         home: const Splash(),
+        // home: const DatabasePractice(),
       ),
     );
   }

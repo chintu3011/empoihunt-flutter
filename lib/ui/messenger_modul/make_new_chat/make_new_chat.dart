@@ -4,6 +4,7 @@ import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_c
 import 'package:emploiflutter/ui/messenger_modul/make_new_chat/helper/make_new_chat_card.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/personal_chat.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
@@ -66,6 +67,7 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                 final recruiter = makeNewChatWatch.jobPostList[index];
                 return MakeNewChatCard(
                   onTap: (){
+                    context.pop();
                   Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}", chatPersonFId: recruiter.vFirebaseId!,), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: recruiter.tProfileUrl!,

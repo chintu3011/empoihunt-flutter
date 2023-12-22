@@ -38,7 +38,7 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
   ScrollController scrollController = ScrollController();
 
   void scrollToBottom()async {
-    await Future.delayed(const Duration(milliseconds: 1500));
+    await Future.delayed(const Duration(milliseconds: 600));
     scrollController.animateTo(
       scrollController.position.maxScrollExtent,
       duration: const Duration(milliseconds: 200),

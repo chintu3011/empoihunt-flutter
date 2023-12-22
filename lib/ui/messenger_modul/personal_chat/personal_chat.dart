@@ -4,14 +4,14 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 
-class PersonalChat extends StatelessWidget {
+class PersonalChat extends ConsumerWidget {
   final String profileUrl;
   final String personName;
   final String chatPersonFId;
   const PersonalChat({super.key,required this.profileUrl,required this.personName,required this.chatPersonFId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
     return  Scaffold(

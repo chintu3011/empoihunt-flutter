@@ -80,4 +80,6 @@ class APIEndPoint{
 
 ///----------------------------------Filter---------------------------------///
 
+  static const String getUserByFirebaseId = '/user/get_user_by_firebaseId';
+
 }

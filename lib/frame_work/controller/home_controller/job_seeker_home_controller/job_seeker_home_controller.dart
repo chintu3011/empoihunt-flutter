@@ -253,8 +253,7 @@ isVoiceListening= true;
         Options options = Options(
             headers: {
               'Accept': 'application/json',
-              'Authorization': 'Bearer ${user.tAuthToken}',
-            }
+             }
         );
         Response response =await DioClient.client.getDataWithBearerToken(APIEndPoint.jobPreferenceApi, options);
         if(response.statusCode == 200){

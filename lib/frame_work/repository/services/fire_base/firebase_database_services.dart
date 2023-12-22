@@ -27,6 +27,7 @@ class FirebaseDatabaseServices{
     receiver.set(msgData.toJson());
 
     senderLatest.set(msgData.toJson());
+
     receiverLatest.set(msgData.toJson());
   }
 }

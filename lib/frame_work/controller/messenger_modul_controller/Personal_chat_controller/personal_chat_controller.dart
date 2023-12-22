@@ -52,7 +52,9 @@ class PersonalChatController extends ChangeNotifier{
 
 
     FirebaseDatabaseServices.databaseServices.sendMsg(
-        msgData: MessageDataModel(msgType: 0, docUri: "", message: inputController.text, toId: chatPersonFId, fromId: currentUserFId, dateStamp: dateStamp, timeStamp: timeStamp),
+        msgData: MessageDataModel(msgType: 0, docUri: "",
+            message: inputController.text, toId: chatPersonFId,
+            fromId: currentUserFId, dateStamp: dateStamp, timeStamp: timeStamp),
         currentUserId: currentUserFId,
         chatPersonId: chatPersonFId);
     inputController.clear();

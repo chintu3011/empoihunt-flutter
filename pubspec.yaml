@@ -45,6 +45,7 @@ dependencies:
   easy_localization:
   country_picker:
   file_picker:
+  image_picker: ^1.0.5
   flutter_typeahead: ^3.1.2
   path:
   go_router:
@@ -71,6 +72,7 @@ dependencies:
   firebase_auth:
   firebase_messaging: ^14.7.6
   firebase_database: ^10.3.8
+  firebase_storage: ^11.5.6
 
   #Local Storage
   shared_preferences: ^2.2.2
@@ -83,6 +85,7 @@ dependencies:
   dio:
   flutter_animate:
 
+  just_the_tooltip: ^0.0.12
 
 
 dev_dependencies:

@@ -1,23 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 
-class PersonalChat extends ConsumerWidget {
+class PersonalChat extends ConsumerStatefulWidget {
   final String profileUrl;
   final String personName;
   final String chatPersonFId;
   const PersonalChat({super.key,required this.profileUrl,required this.personName,required this.chatPersonFId});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<PersonalChat> createState() => _PersonalChatState();
+}
+
+class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerProviderStateMixin{
+
+  @override
+  Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
     return  Scaffold(
       body: Stack(
         children: [
-           PersonalChatBackWidget(personName:personName, chatPersonFId: chatPersonFId,),
+           PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId,),
           Positioned(
             top: 30.h,
               left: 6.w,
@@ -38,7 +45,7 @@ class PersonalChat extends ConsumerWidget {
                     shape: BoxShape.circle,
                   ),
                   child:CachedNetworkImage(
-                    imageUrl: "https://api.emploihunt.com$profileUrl",
+                    imageUrl: "https://api.emploihunt.com${widget.profileUrl}",
                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill
                   )

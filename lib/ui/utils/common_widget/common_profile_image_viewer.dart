@@ -3,12 +3,12 @@ import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 
-import '../../frame_work/repository/model/user_model/user_detail_data_model.dart';
-import '../utils/theme/theme.dart';
+import '../theme/theme.dart';
 
-class ProfileImageViewer extends StatelessWidget {
-  final UserModel userModel;
-  const ProfileImageViewer({required this.userModel,super.key});
+
+class CommonImageViewer extends StatelessWidget {
+  final String imageUrl;
+  const CommonImageViewer({required this.imageUrl,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class ProfileImageViewer extends StatelessWidget {
               child: Hero(
                 tag: "profileHero",
                 child: InteractiveViewer(
-                    child: CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userModel.tProfileUrl}",
+                    child: CachedNetworkImage(imageUrl: imageUrl,
                       placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                       errorWidget: (context, url, error) => const Icon(Icons.error),)
                 ),

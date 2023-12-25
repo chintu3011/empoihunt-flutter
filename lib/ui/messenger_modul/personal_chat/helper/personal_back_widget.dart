@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/messenger_model/message_data_model.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/chat_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -8,6 +9,8 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'chat_bubble.dart';
 
 class PersonalChatBackWidget extends ConsumerStatefulWidget {
@@ -27,24 +30,22 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
   @override
   void initState() {
     super.initState();
-    scrollToBottom();
+   SchedulerBinding.instance.addPostFrameCallback((timeStamp)async {
+     await Future.delayed(const Duration(milliseconds: 600));
+     ref.read(personalChatController).scrollController.animateTo(
+       ref.read(personalChatController).scrollController.position.maxScrollExtent,
+       duration: const Duration(milliseconds: 200),
+       curve: Curves.easeOut,
+     );
+   });
   }
 
   @override
   void dispose() {
- scrollController.dispose();
     super.dispose();
+    ref.read(personalChatController).scrollController.dispose();
   }
-  ScrollController scrollController = ScrollController();
 
-  void scrollToBottom()async {
-    await Future.delayed(const Duration(milliseconds: 600));
-    scrollController.animateTo(
-      scrollController.position.maxScrollExtent,
-      duration: const Duration(milliseconds: 200),
-      curve: Curves.easeOut,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
       ),
       Expanded(
         child: FirebaseAnimatedList(
-          controller: scrollController,
+          controller: personalChatWatch.scrollController,
           query: FirebaseDatabase.instance.ref('Mess').child("userMessages").child(currentUserFId).child(widget.chatPersonFId),
           itemBuilder: (context, snapshot, animation, index) {
             final messageData = MessageDataModel.fromSnapshot(snapshot);
@@ -79,51 +80,76 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
         Expanded(
           child: Card(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100.r)),
+                borderRadius: BorderRadius.circular(25.r)),
             elevation: 20,
             child: Container(
-              clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 color: AppColors.colors.whiteColors,
-                borderRadius: BorderRadius.circular(100.r),
+                borderRadius: BorderRadius.circular(25.r),
               ),
-              child: TextFormField(
-                controller: personalChatWatch.inputController,
-                onChanged: (value){
-                  personalChatWatch.updateIsSendButtonOn(value);
-                },
-                decoration: InputDecoration(
-                  hintText: "Message",
-                  border: InputBorder.none,
-                  prefixIcon: IconButton(
-                    onPressed:(){
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  personalChatWatch.isFileUploadProgressVisible? Container(
+                    padding: EdgeInsets.only(left: 16.w,top: 2.h,right: 16.w),
+                    height: 50.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.colors.whiteColors,
+                      borderRadius: BorderRadius.only(topLeft:Radius.circular(100.r),topRight: Radius.circular(100.r))
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(personalChatWatch.uploadFileName,style: TextStyles.w400.copyWith(fontSize: 12.sp,color: Colors.black),overflow: TextOverflow.ellipsis,),
+                        SizedBox(height: 3.h,),
+                        LinearProgressIndicator(
+                          color: AppColors.colors.clayColors,value: personalChatWatch.progressValue,),
+                        SizedBox(height: 3.h,),
+                        Row(
+                          children: [
+                            const Expanded(child: SizedBox()),
+                            Text("Wait while uploading...",style: TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.black))
+                          ],
+                        )
+                      ],
+                    ),
+                  ):const SizedBox(),
+                  TextFormField(
+                    controller: personalChatWatch.inputController,
+                    onChanged: (value){
+                      personalChatWatch.updateIsSendButtonOn(value);
                     },
-                    icon: Icon(
-                      Icons.add,
-                    size: 30.sp,
-                    color: AppColors.colors.blueColors,
-                  ),),
-                  // contentPadding: EdgeInsets.symmetric(horizontal: 6.w,vertical:1.h)
-                ),
+                    decoration: InputDecoration(
+                      hintText: "Message",
+                      border: InputBorder.none,
+                      prefixIcon:IconButton(
+                        onPressed:(){
+                          showBottomSheet(context: context, builder: (context) {
+                            return  ChatBottomSheet(chatPersonId: widget.chatPersonFId,);
+                          },);
+                        },
+                        icon: Icon(
+                          Icons.add,
+                          size: 30.sp,
+                          color: AppColors.colors.blueColors,
+                        ),) ,
+                      // contentPadding: EdgeInsets.symmetric(horizontal: 6.w,vertical:1.h)
+                    ),
+                  )
+                ],
               ),
             ),
           ),
         ),
+
+
         SizedBox(width: 3.w),
         IconButton(
           onPressed: ()async {
             if(personalChatWatch.isSendButtonOn){
-                personalChatWatch.sendDataToDatabase(chatPersonFId: widget.chatPersonFId);
-                await Future.delayed(const Duration(milliseconds: 200)); // Add a delay
-                setState(() {
-                  scrollController.animateTo(
-                    scrollController.position.maxScrollExtent,
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.easeOut,
-                  );
-                });
+                personalChatWatch.sendDataToDatabase(chatPersonFId: widget.chatPersonFId, message: personalChatWatch.inputController.text);
+               personalChatWatch.scrollToBottom();
             }else{
-
             }
           },
           icon: Icon(

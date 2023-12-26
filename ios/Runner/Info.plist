@@ -2,6 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Need location when in use</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Always and when in use!</string>
+    <key>NSLocationUsageDescription</key>
+    <string>Older devices need location.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Can I haz location always?</string>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+	<string>Give permission for gallery access</string>
+    <key>NSCameraUsageDescription </key>
+    <string>Give camara access for capturing photos</string>
+    <key>NSMicrophoneUsageDescription  </key>
+    <string>Give microphone access to get audio</string>
+
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>sms</string>
@@ -33,6 +50,10 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Permission required for searching something</string>
+	<key>NSMicrophoneUsageDescription </key>
+	<string>Permission required for searching something</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

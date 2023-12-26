@@ -150,7 +150,7 @@ class _ChatBubbleState extends ConsumerState<ChatBubble> {
                         children: [
                          SvgPicture.asset(AppAssets.pdfViewIconSvg,height: 30.h,color: Colors.white,),
                           SizedBox(width: 10.w,),
-                          Text(widget.chat.message, style: TextStyles.w400.copyWith( fontSize: 12.sp, color: AppColors.colors.whiteColors,overflow: TextOverflow.ellipsis))
+                          Expanded(child: Text(widget.chat.message, style: TextStyles.w400.copyWith( fontSize: 12.sp, color: AppColors.colors.whiteColors,overflow: TextOverflow.ellipsis)))
                         ],
                       ),
                     ),

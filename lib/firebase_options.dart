@@ -74,6 +74,6 @@ class DefaultFirebaseOptions {
     databaseURL: 'https://emploi-hunt-default-rtdb.firebaseio.com',
     storageBucket: 'emploi-hunt.appspot.com',
     androidClientId: '881312176002-bs5laetreq5pshjqmnuoih8o77nh1d33.apps.googleusercontent.com',
-    iosBundleId: 'com.example.emploiflutter',
+    iosBundleId: 'com.amri.emploihunt',
   );
 }

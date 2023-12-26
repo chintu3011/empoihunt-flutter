@@ -1,4 +1,4 @@
-package com.example.emploiflutter
+package com.amri.emploihunt
 
 import io.flutter.embedding.android.FlutterActivity
 

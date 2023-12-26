@@ -32,8 +32,9 @@ class MessengerController extends ChangeNotifier{
       required String recentText,
       required String dateStamp,
       required String timeStamp}) async{
+   print("child added");
     try{
-      testList = [];
+     // testList=[];
       isLoading =true;
       notifyListeners();
       Options options = Options(
@@ -66,6 +67,10 @@ class MessengerController extends ChangeNotifier{
         i.recentText = database["message"];
       }
     }
+   notifyListeners();
+  }
+  makeListOfPersonEmpty(){
+   testList = [];
    notifyListeners();
   }
 }

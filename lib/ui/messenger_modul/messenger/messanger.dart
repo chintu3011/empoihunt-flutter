@@ -28,22 +28,21 @@ class _MessengerState extends ConsumerState<Messenger> {
     super.initState();
 
 
-    final data = FirebaseDatabase.instance.ref('Mess').child("LatestMessage").child(ref.read(messengerController).currentUser.user.vFirebaseId);
-    data.onChildChanged.listen((event) {
-      // print(event.snapshot.key);
-      ref.read(messengerController) .updateChatPersonValue( event);
-       });
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
+      final data = FirebaseDatabase.instance.ref('Mess').child("LatestMessage").child(ref.read(messengerController).currentUser.user.vFirebaseId);
+      ref.read(messengerController).makeListOfPersonEmpty();
+      data.onChildChanged.listen((event) {
+        // print(event.snapshot.key);
+        ref.read(messengerController).updateChatPersonValue(event);
+      });
 
-
-    data.onChildAdded.listen((event) {
-
-      Map<dynamic,dynamic> database = event.snapshot.value as Map<dynamic,dynamic>;
-      ref.read(messengerController).getUserByFirebaseId(firebaseId: event.snapshot.key.toString(), recentText: database["message"], dateStamp: database["dateStamp"], timeStamp: database["timeStamp"],);
+      data.onChildAdded.listen((event) {
+        Map<dynamic,dynamic> database = event.snapshot.value as Map<dynamic,dynamic>;
+        ref.read(messengerController).getUserByFirebaseId(firebaseId: event.snapshot.key.toString(), recentText: database["message"], dateStamp: database["dateStamp"], timeStamp: database["timeStamp"],);
+      });
     });
 
   }
-
-
   @override
   Widget build(BuildContext context) {
     final messengerWatch = ref.watch(messengerController);

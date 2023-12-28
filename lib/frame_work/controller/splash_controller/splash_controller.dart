@@ -47,7 +47,9 @@ class SplashController extends ChangeNotifier{
         SplashModel splashData = SplashModel.fromJson(response.data);
         if(splashData.status == 200){
           final data = splashData.data;
-         int  updatedVersion = data!.latestAppVersionCode!;
+
+          await SharedPrefServices.services.setString(notificationVKey, data!.nothing!.vKey!);
+         int  updatedVersion = data.latestAppVersionCode!;
           debugPrint(" update api app version--->>>> $updatedVersion");
           ///-------------- get current application version ---------------////
           int currentAppVersion = int.parse(packageInfo.buildNumber);
@@ -132,7 +134,7 @@ class SplashController extends ChangeNotifier{
         debugPrint("IOS Device ID -----> ${iosInfo.identifierForVendor}");
         debugPrint("IOS Device Version -----> ${iosInfo.systemVersion}");
         debugPrint("IOS Device Name -----> ${iosInfo.name}");
-        // await BoxService.boxService.addDataToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId: build.id!, deviceName: build.model!, deviceVersion: build.version.release.toString(), deviceType: 1));
+        await BoxService.boxService.addNativeDeviceDetailsToHive(deviceDetailKey, NativeDeviceDetailModel(deviceId:iosInfo.identifierForVendor!, deviceName:iosInfo.name, deviceVersion:iosInfo.systemVersion, deviceType: 1));
       }
     } on PlatformException {
       debugPrint('Failed to get platform version');

@@ -5,8 +5,10 @@ import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_bottom_b
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_dropdown_forms.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_skills_widget.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_working_mode.dart';
+import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
@@ -14,6 +16,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../utils/common_widget/common_dropdown_form_field.dart';
 import '../utils/theme/text_styles.dart';
 
 class CreatePostJob extends ConsumerWidget {
@@ -33,14 +36,17 @@ class CreatePostJob extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CommonFormField(
-                focusNode: createPostJobWatch.jobTitleFocusNode,
-                controller: createPostJobWatch.jobTitleFieldController,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.name,
-                autoValidateMode: AutovalidateMode.onUserInteraction,
-                validator: (value)=>requiredFieldValidator(input: value, errorMgs: "Please enter job title"),
-                hintText: "Android Developer",labelText: "job Title",prefixIcon: SvgPicture.asset(AppAssets.jobTitleSvg,color: AppColors.colors.blueColors,).paddingSymmetric(vertical: 10.h,horizontal: 10.w),),
+              CommonTypeAheadFormField(
+                  direction: AxisDirection.down,
+                  onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.jobTitleFieldController, value),
+                  controller: createPostJobWatch.jobTitleFieldController,
+                  hintText: "City",
+                  labelText: "City",
+                  suggestionsCallback: (pattern) =>
+                      createPostJobWatch.checkJobTitle(pattern),
+                  onSuggestionSelected: (value) =>
+                  createPostJobWatch.jobTitleFieldController.text = value),
+              createPostJobWatch.isJobTitleEmpty?Text("Please fill the job title",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400,),).paddingVertical(4):const SizedBox(),
               SizedBox(height: 10.h,),
               CommonFormField(
                 controller: createPostJobWatch.companyNameFieldController,

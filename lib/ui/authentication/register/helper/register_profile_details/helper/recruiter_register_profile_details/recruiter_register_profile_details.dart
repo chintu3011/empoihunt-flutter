@@ -39,6 +39,7 @@ class _RegisterProfileDetailsState extends ConsumerState<RecruiterRegisterProfil
         appBar: RecruiterRegisterProfileDetailsAppBar(),
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                     RecruiterRegisterProfileDetailsBackGround(),

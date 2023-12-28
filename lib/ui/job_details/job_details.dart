@@ -66,7 +66,7 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r)),
               backgroundColor: const Color(0xff85AFA6),
-            ):
+            ).paddingOnly(bottom: 8.h):
             CommonButton(
               btnText: "Apply",
               fontSize: 16.sp,
@@ -78,7 +78,7 @@ class _JobDetailsState extends ConsumerState<JobDetails> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r)),
               backgroundColor: AppColors.colors.clayColors,
-            ).paddingOnly(bottom: 6.h)
+            ).paddingOnly(bottom: 8.h)
           ],
         ),
       ),

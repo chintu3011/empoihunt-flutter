@@ -7,6 +7,7 @@
   const String privacyPolicyStringKey = "privacyPolicyStringKey";
   const String  termsAndConditionStringKey = "ConditionStringKey";
   const String  isUserLoggedIn = "isUserLoggedInKey";
+  const String  notificationVKey = "notificationVKey";
 
 ///------------ Shared Preference Keys ----------///
 

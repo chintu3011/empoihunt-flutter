@@ -576,6 +576,7 @@ class ProfileController extends ChangeNotifier {
 
   int selectedWorkingMode = 0;
   String selectedWorkingText = "";
+
   updateWorkingMode(int index){
     selectedWorkingMode = index;
     debugPrint(workingModeList[index]);

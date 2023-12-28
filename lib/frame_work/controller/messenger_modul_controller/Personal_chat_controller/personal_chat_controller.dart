@@ -1,15 +1,15 @@
 
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/model/messenger_model/message_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_database_services.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -24,12 +24,13 @@ class PersonalChatController extends ChangeNotifier{
 
   final inputController = TextEditingController();
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-  final currentUserFId = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.vFirebaseId;
+  final currentUser = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
 
   double progressValue = 0;
 
 
   bool isSendButtonOn = false;
+
   updateIsSendButtonOn(String input){
     if(input != ""){
       isSendButtonOn = true;
@@ -42,22 +43,17 @@ class PersonalChatController extends ChangeNotifier{
 
 
   List<MessageDataModel> messages = [];
-   getUsers(String chatPersonId) async* {
-    final snapshot = await FirebaseDatabase.instance.ref('Mess').child("userMessages").child(currentUserFId).child(chatPersonId).get();
 
-    final map = snapshot.value as Map<dynamic, dynamic>;
+  //  getUsers(String chatPersonId) async* {
+  //   final snapshot = await FirebaseDatabase.instance.ref('Mess').child("userMessages").child(currentUserFId).child(chatPersonId).get();
+  //   final map = snapshot.value as Map<dynamic, dynamic>;
+  // }
 
-    print(map);
-    // map.forEach((key, value) {
-    //   final user = MessageDataModel.fromJson(value);
-    //   messages.add(user);
-    // });
-  }
   sendDataToDatabase({required String chatPersonFId,String? docUri,int? msgTyp,required String message}){
     final date = DateTime.now();
     print("${date.year}-${date.month}-${date.day}");
     print("${date.hour}:${date.minute}:${date.second}");
-    print("Current User------>$currentUserFId");
+    print("Current User------>$currentUser");
     print("Chat personFid------>$chatPersonFId");
     print(inputController.text);
 
@@ -68,8 +64,8 @@ class PersonalChatController extends ChangeNotifier{
     FirebaseDatabaseServices.databaseServices.sendMsg(
         msgData: MessageDataModel(msgType: msgTyp??0, docUri: docUri ?? "",
             message: message, toId: chatPersonFId,
-            fromId: currentUserFId, dateStamp: dateStamp, timeStamp: timeStamp),
-        currentUserId: currentUserFId,
+            fromId: currentUser.user.vFirebaseId, dateStamp: dateStamp, timeStamp: timeStamp),
+        currentUserId: currentUser.user.vFirebaseId,
         chatPersonId: chatPersonFId);
     scrollToBottom();
     inputController.clear();
@@ -87,12 +83,9 @@ class PersonalChatController extends ChangeNotifier{
 
   Future<void> pickImageFromMedia({required String chatPersonId}) async{
     final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg','png','jpeg']
-    );
+        type: FileType.image,);
     if(result != null){
       final PlatformFile file = result.files.first;
-      // imgUrl = file.path;
       imageUrl = File(file.path!);
       imageName = file.name;
       uploadImage(fileName: imageName, filePath: imageUrl!, chatPersonFId:chatPersonId  );
@@ -145,7 +138,7 @@ class PersonalChatController extends ChangeNotifier{
   uploadImage({required String fileName, required File filePath,required String chatPersonFId})async{
     try{
       final baseName = basename(filePath.path);
-      final imageRef = firebaseStorage.ref('imagess/chatImages/$currentUserFId/$chatPersonFId/$baseName');
+      final imageRef = firebaseStorage.ref('imagess/chatImages/$currentUser/$chatPersonFId/$baseName');
       // Start the file upload
 
       UploadTask uploadTask = imageRef.putFile(filePath);
@@ -176,7 +169,7 @@ class PersonalChatController extends ChangeNotifier{
   uploadDocFile({required String docName, required File docFilePath,required String chatPersonFId})async{
     try{
       final baseName = basename(docFilePath.path);
-      final imageRef = firebaseStorage.ref('docss/chatDocs/$currentUserFId/$chatPersonFId/$baseName');
+      final imageRef = firebaseStorage.ref('docss/chatDocs/$currentUser/$chatPersonFId/$baseName');
       // Start the file upload
 
       UploadTask uploadTask = imageRef.putFile(docFilePath);
@@ -234,6 +227,8 @@ class PersonalChatController extends ChangeNotifier{
 
 
 
+
+///------------ network url to pdf viewer ------------///
   File? pdfFile;
   bool isFetchingPdf= false;
 
@@ -259,5 +254,65 @@ class PersonalChatController extends ChangeNotifier{
     }
     notifyListeners();
   }
+///------------ network url to pdf viewer ------------///
 
+
+///-------------------Api for Notification ---------------///
+
+  Future<void> sendNotification(String message,String? chatPersonDeviceToken) async {
+    print("sendNotification");
+    try {
+      final Map<String, dynamic> notificationObj = {
+        "title": "${currentUser.user.vFirstName} ${currentUser.user.vLastName}", // Replace with your title
+        "body": message,
+      };
+
+      final Map<String, dynamic> dataObj = {
+        "userId": currentUser.user.vFirebaseId,
+        "notification_type": "1",
+      };
+
+      final Map<String, dynamic> jsonObject = {
+        "notification": notificationObj,
+        "data": dataObj,
+        "to": chatPersonDeviceToken ?? "",
+      };
+
+      await callApi(jsonObject);
+    } catch (e) {
+      print("sendNotification: $e");
+    }
+  }
+
+  Future<void> callApi(Map<String, dynamic> jsonObject) async {
+    try {
+      Options options = Options(
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer ${SharedPrefServices.services.getString(notificationVKey)}",
+        }
+      );
+      Response response =await DioClient.dio.post("https://fcm.googleapis.com/fcm/send",
+          options: options,
+          data: jsonEncode(jsonObject));
+
+      if (response.statusCode == 200) {
+        print("onResponse: ${response.data}");
+      } else {
+        print("onError: ${response.statusCode}");
+      }
+    } catch (e) {
+      print("onError: $e");
+    }
+  }
+
+///-------------------Api for Notification ---------------///
+
+@override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    scrollController.dispose();
+    inputController.dispose();
+  }
 }

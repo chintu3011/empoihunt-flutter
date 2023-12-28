@@ -25,7 +25,7 @@ class SharedPrefServices{
   }
 
   String getString(String key,){
-    return pref.getString(key)?? "<Loading>";
+    return pref.getString(key)?? "";
   }
 
   Future<void> setList(String key,List<String> list)async{

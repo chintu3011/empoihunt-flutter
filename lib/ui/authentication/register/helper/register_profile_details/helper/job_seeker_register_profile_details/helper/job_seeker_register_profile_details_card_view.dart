@@ -76,7 +76,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
 ///-----------------------------------------------------------------------------------------------------------------------------------------///
 
                    ///------------------ if user select Experience --------------------///
-                   registerProfileDetailWatch.index == 4 || registerProfileDetailWatch.profilePic  != null?
+                   registerProfileDetailWatch.index == 4 && registerProfileDetailWatch.profilePic  != null?
                    IconButton(
                        style: ElevatedButton.styleFrom(
                            shape: RoundedRectangleBorder(
@@ -104,7 +104,7 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
 ///-----------------------------------------------------------------------------------------------------------------------------------------///
 
                    ///------------------ if user select Fresher --------------------///
-                    registerProfileDetailWatch.index == 3 || registerProfileDetailWatch.profilePic  != null?
+                    registerProfileDetailWatch.index == 3 && registerProfileDetailWatch.profilePic  != null?
                    IconButton(
                        style: ElevatedButton.styleFrom(
                            shape: RoundedRectangleBorder(

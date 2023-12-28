@@ -41,6 +41,7 @@ class _RegisterProfileDetailsState extends ConsumerState<JobSeekerRegisterProfil
         appBar: JobSeekerRegisterProfileDetailsAppBar(),
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                     JobSeekerRegisterProfileDetailsBackGround(),

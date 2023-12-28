@@ -30,13 +30,13 @@ class RecruiterRegisterProfileDetails2 extends ConsumerWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 50.h),
+              padding: EdgeInsets.symmetric(vertical: 15.h),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                      CommonFormField(
-                         maxLength: 15,
+                         maxLength: 50,
                          buildCounter: (p0, {required currentLength, required isFocused, maxLength}) =>const SizedBox(),
                        controller: registerProfileDetailsWatch.companyNameController,
                          keyboardType: TextInputType.name,

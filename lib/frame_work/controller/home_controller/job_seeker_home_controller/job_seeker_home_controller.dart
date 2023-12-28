@@ -253,7 +253,8 @@ isVoiceListening= true;
         Options options = Options(
             headers: {
               'Accept': 'application/json',
-             }
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            }
         );
         Response response =await DioClient.client.getDataWithBearerToken(APIEndPoint.jobPreferenceApi, options);
         if(response.statusCode == 200){
@@ -266,7 +267,6 @@ isVoiceListening= true;
           print(selectedPostJob);
           for(dynamic i in responseData) {
             JobPreferenceModel job = JobPreferenceModel.fromJson(i);
-            // jobPreferenceList.add(job.vJobTitle!);
             jobPreferenceList.add({"${job.vJobTitle!} - ${job.vJobLocation!} - ${job.vExpectedSalary}":job.id});
           }
 

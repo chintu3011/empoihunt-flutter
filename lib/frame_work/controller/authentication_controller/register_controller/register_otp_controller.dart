@@ -4,6 +4,7 @@ import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/job_seeker_register_profile_details.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/recruiter_register_profile_details/recruiter_register_profile_details.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
@@ -67,9 +68,13 @@ class RegisterOtpController extends ChangeNotifier{
       debugPrint("Verified user phone -------> ${response.user!.userPhone}");
         if(context.mounted){
       if(selectedUserType == 0){
+        Navigator.pop(context);
         Navigator.push(context, PageTransition(child: const JobSeekerRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: childCurrent,duration: const Duration(milliseconds: 300)));
+        otpController.clear();
       }else{
+        Navigator.pop(context);
         Navigator.push(context, PageTransition(child: const RecruiterRegisterProfileDetails(), type: PageTransitionType.rightToLeft,childCurrent: childCurrent,duration: const Duration(milliseconds: 300)));
+        otpController.clear();
       }
         }
     } else {

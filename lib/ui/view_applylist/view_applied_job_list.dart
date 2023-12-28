@@ -80,13 +80,13 @@ class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
                             if(jobList.job!.iIsApplied != 1){
                               ref.watch(jobDetailsController).intAppliedValue();
                             }
-                            if(jobList.job!.iIsApplied != 1){
+                            if(jobList.job!.iIsSaved != 1){
                               ref.watch(jobDetailsController).provideFavoriteValue(false);
                             }else {
                               ref.watch(jobDetailsController).provideFavoriteValue(true);
                             }
                             await Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => JobDetails(jobDetail: jobList.job!,)));
+                                MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList.job!,)));
                           },
                         );}else{
                         return  const Center(child: CircularProgressIndicator());

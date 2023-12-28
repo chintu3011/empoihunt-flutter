@@ -27,7 +27,6 @@ class FirebaseAuthService {
         codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
       );
     } on FirebaseAuthException catch (e) {
-      // commonSnackBar(context: context, eText: e.message.toString());
       Future.error(e.message.toString());
     }
   }
@@ -44,6 +43,27 @@ class FirebaseAuthService {
         return AuthResponseModel(user: user);
     } on FirebaseAuthException catch (e) {
       return AuthResponseModel(error: e.message);
+    }
+  }
+
+  Future<void> resendOtp({required String phoneNumber,
+    required void Function(PhoneAuthCredential) verificationCompleted,
+    required void Function(FirebaseAuthException) verificationFailed,
+    required void Function(String, int?) codeSent,
+    required void Function(String) codeAutoRetrievalTimeout,
+    required int? forceResendingToken}) async {
+    try {
+      await FireBaseSingleton.instance.firebaseAuth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        timeout: const Duration(seconds: 30),
+        verificationCompleted: verificationCompleted,
+        verificationFailed: verificationFailed,
+        codeSent: codeSent,
+        codeAutoRetrievalTimeout: codeAutoRetrievalTimeout,
+        forceResendingToken: forceResendingToken
+      );
+    } on FirebaseAuthException catch (e) {
+      Future.error(e.message.toString());
     }
   }
 

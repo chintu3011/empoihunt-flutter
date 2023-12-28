@@ -14,11 +14,13 @@ class DioClient{
   return dio.post(endpoint, data: jsonEncode(requestBody));
   }
 
+  ///-------json data ------///
   Future postDataWithJsonWithBearerToken(String endpoint, Map<String, dynamic> requestBody,Options options) async{
     dio.options = baseUrl;
     return dio.post(endpoint, data: jsonEncode(requestBody),options:options);
   }
 
+  ///-----for file attachment ----///
   Future postDataWithForm(String endpoint, {required FormData formData}) async{
     dio.options = baseUrl;
     return dio.post(endpoint, data: formData);

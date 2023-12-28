@@ -68,7 +68,7 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                 return MakeNewChatCard(
                   onTap: (){
                     context.pop();
-                  Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}", chatPersonFId: recruiter.vFirebaseId!,), type: PageTransitionType.rightToLeft,childCurrent: widget));
+                  Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}", chatPersonFId: recruiter.vFirebaseId!, ), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: recruiter.tProfileUrl!,
                   personName: "${recruiter.vFirstName} ${recruiter.vLastName}", );

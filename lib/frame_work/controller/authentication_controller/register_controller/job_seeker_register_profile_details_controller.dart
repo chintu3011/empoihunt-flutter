@@ -84,13 +84,13 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   }
 
 
-  bool isFresher = false;
+  bool isFresher = true;
   updateFresher(){
     isFresher = true;
     isExperienced=false;
     notifyListeners();
   }
-  bool isExperienced = true;
+  bool isExperienced = false;
   updateExperienced(){
     isExperienced = true;
     isFresher=false;
@@ -129,25 +129,31 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     notifyListeners();
   }
 
-  bool isOnSite = false;
-  bool isRemote = false;
-  bool isHybrid = true;
-  updateOnSite(){
-    isOnSite = true;
-    isRemote= false;
-    isHybrid= false;
+
+  List<String> workingModeList=[
+    "On-Site",
+    "Remote",
+    "Hybrid",
+  ];
+
+  setValueOfWorkingMode(String site){
+    if(site == "On-Site"){
+      selectedWorkingMode=0;
+    }else if(site == "Remote"){
+      selectedWorkingMode=1;
+    }else if(site == "Hybrid"){
+      selectedWorkingMode=2;
+    }
     notifyListeners();
   }
-  updateRemote(){
-    isRemote = true;
-    isOnSite=false;
-    isHybrid = false;
-    notifyListeners();
-  }
-  updateHybrid(){
-    isHybrid = true;
-    isRemote = false;
-    isOnSite=false;
+
+  int selectedWorkingMode = 0;
+  String selectedWorkingText = "On-Site";
+
+  updateWorkingMode(int index){
+    selectedWorkingMode = index;
+    debugPrint(workingModeList[index]);
+    selectedWorkingText = workingModeList[index];
     notifyListeners();
   }
 
@@ -226,9 +232,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   Future<void> imagePicker() async{
     isPicAnimationRun = true;
         final result = await FilePicker.platform.pickFiles(
-          type: FileType.custom,
-          allowedExtensions: ['jpg','png','jpeg']
-        );
+          type: FileType.image,);
         profilePic = null;
         notifyListeners();
         uploadImgLottieController.stop();
@@ -417,7 +421,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
         "resume":await MultipartFile.fromFile(pdfUrl!, filename: pdfName),
       });
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
+          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;

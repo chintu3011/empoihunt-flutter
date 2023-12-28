@@ -25,18 +25,17 @@ class ManageJobPostController extends ChangeNotifier {
   final ScrollController scrollController = ScrollController();
 
 
-  bool isFetchingImage = false;
   Future<void> saveNetworkImageToFile(JobPostModel jobPostModel) async {
     isLoading = true;
     try{
       final response = await DioClient.dio.get('https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl}', options: Options(responseType: ResponseType.bytes));
       if(response.statusCode == 200){
+        isLoading = false;
         final Uint8List bytes = Uint8List.fromList(response.data);
         final Directory appDocDir = await getApplicationDocumentsDirectory();
         final String appDocPath = appDocDir.path;
         List<String> list = jobPostModel.tCompanyLogoUrl!.split("/");
         String fileName = list[4].trim();
-        isFetchingImage = false;
         imageName = list[4].trim();
         final File file = File('$appDocPath/$fileName');
         await file.writeAsBytes(bytes);
@@ -45,8 +44,8 @@ class ManageJobPostController extends ChangeNotifier {
         notifyListeners();
       }
     }catch(e){
-      isFetchingImage = false;
-      Future.error("network image to file error-------$e");
+    isLoading = false;
+    Future.error("network image to file error-------$e");
     }
     notifyListeners();
   }
@@ -434,7 +433,7 @@ class ManageJobPostController extends ChangeNotifier {
         }
       }
     } catch (e) {
-      isLoading = true;
+      isLoading = false;
       jobPostList = [];
       Future.error("Post Job Insert API-------> $e");
     }

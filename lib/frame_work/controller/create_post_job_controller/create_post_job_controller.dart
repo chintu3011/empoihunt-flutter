@@ -31,6 +31,24 @@ class CreatePostJobController extends ChangeNotifier{
   final salaryFieldController = TextEditingController();
   final numberOfEmpFieldController = TextEditingController();
 
+
+
+   bool isJobTitleEmpty = false;
+
+   updateIsJobTitleEmpty(String title){
+     if(title.isEmpty){
+       isJobTitleEmpty = true;
+     }else{
+       isJobTitleEmpty = false;
+     }
+   }
+
+  List<String> checkJobTitle(String query){
+    query = query.toUpperCase().trim();
+    return designationList.where((jobTitle) => jobTitle.toUpperCase().trim().contains(query)).toList();
+  }
+
+
   ///--------------- Working Mode ----------------///
   String selectedWorkingModeValue = "";
   bool isSelectRemoteValue = false;
@@ -122,37 +140,42 @@ class CreatePostJobController extends ChangeNotifier{
 /// ------------------ Bottom Buttons -----------------///
   postButton(BuildContext context)async{
     if(formKey.currentState!.validate()){
-      if(imageName != ""){
-        isFileSelected = false;
-        if(technicalSkillsList.isNotEmpty){
-          isTechnicalSkillEmpty =false;
-          if(softSkillsList.isNotEmpty){
-            isSoftSkillEmpty = false;
-            if(educationSearchController.text != ""){
-              isEducationSelected = false;
-              if(selectedJobLocation !=null){
-                isJobLocationSelect = false;
-                if(selectedWorkingModeValue !=""){
-                  isSelectRemoteValue = false;
-                  debugPrint("success");
-                  await postJobInsertApi(context);
+      if(jobTitleFieldController.text.isNotEmpty){
+        isJobTitleEmpty = false;
+        if(imageName != ""){
+          isFileSelected = false;
+          if(technicalSkillsList.isNotEmpty){
+            isTechnicalSkillEmpty =false;
+            if(softSkillsList.isNotEmpty){
+              isSoftSkillEmpty = false;
+              if(educationSearchController.text != ""){
+                isEducationSelected = false;
+                if(selectedJobLocation !=null){
+                  isJobLocationSelect = false;
+                  if(selectedWorkingModeValue !=""){
+                    isSelectRemoteValue = false;
+                    debugPrint("success");
+                    await postJobInsertApi(context);
+                  }else{
+                    isSelectRemoteValue = true;
+                  }
                 }else{
-                  isSelectRemoteValue = true;
+                  isJobLocationSelect = true;
                 }
               }else{
-                isJobLocationSelect = true;
+                isEducationSelected = true;
               }
             }else{
-              isEducationSelected = true;
+              isSoftSkillEmpty =true;
             }
           }else{
-            isSoftSkillEmpty =true;
+            isTechnicalSkillEmpty =true;
           }
         }else{
-          isTechnicalSkillEmpty =true;
+          isFileSelected = true;
         }
       }else{
-        isFileSelected = true;
+        isJobTitleEmpty = true;
       }
     }else{
     }
@@ -213,8 +236,7 @@ class CreatePostJobController extends ChangeNotifier{
   File? imageFile;
   Future<void> imagePicker() async{
     final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg','png','jpeg']
+        type: FileType.image,
     );
     if(result != null){
       isFileSelected =false;

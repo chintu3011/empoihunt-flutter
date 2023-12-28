@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -9,7 +8,8 @@ class PersonalChat extends ConsumerStatefulWidget {
   final String profileUrl;
   final String personName;
   final String chatPersonFId;
-  const PersonalChat({super.key,required this.profileUrl,required this.personName,required this.chatPersonFId});
+  final String? chatPersonDeviceToken;
+  const PersonalChat({super.key, this.chatPersonDeviceToken,required this.profileUrl,required this.personName,required this.chatPersonFId});
 
   @override
   ConsumerState<PersonalChat> createState() => _PersonalChatState();
@@ -24,7 +24,7 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
     return  Scaffold(
       body: Stack(
         children: [
-           PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId,),
+           PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken!,),
           Positioned(
             top: 30.h,
               left: 6.w,

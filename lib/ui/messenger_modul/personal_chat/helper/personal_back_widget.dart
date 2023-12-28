@@ -10,14 +10,14 @@ import 'package:emploiflutter/frame_work/repository/services/hive_service/box_se
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'chat_bubble.dart';
 
 class PersonalChatBackWidget extends ConsumerStatefulWidget {
 
   final String personName;
   final String chatPersonFId;
-  const PersonalChatBackWidget({super.key,required this.personName,required this.chatPersonFId});
+  final String chatPersonDeviceToken;
+  const PersonalChatBackWidget({super.key,required this.chatPersonDeviceToken,required this.personName,required this.chatPersonFId});
 
   @override
   ConsumerState<PersonalChatBackWidget> createState() => _PersonalChatBackWidgetState();
@@ -40,11 +40,6 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
    });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    ref.read(personalChatController).scrollController.dispose();
-  }
 
 
   @override
@@ -149,7 +144,9 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
             if(personalChatWatch.isSendButtonOn){
                 personalChatWatch.sendDataToDatabase(chatPersonFId: widget.chatPersonFId, message: personalChatWatch.inputController.text);
                personalChatWatch.scrollToBottom();
+               personalChatWatch.sendNotification(personalChatWatch.inputController.text,widget.chatPersonDeviceToken);
             }else{
+
             }
           },
           icon: Icon(

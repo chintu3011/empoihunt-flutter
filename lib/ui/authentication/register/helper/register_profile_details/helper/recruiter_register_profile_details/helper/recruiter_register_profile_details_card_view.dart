@@ -65,7 +65,7 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
                         )),
 
                     ///---------------- Forward Button --------------///
-                    registerProfileDetailWatch.index == 2 || registerProfileDetailWatch.profilePic  != null?
+                    registerProfileDetailWatch.index == 2 && registerProfileDetailWatch.profilePic  != null?
                    IconButton(
                        style: ElevatedButton.styleFrom(
                            shape: RoundedRectangleBorder(

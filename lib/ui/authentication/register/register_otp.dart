@@ -48,7 +48,7 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("+91${widget.phoneNumber}",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),),
+                      Text("${widget.phoneNumber}",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),),
                       Text("Change phone number?",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors,decoration: TextDecoration.underline,decorationColor: AppColors.colors.blueColors),),
                     ],
                   ),
@@ -101,7 +101,6 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
                   ),
                   SizedBox(height: 15.h,),
                   CommonButton(btnText: "Verify", onPressed: ()async{
-                    Navigator.pop(context);
                     await registerOtpWatch.verifyOtp(context: context, selectedUserType:chooseUserRoleWatch.userRole ,childCurrent: widget);
                   },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                   SizedBox(height: 10.h,),

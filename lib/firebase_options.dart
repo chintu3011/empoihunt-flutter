@@ -48,18 +48,18 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAa_lDQgrOjrHJGLVPfyYUcXgsYRa8AUEE',
-    appId: '1:881312176002:web:ef32b523a9f792ca45219b',
+    appId: '1:881312176002:web:d5b8a2b6677b3d9545219b',
     messagingSenderId: '881312176002',
     projectId: 'emploi-hunt',
     authDomain: 'emploi-hunt.firebaseapp.com',
     databaseURL: 'https://emploi-hunt-default-rtdb.firebaseio.com',
     storageBucket: 'emploi-hunt.appspot.com',
-    measurementId: 'G-YKMWJH86CB',
+    measurementId: 'G-VGJKNCSW6E',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBr0KdGDKP380cNUqQd00V8A7diax4RQJQ',
-    appId: '1:881312176002:android:3cd0c000eea3ca5f45219b',
+    appId: '1:881312176002:android:c36b9235567cc28545219b',
     messagingSenderId: '881312176002',
     projectId: 'emploi-hunt',
     databaseURL: 'https://emploi-hunt-default-rtdb.firebaseio.com',
@@ -68,7 +68,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCGSBl8JqAozIwrg2uDa1JchMooCQtLeoI',
-    appId: '1:881312176002:ios:d1c7ca9c20c71e9845219b',
+    appId: '1:881312176002:ios:5385a6f842434a8545219b',
     messagingSenderId: '881312176002',
     projectId: 'emploi-hunt',
     databaseURL: 'https://emploi-hunt-default-rtdb.firebaseio.com',

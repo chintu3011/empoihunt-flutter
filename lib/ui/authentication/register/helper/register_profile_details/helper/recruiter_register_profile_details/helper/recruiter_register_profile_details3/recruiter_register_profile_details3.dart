@@ -41,22 +41,31 @@ class RecruiterRegisterProfileDetails3 extends ConsumerWidget {
                          AppAssets.imgLoadingLottie,
                          controller: registerProfileDetailsWatch.uploadImgLottieController,
                        ):
-                       Card(
-                         elevation:3,
-                         child: Container(
-                           height: 200.h,
-                           width: 220.h,
-                           alignment: Alignment.center,
+
+                       Container(
+                         height: 200.h,
+                         width: 220.h,
+                         clipBehavior: Clip.hardEdge,
+                         decoration:  BoxDecoration(
+                           color: Colors.white,
+                           shape: BoxShape.circle,
+                           boxShadow: [
+                             BoxShadow(
+                               color: Colors.grey.withOpacity(0.5), // shadow color
+                               spreadRadius: 3, // spread radius
+                               blurRadius: 6, // blur radius
+                               offset: Offset(0, 2), // changes position of shadow
+                             ),
+                           ],
+                         ),
+                         child: FittedBox(
+                           fit: BoxFit.cover,
                            clipBehavior: Clip.hardEdge,
-                           decoration: const BoxDecoration(
-                             shape: BoxShape.circle,
-                             // border: Border.all(color: AppColors.colors.whiteColors,width: 4.w),
-                           ),
-                           child: registerProfileDetailsWatch.profilePic !=null ? Image.file(registerProfileDetailsWatch.profilePic!,fit:BoxFit.fill,): Image.asset(AppAssets.profilePicPng,),
+                           child: registerProfileDetailsWatch.profilePic !=null ? Card(child: Image.file(registerProfileDetailsWatch.profilePic!)): Image.asset(AppAssets.profilePicPng),
                          ),
                        ),
                        Positioned(
-                         bottom: 5,
+                         bottom: 0,
                          right: 30,
                          child: GestureDetector(
                            onTap: (){

@@ -74,6 +74,8 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn);
         }
+        notifyListeners();
+
       } else {
         isQualificationEmpty = true;
         isBioEmpty = true;
@@ -81,6 +83,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
         pageController.animateToPage(index,
             duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
       }
+      notifyListeners();
     }
     notifyListeners();
   }
@@ -178,7 +181,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   Future<void> imagePicker() async {
     isPicAnimationRun = true;
     final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom, allowedExtensions: ['jpg', 'png', 'jpeg']);
+        type: FileType.image,);
     profilePic = null;
     notifyListeners();
     uploadImgLottieController.stop();
@@ -243,7 +246,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
         "resume":"",
       });
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=0&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;

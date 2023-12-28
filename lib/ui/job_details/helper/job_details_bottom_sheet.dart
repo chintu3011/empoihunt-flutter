@@ -1,5 +1,6 @@
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
+import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -9,7 +10,6 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 class JobDetailsBottomSheet extends ConsumerStatefulWidget{
   final String companyName;
   const JobDetailsBottomSheet({required this.companyName,super.key});
-
   @override
   ConsumerState<JobDetailsBottomSheet> createState() => _SettingBottomSheetState();
 }
@@ -45,8 +45,8 @@ class _SettingBottomSheetState extends ConsumerState<JobDetailsBottomSheet> with
               alignment: Alignment.center,
                 child: Lottie.asset(
                   controller: logoutController,
-                  AppAssets.applyLottie,width: 130.w,
-                  height: 130.h,
+                  AppAssets.applyLottie,
+                  height: 140.h,
                   onLoaded: (_){
                     logoutController.repeat();
                   },
@@ -56,7 +56,7 @@ class _SettingBottomSheetState extends ConsumerState<JobDetailsBottomSheet> with
             alignment: Alignment.center,
             child: CommonButton(btnText: "No", onPressed: (){
               context.pop();
-            },backgroundColor: AppColors.colors.whiteColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r),side: BorderSide(color: AppColors.colors.blueColors)),textColor: AppColors.colors.blueColors,fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h),onPrimary: Colors.grey,),
+            },backgroundColor: AppColors.colors.whiteColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r),side: BorderSide(color: AppColors.colors.blueColors)),textColor: AppColors.colors.blueColors,fontSize: 16.sp,txtPadding: EdgeInsets.symmetric(horizontal: 50.w,vertical: 3.h),onPrimary: Colors.grey,).paddingOnly(bottom: 8.h),
           )
         ],
       ),

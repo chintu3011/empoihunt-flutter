@@ -50,13 +50,7 @@ const CommonTypeAheadFormField({super.key, required this.controller, required th
                   borderRadius: BorderRadius.circular(8.r),
                   borderSide:  BorderSide(color: AppColors.colors.blueColors,width: 1.w)))
       ),
-      errorBuilder: (context, error) => Container(
-        height: 50.h,
-        alignment: Alignment.centerLeft,
-        child: ListTile(
-          title: Text(error.toString(),style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
-        ),
-      ),
+      errorBuilder: (context, error) => SizedBox(),
       itemBuilder: (context, itemData){
       return Container(
         height: 50.h,

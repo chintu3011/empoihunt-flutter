@@ -40,7 +40,8 @@ class ProfileCurrentPositionTile extends ConsumerWidget {
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),
             SizedBox(height: 10.h,),
-            user.vWorkingMode != ""?             Container(
+            user.vCurrentCompany != ""?
+            Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
               width: size.width * 0.90 ,
               decoration: BoxDecoration(

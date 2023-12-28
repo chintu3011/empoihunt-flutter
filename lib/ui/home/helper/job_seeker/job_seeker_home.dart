@@ -51,109 +51,115 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     final jobSeekerHomeWatch = ref.watch(jobSeekerHomeController);
     return Scaffold(
       appBar: const JobSeekerAppbar(),
-      body: Stack(
-        children: [
-          jobSeekerHomeWatch.jobPreferenceList.isEmpty? const SizedBox():
-          PopupMenuButton(
-            onSelected: (value){
-              jobSeekerHomeWatch.updateSelectedPostJob(value);
-            },
-            surfaceTintColor: AppColors.colors.whiteColors,
-            color: AppColors.colors.whiteColors,
-             child: Card(
-               shadowColor: Colors.grey.withOpacity(0.5),
-              elevation: 6,
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
-                decoration:  BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(6.r),
-                ),
-                child: Text(jobSeekerHomeWatch.selectedPostJob.keys.first,style: TextStyles.w400.copyWith(fontSize: 14.sp, color: AppColors.colors.blueColors),),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(const Duration(milliseconds: 200));
+          jobSeekerHomeWatch.getJobsPostApiCall();
+        },
+        child: Stack(
+          children: [
+
+            ///----------------------- above list widget -----------------///
+            Padding(
+              padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
+              child: Column(
+                children: [
+                  jobSeekerHomeWatch.jobPreferenceList.isNotEmpty?
+                  PopupMenuButton(
+                    onSelected: (value){
+                      jobSeekerHomeWatch.updateSelectedPostJob(value);
+                    },
+                    surfaceTintColor: AppColors.colors.whiteColors,
+                    color: AppColors.colors.whiteColors,
+                    child: Card(
+                      shadowColor: Colors.grey.withOpacity(0.5),
+                      elevation: 6,
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 15.h),
+                        decoration:  BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
+                        child: Text(jobSeekerHomeWatch.selectedPostJob.keys.first,style: TextStyles.w400.copyWith(fontSize: 14.sp, color: AppColors.colors.blueColors),),
+                      ),
+                    ),
+                    itemBuilder: (context) {
+                      return List.generate(jobSeekerHomeWatch.jobPreferenceList.length, (index){
+                        final list = jobSeekerHomeWatch.jobPreferenceList[index];
+                        return  PopupMenuItem(
+                          padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 10.w),
+                          value: list,
+                          child: Container(
+                            width: context.size!.width,
+                            decoration:  BoxDecoration(
+                              borderRadius: BorderRadius.circular(6.r),
+                            ),
+                            child: Text(list.keys.first,style: TextStyles.w400.copyWith(fontSize: 14.sp, color: AppColors.colors.blueColors),),
+                          ),
+                        );
+                      });
+                    },).paddingOnly(left: 3.w,right: 3.w):const SizedBox(),
+                  Expanded(
+                    child: jobSeekerHomeWatch.isLoading
+                        ? const Center(child: CircularProgressIndicator(),)
+                        : jobSeekerHomeWatch.jobPostList.isEmpty ?
+                    const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)
+                        :
+                    ListView.builder(
+                      controller: jobSeekerHomeWatch.jobPostList.length >= 20? _scrollController:null,
+                      physics: jobSeekerHomeWatch.jobPostList.length >= 20? const BouncingScrollPhysics():null,
+                      itemCount:  jobSeekerHomeWatch.loadMoreData ?
+                      jobSeekerHomeWatch.jobPostList.length + 1
+                          : jobSeekerHomeWatch.jobPostList.length,
+                      itemBuilder: (context, index) {
+                        if (index < jobSeekerHomeWatch.jobPostList.length) {
+                          final jobList = jobSeekerHomeWatch.jobPostList[index];
+                          return JobSeekerListCard(
+                            jobPostModel: jobList,
+                            onTap: () async{
+                              if(jobList.iIsApplied != 1){
+                                ref.watch(jobDetailsController).intAppliedValue();
+                              }
+                              if(jobList.iIsSaved != 1){
+                                ref.watch(jobDetailsController).provideFavoriteValue(false);
+                              }else {
+                                ref.watch(jobDetailsController).provideFavoriteValue(true);
+                              }
+                              await Navigator.push(context,
+                                  MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
+                            },
+                          );
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      },),
+                  ),
+                ],
               ),
             ),
-            itemBuilder: (context) {
-              return List.generate(jobSeekerHomeWatch.jobPreferenceList.length, (index){
-                final list = jobSeekerHomeWatch.jobPreferenceList[index];
-                return  PopupMenuItem(
-                  padding: EdgeInsets.symmetric(vertical: 8.h,horizontal: 10.w),
-                  value: list,
+
+            Positioned(
+                right: 0,
+                top: 35.h,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const Messenger()));
+                  },
                   child: Container(
-                    width: context.size!.width,
-                    decoration:  BoxDecoration(
-                      borderRadius: BorderRadius.circular(6.r),
+                    height: 80.h,
+                    width: 10.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.colors.clayColors,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.r),
+                          bottomLeft: Radius.circular(16.r)),
                     ),
-                    child: Text(list.keys.first,style: TextStyles.w400.copyWith(fontSize: 14.sp, color: AppColors.colors.blueColors),),
                   ),
-                );
-              });
-            },).paddingOnly(top: 12.h,left: 16.w,right: 16.w),
-
-          ///----------------------- above list widget -----------------///
-          RefreshIndicator(
-            onRefresh: () async {
-              await Future.delayed(const Duration(milliseconds: 200));
-              jobSeekerHomeWatch.getJobsPostApiCall();
-            },
-            child: Padding(
-              padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
-              child: jobSeekerHomeWatch.isLoading
-                  ? const Center(child: CircularProgressIndicator(),)
-                  : jobSeekerHomeWatch.jobPostList.isEmpty ?
-              const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)
-                  :
-              ListView.builder(
-                controller: jobSeekerHomeWatch.jobPostList.length >= 20? _scrollController:null,
-                physics: jobSeekerHomeWatch.jobPostList.length >= 20? const BouncingScrollPhysics():null,
-                itemCount:  jobSeekerHomeWatch.loadMoreData ?
-                jobSeekerHomeWatch.jobPostList.length + 1
-                    : jobSeekerHomeWatch.jobPostList.length,
-                itemBuilder: (context, index) {
-                  if (index < jobSeekerHomeWatch.jobPostList.length) {
-                    final jobList = jobSeekerHomeWatch.jobPostList[index];
-                    return JobSeekerListCard(
-                      jobPostModel: jobList,
-                      onTap: () async{
-                        if(jobList.iIsApplied != 1){
-                          ref.watch(jobDetailsController).intAppliedValue();
-                        }
-                        if(jobList.iIsSaved != 1){
-                          ref.watch(jobDetailsController).provideFavoriteValue(false);
-                        }else {
-                          ref.watch(jobDetailsController).provideFavoriteValue(true);
-                        }
-                        await Navigator.push(context,
-                            MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
-                      },
-                    );
-                  } else {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-                },),
-            ),
-          ),
-
-          Positioned(
-              right: 0,
-              top: 35.h,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const Messenger()));
-                },
-                child: Container(
-                  height: 80.h,
-                  width: 10.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.colors.clayColors,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16.r),
-                        bottomLeft: Radius.circular(16.r)),
-                  ),
-                ),
-              ))
-        ],
+                ))
+          ],
+        ),
       ),
     );
   }

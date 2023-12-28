@@ -6,9 +6,11 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../../frame_work/repository/model/user_model/user_with_device_token_model.dart';
+
 
 class RecruiterListTile extends StatelessWidget {
-  final UserModel user;
+  final UserWithDeviceTokenModel user;
   const RecruiterListTile({super.key,required this.user});
 
   @override
@@ -38,16 +40,20 @@ class RecruiterListTile extends StatelessWidget {
                     SizedBox(height: 10.h,),
                     Row(
                       children: [
+                        user.vPreferCity != null?
                         Container(
                           padding: EdgeInsets.all(3.sp),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4.r),
                             color: AppColors.colors.blueDark
                           ),
-                          child: Text(user.vCity,style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),),
-                        ),
+                          child: Text(user.vPreferCity??"",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),),
+                        ):
+                        const SizedBox(),
+
                         SizedBox(width: 8.w,),
-                        user.vWorkingMode != null?Container(
+                        user.vWorkingMode != null?
+                        Container(
                           padding: EdgeInsets.all(3.sp),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4.r),

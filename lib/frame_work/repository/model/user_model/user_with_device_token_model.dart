@@ -1,4 +1,4 @@
-class ChatUserModel {
+class UserWithDeviceTokenModel {
   final int? id;
   final String? vFirebaseId;
   final int? iRole;
@@ -28,7 +28,7 @@ class ChatUserModel {
   final String? tUpadatedAt;
   final String? tDeviceToken;
 
-  ChatUserModel({
+  UserWithDeviceTokenModel({
     this.id,
     this.vFirebaseId,
     this.iRole,
@@ -58,8 +58,8 @@ class ChatUserModel {
     this.tUpadatedAt,
     this.tDeviceToken,
   });
-  factory ChatUserModel.fromJson(Map<String, dynamic> json) {
-    return ChatUserModel(
+  factory UserWithDeviceTokenModel.fromJson(Map<String, dynamic> json) {
+    return UserWithDeviceTokenModel(
       id: json['id'] as int?,
       vFirebaseId: json['vFirebaseId'] as String?,
       iRole: json['iRole'] as int?,

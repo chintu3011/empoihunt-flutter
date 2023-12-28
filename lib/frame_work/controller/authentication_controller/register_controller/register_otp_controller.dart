@@ -40,12 +40,49 @@ class RegisterOtpController extends ChangeNotifier{
           isLoading= false;
           codeSend = true;
           verId = verificationId;
+          second = maxSecond;
           debugPrint("verification Id $verId");
           timerFunction();
           appCommonShowToast(context: context, msg: "Code have been Sent \n to this number $phoneNumber");
           notifyListeners();
         },
         codeAutoRetrievalTimeout: (p0) {},
+      );
+    } on FirebaseAuthException catch (e) {
+      isLoading =false;
+      debugPrint("Firbase Exception ---------->>> ${e.message}");
+    }
+    notifyListeners();
+  }
+
+  int? forceResendingToken;
+  Future  resendVerifyPhoneNumber(
+      {required String phoneNumber, required BuildContext context,required int selectedUserType,Widget? childCurrent}) async {
+    try {
+      forceResendingToken = null;
+      isLoading = true;
+      await FirebaseAuthService.firebaseAuthService.resendOtp(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
+          verifyOtp(context: context,selectedUserType: selectedUserType,childCurrent: childCurrent);
+        },
+        verificationFailed: (error) {
+          isLoading= false;
+          notifyListeners();
+          debugPrint("verification Failed error --------------->> $error");
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          isLoading= false;
+          codeSend = true;
+          verId = verificationId;
+          second = maxSecond;
+          this.forceResendingToken = forceResendingToken;
+          debugPrint("verification Id $verId");
+          timerFunction();
+          appCommonShowToast(context: context, msg: "Code have been Sent \n to this number $phoneNumber");
+          notifyListeners();
+        },
+        codeAutoRetrievalTimeout: (p0) {}, forceResendingToken: forceResendingToken,
       );
     } on FirebaseAuthException catch (e) {
       isLoading =false;
@@ -110,7 +147,6 @@ class RegisterOtpController extends ChangeNotifier{
   }
 
   void stopAndResetTimer() {
-    second = maxSecond;
     time?.cancel();
     notifyListeners();
   }

@@ -7,6 +7,7 @@ import 'package:speech_to_text/speech_to_text.dart';
 import '../../../../ui/utils/app_constant.dart';
 import '../../../repository/api_end_point.dart';
 import '../../../repository/dio_client.dart';
+import '../../../repository/model/user_model/user_with_device_token_model.dart';
 import '../../../repository/services/hive_service/box_service.dart';
 
 final recruiterHomeController = ChangeNotifierProvider((ref) => RecruiterHomeController());
@@ -21,7 +22,7 @@ class RecruiterHomeController extends ChangeNotifier{
   }
 
 
-  List<UserModel> jobSeekerList=[];
+  List<UserWithDeviceTokenModel> jobSeekerList=[];
   int? totalPages;
   int currentPage= 1;
   bool isLoading = false;
@@ -51,7 +52,7 @@ class RecruiterHomeController extends ChangeNotifier{
           totalPages = response.data["total_pages"];
           print(responseData);
           for(dynamic i in responseData){
-            UserModel jobSeeker = UserModel.fromJson(i);
+            UserWithDeviceTokenModel jobSeeker = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobSeeker);
           }
           notifyListeners();
@@ -90,7 +91,7 @@ class RecruiterHomeController extends ChangeNotifier{
             totalPages = response.data["total_pages"];
             if (responseData.isNotEmpty) {
               for (dynamic i in responseData) {
-                UserModel jobPostModel = UserModel.fromJson(i);
+                UserWithDeviceTokenModel jobPostModel = UserWithDeviceTokenModel.fromJson(i);
                 jobSeekerList.add(jobPostModel);
               }
               currentPage ++;
@@ -179,7 +180,7 @@ class RecruiterHomeController extends ChangeNotifier{
           List responseData = response.data["data"];
           totalPages = response.data["total_pages"];
           for(dynamic i in responseData){
-            UserModel jobPostModel = UserModel.fromJson(i);
+            UserWithDeviceTokenModel jobPostModel = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobPostModel);
           }
           notifyListeners();
@@ -207,7 +208,7 @@ updateLoading(bool value){
     notifyListeners();
 }
 
-loadFilterData(List<UserModel> userModel){
+loadFilterData(List<UserWithDeviceTokenModel> userModel){
     if(userModel.isNotEmpty){
       jobSeekerList =[];
       jobSeekerList.addAll(userModel);

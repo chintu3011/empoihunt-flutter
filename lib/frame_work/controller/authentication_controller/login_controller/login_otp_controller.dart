@@ -46,12 +46,47 @@ class LoginOtpController extends ChangeNotifier{
           isLoading= false;
           codeSend = true;
           verId = verificationId;
+          second = maxSecond;
           debugPrint("verification Id $verId");
           timerFunction();
           appCommonShowToast(context: context, msg: "Code have been Sent \n to this number $phoneNumber");
           notifyListeners();
         },
         codeAutoRetrievalTimeout: (p0) {},
+      );
+    } on FirebaseAuthException catch (e) {
+      isLoading =false;
+      debugPrint("Firbase Exception ---------->>> ${e.message}");
+    }
+    notifyListeners();
+  }
+
+  int? forceResendingToken;
+  Future  resendVerifyPhoneNumber(
+      {required String phoneNumber, required BuildContext context}) async {
+    try {
+      forceResendingToken = null;
+      isLoading = true;
+      await FirebaseAuthService.firebaseAuthService.resendOtp(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
+          verifyOtp(context: context,number: phoneNumber);
+        },
+        verificationFailed: (error) {
+          debugPrint("verification Failed error --------------->> $error");
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          isLoading= false;
+          codeSend = true;
+          verId = verificationId;
+          second = maxSecond;
+          this.forceResendingToken = forceResendingToken;
+          debugPrint("verification Id $verId");
+          timerFunction();
+          appCommonShowToast(context: context, msg: "Code have been Sent \n to this number $phoneNumber");
+          notifyListeners();
+        },
+        codeAutoRetrievalTimeout: (p0) {}, forceResendingToken: forceResendingToken,
       );
     } on FirebaseAuthException catch (e) {
       isLoading =false;
@@ -78,12 +113,13 @@ class LoginOtpController extends ChangeNotifier{
     } else {
       if (context.mounted) {
         isLoading= false;
-        Navigator.pop(context);
+        showSnackBar(context: context, error: "OTP does not match");
         debugPrint("something went wrong");
       }
     }
     notifyListeners();
   }
+
 /// ------------- login with firebase otp--------------///
 
 
@@ -159,7 +195,6 @@ class LoginOtpController extends ChangeNotifier{
   }
 
   void stopAndResetTimer() {
-    second = maxSecond;
     time?.cancel();
     notifyListeners();
   }

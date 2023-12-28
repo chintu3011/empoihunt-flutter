@@ -7,6 +7,7 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 import '../../repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import '../../repository/model/user_model/user_with_device_token_model.dart';
 import '../../repository/model/user_model/user_detail_data_model.dart';
 import '../../repository/services/hive_service/box_service.dart';
 
@@ -128,7 +129,7 @@ class FilterJobPreferenceController extends ChangeNotifier{
 
 
   ///---------------------------- Filter for Recruiter Home screen -------------------------------------///
-  List<UserModel> jobSeekerList = [];
+  List<UserWithDeviceTokenModel> jobSeekerList = [];
   Future filterApiForRecruiter(BuildContext context)async{
     final recruiterHomeWatch = ref.watch(recruiterHomeController);
     try{
@@ -147,7 +148,7 @@ class FilterJobPreferenceController extends ChangeNotifier{
           print(response.data);
           List responseData = response.data["data"];
           for(dynamic i in responseData){
-            UserModel jobSeeker = UserModel.fromJson(i);
+            UserWithDeviceTokenModel jobSeeker = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobSeeker);
           }
           recruiterHomeWatch.loadFilterData(jobSeekerList);

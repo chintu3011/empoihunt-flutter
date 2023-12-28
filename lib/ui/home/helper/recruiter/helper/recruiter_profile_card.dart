@@ -5,8 +5,10 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../../../../frame_work/repository/model/user_model/user_with_device_token_model.dart';
+
 class RecruiterProfileCard extends StatelessWidget {
-  final UserModel user;
+  final UserWithDeviceTokenModel user;
   const RecruiterProfileCard({required this.user,super.key});
 
   @override

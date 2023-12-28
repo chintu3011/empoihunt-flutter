@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_with_device_token_model.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -22,7 +23,7 @@ class MakeNewChatController extends ChangeNotifier{
   }
 
 
-  List<UserModel> jobSeekerList=[];
+  List<UserWithDeviceTokenModel> jobSeekerList=[];
   int? totalPages;
   int currentPage= 1;
   bool isLoading = false;
@@ -57,7 +58,7 @@ class MakeNewChatController extends ChangeNotifier{
           totalPages = response.data["total_pages"];
           print(responseData);
           for(dynamic i in responseData){
-            UserModel jobSeeker = UserModel.fromJson(i);
+            UserWithDeviceTokenModel jobSeeker = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobSeeker);
           }
           notifyListeners();
@@ -96,7 +97,7 @@ class MakeNewChatController extends ChangeNotifier{
             totalPages = response.data["total_pages"];
             if (responseData.isNotEmpty) {
               for (dynamic i in responseData) {
-                UserModel jobPostModel = UserModel.fromJson(i);
+                UserWithDeviceTokenModel jobPostModel = UserWithDeviceTokenModel.fromJson(i);
                 jobSeekerList.add(jobPostModel);
               }
               currentPage ++;
@@ -185,7 +186,7 @@ class MakeNewChatController extends ChangeNotifier{
           List responseData = response.data["data"];
           totalPages = response.data["total_pages"];
           for(dynamic i in responseData){
-            UserModel jobPostModel = UserModel.fromJson(i);
+            UserWithDeviceTokenModel jobPostModel = UserWithDeviceTokenModel.fromJson(i);
             jobSeekerList.add(jobPostModel);
           }
           notifyListeners();

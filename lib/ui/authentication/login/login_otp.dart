@@ -106,6 +106,19 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                     // Navigator.pushAndRemoveUntil(context, PageTransition(child: const DashBoard(), type: PageTransitionType.topToBottom,duration: const Duration(milliseconds: 800),childCurrent: this), (route) => false);
                   },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                   SizedBox(height: 10.h,),
+                  loginOtp.second == 0?
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Don't receive code? ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                          InkWell(
+                            borderRadius: BorderRadius.circular(6.r),
+                            onTap: (){
+                              loginOtp.resendVerifyPhoneNumber(phoneNumber: widget.number, context: context);
+                            },
+                              child: Text("Resend Code",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),))
+                        ],
+                      ):
                   Text("Resend OTP in ${loginOtp.second} second",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)
                 ],
               )

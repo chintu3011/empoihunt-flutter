@@ -91,7 +91,8 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                 final jobSeeker = makeNewChatWatch.jobSeekerList[index];
                 return MakeNewChatCard(
                   onTap: (){
-                  Navigator.push(context, PageTransition(child: PersonalChat(profileUrl: jobSeeker.tProfileUrl!, personName: "${jobSeeker.vFirstName} ${jobSeeker.vLastName}", chatPersonFId: jobSeeker.vFirebaseId,), type: PageTransitionType.rightToLeft,childCurrent: widget));
+                    // print(jobSeeker.tDeviceToken);
+                  Navigator.push(context, PageTransition(child: PersonalChat(profileUrl: jobSeeker.tProfileUrl!, personName: "${jobSeeker.vFirstName} ${jobSeeker.vLastName}", chatPersonFId: jobSeeker.vFirebaseId??"",), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: jobSeeker.tProfileUrl!,
                   personName: '${jobSeeker.vFirstName} ${jobSeeker.vLastName}', );

@@ -104,7 +104,20 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
                     await registerOtpWatch.verifyOtp(context: context, selectedUserType:chooseUserRoleWatch.userRole ,childCurrent: widget);
                   },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                   SizedBox(height: 10.h,),
+                  registerOtpWatch.second == 0?
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't receive code? ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                      InkWell(
+                          borderRadius: BorderRadius.circular(6.r),
+                          onTap: (){
+                            registerOtpWatch.resendVerifyPhoneNumber(phoneNumber: widget.phoneNumber, context: context, selectedUserType: ref.read(chooseUserRoleController).userRole,childCurrent: widget);                          },
+                          child: Text("Resend Code",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),))
+                    ],
+                  ):
                   Text("Resend OTP in ${registerOtpWatch.second} second",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)
+
                 ],
               )
             ],

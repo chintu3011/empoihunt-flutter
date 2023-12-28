@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/frame_work/repository/model/messenger_model/chat_user_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_with_device_token_model.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -47,7 +47,7 @@ class MessengerController extends ChangeNotifier{
       if(response.statusCode == 200){
         // print(response.data["data"]);
         isLoading= false;
-        testList.add(ChatAllModel(timeStamp, dateStamp, recentText: recentText, userChat: ChatUserModel.fromJson(response.data["data"])));
+        testList.add(ChatAllModel(timeStamp, dateStamp, recentText: recentText, userChat: UserWithDeviceTokenModel.fromJson(response.data["data"])));
         notifyListeners();
         // chatUserList.add(ChatUserModel.fromJson(response.data["data"]));
       }
@@ -78,7 +78,7 @@ class MessengerController extends ChangeNotifier{
 
 class ChatAllModel{
 
-  final ChatUserModel userChat;
+  final UserWithDeviceTokenModel userChat;
    String recentText;
    String timeStamp;
    String dateStamp;

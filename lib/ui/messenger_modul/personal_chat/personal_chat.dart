@@ -24,7 +24,7 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
     return  Scaffold(
       body: Stack(
         children: [
-           PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken!,),
+           PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken??"",),
           Positioned(
             top: 30.h,
               left: 6.w,

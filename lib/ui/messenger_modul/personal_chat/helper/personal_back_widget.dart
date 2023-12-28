@@ -1,6 +1,7 @@
 import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
 import 'package:emploiflutter/frame_work/repository/model/messenger_model/message_data_model.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/chat_bottom_sheet.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/pesonal_chat_search_dialog.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -146,7 +147,14 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
                personalChatWatch.scrollToBottom();
                personalChatWatch.sendNotification(personalChatWatch.inputController.text,widget.chatPersonDeviceToken);
             }else{
-
+              personalChatWatch.listeningVoice(context, chatPersonFId: widget.chatPersonFId);
+              showDialog(context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return const Dialog(
+                    child: PersonalChatSearchDialog(),
+                  );
+                },);
             }
           },
           icon: Icon(

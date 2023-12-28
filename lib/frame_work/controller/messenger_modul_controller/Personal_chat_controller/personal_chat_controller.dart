@@ -8,12 +8,14 @@ import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../repository/dio_client.dart';
 
@@ -69,6 +71,7 @@ class PersonalChatController extends ChangeNotifier{
         chatPersonId: chatPersonFId);
     scrollToBottom();
     inputController.clear();
+    searchInputController.clear();
     notifyListeners();
   }
 
@@ -307,6 +310,50 @@ class PersonalChatController extends ChangeNotifier{
   }
 
 ///-------------------Api for Notification ---------------///
+  final SpeechToText speechToText = SpeechToText();
+  final searchInputController = TextEditingController();
+
+  listeningVoice(BuildContext context,{required String chatPersonFId})async{
+    isVoiceListening= true;
+    if(isVoiceListening) {
+      final available = await speechToText.initialize();
+      if (available) {
+        speechToText.listen(
+          onResult: (result) {
+            searchInputController.text = result.recognizedWords;
+            notifyListeners();
+            if (result.finalResult) {
+              isVoiceListening= false;
+              context.pop();
+              Future.delayed(const Duration(seconds: 1), () {
+                sendDataToDatabase(chatPersonFId: chatPersonFId, message: searchInputController.text,msgTyp:0);
+              });
+            }else{
+              isVoiceListening= false;
+              speechToText.stop();
+            }
+          },
+          listenMode: ListenMode.search,
+        );
+      } else {
+        speechToText.stop();
+        isVoiceListening= false;
+        notifyListeners();
+      }
+    } else {
+      speechToText.stop();
+      isVoiceListening= false;
+      notifyListeners();
+    }
+    notifyListeners();
+  }
+
+  bool isVoiceListening= false;
+  dialogCancelButton(){
+    isVoiceListening = false;
+    speechToText.stop();
+    notifyListeners();
+  }
 
 @override
   void dispose() {

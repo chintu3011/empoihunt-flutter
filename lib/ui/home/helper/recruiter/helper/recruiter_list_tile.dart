@@ -114,7 +114,11 @@ class RecruiterListTile extends StatelessWidget {
                   enableFeedback: true,
                   textStyle: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),
                   onTriggered: (){
-                    /// call function
+                     Future.delayed(const Duration(milliseconds: 700),()async{
+                      launchUrl(Uri(
+                      scheme: 'mailto',
+                      path: user.vEmail,
+                    ));});
                   },
                   preferBelow: false,
                   child: Card(

@@ -5,6 +5,7 @@ import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileUserDetailTile extends ConsumerWidget {
   final UserModel user;
@@ -88,7 +89,12 @@ class ProfileUserDetailTile extends ConsumerWidget {
                   enableFeedback: true,
                   textStyle: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),
                   onTriggered: (){
-                    /// call function
+                    Future.delayed(const Duration(milliseconds: 700),()async{
+                      await launchUrl(Uri(
+                          scheme: 'tel',
+                          path: user.vMobile
+                      ));
+                    });
                   },
                   preferBelow: false,
                   child: Card(
@@ -116,7 +122,11 @@ class ProfileUserDetailTile extends ConsumerWidget {
                   enableFeedback: true,
                   textStyle: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),
                   onTriggered: (){
-                    /// call function
+                    Future.delayed(const Duration(milliseconds: 700),()async{
+                      launchUrl(Uri(
+                        scheme: 'mailto',
+                        path: user.vEmail,
+                      ));});
                   },
                   preferBelow: false,
                   child: Card(

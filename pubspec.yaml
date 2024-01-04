@@ -86,7 +86,8 @@ dependencies:
   flutter_animate:
 
   just_the_tooltip: ^0.0.12
-
+  geolocator: ^10.1.0
+  permission_handler:
 
 dev_dependencies:
   flutter_test:

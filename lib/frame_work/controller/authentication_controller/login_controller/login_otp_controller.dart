@@ -41,6 +41,8 @@ class LoginOtpController extends ChangeNotifier{
         },
         verificationFailed: (error) {
           debugPrint("verification Failed error --------------->> $error");
+          isLoading =false;
+
         },
         codeSent: (verificationId, forceResendingToken) {
           isLoading= false;

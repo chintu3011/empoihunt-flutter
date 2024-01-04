@@ -20,8 +20,7 @@ class LoginOTP extends ConsumerStatefulWidget {
 class _LoginOTPState extends ConsumerState<LoginOTP> {
   @override
   void initState() {
-    // TODO: implement initState
-    super.initState();
+      super.initState();
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
      await ref.read(loginOtpController).verifyPhoneNumber(phoneNumber: widget.number, context: context);
     });

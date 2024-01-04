@@ -18,7 +18,6 @@
     <string>Give camara access for capturing photos</string>
     <key>NSMicrophoneUsageDescription  </key>
     <string>Give microphone access to get audio</string>
-
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>sms</string>
@@ -27,7 +26,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Emploiflutter</string>
+	<string>Emploihunt</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

@@ -5,7 +5,9 @@ import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../../../ui/utils/app_constant.dart';
 import '../../../repository/api_end_point.dart';
@@ -407,6 +409,27 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   bool isLoading = false;
 
+
+
+  double latitude = 0.0;
+  double longitude = 0.0;
+
+  Future getLocation() async{
+   if(await Permission.location.isGranted){
+     Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+     latitude = position.latitude;
+     longitude = position.longitude;
+     notifyListeners();
+   }else{
+     var status = await Permission.location.request();
+     if(status.isGranted){
+       Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+       latitude = position.latitude;
+       longitude = position.longitude;
+     }
+   }
+  }
+
   Future registerApiCall(BuildContext context) async {
     isLoading = true;
     final uid = FireBaseSingleton.instance.firebaseAuth.currentUser!.uid;
@@ -415,13 +438,14 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     print("FCM Token------->${SharedPrefServices.services.getString(fcmTokenKey)}");
     notifyListeners();
     print(uid);
+    await getLocation();
     try {
       FormData formData = FormData.fromMap({
         "profilePic": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
         "resume":await MultipartFile.fromFile(pdfUrl!, filename: pdfName),
       });
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=""&tLatitude=""&tLongitude=""&tAppVersion=0",
+          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=""&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;

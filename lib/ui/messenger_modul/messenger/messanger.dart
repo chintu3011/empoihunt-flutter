@@ -29,7 +29,7 @@ class _MessengerState extends ConsumerState<Messenger> {
 
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
-      final data = FirebaseDatabase.instance.ref('Mess').child("LatestMessage").child(ref.read(messengerController).currentUser.user.vFirebaseId);
+      final data = FirebaseDatabase.instance.ref('Messenger').child("LatestMessage").child(ref.read(messengerController).currentUser.user.vFirebaseId);
       ref.read(messengerController).makeListOfPersonEmpty();
       data.onChildChanged.listen((event) {
         // print(event.snapshot.key);
@@ -92,12 +92,14 @@ class _MessengerState extends ConsumerState<Messenger> {
 
                     ),
                     SizedBox(width: 10.w,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("${chatPerson.userChat.vFirstName} ${chatPerson.userChat.vLastName}",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),),
-                        Text(chatPerson.recentText,style: TextStyles.w400.copyWith(fontSize: 12 .sp,color: AppColors.colors.greyRegent))
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${chatPerson.userChat.vFirstName} ${chatPerson.userChat.vLastName}",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),),
+                          Text(chatPerson.recentText,style: TextStyles.w400.copyWith(fontSize: 12 .sp,color: AppColors.colors.greyRegent),overflow: TextOverflow.ellipsis,)
+                        ],
+                      ),
                     )
                   ],
                 ),

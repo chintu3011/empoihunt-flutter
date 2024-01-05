@@ -91,7 +91,7 @@ class _SettingState extends ConsumerState<Setting> {
                 ),
               ):const SizedBox(),
               title: Text(userData.vFirstName !=""? "${userData.vFirstName} ${userData.vLastName}":"",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),
-              subtitle: userData.vCurrentCompany !=null ? Text(userData.vCurrentCompany??"",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),):const SizedBox(),
+              subtitle: userData.vCurrentCompany !="" ? Text(userData.vCurrentCompany??"",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),):const SizedBox(),
             ),
             SizedBox(height: 25.h,),
             ...List.generate(

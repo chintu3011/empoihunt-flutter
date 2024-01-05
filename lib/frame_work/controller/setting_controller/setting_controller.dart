@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/applied_candidate_list/applied_candidate_list.dart';
 import 'package:emploiflutter/ui/contact_us/contact_us.dart';
 import 'package:emploiflutter/ui/job_preference/job_preference.dart';
@@ -14,11 +15,13 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/view_applylist/view_applied_job_list.dart';
 import '../../../ui/utils/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';
+import '../dash_board_controller/dash_board_controller.dart';
 
-final settingController = ChangeNotifierProvider((ref) => SettingController());
+final settingController = ChangeNotifierProvider((ref) => SettingController(ref));
 
 class SettingController extends ChangeNotifier{
-
+ Ref ref;
+ SettingController(this.ref);
 
 ///--------------Job Seeker-----------------///
   List<Map<String,dynamic>> seekerSettingList=[
@@ -111,8 +114,8 @@ class SettingController extends ChangeNotifier{
              if (context.mounted) {
                debugPrint("Logout successfully");
                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const Splash()),(route) => false);
+               ref.read(dashBoardController).updateSelectedIndex(0);
              }
-
            }
          }
        }catch(e){

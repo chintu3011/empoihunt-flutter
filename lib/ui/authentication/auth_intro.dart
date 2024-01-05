@@ -6,6 +6,8 @@ import 'package:emploiflutter/ui/authentication/register/helper/choose_register_
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../frame_work/repository/services/hive_service/box_service.dart';
+import '../utils/app_constant.dart';
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
 import '../utils/theme/theme.dart';
@@ -21,6 +23,12 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
 
   @override
   void initState() {
+    final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+    if(user != null){
+      print(user.user.vFirstName);
+    }else{
+      print("no data");
+    }
     // TODO: implement initState
     super.initState();
     ///------------- calling Location api and Store in Shared Preference ----------------///
@@ -42,6 +50,7 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
       backgroundColor: AppColors.colors.clayColors,
       body: SafeArea(
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             children: [
               ClipPath(

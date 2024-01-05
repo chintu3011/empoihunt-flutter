@@ -14,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../repository/services/hive_service/box_service.dart';
+import '../../dash_board_controller/dash_board_controller.dart';
 
 final loginOtpController = ChangeNotifierProvider((ref) => LoginOtpController(ref));
 
@@ -40,9 +41,9 @@ class LoginOtpController extends ChangeNotifier{
             verifyOtp(context: context,number: phoneNumber);
         },
         verificationFailed: (error) {
-          debugPrint("verification Failed error --------------->> $error");
           isLoading =false;
-
+          debugPrint("verification Failed error --------------->> $error");
+          notifyListeners();
         },
         codeSent: (verificationId, forceResendingToken) {
           isLoading= false;
@@ -75,7 +76,9 @@ class LoginOtpController extends ChangeNotifier{
           verifyOtp(context: context,number: phoneNumber);
         },
         verificationFailed: (error) {
+          isLoading =false;
           debugPrint("verification Failed error --------------->> $error");
+          notifyListeners();
         },
         codeSent: (verificationId, forceResendingToken) {
           isLoading= false;

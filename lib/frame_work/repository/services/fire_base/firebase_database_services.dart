@@ -7,7 +7,7 @@ class FirebaseDatabaseServices{
 
   static FirebaseDatabaseServices databaseServices = FirebaseDatabaseServices._();
 
-  final firebaseMessengersRef  = FirebaseDatabase.instance.ref("Mess");
+  final firebaseMessengersRef  = FirebaseDatabase.instance.ref("Messenger");
 
 
   sendMsg({required MessageDataModel msgData, required String currentUserId, required String chatPersonId})  {

@@ -50,11 +50,14 @@ class ProfileUserDetailTile extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "${user.vFirstName} ${user.vLastName}",
-                  style: TextStyles.w600.copyWith(
-                      fontSize: 22.sp,
-                      color: AppColors.colors.blueDark),
+                Expanded(
+                  child: Text(
+                    "${user.vFirstName} ${user.vLastName}",
+                    style: TextStyles.w600.copyWith(
+                        fontSize: 22.sp,
+                        color: AppColors.colors.blueDark),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 Text(
                   user.vCity,

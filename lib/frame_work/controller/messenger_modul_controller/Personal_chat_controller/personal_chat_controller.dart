@@ -34,7 +34,7 @@ class PersonalChatController extends ChangeNotifier{
   bool isSendButtonOn = false;
 
   updateIsSendButtonOn(String input){
-    if(input != ""){
+    if(input.isNotEmpty){
       isSendButtonOn = true;
     }else{
       isSendButtonOn = false;
@@ -71,6 +71,7 @@ class PersonalChatController extends ChangeNotifier{
         chatPersonId: chatPersonFId);
     scrollToBottom();
     inputController.clear();
+    isSendButtonOn = false;
     searchInputController.clear();
     notifyListeners();
   }
@@ -141,7 +142,7 @@ class PersonalChatController extends ChangeNotifier{
   uploadImage({required String fileName, required File filePath,required String chatPersonFId})async{
     try{
       final baseName = basename(filePath.path);
-      final imageRef = firebaseStorage.ref('imagess/chatImages/$currentUser/$chatPersonFId/$baseName');
+      final imageRef = firebaseStorage.ref('images/chatImages/$currentUser/$chatPersonFId/$baseName');
       // Start the file upload
 
       UploadTask uploadTask = imageRef.putFile(filePath);
@@ -172,7 +173,7 @@ class PersonalChatController extends ChangeNotifier{
   uploadDocFile({required String docName, required File docFilePath,required String chatPersonFId})async{
     try{
       final baseName = basename(docFilePath.path);
-      final imageRef = firebaseStorage.ref('docss/chatDocs/$currentUser/$chatPersonFId/$baseName');
+      final imageRef = firebaseStorage.ref('docs/chatDocs/$currentUser/$chatPersonFId/$baseName');
       // Start the file upload
 
       UploadTask uploadTask = imageRef.putFile(docFilePath);
@@ -324,16 +325,14 @@ class PersonalChatController extends ChangeNotifier{
             notifyListeners();
             if (result.finalResult) {
               isVoiceListening= false;
-              context.pop();
               Future.delayed(const Duration(seconds: 1), () {
                 sendDataToDatabase(chatPersonFId: chatPersonFId, message: searchInputController.text,msgTyp:0);
               });
-            }else{
-              isVoiceListening= false;
-              speechToText.stop();
+              context.pop();
             }
           },
           listenMode: ListenMode.search,
+          listenFor: Duration(seconds: 5)
         );
       } else {
         speechToText.stop();

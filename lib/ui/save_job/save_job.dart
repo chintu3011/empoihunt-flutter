@@ -1,5 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/setting_controller/save_job/save_job_controller.dart';
 import 'package:emploiflutter/ui/save_job/helper/save_job_list_card.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
@@ -48,9 +49,7 @@ class _SaveJobState extends ConsumerState<SaveJob> {
     final saveJobWatch = ref.watch(saveJobController);
 
     return Scaffold(
-      appBar: AppBar(
-        title:  Text("Save Job",style: TextStyles.w500.copyWith(fontSize:16.sp,color: AppColors.colors.blackColors)),
-      ),
+      appBar: const CommonAppBar(title: "Save Jobs",isLeadingShow: true,),
       body: RefreshIndicator(
         onRefresh:()async{
           await Future.delayed(const Duration(microseconds: 200));

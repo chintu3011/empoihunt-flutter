@@ -46,7 +46,7 @@ class RegisterCard extends ConsumerWidget {
                             keyboardType: TextInputType.name,
                             controller: registerWatch.firstNameController,
                             onChanged: (value){
-                              notAllowSpecialChar(registerWatch.firstNameController, value);
+                              // notAllowSpecialChar(registerWatch.firstNameController, value);
                               // print(registerWatch.firstNameController.text);
                               },
                         prefixIcon: Icon(
@@ -72,7 +72,7 @@ class RegisterCard extends ConsumerWidget {
                           keyboardType: TextInputType.name,
                           controller: registerWatch.lastNameController,
                           onChanged: (value){
-                            notAllowSpecialChar(registerWatch.lastNameController, value);
+                            // notAllowSpecialChar(registerWatch.lastNameController, value);
                           },
                           prefixIcon: Icon(
                             Icons.person,

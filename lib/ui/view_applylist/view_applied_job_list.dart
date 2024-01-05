@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import '../../frame_work/controller/job_details_controller/job_details_controller.dart';
 import '../job_details/job_details.dart';
 import '../save_job/helper/save_job_list_card.dart';
+import '../utils/common_widget/common_appbar.dart';
 import '../utils/common_widget/common_no_data_found_layout.dart';
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/text_styles.dart';
@@ -45,13 +46,7 @@ class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
 
     final applyListWatch = ref.watch(viewApplyListController);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Your Applied job",
-          style: TextStyles.w400
-              .copyWith(fontSize: 16.sp, color: AppColors.colors.blackColors),
-        ),
-      ),
+      appBar: const CommonAppBar(title: "View Applied Job",isLeadingShow: true,),
       body: RefreshIndicator(
         onRefresh:()async{
           await Future.delayed(const Duration(microseconds: 200));

@@ -12,14 +12,20 @@ class Register extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
-    return const Scaffold(
+    return  Scaffold(
       backgroundColor:  Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              RegisterBackGround()
-            ],
+      body: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+        },
+        child: SafeArea(
+          child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                RegisterBackGround()
+              ],
+            ),
           ),
         ),
       ),

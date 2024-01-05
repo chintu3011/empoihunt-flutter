@@ -61,10 +61,8 @@ class _SettingBottomSheetState extends ConsumerState<SettingBottomSheet> with Si
             children: [
               CommonButton(btnText: "Yes", onPressed: ()async{
                 await settingWatch.singOutApi(context);
-                ref.watch(dashBoardController).updateSelectedIndex(0);
+                await BoxService.boxService.clearAllBoxes();
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
-                await BoxService.boxService.userGetDetailBox.clear();
-                await BoxService.boxService.userModelBox.clear();
               },backgroundColor: AppColors.colors.blueColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h)),
               CommonButton(btnText: "No", onPressed: (){
                 context.pop();

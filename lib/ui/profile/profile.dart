@@ -22,6 +22,7 @@ class _ProfileState extends ConsumerState<Profile> {
   void initState() {
     final user= BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
     super.initState();
+
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
        user.iRole==0? ref.read(profileController).getUserExperienceApi():null;
     });
@@ -29,9 +30,11 @@ class _ProfileState extends ConsumerState<Profile> {
   @override
   Widget build(BuildContext context,) {
     final profileWatch = ref.watch(profileController);
+    final user= BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
     return PopScope(
       canPop: true,
       onPopInvoked: (value){
+        print(profileWatch.userModelData.user.vFirstName);
         profileWatch.userProfileDetailUpdateApi();
       },
       child: CommonShowDialogLayout(
@@ -45,11 +48,11 @@ class _ProfileState extends ConsumerState<Profile> {
               children: [
                 Stack(
                   children: [
-                     ProfileUserDetails(userModel: profileWatch.userModelData.user,),
+                     ProfileUserDetails(userModel: user,),
                     Positioned(
                       left: 120.w,
                         top: 70.h,
-                        child: ProfileProfilePic(userModel: profileWatch.userModelData.user,))
+                        child: ProfileProfilePic(userModel: user,))
                   ],
                 ),
               ],

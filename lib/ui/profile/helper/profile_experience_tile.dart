@@ -39,7 +39,7 @@ class ProfileExperienceTile extends ConsumerWidget {
             ),
             SizedBox(height: 10.h,),
             SizedBox(
-              height: 170.h,
+              height:profileWatch.userExperienceList.isEmpty?20.h: 170.h,
               child:  profileWatch.isExperienceLoading? const Center(child: CircularProgressIndicator(),):
               profileWatch.userExperienceList.isEmpty?  const SizedBox():
               SingleChildScrollView(

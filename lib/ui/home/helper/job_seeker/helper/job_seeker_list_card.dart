@@ -60,23 +60,24 @@ class JobSeekerListCard extends ConsumerWidget {
                             color: AppColors.colors.clayColors),
                         child: Text(
                           "${jobPostModel.vExperience} Years",
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyles.w400.copyWith(
                               fontSize: 12.sp, color: AppColors.colors.whiteColors),
                         ),
                       ),
                     ),
-                    Card(
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4.r),
-                            color: AppColors.colors.clayColors),
-                        child: Text(
-                          jobPostModel.vEducation!,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyles.w400.copyWith(
-                              fontSize: 12.sp, color: AppColors.colors.whiteColors),
+                    Expanded(child: Card(child: Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 6.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4.r),
+                              color: AppColors.colors.clayColors),
+                          child: Text(
+                            jobPostModel.vEducation!,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.w400.copyWith(
+                                fontSize: 12.sp, color: AppColors.colors.whiteColors),
+                          ),
                         ),
                       ),
                     ),

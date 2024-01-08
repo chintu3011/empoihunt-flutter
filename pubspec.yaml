@@ -89,6 +89,9 @@ dependencies:
   geolocator: ^10.1.0
   permission_handler:
 
+# Balloon chat
+popover: ^0.2.9
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,10 +1,12 @@
 
 
+import 'package:emploiflutter/frame_work/controller/splash_controller/splash_controller.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/theme/app_assets.dart';
 import '../../utils/theme/app_color.dart';
@@ -28,8 +30,16 @@ class _SplashUpdateAppBottomSheetState extends ConsumerState<SplashUpdateAppBott
     super.initState();
     controller = AnimationController(vsync: this,duration: const Duration(seconds: 2));
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
+    final splashWatch = ref.watch(splashController);
     return BottomSheet(
       backgroundColor: Colors.white,
       enableDrag: false,
@@ -66,7 +76,9 @@ class _SplashUpdateAppBottomSheetState extends ConsumerState<SplashUpdateAppBott
                   Expanded(
                       child: CommonButton(
                         btnText: "Update",
-                        onPressed: () {},
+                        onPressed: () {
+                          launchUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.amri.emploihunt"));
+                        },
                         fontSize: 12.sp,
                         txtPadding:
                         EdgeInsets.symmetric(vertical: 3.h, horizontal: 30.w),
@@ -80,7 +92,10 @@ class _SplashUpdateAppBottomSheetState extends ConsumerState<SplashUpdateAppBott
                       child:
                       CommonButton(
                         btnText: "No",
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pop();
+                          splashWatch.userAuthenticatedOrNot(context);
+                        },
                         fontSize: 14.sp,
                         onPrimary: AppColors.colors.blueColors,
                         txtPadding:

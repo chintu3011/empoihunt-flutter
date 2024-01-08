@@ -7,6 +7,8 @@ import 'package:emploiflutter/frame_work/repository/model/splash/native_device_m
 import 'package:emploiflutter/frame_work/repository/model/splash/splashmodel.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/splash/helper/splash_blocked_user_bottom_sheet.dart';
+import 'package:emploiflutter/ui/splash/helper/splash_update_app_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -54,30 +56,30 @@ class SplashController extends ChangeNotifier{
           ///-------------- get current application version ---------------////
           int currentAppVersion = int.parse(packageInfo.buildNumber);
           debugPrint("project version $currentAppVersion");
-            await userAuthenticatedOrNot(context);
-            // if(data.isBlock == 0){
-            //   print(data.isBlock);
-            //   if(currentAppVersion == updatedVersion){
-            //     Future.delayed(const Duration(seconds: 2),() {
-            //       userAuthenticatedOrNot(context);
-            //     },);
-            //   }else{
-            //     showModalBottomSheet(
-            //       enableDrag: false,
-            //       isDismissible: false,
-            //       context: context, builder: (context) {
-            //       return  SplashUpdateAppBottomSheet(data.tMessage);
-            //     },);
-            //   }
-            // }else{
-            //   showModalBottomSheet(
-            //     enableDrag: false,
-            //     isDismissible: false,
-            //     context: context, builder: (context) {
-            //     return const SplashBlockedUserBottomSheet();
-            //   },);
-            //   print(data.isBlock);
-            // }
+            // await userAuthenticatedOrNot(context);
+            if(data.isBlock == 0){
+              print(data.isBlock);
+              if(currentAppVersion == updatedVersion){
+                Future.delayed(const Duration(seconds: 2),() {
+                  userAuthenticatedOrNot(context);
+                },);
+              }else{
+                showModalBottomSheet(
+                  enableDrag: false,
+                  isDismissible: false,
+                  context: context, builder: (context) {
+                  return  SplashUpdateAppBottomSheet(data.tMessage);
+                },);
+              }
+            }else{
+              showModalBottomSheet(
+                enableDrag: false,
+                isDismissible: false,
+                context: context, builder: (context) {
+                return const SplashBlockedUserBottomSheet();
+              },);
+              print(data.isBlock);
+            }
         }
       }else{
         debugPrint(response.statusCode.toString());

@@ -1,14 +1,17 @@
+import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:popover/popover.dart';
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar.dart';
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_list_card.dart';
 import 'package:emploiflutter/ui/job_details/job_details.dart';
-import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:lottie/lottie.dart';
 import '../../../utils/common_widget/common_no_data_found_layout.dart';
 import '../../../utils/theme/app_assets.dart';
 import '../../../utils/theme/text_styles.dart';
@@ -23,6 +26,7 @@ class JobSeekerHome extends ConsumerStatefulWidget {
 
 class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -40,8 +44,18 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         ref.read(jobSeekerHomeController).fetchItems();
       }
     });
+    updateHeigthWidth();
   }
+  double boxHeigth = 130.h, boxWidth = 200.w;
 
+  updateHeigthWidth(){
+    Future.delayed(Duration(seconds: 3),(){
+      setState(() {
+        boxHeigth = 100.h;
+        boxWidth = 14.w;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +64,30 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     ));
     final jobSeekerHomeWatch = ref.watch(jobSeekerHomeController);
     return Scaffold(
+      key: _scaffoldKey,
       appBar: const JobSeekerAppbar(),
+     endDrawer:  GestureDetector(
+       onTap: (){
+         _scaffoldKey.currentState!.closeEndDrawer();
+       },
+       child: Drawer(
+         width: MediaQuery.of(context).size.width,
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            children: [
+              Positioned(
+                  right: 30.w,
+                  top: 130.h,
+                  child: IconButton(onPressed: (){
+                    _scaffoldKey.currentState!.closeEndDrawer();
+                    Navigator.push(context, PageTransition(child: Messenger(), type: PageTransitionType.rightToLeft,duration: Duration(milliseconds: 400)));
+                  },icon: Icon(Icons.message),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r))),)),
+            ],
+          ),
+        ),
+     ),
       body: RefreshIndicator(
         onRefresh: () async {
           await Future.delayed(const Duration(milliseconds: 200));
@@ -58,7 +95,6 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         },
         child: Stack(
           children: [
-
             ///----------------------- above list widget -----------------///
             Padding(
               padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
@@ -142,19 +178,32 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
             Positioned(
                 right: 0,
                 top: 35.h,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const Messenger()));
-                  },
-                  child: Container(
-                    height: 80.h,
-                    width: 10.w,
+                child: Card(
+                  margin: EdgeInsets.only(right: 0),
+                  elevation: 50,
+                  shadowColor: Colors.grey,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 700),
+                    height: boxHeigth,
+                    width: boxWidth,
                     decoration: BoxDecoration(
-                      color: AppColors.colors.clayColors,
+                      color:boxWidth <= 20? AppColors.colors.clayColors: AppColors.colors.whiteColors,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(16.r),
                           bottomLeft: Radius.circular(16.r)),
+                    ),
+                    child:boxWidth <= 20? GestureDetector(
+                      onTap: boxWidth <= 20? (){
+                        print("elo");
+                        _scaffoldKey.currentState!.openEndDrawer();
+                        Scaffold.of(context).openDrawer();
+                        // Navigator.push(context, PageTransition(child: Messenger(), type: PageTransitionType.rightToLeft,duration: Duration(milliseconds: 300)));
+                      }:null,
+                    ) : Column(
+                      children: [
+                          Expanded(child: Lottie.asset(AppAssets.chatLottie,height: 130.h,width: 120.w)),
+                          Text("Chat with your friends",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
+                      ],
                     ),
                   ),
                 ))
@@ -164,45 +213,3 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     );
   }
 }
-
-
-/*
-
-          Expanded(child:
-          SingleChildScrollView(
-            controller: jobSeekerHomeWatch.jobPostList.length >= 20? _scrollController:null,
-            physics: jobSeekerHomeWatch.jobPostList.length >= 20? const BouncingScrollPhysics():null,
-            child: Padding(
-              padding: EdgeInsets.only(top: 8.h, left: 10.w, right: 10.w),
-              child: Column(
-                  children:
-                  List.generate(
-                      jobSeekerHomeWatch.loadMoreData?
-                      jobSeekerHomeWatch.jobPostList.length +1:
-                      jobSeekerHomeWatch.jobPostList.length, (index) {
-                    if(index < jobSeekerHomeWatch.jobPostList.length){
-                      final jobList = jobSeekerHomeWatch.jobPostList[index];
-                      return JobSeekerListCard(
-                        jobPostModel: jobList,
-                        onTap: () async{
-                          if(jobList.iIsApplied != 1){
-                            ref.watch(jobDetailsController).intAppliedValue();
-                          }
-                          if(jobList.iIsSaved != 1){
-                            ref.watch(jobDetailsController).provideFavoriteValue(false);
-                          }else {
-                            ref.watch(jobDetailsController).provideFavoriteValue(true);
-                          }
-                          await Navigator.push(context,
-                              MaterialPageRoute(builder: (_) =>  JobDetails(jobDetail: jobList,)));
-                        },
-                      );
-                      }else{
-                      return  const Center(child: CircularProgressIndicator());
-                    }
-                  })
-              ) ,
-            ),
-          ),
-          )
- */

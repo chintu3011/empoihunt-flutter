@@ -35,6 +35,7 @@ class _ProfileState extends ConsumerState<Profile> {
       canPop: true,
       onPopInvoked: (value){
         print(profileWatch.userModelData.user.vFirstName);
+        profileWatch.isDialogShow = false;
         profileWatch.userProfileDetailUpdateApi();
       },
       child: CommonShowDialogLayout(

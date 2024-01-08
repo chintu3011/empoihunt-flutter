@@ -9,6 +9,7 @@
   const String  isUserLoggedIn = "isUserLoggedInKey";
   const String  notificationVKey = "notificationVKey";
 
+  const String  chatBalloonIsFirstTime = "chatBalloonIsTimeKey";
 ///------------ Shared Preference Keys ----------///
 
 ///------------ Hive Box And its Keys ----------///

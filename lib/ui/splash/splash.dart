@@ -1,4 +1,6 @@
 import 'package:emploiflutter/frame_work/controller/splash_controller/splash_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import '../utils/theme/app_assets.dart';
@@ -20,11 +22,7 @@ class _SplashState extends ConsumerState<Splash> {
      await ref.read(splashController).getDeviceDetails();
      // await ref.read(splashController).getAppVersion();
     });
-    // Timer(
-    //     const Duration(seconds: 3),
-    //         (){
-    //           ref.read(splashController).checkUserOpenAppFirstTime(context);
-    //     });
+    SharedPrefServices.services.setBool(chatBalloonIsFirstTime, true);
   }
   @override
   Widget build(BuildContext context) {

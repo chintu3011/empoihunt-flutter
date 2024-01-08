@@ -1,4 +1,5 @@
 import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/home/helper/recruiter/helper/recruiter_appbar.dart';
 import 'package:emploiflutter/ui/home/helper/recruiter/helper/recruiter_list_tile.dart';
 import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import '../../../utils/app_constant.dart';
 import '../../../utils/common_widget/common_no_data_found_layout.dart';
 import '../../../utils/theme/app_assets.dart';
 import '../../../utils/theme/text_styles.dart';
@@ -27,8 +29,9 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp)async {
       ref.read(recruiterHomeController).getJobSeekerApiCall();
+      SharedPrefServices.services.getBool(chatBalloonIsFirstTime)? updateHeigthWidth():null;
     });
     debugPrint("Recruiter Home init call");
     _scrollController.addListener(() {
@@ -38,7 +41,6 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
         ref.read(recruiterHomeController).fetchItems();
       }
     });
-    updateHeigthWidth();
   }
 
 
@@ -123,7 +125,15 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                 margin: EdgeInsets.only(right: 0),
                 elevation: 50,
                 shadowColor: Colors.grey,
-                child: AnimatedContainer(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16.r),
+                        bottomLeft: Radius.circular(16.r))                ),
+                child:SharedPrefServices.services.getBool(chatBalloonIsFirstTime)?
+                AnimatedContainer(
+                  onEnd: () {
+                    SharedPrefServices.services.setBool(chatBalloonIsFirstTime,false);
+                  },
                   duration: Duration(milliseconds: 700),
                   height: boxHeigth,
                   width: boxWidth,
@@ -137,7 +147,6 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                     onTap: boxWidth <= 20? (){
                       print("elo");
                       _scaffoldKey.currentState!.openEndDrawer();
-                      Scaffold.of(context).openDrawer();
                       // Navigator.push(context, PageTransition(child: Messenger(), type: PageTransitionType.rightToLeft,duration: Duration(milliseconds: 300)));
                     }:null,
                   ) : Column(
@@ -146,7 +155,19 @@ class _RecruiterHomeState extends ConsumerState<RecruiterHome> {
                       Text("Chat with your friends",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
                     ],
                   ),
-                ),
+                ):
+                GestureDetector(
+                  onTap: (){
+                    _scaffoldKey.currentState!.openEndDrawer();
+                  },
+                    child: Container(
+                      height:100.h,width: 14.w,
+                      decoration: BoxDecoration(
+                        color: AppColors.colors.clayColors,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(16.r),
+                            bottomLeft: Radius.circular(16.r)),
+                      ),)),
               ))
         ],
       ),

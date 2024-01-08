@@ -1,4 +1,5 @@
 import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:popover/popover.dart';
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
@@ -12,6 +13,7 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../frame_work/repository/services/shared_pref_services.dart';
 import '../../../utils/common_widget/common_no_data_found_layout.dart';
 import '../../../utils/theme/app_assets.dart';
 import '../../../utils/theme/text_styles.dart';
@@ -35,6 +37,8 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) async{
       await ref.read(jobSeekerHomeController).getJobPrefApiCall();
       await ref.read(jobSeekerHomeController).getJobsPostApiCall();
+      SharedPrefServices.services.getBool(chatBalloonIsFirstTime)? updateHeigthWidth():null;
+
     });
     debugPrint("Job seeker Home init call");
     _scrollController.addListener(() {
@@ -44,8 +48,8 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         ref.read(jobSeekerHomeController).fetchItems();
       }
     });
-    updateHeigthWidth();
   }
+
   double boxHeigth = 130.h, boxWidth = 200.w;
 
   updateHeigthWidth(){
@@ -182,7 +186,15 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                   margin: EdgeInsets.only(right: 0),
                   elevation: 50,
                   shadowColor: Colors.grey,
-                  child: AnimatedContainer(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.r),
+                          bottomLeft: Radius.circular(16.r))                ),
+                  child:SharedPrefServices.services.getBool(chatBalloonIsFirstTime)?
+                  AnimatedContainer(
+                    onEnd: () {
+                      SharedPrefServices.services.setBool(chatBalloonIsFirstTime,false);
+                    },
                     duration: Duration(milliseconds: 700),
                     height: boxHeigth,
                     width: boxWidth,
@@ -194,18 +206,28 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                     ),
                     child:boxWidth <= 20? GestureDetector(
                       onTap: boxWidth <= 20? (){
-                        print("elo");
                         _scaffoldKey.currentState!.openEndDrawer();
-                        Scaffold.of(context).openDrawer();
                         // Navigator.push(context, PageTransition(child: Messenger(), type: PageTransitionType.rightToLeft,duration: Duration(milliseconds: 300)));
                       }:null,
                     ) : Column(
                       children: [
-                          Expanded(child: Lottie.asset(AppAssets.chatLottie,height: 130.h,width: 120.w)),
-                          Text("Chat with your friends",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
+                        Expanded(child: Lottie.asset(AppAssets.chatLottie,height: 130.h,width: 120.w)),
+                        Text("Chat with your friends",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)
                       ],
                     ),
-                  ),
+                  ):
+                  GestureDetector(
+                      onTap: (){
+                        _scaffoldKey.currentState!.openEndDrawer();
+                      },
+                      child: Container(
+                        height:100.h,width: 14.w,
+                        decoration: BoxDecoration(
+                          color: AppColors.colors.clayColors,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16.r),
+                              bottomLeft: Radius.circular(16.r)),
+                        ),)),
                 ))
           ],
         ),

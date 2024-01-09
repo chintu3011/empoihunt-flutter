@@ -64,18 +64,34 @@ class SplashController extends ChangeNotifier{
             // await userAuthenticatedOrNot(context);
             if(data.isBlock == 0){
               print(data.isBlock);
-              if(int.parse(currentAppVersion.buildNumber) < updatedVersion ){
-                showModalBottomSheet(
-                  enableDrag: false,
-                  isDismissible: false,
-                  context: context, builder: (context) {
-                  return  SplashUpdateAppBottomSheet(data.tMessage);
-                },);
+              if(Platform.isIOS){
+                if(int.parse(currentAppVersion.buildNumber) < updatedVersionForIos ){
+                  showModalBottomSheet(
+                    enableDrag: false,
+                    isDismissible: false,
+                    context: context, builder: (context) {
+                    return  SplashUpdateAppBottomSheet(data.tMessage);
+                  },);
+                }else{
+                  Future.delayed(const Duration(seconds: 2),() {
+                    userAuthenticatedOrNot(context);
+                  },);
+                }
               }else{
-                Future.delayed(const Duration(seconds: 2),() {
-                  userAuthenticatedOrNot(context);
-                },);
+                if(int.parse(currentAppVersion.buildNumber) < updatedVersion ){
+                  showModalBottomSheet(
+                    enableDrag: false,
+                    isDismissible: false,
+                    context: context, builder: (context) {
+                    return  SplashUpdateAppBottomSheet(data.tMessage);
+                  },);
+                }else{
+                  Future.delayed(const Duration(seconds: 2),() {
+                    userAuthenticatedOrNot(context);
+                  },);
+                }
               }
+
             }else{
               showModalBottomSheet(
                 enableDrag: false,

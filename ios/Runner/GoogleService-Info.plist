@@ -27,7 +27,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:881312176002:ios:d1c7ca9c20c71e9845219b</string>
+	<string>1:881312176002:ios:5385a6f842434a8545219b</string>
 	<key>DATABASE_URL</key>
 	<string>https://emploi-hunt-default-rtdb.firebaseio.com</string>
 </dict>

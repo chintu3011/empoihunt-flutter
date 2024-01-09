@@ -15,6 +15,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../repository/model/user_model/user_detail_data_model.dart';
+import 'register_controller.dart';
 
 final recruiterRegisterProfileDetailsController = ChangeNotifierProvider(
     (ref) => RecruiterRegisterProfileDetailsController(ref));
@@ -267,8 +268,9 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
         "profilePic": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
         "resume":"",
       });
+      int userDeletedValue  = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine=""&tLatitude=$latitude&tLongitude=$longitude&tAppVersion=0",
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine=""&tLatitude=$latitude&tLongitude=$longitude&tAppVersion=0&isDeleted=$userDeletedValue",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;

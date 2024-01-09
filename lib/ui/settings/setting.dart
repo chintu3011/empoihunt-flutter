@@ -1,6 +1,6 @@
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/profile.dart';
-import 'package:emploiflutter/ui/settings/helper/setting_bottom_sheet.dart';
+import 'package:emploiflutter/ui/settings/helper/setting_log_out_bottom_sheet.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
@@ -44,7 +44,7 @@ class _SettingState extends ConsumerState<Setting> {
         showModalBottomSheet(
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
             context: context,
-            builder: (context) => const SettingBottomSheet());
+            builder: (context) => const SettingLogoutBottomSheet());
       }, icon: Icon(Icons.logout_outlined,color: AppColors.colors.blackColors,))
       ],),
       body: Padding(

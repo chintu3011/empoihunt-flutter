@@ -8,13 +8,13 @@ class SplashModel {
   SplashModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -27,6 +27,10 @@ class Data {
   int? isForceUpdate;
   String? tMessage;
   int? isBlock;
+  int? isDeleted;
+  int? latestAppVersionCodeIOS;
+  int? isForceUpdateIOS;
+  String? tMessageIOS;
   Nothing? nothing;
 
   Data(
@@ -34,6 +38,10 @@ class Data {
         this.isForceUpdate,
         this.tMessage,
         this.isBlock,
+        this.isDeleted,
+        this.latestAppVersionCodeIOS,
+        this.isForceUpdateIOS,
+        this.tMessageIOS,
         this.nothing});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -41,41 +49,49 @@ class Data {
     isForceUpdate = json['isForceUpdate'];
     tMessage = json['tMessage'];
     isBlock = json['isBlock'];
+    isDeleted = json['isDeleted'];
+    latestAppVersionCodeIOS = json['latestAppVersionCodeIOS'];
+    isForceUpdateIOS = json['isForceUpdateIOS'];
+    tMessageIOS = json['tMessageIOS'];
     nothing =
-    json['nothing'] != null ? Nothing.fromJson(json['nothing']) : null;
+    json['nothing'] != null ? new Nothing.fromJson(json['nothing']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['latestAppVersionCode'] = latestAppVersionCode;
-    data['isForceUpdate'] = isForceUpdate;
-    data['tMessage'] = tMessage;
-    data['isBlock'] = isBlock;
-    if (nothing != null) {
-      data['nothing'] = nothing!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['latestAppVersionCode'] = this.latestAppVersionCode;
+    data['isForceUpdate'] = this.isForceUpdate;
+    data['tMessage'] = this.tMessage;
+    data['isBlock'] = this.isBlock;
+    data['isDeleted'] = this.isDeleted;
+    data['latestAppVersionCodeIOS'] = this.latestAppVersionCodeIOS;
+    data['isForceUpdateIOS'] = this.isForceUpdateIOS;
+    data['tMessageIOS'] = this.tMessageIOS;
+    if (this.nothing != null) {
+      data['nothing'] = this.nothing!.toJson();
     }
     return data;
   }
 }
 
 class Nothing {
-  String? vKey;
   String? vName;
+  String? vKey;
   int? id;
 
-  Nothing({this.vKey, this.vName, this.id});
+  Nothing({this.vName, this.vKey, this.id});
 
   Nothing.fromJson(Map<String, dynamic> json) {
-    vKey = json['vKey'];
     vName = json['vName'];
+    vKey = json['vKey'];
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['vKey'] = vKey;
-    data['vName'] = vName;
-    data['id'] = id;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['vName'] = this.vName;
+    data['vKey'] = this.vKey;
+    data['id'] = this.id;
     return data;
   }
 }

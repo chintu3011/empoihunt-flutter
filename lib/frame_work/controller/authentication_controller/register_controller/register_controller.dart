@@ -54,13 +54,19 @@ class RegisterController extends ChangeNotifier{
   }
   /// ----------------------------Country Picker--------------------------------///
 
+    int userDeleted = 0;
 
   registerButton(BuildContext context) async{
     if(registerKey.currentState!.validate()){
       if(cityController.text !=""){
         if(isCheck){
             final status = await checkUserRegistered(phoneNumberController.text);
-            if(status.status == 404){
+            if(status.status == 404 || status.status == 303){
+              if(status.status == 303){
+                userDeleted = 1;
+              }else{
+                userDeleted = 0;
+              }
               /// assign data for register api call ///
               ref.read(recruiterRegisterProfileDetailsController).assignRegisterData(phone: "${selectedCountry.phoneCode}${phoneNumberController.text}", firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
               ref.read(jobSeekerRegisterProfileDetailsController).assignRegisterData(phone: "${selectedCountry.phoneCode}${phoneNumberController.text}", firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
@@ -72,7 +78,7 @@ class RegisterController extends ChangeNotifier{
                     duration: const Duration(milliseconds: 300)));
                 clearForms();
               }
-            }else if(status.status == 200){
+            }else if(status.status == 200 ){
               if(context.mounted){
                 appCommonShowToast(context: context, msg: 'Opps! sorry you\'ve already register',action: SnackBarAction(label: "Login", onPressed: (){
                   context.pop();
@@ -120,14 +126,15 @@ class RegisterController extends ChangeNotifier{
       debugPrint(selectedCountry.phoneCode);
       Response response = await DioClient.client.getData("${APIEndPoint.checkUserExisting}${selectedCountry.phoneCode}$number");
       if(response.statusCode == 200){
-        debugPrint(response.data);
         CheckUserExistModel checkUserExistModel = CheckUserExistModel.fromJson(response.data);
+        print(checkUserExistModel.status);
         return CheckUserExistModel(status: checkUserExistModel.status);
       }else{
         debugPrint(response.statusCode.toString());
         return CheckUserExistModel(status: response.statusCode);
       }
     }catch(e){
+      // print(e.toString());
       return CheckUserExistModel(status: 404);
     }
   }

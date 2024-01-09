@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/job_preference/job_preference.dart';
 import 'package:emploiflutter/ui/manages_jobs/manages_jobs.dart';
 import 'package:emploiflutter/ui/privacy_policy/privacy_policy.dart';
 import 'package:emploiflutter/ui/save_job/save_job.dart';
+import 'package:emploiflutter/ui/settings/helper/setting_delete_ac_bottom_sheet.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
@@ -31,6 +32,7 @@ class SettingController extends ChangeNotifier{
     {"Icon": Icons.phone,"Text":"Contact Us"},
     {"Icon": Icons.security,"Text":"Privacy Policy"},
     {"Icon": Icons.menu_book_rounded,"Text":"Terms & Condition"},
+    {"Icon": Icons.delete,"Text":"Delete account"},
   ];
 
   seekerNavigatingToList(int index,BuildContext context){
@@ -59,6 +61,12 @@ class SettingController extends ChangeNotifier{
         context.push(const TermsAndCondition());
         // Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
         break;
+      case 6:
+        showModalBottomSheet(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            context: context,
+            builder: (context) => const SettingDeleteAcBottomSheet());
+         break;
     }
   }
 ///--------------Job Seeker-----------------///
@@ -70,6 +78,7 @@ class SettingController extends ChangeNotifier{
     {"Icon": Icons.phone,"Text":"Contact Us"},
     {"Icon": Icons.security,"Text":"Privacy Policy"},
     {"Icon": Icons.menu_book_rounded,"Text":"Terms & Condition"},
+    {"Icon": Icons.delete,"Text":"Delete account"},
   ];
 
   recruiterNavigatingToList(int index,BuildContext context){
@@ -94,6 +103,12 @@ class SettingController extends ChangeNotifier{
         context.push(const TermsAndCondition());
         // Navigator.push(context, MaterialPageRoute(builder: (_)=>const TermsAndCondition()));
         break;
+      case 5:
+        showModalBottomSheet(
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            context: context,
+            builder: (context) => const SettingDeleteAcBottomSheet());
+        break;
     }
   }
 ///--------------Recruiter ----------------////
@@ -114,7 +129,6 @@ class SettingController extends ChangeNotifier{
              if (context.mounted) {
                debugPrint("Logout successfully");
                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const Splash()),(route) => false);
-               ref.read(dashBoardController).updateSelectedIndex(0);
              }
            }
          }
@@ -123,4 +137,29 @@ class SettingController extends ChangeNotifier{
        }
        notifyListeners();
     }
+
+ Future deleteAccountApi(BuildContext context)async{
+   try{
+     final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+     if(user != null) {
+       Options options = Options(
+           headers: {
+             'Accept': 'application/json',
+             'Authorization': 'Bearer ${user.tAuthToken}',
+           }
+       );
+       Response response = await DioClient.client.postDataWithBearerToken(
+           APIEndPoint.deleteAccountApi, options);
+       if (response.statusCode == 200) {
+         if (context.mounted) {
+           debugPrint("Delete successfully");
+           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const Splash()),(route) => false);
+         }
+       }
+     }
+   }catch(e){
+     Future.error(" setting screen------->$e");
+   }
+   notifyListeners();
+ }
 }

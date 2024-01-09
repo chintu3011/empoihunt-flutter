@@ -52,23 +52,28 @@ class SplashController extends ChangeNotifier{
 
           await SharedPrefServices.services.setString(notificationVKey, data!.nothing!.vKey!);
          int  updatedVersion = data.latestAppVersionCode!;
-          debugPrint(" update api app version--->>>> $updatedVersion");
+         int updatedVersionForIos = data.latestAppVersionCodeIOS!;
+          debugPrint(" update api app version android--->>>> $updatedVersion");
+          debugPrint(" update api app version ios--->>>> $updatedVersionForIos");
           ///-------------- get current application version ---------------////
-          int currentAppVersion = int.parse(packageInfo.buildNumber);
-          debugPrint("project version $currentAppVersion");
+          // int currentAppVersion = int.parse(packageInfo.buildNumber);
+
+          PackageInfo currentAppVersion = await PackageInfo.fromPlatform();
+
+          debugPrint("project version ${currentAppVersion}");
             // await userAuthenticatedOrNot(context);
             if(data.isBlock == 0){
               print(data.isBlock);
-              if(currentAppVersion == updatedVersion){
-                Future.delayed(const Duration(seconds: 2),() {
-                  userAuthenticatedOrNot(context);
-                },);
-              }else{
+              if(int.parse(currentAppVersion.buildNumber) < updatedVersion ){
                 showModalBottomSheet(
                   enableDrag: false,
                   isDismissible: false,
                   context: context, builder: (context) {
                   return  SplashUpdateAppBottomSheet(data.tMessage);
+                },);
+              }else{
+                Future.delayed(const Duration(seconds: 2),() {
+                  userAuthenticatedOrNot(context);
                 },);
               }
             }else{

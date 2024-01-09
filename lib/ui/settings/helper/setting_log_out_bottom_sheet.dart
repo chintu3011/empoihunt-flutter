@@ -1,4 +1,3 @@
-import 'package:emploiflutter/frame_work/controller/dash_board_controller/dash_board_controller.dart';
 import 'package:emploiflutter/frame_work/controller/setting_controller/setting_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
@@ -11,15 +10,17 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
+import '../../../frame_work/controller/dash_board_controller/dash_board_controller.dart';
 
-class SettingBottomSheet extends ConsumerStatefulWidget{
-  const SettingBottomSheet({super.key});
+
+class SettingLogoutBottomSheet extends ConsumerStatefulWidget{
+  const SettingLogoutBottomSheet({super.key});
 
   @override
-  ConsumerState<SettingBottomSheet> createState() => _SettingBottomSheetState();
+  ConsumerState<SettingLogoutBottomSheet> createState() => _SettingLogoutBottomSheetState();
 }
 
-class _SettingBottomSheetState extends ConsumerState<SettingBottomSheet> with SingleTickerProviderStateMixin {
+class _SettingLogoutBottomSheetState extends ConsumerState<SettingLogoutBottomSheet> with SingleTickerProviderStateMixin {
 
   late AnimationController logoutController;
 
@@ -45,24 +46,29 @@ class _SettingBottomSheetState extends ConsumerState<SettingBottomSheet> with Si
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Are you sure you want to log out?",style: TextStyles.w400.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors),),
-          Align(
-            alignment: Alignment.center,
-              child: Lottie.asset(
-                controller: logoutController,
-                AppAssets.logOutLottie,width: 180.w,
-                height: 180.h,
-                onLoaded: (_){
-                  logoutController.repeat();
-                },
-                fit: BoxFit.fill,)),
+          Text("Are you sure you want to log out?",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: AppColors.colors.blackColors),),
+          Expanded(
+            child: Align(
+              alignment: Alignment.center,
+                child: Lottie.asset(
+                  controller: logoutController,
+                  AppAssets.logOutLottie,width: 180.w,
+                  height: 200.h,
+                  onLoaded: (_){
+                    logoutController.repeat();
+                  },
+                  fit: BoxFit.fill,)),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CommonButton(btnText: "Yes", onPressed: ()async{
-                await settingWatch.singOutApi(context);
-                await BoxService.boxService.clearAllBoxes();
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
+                await settingWatch.singOutApi(context);
+                Future.delayed(Duration(milliseconds: 700),(){
+                  ref.read(dashBoardController).updateSelectedIndex(0);
+                  BoxService.boxService.clearAllBoxes();
+                });
               },backgroundColor: AppColors.colors.blueColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h)),
               CommonButton(btnText: "No", onPressed: (){
                 context.pop();

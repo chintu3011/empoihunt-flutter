@@ -52,7 +52,7 @@ class LoginController  extends ChangeNotifier{
               duration: const Duration(milliseconds: 300)), (route) => false);
           phoneNumberController.clear();
         }
-      }else if(status.status == 404){
+      }else if(status.status == 404 || status.status ==303){
         if(context.mounted){
           appCommonShowToast(context: context, msg: 'Opps! sorry you haven\'t register yet \n Please register',action: SnackBarAction(label: "Register", onPressed: (){
             phoneNumberController.clear();
@@ -76,15 +76,16 @@ class LoginController  extends ChangeNotifier{
       print(number);
       print(selectedCountry.phoneCode);
       Response response = await DioClient.client.getData("${APIEndPoint.checkUserExisting}${selectedCountry.phoneCode}$number");
+      // print("login status Code ${response.statusCode}");
       if(response.statusCode == 200){
-        print(response.data);
         CheckUserExistModel checkUserExistModel = CheckUserExistModel.fromJson(response.data);
         return CheckUserExistModel(status: checkUserExistModel.status);
       }else{
-        debugPrint(response.statusCode.toString());
+        // debugPrint(response.statusCode.toString());
         return CheckUserExistModel(status: response.statusCode);
       }
     }catch(e){
+      // print(e.toString());
       return CheckUserExistModel(status: 404);
     }
   }

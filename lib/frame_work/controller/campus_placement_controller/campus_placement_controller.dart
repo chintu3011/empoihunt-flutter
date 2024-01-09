@@ -283,5 +283,41 @@ class CampusPlacementController extends ChangeNotifier{
     // print(vacancy);
   return jobRoleList;
   }
+
+
+
+  getEpochTimeToDateFormate(int epochTimestamp){
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(epochTimestamp * 1000);
+
+    String formattedDate = "${dateTime.day.toString().padLeft(2, '0')}-"
+        "${dateTime.month.toString().padLeft(2, '0')}-"
+        "${(dateTime.year % 100).toString().padLeft(2, '0')}";
+
+    return formattedDate;
+  }
+
+
+  getEpochPostRemainingTime(int campusModelRegistrationEndDate ){
+    DateTime currentTime = DateTime.now();
+
+    int differenceSec = (campusModelRegistrationEndDate ) - (currentTime.millisecondsSinceEpoch ~/ 1000);
+   print(campusModelRegistrationEndDate);
+
+    int days = differenceSec ~/ (60 * 60 * 24);
+    int remainder1 = differenceSec % 86400;
+    int hour = remainder1 ~/ (60 * 60);
+    int remainder = differenceSec % 3600;
+    int minutes = remainder ~/ 60;
+
+    print("Difference in seconds: $differenceSec");
+
+    if (days != 0) {
+      return "$days\d- $hour\h- $minutes\m";
+    } else if (hour != 0) {
+      return "$hour\h- $minutes\m";
+    } else if (minutes != 0) {
+       return "$minutes\m";
+    }
+  }
 }
 

@@ -49,18 +49,20 @@ class CampusDetailCard extends ConsumerWidget {
                             child: Text(campusJobDetailModel.vCampusName!,style: TextStyles.w500.copyWith(fontSize: 30.sp,color: AppColors.colors.blueColors),overflow: TextOverflow.ellipsis,maxLines: 1,)),
                         Container(
                           width: size.width * 0.43,
+                          alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(horizontal: 6.w,vertical: 6.h),
                           decoration: BoxDecoration(
                               color: AppColors.colors.clayColors,
                               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.r),bottomRight: Radius.circular(10.r))
                           ),
-                          child: FittedBox(child: Text("-26d -21h -17m Remaining",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)),
+                          child: Text("${campusPlacementWatch.getEpochPostRemainingTime(int.parse(campusJobDetailModel.tRegistrationEndDate!))} Remaining",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
                         ),
                       ],
                     ),
-                    campusJobDetailModel.tCampusAddress !=null?Text(campusJobDetailModel.tCampusAddress!,style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),):const SizedBox(
-
-                    ),
+                    campusJobDetailModel.tCampusAddress !=null?
+                    Text(campusJobDetailModel.tCampusAddress!,style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)
+                        :
+                    const SizedBox(),
                   ],
                 ),
               ),
@@ -77,7 +79,7 @@ class CampusDetailCard extends ConsumerWidget {
                       color: AppColors.colors.blueColors,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.r),bottomRight: Radius.circular(10.r))
                   ),
-                  child: FittedBox(child: Text("8-12-2023",style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),)),
+                  child: FittedBox(child: Text(campusPlacementWatch.getEpochTimeToDateFormate(int.parse(campusJobDetailModel.tCreatedAt!)),style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.whiteColors),)),
                 ),
               ),
               Padding(

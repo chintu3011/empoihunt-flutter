@@ -11,7 +11,7 @@ class CampusDetailTable extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final campusPlacement = ref.watch(campusPlacementController);
+    final campusPlacementWatch = ref.watch(campusPlacementController);
     final size = MediaQuery.of(context).size;
     return  Column(
       children: [
@@ -41,10 +41,10 @@ class CampusDetailTable extends ConsumerWidget {
           ],
         ),
         ...List.generate(
-            campusPlacement.isShowAllTheJobRole ?
-            3:
-            campusPlacement.getJobRoleList(campusPlacementModel.tVacancy!).length, (index) {
-          final tableData = campusPlacement.getJobRoleList(campusPlacementModel.tVacancy!)[index];
+    campusPlacementWatch.isShowAllTheJobRole && currentIndex ==  campusPlacementWatch.selectedJobRoleIndex?
+    campusPlacementWatch.getJobRoleList(campusPlacementModel.tVacancy!).length:
+            3, (index) {
+          final tableData = campusPlacementWatch.getJobRoleList(campusPlacementModel.tVacancy!)[index];
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

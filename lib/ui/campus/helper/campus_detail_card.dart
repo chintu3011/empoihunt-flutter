@@ -91,9 +91,8 @@ class CampusDetailCard extends ConsumerWidget {
                         Text("Required job Role",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
                         campusPlacementWatch.getJobRoleList(campusJobDetailModel.tVacancy!).length >=3?
                         IconButton(onPressed: (){
-
                           campusPlacementWatch.updateIsShowAllTheJobRole(currentIndex);
-                        }, icon:campusPlacementWatch.isShowAllTheJobRole? Icon(Icons.arrow_downward_outlined,size: 16.sp,): Icon(Icons.arrow_upward_outlined,size: 16.sp,)):
+                        }, icon:currentIndex ==  campusPlacementWatch.selectedJobRoleIndex && campusPlacementWatch.isShowAllTheJobRole ? Icon(Icons.arrow_downward_outlined,size: 16.sp,): Icon(Icons.arrow_upward_outlined,size: 16.sp,)):
                         const SizedBox()
                       ],
                     ),

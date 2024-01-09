@@ -239,9 +239,17 @@ class CampusPlacementController extends ChangeNotifier{
 
   ///---------------------------------------- Search Feature ----------------------------------------///
 
-  bool isShowAllTheJobRole = true;
-  updateIsShowAllTheJobRole(int index){
+  bool isShowAllTheJobRole = false;
+  int selectedJobRoleIndex = -1;
+  updateIsShowAllTheJobRole(int index,){
     isShowAllTheJobRole = !isShowAllTheJobRole;
+    selectedJobRoleIndex = index;
+    if(isShowAllTheJobRole){
+      if(selectedJobRoleIndex != index){
+        selectedJobRoleIndex = -1;
+      }
+    }
+
     notifyListeners();
   }
 

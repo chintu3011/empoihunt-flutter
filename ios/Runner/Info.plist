@@ -61,9 +61,9 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Permission required for searching something</string>
+	<string>Permission required through voice command/string>
 	<key>NSMicrophoneUsageDescription </key>
-	<string>Permission required for searching something</string>
+	<string>Permission required through voice command</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

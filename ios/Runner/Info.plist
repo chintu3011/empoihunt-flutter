@@ -29,8 +29,6 @@
 	<string>Give permission for gallery access</string>
     <key>NSCameraUsageDescription</key>
     <string>Give camara access for capturing photos</string>
-    <key> </key>
-    <string>Give microphone access to get audio</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>sms</string>

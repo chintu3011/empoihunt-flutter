@@ -34,16 +34,21 @@ class _RegisterProfileDetailsState extends ConsumerState<RecruiterRegisterProfil
     ));
     return CommonLoading(
       show: ref.watch(recruiterRegisterProfileDetailsController).isLoading,
-      child: const Scaffold(
-        backgroundColor:  Colors.white,
-        appBar: RecruiterRegisterProfileDetailsAppBar(),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: Column(
-              children: [
-                    RecruiterRegisterProfileDetailsBackGround(),
-              ],
+      child: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+        },
+        child: const Scaffold(
+          backgroundColor:  Colors.white,
+          appBar: RecruiterRegisterProfileDetailsAppBar(),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              physics: ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                      RecruiterRegisterProfileDetailsBackGround(),
+                ],
+              ),
             ),
           ),
         ),

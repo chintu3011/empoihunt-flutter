@@ -15,22 +15,27 @@ class CommonShowDialogLayout extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final size = MediaQuery.sizeOf(context);
     final profileWatch = ref.watch(profileController);
-    return Material(
-      child: Stack(
-        children: [
-          child,
-          if (show)
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaY: 1, sigmaX: 1),
-              child: Container(
-                height: size.height,
-                width: size.width,
-                color: Colors.black45,
-                child:  Center(
-                    child: profileWatch.jobSeekerShowDialogs()),
-              ),
-            )
-        ],
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Material(
+        child: Stack(
+          children: [
+            child,
+            if (show)
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaY: 1, sigmaX: 1),
+                child: Container(
+                  height: size.height,
+                  width: size.width,
+                  color: Colors.black45,
+                  child:  Center(
+                      child: profileWatch.jobSeekerShowDialogs()),
+                ),
+              )
+          ],
+        ),
       ),
     );
   }

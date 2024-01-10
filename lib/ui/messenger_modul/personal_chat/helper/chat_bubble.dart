@@ -28,7 +28,6 @@ class _ChatBubbleState extends ConsumerState<ChatBubble> {
     final currentUserId = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.vFirebaseId;
     return Column(
       children: [
-
         ///------ chat bubble ------///
        widget.chat.message != ""?
        widget.chat.msgType == 2?const SizedBox(): Row(

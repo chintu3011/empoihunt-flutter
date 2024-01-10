@@ -12,14 +12,19 @@ class Login extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle( SystemUiOverlayStyle(
       statusBarColor: AppColors.colors.clayColors,
     ));
-    return const Scaffold(
-      backgroundColor:  Colors.white,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              LoginBackGround()
-            ],
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: const Scaffold(
+        backgroundColor:  Colors.white,
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                LoginBackGround()
+              ],
+            ),
           ),
         ),
       ),

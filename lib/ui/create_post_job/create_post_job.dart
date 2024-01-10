@@ -40,8 +40,8 @@ class CreatePostJob extends ConsumerWidget {
                   direction: AxisDirection.down,
                   onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.jobTitleFieldController, value),
                   controller: createPostJobWatch.jobTitleFieldController,
-                  hintText: "City",
-                  labelText: "City",
+                  hintText: "Job Title",
+                  labelText: "Job Title",
                   suggestionsCallback: (pattern) =>
                       createPostJobWatch.checkJobTitle(pattern),
                   onSuggestionSelected: (value) =>

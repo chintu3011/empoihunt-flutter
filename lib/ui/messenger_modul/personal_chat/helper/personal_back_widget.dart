@@ -52,7 +52,7 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
     return Column(children: [
       Container(
         width: size.width.w,
-        padding: EdgeInsets.only(left: 100.w, top: 40.h, bottom: 15.h),
+        padding: EdgeInsets.only(left: 100.w, top: 12.h, bottom: 15.h),
         color: AppColors.colors.clayColors,
         child: Text(
           widget.personName,
@@ -86,7 +86,8 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  personalChatWatch.isFileUploadProgressVisible? Container(
+                  personalChatWatch.isFileUploadProgressVisible?
+                  Container(
                     padding: EdgeInsets.only(left: 16.w,top: 2.h,right: 16.w),
                     height: 50.h,
                     decoration: BoxDecoration(
@@ -109,7 +110,8 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
                         )
                       ],
                     ),
-                  ):const SizedBox(),
+                  ) :
+                  const SizedBox(),
                   TextFormField(
                     controller: personalChatWatch.inputController,
                     onChanged: (value){
@@ -129,7 +131,6 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
                           size: 30.sp,
                           color: AppColors.colors.blueColors,
                         ),) ,
-                      // contentPadding: EdgeInsets.symmetric(horizontal: 6.w,vertical:1.h)
                     ),
                   )
                 ],

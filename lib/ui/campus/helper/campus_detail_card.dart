@@ -3,8 +3,8 @@ import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/campu
 import 'package:emploiflutter/ui/campus/helper/campus_bottom_sheet.dart';
 import 'package:emploiflutter/ui/campus/helper/campus_detail_table.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import '../../utils/theme/app_color.dart';
-import '../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
 class CampusDetailCard extends ConsumerWidget {
   final int currentIndex;

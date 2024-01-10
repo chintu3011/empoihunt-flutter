@@ -41,7 +41,7 @@ class ProfileProfilePic extends ConsumerWidget {
                 tag: "profileHero",
                 child: CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userModel.tProfileUrl}",
                     placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                    errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.cover),
               )
                   : Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,),
             ),

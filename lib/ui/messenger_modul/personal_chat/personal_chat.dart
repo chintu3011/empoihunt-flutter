@@ -22,36 +22,38 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
     return  Scaffold(
-      body: Stack(
-        children: [
-           PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken??"",),
-          Positioned(
-            top: 30.h,
-              left: 6.w,
-              child: Container(
-                height: 90.h,
-                width: 90.w,
-                padding: EdgeInsets.all(3.sp),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  color: AppColors.colors.whiteColors,
-                  shape: BoxShape.circle,
-                ),
+      body: SafeArea(
+        child: Stack(
+          children: [
+             PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken??"",),
+            Positioned(
+              top: 6.h,
+                left: 12.w,
                 child: Container(
                   height: 80.h,
                   width: 80.w,
+                  padding: EdgeInsets.all(3.sp),
                   clipBehavior: Clip.hardEdge,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
+                    color: AppColors.colors.whiteColors,
                     shape: BoxShape.circle,
                   ),
-                  child:CachedNetworkImage(
-                    imageUrl: "https://api.emploihunt.com${widget.profileUrl}",
-                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                      errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill
-                  )
-                ),
-              ))
-        ],
+                  child: Container(
+                    height: 80.h,
+                    width: 80.w,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child:CachedNetworkImage(
+                      imageUrl: "https://api.emploihunt.com${widget.profileUrl}",
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill
+                    )
+                  ),
+                ))
+          ],
+        ),
       ),
     );
   }

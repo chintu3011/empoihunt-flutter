@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
@@ -44,11 +43,4 @@ class BoxService{
     await userModelBox.clear();
   }
 
-// Future<void> clearAllBoxes() async {
-  //   await userGetDetailBox.clear();
-  //   await userModelBox.clear();
-  // }
-  // List<UserNote> searchUserNotes(String query){
-  //     return boxNote.values.toList().where((note) => note.title.toLowerCase().contains(query.toLowerCase())).toList();
-  // }
 }

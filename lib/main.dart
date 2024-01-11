@@ -15,16 +15,22 @@ import 'firebase_options.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
 Future<void> main() async{
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
-  final fcmToken = await FirebaseMessaging.instance.getToken();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  String? fcmToken;
+  while(fcmToken ==null || fcmToken ==""){
+    fcmToken = await FirebaseMessaging.instance.getToken();
+  }
   ///--------- initialize Share preference --------///
   await SharedPrefServices.services.init();
-  await SharedPrefServices.services.pref.setString(fcmTokenKey,fcmToken!);
+  await SharedPrefServices.services.pref.setString(fcmTokenKey,fcmToken);
   print("FCM Token ${SharedPrefServices.services.getString(fcmTokenKey)}");
 
   /// ------- Hive open Box Service ---------///

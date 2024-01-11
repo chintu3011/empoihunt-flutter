@@ -26,64 +26,69 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
-    return  Scaffold(
-      appBar: AppBar(
-        elevation: 3,
-        shadowColor: Colors.grey,
-        backgroundColor: AppColors.colors.clayColors,
-        toolbarHeight: 65.h,
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            GestureDetector(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>CommonImageViewer(imageUrl: "https://api.emploihunt.com${widget.profileUrl}")));
-              },
-              child: Container(
-                height: 50.h,
-                width: 50.w,
-                margin: EdgeInsets.only(right: 10.w),
-                padding: EdgeInsets.all(2.sp),
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  color: AppColors.colors.whiteColors,
-                  shape: BoxShape.circle,
-                ),
+    return  GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          elevation: 3,
+          shadowColor: Colors.grey,
+          backgroundColor: AppColors.colors.clayColors,
+          toolbarHeight: 65.h,
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          title: Row(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_)=>CommonImageViewer(imageUrl: "https://api.emploihunt.com${widget.profileUrl}")));
+                },
                 child: Container(
-                    height: 80.h,
-                    width: 80.w,
-                    clipBehavior: Clip.hardEdge,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child:CachedNetworkImage(
-                        imageUrl: "https://api.emploihunt.com${widget.profileUrl}",
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                        errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill
-                    )
+                  height: 50.h,
+                  width: 50.w,
+                  margin: EdgeInsets.only(right: 10.w),
+                  padding: EdgeInsets.all(2.sp),
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    color: AppColors.colors.whiteColors,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Container(
+                      height: 80.h,
+                      width: 80.w,
+                      clipBehavior: Clip.hardEdge,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      child:CachedNetworkImage(
+                          imageUrl: "https://api.emploihunt.com${widget.profileUrl}",
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill
+                      )
+                  ),
                 ),
               ),
-            ),
-            Text(
-              widget.personName,
-              style: TextStyles.w400
-                  .copyWith(fontSize: 18.sp, color: AppColors.colors.whiteColors),
-            ),
+              Text(
+                widget.personName,
+                style: TextStyles.w400
+                    .copyWith(fontSize: 18.sp, color: AppColors.colors.whiteColors),
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(onPressed: (){
+              Future.delayed(const Duration(milliseconds: 700),()async{
+                await launchUrl(Uri(
+                    scheme: 'tel',
+                    path: widget.phone
+                ));
+              });
+            }, icon: Icon(Icons.call,color: AppColors.colors.whiteColors,size: 22.sp,))
           ],
         ),
-        actions: [
-          IconButton(onPressed: (){
-            Future.delayed(const Duration(milliseconds: 700),()async{
-              await launchUrl(Uri(
-                  scheme: 'tel',
-                  path: widget.phone
-              ));
-            });
-          }, icon: Icon(Icons.call,color: AppColors.colors.whiteColors,size: 22.sp,))
-        ],
+        body: PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken??"",),
       ),
-      body: PersonalChatBackWidget(personName:widget.personName, chatPersonFId: widget.chatPersonFId, chatPersonDeviceToken: widget.chatPersonDeviceToken??"",),
     );
   }
 }

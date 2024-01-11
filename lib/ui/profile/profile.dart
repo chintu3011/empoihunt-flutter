@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 
+import '../utils/common_widget/common_appbar.dart';
 import '../utils/theme/text_styles.dart';
 
 class Profile extends ConsumerStatefulWidget{
@@ -41,9 +42,7 @@ class _ProfileState extends ConsumerState<Profile> {
       child: CommonShowDialogLayout(userDetailDataModel: user,
         show: profileWatch.isDialogShow,
         child: Scaffold(
-          appBar: AppBar(
-            title:   Text("Profile",style: TextStyles.w500.copyWith(fontSize: 16.sp,color: AppColors.colors.blackColors,),),
-          ),
+          appBar:  const CommonAppBar(title: "Profile",isLeadingShow: true),
           body:  SingleChildScrollView(
             child: Column(
               children: [

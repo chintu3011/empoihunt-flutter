@@ -5,7 +5,9 @@ import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+import '../../../frame_work/repository/services/shared_pref_services.dart';
+import '../../utils/app_constant.dart';
 
 class ProfileUserDetailTile extends ConsumerWidget {
   final UserModel user;
@@ -35,9 +37,10 @@ class ProfileUserDetailTile extends ConsumerWidget {
                       color: AppColors.colors.blueDark),
                 ),
                 IconButton(onPressed: (){
+                  SharedPrefServices.services.getList(locationListKey);
                   profileWatch.taglineToExpertiseList(user);
-                  profileWatch.setDialogValue(2);
                   profileWatch.addUserDetailToDialog(user);
+                  profileWatch.setDialogValue(2);
                   profileWatch.updateIsDialogShow();
                 }, icon: Icon(
                   Icons.edit,
@@ -92,12 +95,12 @@ class ProfileUserDetailTile extends ConsumerWidget {
                   enableFeedback: true,
                   textStyle: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),
                   onTriggered: (){
-                    Future.delayed(const Duration(milliseconds: 700),()async{
-                      await launchUrl(Uri(
-                          scheme: 'tel',
-                          path: user.vMobile
-                      ));
-                    });
+                    // Future.delayed(const Duration(milliseconds: 700),()async{
+                    //   await launchUrl(Uri(
+                    //       scheme: 'tel',
+                    //       path: user.vMobile
+                    //   ));
+                    // });
                   },
                   preferBelow: false,
                   child: Card(
@@ -125,11 +128,11 @@ class ProfileUserDetailTile extends ConsumerWidget {
                   enableFeedback: true,
                   textStyle: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),
                   onTriggered: (){
-                    Future.delayed(const Duration(milliseconds: 700),()async{
-                      launchUrl(Uri(
-                        scheme: 'mailto',
-                        path: user.vEmail,
-                      ));});
+                    // Future.delayed(const Duration(milliseconds: 700),()async{
+                    //   launchUrl(Uri(
+                    //     scheme: 'mailto',
+                    //     path: user.vEmail,
+                    //   ));});
                   },
                   preferBelow: false,
                   child: Card(

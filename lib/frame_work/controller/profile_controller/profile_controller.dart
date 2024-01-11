@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_banner_image_dialogbox.dart';
 import 'package:emploiflutter/ui/profile/helper/user_profile_dialogs/user_current_position_dialogbox.dart';
@@ -32,7 +33,7 @@ class ProfileController extends ChangeNotifier {
 
   ///---------------- get user data from hive storage --------------------///
   ///
-  final userModelData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
+  // final userModelData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
 
 
   ///---------------- get user data from hive storage --------------------///
@@ -111,20 +112,20 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
-  userDetailChangeDoneButton(){
+  userDetailChangeDoneButton(UserDetailDataModel userDetailDataModel){
     expertiseToTagline();
-    userModelData.user.vFirstName = firstNameController.text;
-    userModelData.user.vLastName = lastNameController.text;
-    userModelData.user.vCity = userDetailSelectedJobLocation!;
-    userModelData.user.vEmail = emailController.text;
-    userModelData.user.tTagLine = tagline;
+    userDetailDataModel.user.vFirstName = firstNameController.text;
+    userDetailDataModel.user.vLastName = lastNameController.text;
+    userDetailDataModel.user.vCity = userDetailSelectedJobLocation!;
+    userDetailDataModel.user.vEmail = emailController.text;
+    userDetailDataModel.user.tTagLine = tagline;
     if(userDetailFormKey.currentState!.validate()){
       if(expertiseList.isNotEmpty){
         isExpertiseAdded = false;
         if(userDetailSelectedJobLocation != null){
           isUserDetailsJobSelect = false;
           /// Success
-          BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+          BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
           updateIsDialogShow();
           // clearUserDetailForms();
         }else{
@@ -154,11 +155,11 @@ class ProfileController extends ChangeNotifier {
     bioController.clear();
     notifyListeners();
   }
-  bioDoneButton(){
-    userModelData.user.tBio = bioController.text;
+  bioDoneButton(UserDetailDataModel userDetailDataModel){
+    userDetailDataModel.user.tBio = bioController.text;
     if(aboutFormKey.currentState!.validate()){
       debugPrint("Success");
-      BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+      BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
       updateIsDialogShow();
       // bioController.clear();
     }
@@ -181,22 +182,21 @@ class ProfileController extends ChangeNotifier {
 
 
   /// ------------ for Job Seeker ------------///
-  jobSeekerShowDialogs() {
-    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
+  userShowDialogs(UserDetailDataModel userDetailDataModel) {
     if (dialogValue == 0) {
-      return UserBannerImageDialogBox(userModel: userModelData.user,);
+      return UserBannerImageDialogBox(userDetailDataModel: userDetailDataModel,);
     } else if (dialogValue == 1) {
-      return UserProfileImageChangeDialogBox(userModel:  userModelData.user,);
+      return UserProfileImageChangeDialogBox(userDetailDataModel:  userDetailDataModel,);
     } else if (dialogValue == 2) {
-      return const UserDetailsDialogBox();
+      return  UserDetailsDialogBox(userDetailDataModel: userDetailDataModel,);
     } else if (dialogValue == 3) {
-      return const UserAboutDialogBox();
+      return  UserAboutDialogBox(userDetailDataModel: userDetailDataModel,);
     } else if (dialogValue == 4) {
-      return const UserQualificationDialogBox();
+      return  UserQualificationDialogBox(userDetailDataModel: userDetailDataModel,);
     }else if(dialogValue == 5){
-      return userData.iRole  == 0? const UserExperienceDialogBox() : const UserCurrentPositionDialogBox();
+      return userDetailDataModel.user.iRole  == 0? const UserExperienceDialogBox() :  UserCurrentPositionDialogBox(userDetailDataModel: userDetailDataModel,);
     }else if(dialogValue == 6){
-      return const UserResumeDialogBox();
+      return  UserResumeDialogBox(userDetailDataModel: userDetailDataModel,);
     }
     notifyListeners();
   }
@@ -241,7 +241,7 @@ class ProfileController extends ChangeNotifier {
   }
 
 
-  Future bannerImgApiCall(String bannerName,String bannerUrl)async{
+  Future bannerImgApiCall(String bannerName,String bannerUrl,UserDetailDataModel userDetailDataModel)async{
     try{
       final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
       Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
@@ -251,9 +251,9 @@ class ProfileController extends ChangeNotifier {
       Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateBannerPicApi, formData: formData, options: options);
       if(response.statusCode == 200){
        UserModel user = UserModel.fromJson(response.data["data"]);
-        userModelData.user.tProfileBannerUrl = user.tProfileBannerUrl;
-       BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
-       debugPrint("banner url------->${userModelData.user.tProfileBannerUrl} ");
+       userDetailDataModel.user.tProfileBannerUrl = user.tProfileBannerUrl;
+       BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
+       debugPrint("banner url------->${userDetailDataModel.user.tProfileBannerUrl} ");
         bannerImgUrl=null;
         bannerImgName="";
        bannerImg=null;
@@ -308,19 +308,18 @@ class ProfileController extends ChangeNotifier {
   }
 
 
-  Future profileImgApiCall(String profileName,String profilePicUrl)async{
+  Future profileImgApiCall(String profileName,String profilePicUrl,UserDetailDataModel userDetailDataModel)async{
     try{
-      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
-      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${userDetailDataModel.tAuthToken}',});
       FormData formData = FormData.fromMap({
         "profilePic": await MultipartFile.fromFile(profilePicUrl, filename: profileName),
       });
       Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateProfilePicApi, formData: formData, options: options);
       if(response.statusCode == 200){
         UserModel user = UserModel.fromJson(response.data["data"]);
-        userModelData.user.tProfileUrl = user.tProfileUrl;
-        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
-        debugPrint("Image url------->${userModelData.user.tProfileBannerUrl} ");
+        userDetailDataModel.user.tProfileUrl = user.tProfileUrl;
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
+        debugPrint("Image url------->${userDetailDataModel.user.tProfileBannerUrl} ");
         profileImgUrl=null;
         profileImgName="";
         profileImg=null;
@@ -367,19 +366,18 @@ class ProfileController extends ChangeNotifier {
     }
   }
 
-  Future resumeApiCall(String resumeName,String resumeUrl)async{
+  Future resumeApiCall(String resumeName,String resumeUrl,UserDetailDataModel userDetailDataModel)async{
     try{
-      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
-      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${user?.tAuthToken}',});
+      Options options = Options(headers: {'Accept': 'application/json','Authorization': 'Bearer ${userDetailDataModel.tAuthToken}',});
       FormData formData = FormData.fromMap({
         "resume": await MultipartFile.fromFile(resumeUrl, filename: resumeName),
       });
       Response response = await DioClient.client.postDataWithFormWithBearerToken(APIEndPoint.userUpdateResumeApi, formData: formData, options: options);
       if(response.statusCode == 200){
         UserModel user = UserModel.fromJson(response.data["data"]);
-        userModelData.user.tResumeUrl = user.tResumeUrl;
-        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
-        debugPrint("resume url------->${userModelData.user.tProfileBannerUrl} ");
+        userDetailDataModel.user.tResumeUrl = user.tResumeUrl;
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
+        debugPrint("resume url------->${userDetailDataModel.user.tProfileBannerUrl} ");
         this.resumeUrl = null;
         this.resumeName="";
         notifyListeners();
@@ -596,15 +594,15 @@ class ProfileController extends ChangeNotifier {
     clearCurrentPosForm();
   }
 
-  currentPositionDoneButton(){
-    userModelData.user.vDesignation = userCurrentPosDesignFieldController.text;
-    userModelData.user.vCurrentCompany = userCurrentPosCompanyNameFieldController.text;
-    userModelData.user.vJobLocation = userCurrentPosSelectedJobLocation;
-    userModelData.user.vWorkingMode = selectedWorkingText;
+  currentPositionDoneButton(UserDetailDataModel userDetailDataModel){
+    userDetailDataModel.user.vDesignation = userCurrentPosDesignFieldController.text;
+    userDetailDataModel.user.vCurrentCompany = userCurrentPosCompanyNameFieldController.text;
+    userDetailDataModel.user.vJobLocation = userCurrentPosSelectedJobLocation;
+    userDetailDataModel.user.vWorkingMode = selectedWorkingText;
     if(currentPositionFormKey.currentState!.validate()){
       if(userCurrentPosSelectedJobLocation != null){
         isUserCurrentPosJobSelected = false;
-        BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+        BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
         debugPrint("Success");
         updateIsDialogShow();
         clearCurrentPosForm();
@@ -630,21 +628,22 @@ class ProfileController extends ChangeNotifier {
     notifyListeners();
   }
 
-  addQualificationToDialog(UserModel  user){
-    selectedQualification = user.vQualification;
+  addQualificationToDialog(String  user){
+    selectedQualification = user;
     notifyListeners();
   }
+
   qualificationChangeCancelButton(){
     updateIsDialogShow();
     selectedQualification = null;
     notifyListeners();
   }
 
-  qualificationChangeDoneButton(){
-    userModelData.user.vQualification = selectedQualification;
+  qualificationChangeDoneButton(UserDetailDataModel userDetailDataModel){
+    userDetailDataModel.user.vQualification = selectedQualification;
     if(selectedQualification != null){
       isQualificationSelected = false;
-      BoxService.boxService.addUserDetailToHive(userDetailKey, userModelData);
+      BoxService.boxService.addUserDetailToHive(userDetailKey, userDetailDataModel);
       updateIsDialogShow();
       selectedQualification = null;
     }else{

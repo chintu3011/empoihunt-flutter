@@ -20,7 +20,6 @@ class ProfileUserDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final profileWatch = ref.watch(profileController);
-    final userData = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -48,16 +47,16 @@ class ProfileUserDetails extends ConsumerWidget {
                  ProfileUserDetailTile(user: userModel,),
 
                 /// User About Section ///
-                 ProfileAboutTile(user: userModel,),
+                 ProfileAboutTile(userModel: userModel,),
 
                 ///User Qualification ///
                  ProfileQualificationTile(user: userModel,),
 
                 ///User Experience OR User Current Position ///
-                userData.iRole == 0?  const ProfileExperienceTile() :  ProfileCurrentPositionTile(user: userModel,),
+                userModel.iRole == 0?  const ProfileExperienceTile() :  ProfileCurrentPositionTile(user: userModel,),
 
                 /// User Resume ////
-                userData.iRole == 0?  ProfileResumeTile(user: userModel,): const SizedBox()
+                userModel.iRole == 0?  ProfileResumeTile(user: userModel,): const SizedBox()
               ],
             ),
           ),

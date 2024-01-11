@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/profile/profile.dart';
 import 'package:emploiflutter/ui/settings/helper/setting_log_out_bottom_sheet.dart';
@@ -71,23 +72,10 @@ class _SettingState extends ConsumerState<Setting> {
                         shape: BoxShape.circle
                     ),
                     child: userData.tProfileUrl != null?
-                    Image.network(
-                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                      errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                        return const Center(
-                          child: Text('Error loading image'),
-                        );
-                      },
-                      "https://api.emploihunt.com${userData.tProfileUrl}",fit: BoxFit.fill,):
-                    Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
+                    CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userData.tProfileUrl}",
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.cover):
+                    Image.asset(AppAssets.profilePicPng,fit: BoxFit.cover,)
                 ),
               ):const SizedBox(),
               title: Text(userData.vFirstName !=""? "${userData.vFirstName} ${userData.vLastName}":"",style: TextStyles.w600.copyWith(fontSize: 18.sp,color: AppColors.colors.blackColors),),

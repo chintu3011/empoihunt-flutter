@@ -5,8 +5,8 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
 class ProfileAboutTile extends ConsumerWidget {
-  final UserModel user;
-  const ProfileAboutTile({super.key,required this.user});
+  final UserModel userModel;
+  const ProfileAboutTile({super.key,required this.userModel});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,14 +29,14 @@ class ProfileAboutTile extends ConsumerWidget {
                 color: AppColors.colors.blackColors),
           ),
           subtitle: Text(
-            user.tBio!=""? user.tBio! :"",
+            userModel.tBio!=""? userModel.tBio! :"",
             style: TextStyles.w500.copyWith(
                 fontSize: 14.sp,
                 color: AppColors.colors.greyRegent),
           ),
           trailing:  IconButton(onPressed: (){
             profileWatch.setDialogValue(3);
-            profileWatch.addBioToDialog(user);
+            profileWatch.addBioToDialog(userModel);
             profileWatch.updateIsDialogShow();
           },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),),
         ),

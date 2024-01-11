@@ -6,8 +6,11 @@ import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../../frame_work/repository/model/user_model/user_detail_data_model.dart';
+
 class UserResumeDialogBox extends ConsumerStatefulWidget {
-  const UserResumeDialogBox({super.key});
+  final UserDetailDataModel userDetailDataModel;
+  const UserResumeDialogBox({super.key,required this.userDetailDataModel});
 
   @override
   ConsumerState<UserResumeDialogBox> createState() => _UserResumeDialogBoxState();
@@ -70,7 +73,7 @@ class _UserResumeDialogBoxState extends ConsumerState<UserResumeDialogBox> with 
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
                   profileWatch.updateIsDialogShow();
-                  profileWatch.resumeName != ""? profileWatch.resumeApiCall(profileWatch.resumeName, profileWatch.resumeUrl!):null;
+                  profileWatch.resumeName != ""? profileWatch.resumeApiCall(profileWatch.resumeName, profileWatch.resumeUrl!,widget.userDetailDataModel):null;
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)

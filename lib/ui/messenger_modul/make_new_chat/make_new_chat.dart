@@ -68,7 +68,7 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                 return MakeNewChatCard(
                   onTap: (){
                     context.pop();
-                  Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}", chatPersonFId: recruiter.vFirebaseId!, ), type: PageTransitionType.rightToLeft,childCurrent: widget));
+                  Navigator.push(context, PageTransition(child:   PersonalChat(profileUrl: recruiter.tProfileUrl!, personName: "${recruiter.vFirstName} ${recruiter.vLastName}", chatPersonFId: recruiter.vFirebaseId!, phone: recruiter.vMobile??"", ), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: recruiter.tProfileUrl!,
                   personName: "${recruiter.vFirstName} ${recruiter.vLastName}", );
@@ -92,7 +92,7 @@ class _MakeNewChatState extends ConsumerState<MakeNewChat> {
                 return MakeNewChatCard(
                   onTap: (){
                     // print(jobSeeker.tDeviceToken);
-                  Navigator.push(context, PageTransition(child: PersonalChat(profileUrl: jobSeeker.tProfileUrl!, personName: "${jobSeeker.vFirstName} ${jobSeeker.vLastName}", chatPersonFId: jobSeeker.vFirebaseId??"",), type: PageTransitionType.rightToLeft,childCurrent: widget));
+                  Navigator.push(context, PageTransition(child: PersonalChat(profileUrl: jobSeeker.tProfileUrl!, personName: "${jobSeeker.vFirstName} ${jobSeeker.vLastName}", chatPersonFId: jobSeeker.vFirebaseId??"", phone: jobSeeker.vMobile??"",), type: PageTransitionType.rightToLeft,childCurrent: widget));
                 },
                   profileUrl: jobSeeker.tProfileUrl!,
                   personName: '${jobSeeker.vFirstName} ${jobSeeker.vLastName}', );

@@ -50,16 +50,6 @@ class _PersonalChatBackWidgetState extends ConsumerState<PersonalChatBackWidget>
     final currentUserFId = BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user.vFirebaseId;
 
     return Column(children: [
-      Container(
-        width: size.width.w,
-        padding: EdgeInsets.only(left: 100.w, top: 12.h, bottom: 15.h),
-        color: AppColors.colors.clayColors,
-        child: Text(
-          widget.personName,
-          style: TextStyles.w400
-              .copyWith(fontSize: 18.sp, color: AppColors.colors.whiteColors),
-        ),
-      ),
       Expanded(
         child: FirebaseAnimatedList(
           controller: personalChatWatch.scrollController,

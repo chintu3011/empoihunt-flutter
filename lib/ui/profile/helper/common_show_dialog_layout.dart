@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import '../../utils/theme/theme.dart';
 
 class CommonShowDialogLayout extends ConsumerWidget {
@@ -7,9 +8,11 @@ class CommonShowDialogLayout extends ConsumerWidget {
     super.key,
     required this.child,
     required this.show,
+    required this.userDetailDataModel
   });
   final Widget child;
   final bool show;
+  final UserDetailDataModel userDetailDataModel;
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -31,7 +34,7 @@ class CommonShowDialogLayout extends ConsumerWidget {
                   width: size.width,
                   color: Colors.black45,
                   child:  Center(
-                      child: profileWatch.jobSeekerShowDialogs()),
+                      child: profileWatch.userShowDialogs(userDetailDataModel)),
                 ),
               )
           ],

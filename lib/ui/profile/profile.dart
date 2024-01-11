@@ -30,15 +30,15 @@ class _ProfileState extends ConsumerState<Profile> {
   @override
   Widget build(BuildContext context,) {
     final profileWatch = ref.watch(profileController);
-    final user= BoxService.boxService.userGetDetailBox.get(userDetailKey)!.user;
+    final user= BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
     return PopScope(
       canPop: true,
       onPopInvoked: (value){
-        print(profileWatch.userModelData.user.vFirstName);
+
         profileWatch.isDialogShow = false;
         profileWatch.userProfileDetailUpdateApi();
       },
-      child: CommonShowDialogLayout(
+      child: CommonShowDialogLayout(userDetailDataModel: user,
         show: profileWatch.isDialogShow,
         child: Scaffold(
           appBar: AppBar(
@@ -49,11 +49,11 @@ class _ProfileState extends ConsumerState<Profile> {
               children: [
                 Stack(
                   children: [
-                     ProfileUserDetails(userModel: user,),
+                     ProfileUserDetails(userModel: user.user,),
                     Positioned(
                       left: 120.w,
                         top: 70.h,
-                        child: ProfileProfilePic(userModel: user,))
+                        child: ProfileProfilePic(userModel: user.user,))
                   ],
                 ),
               ],

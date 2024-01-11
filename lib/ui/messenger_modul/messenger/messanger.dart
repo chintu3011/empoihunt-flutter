@@ -68,7 +68,7 @@ class _MessengerState extends ConsumerState<Messenger> {
             elevation: 6,
             child: GestureDetector(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=> PersonalChat(profileUrl: chatPerson.userChat.tProfileUrl!, personName: '${chatPerson.userChat.vFirstName} ${chatPerson.userChat.vLastName}', chatPersonFId: chatPerson.userChat.vFirebaseId!, chatPersonDeviceToken: chatPerson.userChat.tDeviceToken!,)));
+                Navigator.push(context, MaterialPageRoute(builder: (_)=> PersonalChat(profileUrl: chatPerson.userChat.tProfileUrl!, personName: '${chatPerson.userChat.vFirstName} ${chatPerson.userChat.vLastName}', chatPersonFId: chatPerson.userChat.vFirebaseId!, chatPersonDeviceToken: chatPerson.userChat.tDeviceToken!, phone: chatPerson.userChat.vMobile??"",)));
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 6.h,horizontal: 10.w),

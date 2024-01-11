@@ -65,7 +65,6 @@ class _SettingDeleteAcBottomSheetState extends ConsumerState<SettingDeleteAcBott
               CommonButton(btnText: "Yes", onPressed: ()async{
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
                 await settingWatch.deleteAccountApi(context);
-                ref.read(dashBoardController).updateSelectedIndex(0);
                 Future.delayed(Duration(milliseconds: 700),(){
                   BoxService.boxService.clearAllBoxes();
                 });

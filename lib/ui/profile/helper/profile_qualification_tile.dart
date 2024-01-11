@@ -4,6 +4,8 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
+import '../../utils/app_string_constant.dart';
+
 class ProfileQualificationTile extends ConsumerWidget {
   final UserModel user;
   const ProfileQualificationTile({super.key,required this.user});
@@ -31,12 +33,13 @@ class ProfileQualificationTile extends ConsumerWidget {
                       color: AppColors.colors.blackColors),
                 ),
                 IconButton(onPressed: (){
+                  print(qualificationsList);
+                  profileWatch.addQualificationToDialog( user.vQualification!);
                   profileWatch.setDialogValue(4);
-                  profileWatch.addQualificationToDialog(user);
                   profileWatch.updateIsDialogShow();
                 },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),)                          ],
             ),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 4.h,),
             Text(
               user.vQualification!=""? user.vQualification!:"",
               style: TextStyles.w500.copyWith(

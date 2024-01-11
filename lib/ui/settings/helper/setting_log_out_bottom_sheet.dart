@@ -65,9 +65,8 @@ class _SettingLogoutBottomSheetState extends ConsumerState<SettingLogoutBottomSh
               CommonButton(btnText: "Yes", onPressed: ()async{
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
                 await settingWatch.singOutApi(context);
-                ref.read(dashBoardController).updateSelectedIndex(0);
-                Future.delayed(Duration(milliseconds: 700),(){
-                  BoxService.boxService.clearAllBoxes();
+                Future.delayed(Duration(milliseconds: 700),()async{
+                   BoxService.boxService.clearAllBoxes();
                 });
               },backgroundColor: AppColors.colors.blueColors,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),fontSize: 14.sp,txtPadding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 5.h)),
               CommonButton(btnText: "No", onPressed: (){

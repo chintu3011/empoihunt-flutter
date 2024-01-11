@@ -9,8 +9,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 class UserProfileImageChangeDialogBox extends ConsumerStatefulWidget {
-  final UserModel userModel;
-  const UserProfileImageChangeDialogBox({required this.userModel,super.key});
+  final UserDetailDataModel userDetailDataModel;
+  const UserProfileImageChangeDialogBox({required this.userDetailDataModel,super.key});
 
   @override
   ConsumerState<UserProfileImageChangeDialogBox> createState() => _UserBannerImageDialogBoxState();
@@ -64,8 +64,8 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
                     child:
                     profileWatch.isProfileImgAnimationRun?
                      Center(child: Lottie.asset(AppAssets.imgLoadingLottie,),) :
-                    profileWatch.profileImg != null? Image.file(profileWatch.profileImg!,fit: BoxFit.fill,): widget.userModel.tProfileUrl !=""?
-                        CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userModel.tProfileUrl}",
+                    profileWatch.profileImg != null? Image.file(profileWatch.profileImg!,fit: BoxFit.fill,): widget.userDetailDataModel.user.tProfileUrl !=""?
+                        CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userDetailDataModel.user.tProfileUrl}",
                           placeholder: (context, url) => const CircularProgressIndicator(),
                           errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
                         : Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,),
@@ -95,7 +95,7 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
                   profileWatch.updateIsDialogShow();
-                  profileWatch.profileImgName!=""? profileWatch.profileImgApiCall(profileWatch.profileImgName,profileWatch.profileImgUrl!):null;
+                  profileWatch.profileImgName!=""? profileWatch.profileImgApiCall(profileWatch.profileImgName,profileWatch.profileImgUrl!,widget.userDetailDataModel):null;
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)

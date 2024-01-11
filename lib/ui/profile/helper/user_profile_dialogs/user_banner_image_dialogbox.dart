@@ -9,8 +9,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 class UserBannerImageDialogBox extends ConsumerStatefulWidget {
-  final UserModel userModel;
-  const UserBannerImageDialogBox({required this.userModel,super.key});
+  final UserDetailDataModel userDetailDataModel;
+  const UserBannerImageDialogBox({required this.userDetailDataModel,super.key});
 
   @override
   ConsumerState<UserBannerImageDialogBox> createState() => _UserBannerImageDialogBoxState();
@@ -64,8 +64,8 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
                     child:
                     profileWatch.isBannerAnimationRun?
                      Center(child: Lottie.asset(AppAssets.bannerLoadingLottie),) :
-                   profileWatch.bannerImg != null? Image.file(profileWatch.bannerImg!,fit: BoxFit.fill,): widget.userModel.tProfileBannerUrl !=""?
-                   CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userModel.tProfileBannerUrl}",
+                   profileWatch.bannerImg != null? Image.file(profileWatch.bannerImg!,fit: BoxFit.fill,): widget.userDetailDataModel.user.tProfileBannerUrl !=""?
+                   CachedNetworkImage(imageUrl: "https://api.emploihunt.com${widget.userDetailDataModel.user.tProfileBannerUrl}",
                        placeholder: (context, url) => const CircularProgressIndicator(),
                        errorWidget: (context, url, error) => const Icon(Icons.error),fit: BoxFit.fill)
                         : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.contain,),
@@ -98,7 +98,8 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
                 SizedBox(width: 10.w,),
                 TextButton(onPressed: (){
                   profileWatch.updateIsDialogShow();
-                  profileWatch.bannerImgName!=""? profileWatch.bannerImgApiCall(profileWatch.bannerImgName, profileWatch.bannerImgUrl!):null;
+                  profileWatch.bannerImgName!=""?
+                  profileWatch.bannerImgApiCall(profileWatch.bannerImgName, profileWatch.bannerImgUrl!,widget.userDetailDataModel):null;
                 }, child: Text("Done",style: TextStyles.w500.copyWith(fontSize: 14.sp,color: AppColors.colors.blueColors),)),
               ],
             ).paddingOnly(top: 10.h,)

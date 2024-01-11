@@ -6,12 +6,16 @@ import 'package:emploiflutter/frame_work/repository/services/shared_pref_service
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 
-final authIntroController = ChangeNotifierProvider((ref)=>AuthIntroController());
+import '../../dash_board_controller/dash_board_controller.dart';
+
+final authIntroController = ChangeNotifierProvider((ref)=>AuthIntroController(ref));
 
 class AuthIntroController extends ChangeNotifier{
-
+Ref ref;
+AuthIntroController(this.ref);
 
   Future getLocationList() async{
+    ref.read(dashBoardController).updateSelectedIndex(0);
     try{
       Response response = await DioClient.client.getData(APIEndPoint.getLocationsList);
       if(response.statusCode == 200){

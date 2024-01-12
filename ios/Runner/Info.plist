@@ -62,8 +62,8 @@
 	<string>Main</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Permission required through voice command/string>
-	<key>NSMicrophoneUsageDescription </key>
-	<string>Permission required through voice command</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>We need access to your microphone to enable voice commands for chatting and data filtering in the app.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

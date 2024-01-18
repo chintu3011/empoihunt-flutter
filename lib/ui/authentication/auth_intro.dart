@@ -3,6 +3,7 @@ import 'package:emploiflutter/frame_work/controller/authentication_controller/au
 import 'package:emploiflutter/frame_work/controller/setting_controller/terms_privacy_policy_controller/terms_privacy_policy_controller.dart';
 import 'package:emploiflutter/ui/authentication/login/login.dart';
 import 'package:emploiflutter/ui/authentication/register/helper/choose_register_type/choose_register_type.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
@@ -61,9 +62,13 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      Image.asset(AppAssets.titleLog,scale: 6.5.sp,),
+                      Expanded(
+                        flex: 3,
+                          child: Image.asset(AppAssets.titleLog,)),
                       SizedBox(height: 8.h,),
-                      Image.asset(AppAssets.welcome,scale: 7.sp,),
+                      Expanded(
+                        flex: 8,
+                          child: Image.asset(AppAssets.welcome,)),
                     ],
                   ),
                 ),
@@ -76,35 +81,21 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                 child: Column(
                   children: [
                     SizedBox(height: 50.h,),
-                    ElevatedButton(
+                    CommonButton(btnText: "Login",
+                        backgroundColor: AppColors.colors.blueColors,
+                        txtPadding: EdgeInsets.symmetric(horizontal: 120.w,vertical: 8.h),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(width: 1.5.w,color: AppColors.colors.whiteColors)),
                         onPressed: (){
-
-                          Navigator.push(context, PageTransition(child: const Login(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
-                        },
-                        style:  ElevatedButton.styleFrom(
-                            onPrimary: Colors.white,
-                            backgroundColor: AppColors.colors.blueColors,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r),side: const BorderSide(color: Colors.white,width: 1.5))
-                        ),
-                        child: Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: size.width* 0.25.w,vertical: 8.h),
-                          child: Text("Login",style: TextStyles.w400.copyWith(fontSize: 20.sp,color: Colors.white),),
-                        )),
+                      Navigator.push(context, PageTransition(child: const Login(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
+                    }),
                     SizedBox(height: 15.h,),
-                    ElevatedButton(
+                    CommonButton(btnText: "Register",
+                        backgroundColor: AppColors.colors.clayColors,
+                        txtPadding: EdgeInsets.symmetric(horizontal: 105.w,vertical: 8.h),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(width: 1.5.w,color: AppColors.colors.whiteColors)),
                         onPressed: (){
-                          Navigator.push(context, PageTransition(child: const ChooseRegisterType(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
-                        },
-                        style:  ElevatedButton.styleFrom(
-                          onPrimary: Colors.white,
-                            backgroundColor: AppColors.colors.clayColors,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r),side: const BorderSide(color: Colors.white,width: 1.5))
-                        ),
-                        child: Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: size.width* 0.21.w,vertical: 5.h),
-                          child: Text("Register",style: TextStyles.w400.copyWith(fontSize: 20.sp,color: Colors.white),),
-                        ))
-
+                                Navigator.push(context, PageTransition(child: const ChooseRegisterType(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
+                        }),
                   ],
                 ),
               ),

@@ -45,7 +45,10 @@ class _SettingState extends ConsumerState<Setting> {
         showModalBottomSheet(
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
             context: context,
-            builder: (context) => const SettingLogoutBottomSheet());
+
+            builder: (context) => Container(
+                width: MediaQuery.of(context).size.width,
+                child: const SettingLogoutBottomSheet()));
       }, icon: Icon(Icons.logout_outlined,color: AppColors.colors.blackColors,))
       ],),
       body: Padding(
@@ -106,14 +109,18 @@ class _SettingState extends ConsumerState<Setting> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Icon(setting["Icon"],color: AppColors.colors.blueColors,),
-                          SizedBox(width: 10.w,),
-                          Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)
-                        ],
+                      SizedBox(width: 3.w,),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Icon(setting["Icon"],color: AppColors.colors.blueColors,size: 20.spMax,),
+                            SizedBox(width: 10.w,),
+                            Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)
+                          ],
+                        ),
                       ),
                       Icon(Icons.arrow_forward_ios_outlined,color: AppColors.colors.clayColors,),
+                      SizedBox(width: 3.w,),
                     ],
                   ),
                 ),

@@ -38,7 +38,7 @@ class _ManagesJobsState extends ConsumerState<ManagesJobs> {
     return Scaffold(
       appBar: const CommonAppBar(title: "Manages Jobs",isLeadingShow: true),
       body: manageJobPostWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-      manageJobPostWatch.jobPostList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
+      manageJobPostWatch.jobPostList.isEmpty?  const Center(child:  CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)):
       SingleChildScrollView(
         controller: _scrollController,
         physics: const BouncingScrollPhysics(),

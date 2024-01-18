@@ -43,7 +43,7 @@ class _CampusState extends ConsumerState<Campus> {
           campusPlacementWatch.campusPlacementApiCall();
         },
         child:campusPlacementWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-        campusPlacementWatch.campusPlacementList.isEmpty?  const CommonNoDataFoundLayout(img:  AppAssets.jobSearch, errorTxt: 'Sorry! at this moment no any campus placement are available',):
+        campusPlacementWatch.campusPlacementList.isEmpty? const Center(child: CommonNoDataFoundLayout(img:  AppAssets.jobSearch, errorTxt: 'Sorry! at this moment no any campus placement are available',)):
         SingleChildScrollView(
           controller: _scrollController,
           physics: const BouncingScrollPhysics(),

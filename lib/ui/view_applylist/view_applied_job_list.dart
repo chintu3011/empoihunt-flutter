@@ -55,7 +55,7 @@ class _ViewAppliedJobListState extends ConsumerState<ViewAppliedJobList> {
         child: Stack(
           children: [
             applyListWatch.isLoading? const Center(child: CircularProgressIndicator(),) :
-            applyListWatch.appliedJobList.isEmpty?  const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',):
+            applyListWatch.appliedJobList.isEmpty? const Center(child: CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)):
             SingleChildScrollView(
               controller: _scrollController,
               physics: const BouncingScrollPhysics(),

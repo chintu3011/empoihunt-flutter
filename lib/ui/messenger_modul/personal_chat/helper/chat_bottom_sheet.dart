@@ -37,8 +37,9 @@ class ChatBottomSheet extends StatelessWidget {
                     IconButton(onPressed: (){
                       Navigator.pop(context);
                     }, icon:  Icon(Icons.close,color: AppColors.colors.blueColors,)),
-                    SizedBox(width: 60.w,),
-                    Text("Share Content",style: TextStyles.w500.copyWith(fontSize: 16.sp, color: AppColors.colors.blueColors),)
+                    Expanded(child: SizedBox()),
+                    Text("Share Content",style: TextStyles.w500.copyWith(fontSize: 16.sp, color: AppColors.colors.blueColors),),
+                    Expanded(child: SizedBox()),
                   ],
                 ),
                 Expanded(

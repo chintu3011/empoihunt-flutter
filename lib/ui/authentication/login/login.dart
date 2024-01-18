@@ -20,6 +20,7 @@ class Login extends StatelessWidget {
         backgroundColor:  Colors.white,
         body: SafeArea(
           child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(),
             child: Column(
               children: [
                 LoginBackGround()

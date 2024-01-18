@@ -53,12 +53,15 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
   double boxHeigth = 130.h, boxWidth = 200.w;
 
   updateHeigthWidth(){
+    // print(boxWidth);
     Future.delayed(Duration(seconds: 3),(){
       setState(() {
         boxHeigth = 100.h;
-        boxWidth = 14.w;
+        boxWidth = 16.w;
       });
+      // print(boxWidth);
     });
+
   }
 
   @override
@@ -144,7 +147,7 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                     child: jobSeekerHomeWatch.isLoading
                         ? const Center(child: CircularProgressIndicator(),)
                         : jobSeekerHomeWatch.jobPostList.isEmpty ?
-                    const CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',)
+                    const Center(child:  CommonNoDataFoundLayout(img: AppAssets.jobSearch, errorTxt: 'Opps sorry! jobs not availble at moment',))
                         :
                     ListView.builder(
                       controller: jobSeekerHomeWatch.jobPostList.length >= 20? _scrollController:null,
@@ -199,15 +202,14 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
                     height: boxHeigth,
                     width: boxWidth,
                     decoration: BoxDecoration(
-                      color:boxWidth <= 20? AppColors.colors.clayColors: AppColors.colors.whiteColors,
+                      color:boxWidth <= 100? AppColors.colors.clayColors: AppColors.colors.whiteColors,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(16.r),
                           bottomLeft: Radius.circular(16.r)),
                     ),
-                    child:boxWidth <= 20? GestureDetector(
-                      onTap: boxWidth <= 20? (){
+                    child:boxWidth <= 100? GestureDetector(
+                      onTap: boxWidth <= 100? (){
                         _scaffoldKey.currentState!.openEndDrawer();
-                        // Navigator.push(context, PageTransition(child: Messenger(), type: PageTransitionType.rightToLeft,duration: Duration(milliseconds: 300)));
                       }:null,
                     ) : Column(
                       children: [

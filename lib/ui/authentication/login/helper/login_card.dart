@@ -28,67 +28,65 @@ class LoginCard extends ConsumerWidget {
           ),
           child: Padding(
             padding: EdgeInsets.only(top: 40.h,bottom: 25.h,left: 20.w,right: 20.w),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text("OTP Verification",style:  TextStyles.w500.copyWith(fontSize: 26.sp,color: Colors.black),),
-                  Text("we will send you 6-digit one-time password to the number", textAlign: TextAlign.center, style:  TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.grey),),
-                   Padding(
-                     padding: EdgeInsets.symmetric(vertical: 22.h),
-                     child: Row(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: (){
-                            loginWatch.selectCountry(context);
-                          },
-                          child: Row(
-                            children: [
-                              Text(loginWatch.selectedCountry.countryCode,style: TextStyles.w400.copyWith(fontSize: 14.sp,color: Colors.black),),
-                              SizedBox(width: 5.w,),
-                              Text("+${loginWatch.selectedCountry.phoneCode}",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: Colors.black),),
-                              const Icon(Icons.arrow_drop_down_outlined,color: Colors.black,),
-                              SizedBox(width: 5.w,),
-                            ],
-                          ),
-                        ),
-                         Expanded(child: CommonFormField(
-                           buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
-                           autoValidateMode: AutovalidateMode.onUserInteraction,
-                           maxLength: 10,
-                           validator: (val)=>phoneValidator(val),
-                           inputFormatters: [
-                             LengthLimitingTextInputFormatter(10),
-                             FilteringTextInputFormatter.digitsOnly,
-                           ],
-                           textInputAction: TextInputAction.done,
-                           keyboardType: TextInputType.phone,
-                           controller: loginWatch.phoneNumberController,
-                          onChanged: (value)=>notAllowSpecialChar(loginWatch.phoneNumberController, value),
-                          prefixIcon: Icon(Icons.phone,size: 18.sp,color: AppColors.colors.blueColors,),
-                          hintText: "9876....",labelText: "Phone Number",)),
-                      ],
-                  ),
-                   ),
-                  CommonButton(
-                      btnText: "Login",onPressed: (){
-                      loginWatch.loginButton(context);
-                  },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 6.h)),
-                  SizedBox(height: 15.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("OTP Verification",style:  TextStyles.w500.copyWith(fontSize: 26.sp,color: Colors.black),),
+                Text("we will send you 6-digit one-time password to the number", textAlign: TextAlign.center, style:  TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.grey),),
+                 Padding(
+                   padding: EdgeInsets.symmetric(vertical: 22.h),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Not A Member? ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: Colors.grey),),
-                      TextButton(onPressed: (){
-                        Navigator.push(context, PageTransition(child: const ChooseRegisterType(), type: PageTransitionType.leftToRight,duration: const Duration(milliseconds: 300)));
-                        // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ChooseRegisterType()));
-                      }, child: Text("Register Now",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)),
+                      InkWell(
+                        onTap: (){
+                          loginWatch.selectCountry(context);
+                        },
+                        child: Row(
+                          children: [
+                            Text(loginWatch.selectedCountry.countryCode,style: TextStyles.w400.copyWith(fontSize: 14.sp,color: Colors.black),),
+                            SizedBox(width: 5.w,),
+                            Text("+${loginWatch.selectedCountry.phoneCode}",style: TextStyles.w400.copyWith(fontSize: 14.sp,color: Colors.black),),
+                            const Icon(Icons.arrow_drop_down_outlined,color: Colors.black,),
+                            SizedBox(width: 5.w,),
+                          ],
+                        ),
+                      ),
+                       Expanded(child: CommonFormField(
+                         buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
+                         autoValidateMode: AutovalidateMode.onUserInteraction,
+                         maxLength: 10,
+                         validator: (val)=>phoneValidator(val),
+                         inputFormatters: [
+                           LengthLimitingTextInputFormatter(10),
+                           FilteringTextInputFormatter.digitsOnly,
+                         ],
+                         textInputAction: TextInputAction.done,
+                         keyboardType: TextInputType.phone,
+                         controller: loginWatch.phoneNumberController,
+                        onChanged: (value)=>notAllowSpecialChar(loginWatch.phoneNumberController, value),
+                        prefixIcon: Icon(Icons.phone,size: 18.sp,color: AppColors.colors.blueColors,),
+                        hintText: "9876....",labelText: "Phone Number",)),
                     ],
-                  )
-                ],
-              ),
+                ),
+                 ),
+                CommonButton(
+                    btnText: "Login",onPressed: (){
+                    loginWatch.loginButton(context);
+                },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 6.h)),
+                SizedBox(height: 15.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Not a Member? ",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: Colors.grey),),
+                    TextButton(onPressed: (){
+                      Navigator.push(context, PageTransition(child: const ChooseRegisterType(), type: PageTransitionType.leftToRight,duration: const Duration(milliseconds: 300)));
+                      // Navigator.push(context, MaterialPageRoute(builder: (_)=>const ChooseRegisterType()));
+                    }, child: Text("Register Now",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),)),
+                  ],
+                )
+              ],
             ),
           ),
         ),

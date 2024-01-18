@@ -37,13 +37,17 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
           shadowColor: Colors.grey,
           backgroundColor: AppColors.colors.clayColors,
           toolbarHeight: 68.h,
+          automaticallyImplyLeading: false,
           centerTitle: false,
-          leading: IconButton(onPressed: (){
-            context.pop();
-          },
-          icon: Icon(Icons.arrow_back,color: AppColors.colors.whiteColors,),),
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+        IconButton(
+        style: ElevatedButton.styleFrom(padding: EdgeInsets.zero),
+        onPressed: (){
+          context.pop();
+        },
+        icon: Icon(Icons.arrow_back,color: AppColors.colors.whiteColors,),),
               GestureDetector(
                 onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (_)=>CommonImageViewer(imageUrl: "https://api.emploihunt.com${widget.profileUrl}")));
@@ -71,6 +75,7 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
                   ),
                 ),
               ),
+              SizedBox(width: 8.w,),
               Expanded(
                 child: Text(
                   widget.personName,

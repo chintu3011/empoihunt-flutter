@@ -9,16 +9,16 @@ class IntroPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        const Expanded(child: SizedBox()),
-        SizedBox(
-            child: Image.asset(model.img,)),
-        SizedBox(height: 30.h),
-        Text(textAlign: TextAlign.center,model.title,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 18.sp,color: Colors.black),),
-        SizedBox(height: 10.h,),
+        Expanded(
+          child: SizedBox(
+              child: Image.asset(model.img,)),
+        ),
+        Text(textAlign: TextAlign.center,model.title,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 20.sp,color: Colors.black),),
+        SizedBox(height: 8.h,),
         Text(textAlign: TextAlign.center,model.subtile,style: TextStyle(fontWeight: FontWeight.w700,fontSize: 14.sp,color: Colors.grey)),
-        SizedBox(height: 80.h,),
+        SizedBox(height: 50.h,),
       ],
     );
   }

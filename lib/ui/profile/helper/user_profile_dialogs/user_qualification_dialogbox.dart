@@ -17,7 +17,7 @@ class UserQualificationDialogBox extends ConsumerWidget {
     return SafeArea(
       child: Container(
         width: 340.w,
-        height: 200.h,
+        height: 220.h,
         padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
         margin: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom> 0? 160 : 0),
         decoration: BoxDecoration(

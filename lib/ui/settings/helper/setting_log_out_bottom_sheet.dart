@@ -39,7 +39,7 @@ class _SettingLogoutBottomSheetState extends ConsumerState<SettingLogoutBottomSh
   Widget build(BuildContext context) {
     final settingWatch = ref.watch(settingController);
     return Container(
-      height: 300.h,
+      height: 320.h,
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 8.w,vertical: 10.h),
       child: Column(
@@ -52,8 +52,7 @@ class _SettingLogoutBottomSheetState extends ConsumerState<SettingLogoutBottomSh
               alignment: Alignment.center,
                 child: Lottie.asset(
                   controller: logoutController,
-                  AppAssets.logOutLottie,width: 180.w,
-                  height: 200.h,
+                  AppAssets.logOutLottie,
                   onLoaded: (_){
                     logoutController.repeat();
                   },

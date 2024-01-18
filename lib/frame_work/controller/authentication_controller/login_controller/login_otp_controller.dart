@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:country_picker/country_picker.dart';
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
@@ -23,12 +24,42 @@ class LoginOtpController extends ChangeNotifier{
   LoginOtpController(this.ref);
 
   final otpController = TextEditingController();
+  final phoneNumberController = TextEditingController();
+
+  final GlobalKey<FormState> bottomSheetState = GlobalKey();
+
 
   String verId = '';
   bool codeSend = false;
   bool isLoading = false;
 
 
+
+  addNumberToController(String phoneNumber){
+    phoneNumberController.text = phoneNumber.substring(3);
+    notifyListeners();
+  }
+
+  /// ----------------------------Country Picker--------------------------------///
+  Country selectedCountry = Country(phoneCode: "91", countryCode: "IN", e164Sc: 0, geographic: true, level: 1, name: "India", example: "9123456789", displayName: "India (IN) [+91]", displayNameNoCountryCode: "India (IN)", e164Key: "91-IN-0");
+
+  selectCountry(BuildContext context){
+    showCountryPicker(
+        context: context,
+        countryListTheme: CountryListThemeData(
+            textStyle: TextStyle(fontSize: 14.sp),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            inputDecoration: const InputDecoration(
+                hintText: "Start typing to sear", labelText: "Search")),
+        favorite: ['IN'],
+        onSelect: (value) {
+          selectedCountry = value;
+          notifyListeners();
+        });
+    notifyListeners();
+  }
+  /// ----------------------------Country Picker--------------------------------///
 
   /// ------------- login with firebase otp--------------///
    Future  verifyPhoneNumber(

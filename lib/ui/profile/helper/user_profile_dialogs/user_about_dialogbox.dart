@@ -40,7 +40,7 @@ class UserAboutDialogBox extends ConsumerWidget {
                   prefixIcon: const Icon(Icons.file_copy_rounded),
                   maxLine: 4,
                   contentPadding:
-                  EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),
+                  EdgeInsets.symmetric(vertical: 30.h, horizontal: 10.w),
                 ),
               ),
               Row(

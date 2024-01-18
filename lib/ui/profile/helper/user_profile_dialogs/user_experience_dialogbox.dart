@@ -17,8 +17,8 @@ class UserExperienceDialogBox extends ConsumerWidget {
     return SafeArea(
       child: Container(
         width: 340.w,
-        height:profileWatch.isExperienceExpanded? 480.h : 200.h,
-        padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 10.h),
+        height:profileWatch.isExperienceExpanded? 480.h : 228.h,
+        padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
         margin: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom> 0? 230 : 0),
         decoration: BoxDecoration(
             color: AppColors.colors.whiteColors,
@@ -28,7 +28,7 @@ class UserExperienceDialogBox extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Change Info",style: TextStyles.w600.copyWith(fontSize: 22.sp,color: AppColors.colors.blueColors),).paddingVertical(10.h),
-            SizedBox(height: 10.h,),
+            SizedBox(height: 8.h,),
              Expanded(
               child: SingleChildScrollView(
                 child: Column(

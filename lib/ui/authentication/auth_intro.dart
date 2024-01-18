@@ -61,9 +61,9 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                   color: Colors.white,
                   child: Column(
                     children: [
-                      Image.asset(AppAssets.titleLog,scale: 6.5,),
+                      Image.asset(AppAssets.titleLog,scale: 6.5.sp,),
                       SizedBox(height: 8.h,),
-                      Image.asset(AppAssets.welcome,scale: 7,),
+                      Image.asset(AppAssets.welcome,scale: 7.sp,),
                     ],
                   ),
                 ),
@@ -125,12 +125,10 @@ class CustomCurve  extends CustomClipper<Path>{
 
     final path = Path();
 
-    //(0,0)   // 1. point
     path.lineTo(0, h); // 2. point
     path.quadraticBezierTo(w * 0.5, h - 100, w, h);
     path.lineTo(w,0); // 5. point
     path.close();
-
 
     return path;
   }

@@ -89,25 +89,33 @@ class _SettingState extends ConsumerState<Setting> {
                 , (index) {
               final setting = userData.iRole ==0? settingWatch.seekerSettingList[index] : settingWatch.recruiterSettingList[index];
               return  Container(
-                margin: EdgeInsets.only(bottom: 8.h),
                 height: 45.h,
-                child: ListTile(
+                margin: EdgeInsets.only(bottom: 8.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(color: AppColors.colors.blueColors,width: 1.w)
+                ),
+                child: InkWell(
                   onTap: (){
                     if(userData.iRole == 0){
-                    settingWatch.seekerNavigatingToList(index, context);
+                      settingWatch.seekerNavigatingToList(index, context);
                     }else{
                       settingWatch.recruiterNavigatingToList(index, context);
                     }
                   },
-                  dense: true,
-                  contentPadding: EdgeInsets.only(top:0,bottom: 0,right: 5.w,left: 3.w),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                      side: BorderSide(color: AppColors.colors.blueColors,width: 1.w)
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(setting["Icon"],color: AppColors.colors.blueColors,),
+                          SizedBox(width: 10.w,),
+                          Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),)
+                        ],
+                      ),
+                      Icon(Icons.arrow_forward_ios_outlined,color: AppColors.colors.clayColors,),
+                    ],
                   ),
-                  leading: Icon(setting["Icon"],color: AppColors.colors.blueColors,),
-                  title: Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
-                  trailing: Icon(Icons.arrow_forward_ios_outlined,color: AppColors.colors.clayColors,),
                 ),
               );
             })
@@ -117,3 +125,23 @@ class _SettingState extends ConsumerState<Setting> {
     );
   }
 }
+/*
+ListTile(
+                  onTap: (){
+                    if(userData.iRole == 0){
+                    settingWatch.seekerNavigatingToList(index, context);
+                    }else{
+                      settingWatch.recruiterNavigatingToList(index, context);
+                    }
+                  },
+                  dense: true,
+                  contentPadding: EdgeInsets.only(top:0,bottom: 5.h,right: 5.w,left: 3.w),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                      side: BorderSide(color: AppColors.colors.blueColors,width: 1.w)
+                  ),
+                  leading: Icon(setting["Icon"],color: AppColors.colors.blueColors,),
+                  title: Text(setting["Text"],style: TextStyles.w600.copyWith(fontSize: 12.sp,color: AppColors.colors.blackColors),),
+                  trailing: Icon(Icons.arrow_forward_ios_outlined,color: AppColors.colors.clayColors,),
+                )
+ */

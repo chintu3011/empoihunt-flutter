@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
+import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
@@ -35,9 +36,12 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
           elevation: 3,
           shadowColor: Colors.grey,
           backgroundColor: AppColors.colors.clayColors,
-          toolbarHeight: 65.h,
+          toolbarHeight: 68.h,
           centerTitle: false,
-          automaticallyImplyLeading: false,
+          leading: IconButton(onPressed: (){
+            context.pop();
+          },
+          icon: Icon(Icons.arrow_back,color: AppColors.colors.whiteColors,),),
           title: Row(
             children: [
               GestureDetector(
@@ -47,16 +51,14 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
                 child: Container(
                   height: 50.h,
                   width: 50.w,
-                  margin: EdgeInsets.only(right: 10.w),
-                  padding: EdgeInsets.all(2.sp),
+                  // margin: EdgeInsets.only(right: 10.w),
+                  padding: EdgeInsets.all(1.5.sp),
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                     color: AppColors.colors.whiteColors,
                     shape: BoxShape.circle,
                   ),
                   child: Container(
-                      height: 80.h,
-                      width: 80.w,
                       clipBehavior: Clip.hardEdge,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
@@ -69,10 +71,12 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
                   ),
                 ),
               ),
-              Text(
-                widget.personName,
-                style: TextStyles.w400
-                    .copyWith(fontSize: 18.sp, color: AppColors.colors.whiteColors),
+              Expanded(
+                child: Text(
+                  widget.personName,
+                  style: TextStyles.w400
+                      .copyWith(fontSize: 16.sp, color: AppColors.colors.whiteColors),overflow: TextOverflow.fade,
+                ),
               ),
             ],
           ),

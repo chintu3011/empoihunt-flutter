@@ -29,7 +29,7 @@ class JobDetailsAbovePart extends ConsumerWidget {
                 jobDetailsWatch.offset <= 0? Text(jobPostModel.vJobTitle!,style: TextStyles.w500.copyWith(fontSize: 27.sp,color: AppColors.colors.blueColors),).paddingOnly(bottom: 5.h):const SizedBox(),
                 Row(
                   children: [
-                    SizedBox(height: 35.h,width: 70.w,child:jobPostModel.tCompanyLogoUrl !=""?
+                    SizedBox(height: 45.h,width: 70.w,child:jobPostModel.tCompanyLogoUrl !=""?
                     Image.network(
                       loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                         if (loadingProgress == null) {
@@ -45,7 +45,7 @@ class JobDetailsAbovePart extends ConsumerWidget {
                           child: Text('Error loading image'),
                         );
                       },
-                      "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.fill,):
+                      "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.fill ,):
                     Image.asset(AppAssets.appLogo,fit: BoxFit.fill,),),
                     SizedBox(width: 5.w,),
                     Expanded(

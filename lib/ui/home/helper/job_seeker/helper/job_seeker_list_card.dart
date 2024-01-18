@@ -132,8 +132,8 @@ class JobSeekerListCard extends ConsumerWidget {
                                 child: Text('Error loading image'),
                               );
                             },
-                            "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.fill,):
-                          Image.asset(AppAssets.profilePicPng,fit: BoxFit.fill,)
+                            "https://api.emploihunt.com${jobPostModel.tCompanyLogoUrl!}",fit: BoxFit.cover,):
+                          Image.asset(AppAssets.profilePicPng,fit: BoxFit.contain,)
                         ),
                         SizedBox(width: 5.w),
                         Text(

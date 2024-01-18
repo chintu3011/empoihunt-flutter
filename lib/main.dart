@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
@@ -12,32 +14,45 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
+
+///-------Firebase Crashlytics -------///
+  FlutterError.onError= (details) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+  };
+
+  PlatformDispatcher.instance.onError =(exception, stackTrace) {
+    FirebaseCrashlytics.instance.recordError(exception, stackTrace,fatal: true);
+    return true;
+  };
+  ///-------Firebase Crashlytics -------///
+
+///---------------FCM Token ------------///
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   SystemChrome.setPreferredOrientations(
       [ DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,]);
   await
-  SharedPrefServices.services
-      .init();
+  SharedPrefServices.services.init();
   String? fcmToken;
   try {
     fcmToken = await FirebaseMessaging.instance.getToken();
   } catch (e) {
     print(e.toString());
   }
-
-  ///--------- initialize Share preference --------/// await
   SharedPrefServices.services
       .pref.setString(fcmTokenKey, fcmToken ?? "");
   print("FCM Token ${
       SharedPrefServices.services
           .getString(fcmTokenKey)}");
+  ///---------------FCM Token ------------///
 
+  
   /// ------- Hive open Box Service ---------///
    registerHiveAdapters();
    await Hive.initFlutter();

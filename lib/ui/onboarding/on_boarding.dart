@@ -53,7 +53,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
                     SharedPrefServices.services.setBool(onBoardingKey, true);
                   },
                   children: const [
-                    IntroPageView(model: (img: AppAssets.image1,title: "Welcome  to EmploiHunt",subtile: "Discover your ideal job here")),
+                    IntroPageView(model: (img: AppAssets.image1,title: "Welcome to EmploiHunt",subtile: "Discover your ideal job here")),
                     IntroPageView(model: (img: AppAssets.image2,title: "Recruit best employee",subtile: "Employ the best talent more quickly with Emploihunt")),
                     IntroPageView(model: (img: AppAssets.image3,title: "Get your Best Joc Here",subtile: "Discover your ideal job here")),
                     IntroPageView(model: (img: AppAssets.image4,title: "Campus Placement",subtile: "Emploihunt can help you find your ideal job on campus")),
@@ -63,8 +63,8 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             ],
           ),
           Positioned(
-            top: size.height * 0.72,
-            left: size.width * 0.44,
+            bottom: size.height * 0.12,
+            left: size.width * 0.43,
             child: const IntroNextButton(),)
         ],
       ),

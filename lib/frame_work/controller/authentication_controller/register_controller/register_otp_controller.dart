@@ -7,6 +7,7 @@ import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:page_transition/page_transition.dart';
 
 final registerOtpController = ChangeNotifierProvider((ref) => RegisterOtpController());
@@ -33,6 +34,10 @@ class RegisterOtpController extends ChangeNotifier{
         },
         verificationFailed: (error) {
           isLoading= false;
+          FirebaseCrashlytics.instance.recordError(
+              error,
+              null,
+              reason: 'Phone Verification Failed');
           notifyListeners();
           debugPrint("verification Failed error --------------->> $error");
         },
@@ -69,6 +74,10 @@ class RegisterOtpController extends ChangeNotifier{
         verificationFailed: (error) {
           isLoading= false;
           notifyListeners();
+          FirebaseCrashlytics.instance.recordError(
+              error,
+              null,
+              reason: 'Phone Verification Failed');
           debugPrint("verification Failed error --------------->> $error");
         },
         codeSent: (verificationId, forceResendingToken) {

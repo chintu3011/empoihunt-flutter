@@ -22,17 +22,6 @@ Future main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
 
-///-------Firebase Crashlytics -------///
-  FlutterError.onError= (details) {
-      FirebaseCrashlytics.instance.recordFlutterFatalError(details);
-  };
-
-  PlatformDispatcher.instance.onError =(exception, stackTrace) {
-    FirebaseCrashlytics.instance.recordError(exception, stackTrace,fatal: true);
-    return true;
-  };
-  ///-------Firebase Crashlytics -------///
-
 ///---------------FCM Token ------------///
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
   SystemChrome.setPreferredOrientations(

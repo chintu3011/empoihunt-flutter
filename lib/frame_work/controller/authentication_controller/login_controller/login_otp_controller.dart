@@ -12,6 +12,7 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../repository/services/hive_service/box_service.dart';
@@ -74,6 +75,10 @@ class LoginOtpController extends ChangeNotifier{
         verificationFailed: (error) {
           isLoading =false;
           debugPrint("verification Failed error --------------->> $error");
+          FirebaseCrashlytics.instance.recordError(
+              error,
+              null,
+              reason: 'Phone Verification Failed');
           notifyListeners();
         },
         codeSent: (verificationId, forceResendingToken) {
@@ -109,6 +114,10 @@ class LoginOtpController extends ChangeNotifier{
         verificationFailed: (error) {
           isLoading =false;
           debugPrint("verification Failed error --------------->> $error");
+          FirebaseCrashlytics.instance.recordError(
+              error,
+              null,
+              reason: 'Phone Verification Failed');
           notifyListeners();
         },
         codeSent: (verificationId, forceResendingToken) {

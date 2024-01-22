@@ -32,7 +32,11 @@ Future main() async {
   try {
     fcmToken = await FirebaseMessaging.instance.getToken();
   } catch (e) {
-    print(e.toString());
+   FirebaseCrashlytics.instance.recordError(
+     e,
+     null,
+     reason: "FCM Token found"
+   );
   }
   SharedPrefServices.services
       .pref.setString(fcmTokenKey, fcmToken ?? "");

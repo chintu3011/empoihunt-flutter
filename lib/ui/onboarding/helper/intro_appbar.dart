@@ -47,9 +47,9 @@ class IntroAppbar extends ConsumerWidget implements PreferredSizeWidget{
           ],
         ),
       ),
-      actions: [
-        TextButton(onPressed: (){}, child: Text("Skip",style: TextStyle(fontSize: 16.sp,color: AppColors.colors.blueColors,fontWeight: FontWeight.w400),))
-      ],
+      // actions: [
+      //   TextButton(onPressed: (){}, child: Text("Skip",style: TextStyle(fontSize: 16.sp,color: AppColors.colors.blueColors,fontWeight: FontWeight.w400),))
+      // ],
     ));
   }
 

@@ -64,7 +64,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
           ),
           Positioned(
             bottom: size.height * 0.11,
-            left: size.width * 0.43,
+            left: size.width * 0.42,
             child: const IntroNextButton(),)
         ],
       ),

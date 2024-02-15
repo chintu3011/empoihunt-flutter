@@ -16,7 +16,7 @@
 
 
   ///--------- Device Box ------------///
-  const String nativeDeviceDetailsBox = "nativeDeviceDetailsKey";
+  const String   nativeDeviceDetailsBox = "nativeDeviceDetailsKey";
   ////keys
     const String deviceDetailKey = "nativeDeviceDetailsKey";
 

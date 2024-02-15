@@ -55,7 +55,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
                   children: const [
                     IntroPageView(model: (img: AppAssets.image1,title: "Welcome to EmploiHunt",subtile: "Discover your ideal job here")),
                     IntroPageView(model: (img: AppAssets.image2,title: "Recruit best employee",subtile: "Employ the best talent more quickly with Emploihunt")),
-                    IntroPageView(model: (img: AppAssets.image3,title: "Get your Best Joc Here",subtile: "Discover your ideal job here")),
+                    IntroPageView(model: (img: AppAssets.image3,title: "Get your Best Job Here",subtile: "Discover your ideal job here")),
                     IntroPageView(model: (img: AppAssets.image4,title: "Campus Placement",subtile: "Emploihunt can help you find your ideal job on campus")),
                   ],
                 ),

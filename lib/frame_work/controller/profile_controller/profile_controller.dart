@@ -699,7 +699,7 @@ class ProfileController extends ChangeNotifier {
           {
             "vDesignation": userExperienceAddDesignFieldController.text,
             "vCompany": userExperienceAddCompanyNameFieldController.text,
-            "vDuration":checkBoxValAddForm?"Present": userExperienceAddDurationFieldController.text,
+            "vDuration":checkBoxValAddForm?"0": userExperienceAddDurationFieldController.text,
             "vJobLocation": userExperienceAddSelectedJobLocation,
             "bIsCurrentCompany":checkBoxValAddForm? 1: 0
           },options);

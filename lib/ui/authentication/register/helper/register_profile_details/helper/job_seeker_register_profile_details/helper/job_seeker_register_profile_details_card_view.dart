@@ -95,10 +95,12 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                            backgroundColor: AppColors.colors.blueColors,
                            fixedSize: Size(60.w, 50.h)),
                        onPressed: () {
+                         registerProfileDetailWatch.index == 4?  registerProfileDetailWatch.experienceRegisterSubmitButton(context):
                          registerProfileDetailWatch.forwardBtn(context);
                        },
                        icon: Icon(Icons.arrow_forward_rounded,
-                           color: AppColors.colors.whiteColors)):
+                           color: AppColors.colors.whiteColors))
+                       :
                    ///------------------ if user select Experience --------------------///
 
 ///-----------------------------------------------------------------------------------------------------------------------------------------///
@@ -112,10 +114,12 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                            backgroundColor: AppColors.colors.clayColors,
                            fixedSize: Size(60.w, 50.h)),
                        onPressed: () {
+                         print("fresher 1 button pressed");
                          registerProfileDetailWatch.freshersRegisterSubmitButton(context);
                        },
                        icon: Icon(Icons.check,
-                           color: AppColors.colors.whiteColors)):
+                           color: AppColors.colors.whiteColors))
+                        :
                    IconButton(
                         style: ElevatedButton.styleFrom(
                             shape: RoundedRectangleBorder(
@@ -123,7 +127,8 @@ class JobSeekerRegisterProfileDetailsCardView extends ConsumerWidget {
                             backgroundColor: AppColors.colors.blueColors,
                             fixedSize: Size(60.w, 50.h)),
                         onPressed: () {
-                          registerProfileDetailWatch.forwardBtn(context);
+                          print("fresher 2 button pressed");
+                          registerProfileDetailWatch.index == 3? registerProfileDetailWatch.freshersRegisterSubmitButton(context): registerProfileDetailWatch.forwardBtn(context);
                         },
                         icon: Icon(Icons.arrow_forward_rounded,
                             color: AppColors.colors.whiteColors)),

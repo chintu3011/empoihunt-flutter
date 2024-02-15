@@ -22,10 +22,11 @@ class AppliedCandidateProfileDetails extends ConsumerWidget {
           SizedBox(
               height: 120.h,
               width: double.infinity,
-              child:
+              child: userJobPref.tProfileBannerUrl !=null?
               CachedNetworkImage(imageUrl: "https://api.emploihunt.com${userJobPref.tProfileBannerUrl!}",
                 placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,),fit: BoxFit.fitWidth,)
+                errorWidget: (context, url, error) => Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,),fit: BoxFit.fitWidth,):
+              Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.fitWidth,)
 
           ),
           Padding(

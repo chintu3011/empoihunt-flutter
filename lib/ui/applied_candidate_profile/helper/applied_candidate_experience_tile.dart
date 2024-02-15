@@ -59,7 +59,7 @@ class AppliedCandidateExperienceTile extends ConsumerWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(experience.vJobLocation??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.greyRegent),),
-                                Text(experience.bIsCurrentCompany == 0?experience.vDuration! : "Present",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),)
+                                Text(experience.bIsCurrentCompany == 0? experience.vDuration??"" : "Present",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.clayColors),)
                               ],
                             )
                           ],

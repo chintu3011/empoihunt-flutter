@@ -10,12 +10,12 @@ import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../../ui/utils/app_constant.dart';
-import '../../../repository/api_end_point.dart';
-import '../../../repository/dio_client.dart';
-import '../../../repository/model/user_model/user_detail_data_model.dart';
-import '../../../repository/services/hive_service/box_service.dart';
-import '../../../repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
+import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
+import 'package:emploiflutter/frame_work/repository/dio_client.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 
 final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController(ref));
 
@@ -31,20 +31,26 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   forwardBtn(BuildContext context){
     if(isExperienced){
-      if(index < 4) {
-        index++;
+      if(index <= 4) {
+        if(index< 4){
+          index++;
+        }
         pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
         Curves.easeIn);
       }else{
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
       }
     }else if(isFresher){
-      if(index < 3) {
-        index++;
+      if(index <= 3) {
+        print(index);
+        print("final");
+        if(index<3){
+          index++;
+        }
         pageController.animateToPage(index,duration: const Duration(milliseconds: 400), curve:
         Curves.easeIn);
       }else{
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+        // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
       }
     }
     notifyListeners();
@@ -74,6 +80,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   final qualificationSearchController = TextEditingController();
   bool isQualificationEmpty = false;
+
 
 
   bool isBioControllerEmpty = false;
@@ -115,6 +122,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   final jobSearchController = TextEditingController();
   final preferCitySearchController = TextEditingController();
+
 
   bool isSelectedJobTitleEmt = false;
   bool isSelectedPrefCityEmt = false;
@@ -169,9 +177,38 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   final designationSearchController = TextEditingController();
   final jobLocationSearchController = TextEditingController();
 
+  final expertiseController = TextEditingController();
+  List<String> expertiseList = [];
+
+
+  removeDataInExpertiseList(int index){
+    expertiseList.removeAt(index);
+    notifyListeners();
+  }
+  addExpertise() {
+    if (expertiseController.text != "") {
+      expertiseList.add(expertiseController.text);
+      expertiseController.clear();
+      isExpertiseEmpty = false;
+    }else{
+      isExpertiseEmpty = true;
+    }
+    notifyListeners();
+  }
+  String? expertiseTagline;
+
+  expertiseToTagline(){
+    expertiseTagline = "";
+    expertiseTagline = expertiseList.join(" || ");
+    notifyListeners();
+  }
+
+
   bool isCompanyNameEmpty = false;
   bool isSelectedDesignEmpty = false;
   bool isSelectedJobLocEmpty = false;
+  bool isExpertiseEmpty = false;
+
   String? selectedDesignation;
 
   updateIsCompanyNameEmt(String? value){
@@ -264,6 +301,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   ///---------------- register Submit button -----------------///
 
   experienceRegisterSubmitButton(BuildContext context)async{
+    print("experienceRegisterSubmitButton");
     if(bioController.text != ""){
       isBioControllerEmpty = false;
       if(selectedQualification != null){
@@ -278,17 +316,25 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
                 isSelectedJobTitleEmt = false;
                 if(selectedPreferCity !=null){
                   isSelectedPrefCityEmt = false;
-                  if(pdfName !=null){
-                    if(profilePic !=null){
-                      await registerApiCall(context);
+                  if(expertiseList.isNotEmpty){
+                      isExpertiseEmpty = false;
+                    if(pdfName !=null){
+                      if(profilePic !=null){
+                        await registerApiCall(context);
+                      }else{
+                        showSnackBar(context: context, error: "Please Select the image");
+                      }
                     }else{
-                      showSnackBar(context: context, error: "Please Select the image");
+                      index = 3;
+                      pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+                      Curves.easeIn);
+                      showSnackBar(context: context, error: "Please Select Resume");
                     }
                   }else{
-                    index = 3;
+                    isExpertiseEmpty = true;
+                    index =2;
                     pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
                     Curves.easeIn);
-                    showSnackBar(context: context, error: "Please Select Resume");
                   }
                 }else{
                   isSelectedPrefCityEmt = true;
@@ -336,6 +382,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   }
 
   freshersRegisterSubmitButton(BuildContext context)async{
+    print("freshersRegisterSubmitButton");
     if(bioController.text != ""){
       isBioControllerEmpty = false;
       if(selectedQualification != null){
@@ -344,17 +391,25 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
           isSelectedJobTitleEmt = false;
           if(selectedPreferCity !=null){
             isSelectedPrefCityEmt = false;
-            if(pdfName !=null){
-              if(profilePic !=null){
-                await registerApiCall(context);
+            if(expertiseList.isNotEmpty){
+              isExpertiseEmpty = false;
+              if(pdfName !=null){
+                if(profilePic !=null){
+                  await registerApiCall(context);
+                }else{
+                  showSnackBar(context: context, error: "Please Select the image");
+                }
               }else{
-                showSnackBar(context: context, error: "Please Select the image");
+                index = 2;
+                pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
+                Curves.easeIn);
+                showSnackBar(context: context, error: "Please Select Resume");
               }
             }else{
-              index = 2;
+              isExpertiseEmpty = true;
+              index =1;
               pageController.animateToPage(index,duration: const Duration(milliseconds: 300), curve:
               Curves.easeIn);
-              showSnackBar(context: context, error: "Please Select Resume");
             }
           }else{
             isSelectedPrefCityEmt = true;
@@ -439,6 +494,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     print("FCM Token------->${SharedPrefServices.services.getString(fcmTokenKey)}");
     notifyListeners();
     print(uid);
+    expertiseToTagline();
     await getLocation();
     try {
       FormData formData = FormData.fromMap({
@@ -447,7 +503,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
       });
       int userDeletedValue  = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=""&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0&isDeleted=$userDeletedValue",
+          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=${expertiseTagline??""}&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0&isDeleted=$userDeletedValue",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;
@@ -460,6 +516,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
               type: PageTransitionType.rightToLeft,
               duration: const Duration(milliseconds: 300)), (route) => false);
         }
+        clearData();
         debugPrint("Successfully register");
       }
     } catch (e) {
@@ -472,6 +529,37 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   void notifyListeners() {
     super.notifyListeners();
   }
+
+
+  clearData(){
+    companyNameController.clear();
+    jobSearchController.clear();
+    preferCitySearchController.clear();
+    designationSearchController.clear();
+    qualificationSearchController.clear();
+    jobLocationSearchController.clear();
+    selectedQualification = null;
+    selectedDesignation = null;
+    selectedJobLocation = null;
+    pdfUrl = null;
+    imgUrl = null;
+    profilePic = null;
+    pdfName = null;
+    selectedWorkingMode = 0;
+    isFresher = true;
+    expertiseList = [];
+    expertiseTagline = null;
+    latitude = 0.0;
+    longitude = 0.0;
+    phoneNumber = "";
+    email = "";
+    profilePicName = "";
+    lastName = "";
+    firstName = "";
+    city = "";
+    notifyListeners();
+  }
+
 
   @override
   void dispose() {

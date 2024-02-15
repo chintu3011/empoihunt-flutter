@@ -36,7 +36,12 @@ class RecruiterListTile extends StatelessWidget {
                     SizedBox(height: 10.h,),
                     Text(user.vQualification??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),overflow: TextOverflow.ellipsis,),
                     SizedBox(height: 15.h,),
-                    Text(user.vCurrentCompany!=null  && user.vCurrentCompany != ""? "Experience":"Fresher",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
+                    Row(
+                      children: [
+                        Text(user.vCurrentCompany!=null  && user.vCurrentCompany != ""? "Experience":"Fresher",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
+                        Expanded(child: Text(" ${user.tTagLine??""}"))
+                      ],
+                    ),
                     SizedBox(height: 10.h,),
                     Row(
                       children: [

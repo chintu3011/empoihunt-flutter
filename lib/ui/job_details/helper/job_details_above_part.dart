@@ -104,7 +104,7 @@ class JobDetailsAbovePart extends ConsumerWidget {
                   ],
                 ),
                SizedBox(
-                 width: 150.w,
+                 width: MediaQuery.of(context).size.width.w,
                    child: Text(jobPostModel.tDes!,softWrap: true,style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.greyRegent)))
               ],
             ),
@@ -129,7 +129,7 @@ class JobDetailsAbovePart extends ConsumerWidget {
                   ],
                 ),
                 SizedBox(
-                    width: 150.w,
+                    width: MediaQuery.of(context).size.width.w,
                     child: Text(jobPostModel.vJobRoleResponsbility!,softWrap: true,style: TextStyles.w400.copyWith(fontSize: 10.sp,color: AppColors.colors.greyRegent)))
               ],
             ),

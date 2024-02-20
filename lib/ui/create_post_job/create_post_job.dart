@@ -14,16 +14,31 @@ import 'package:emploiflutter/ui/utils/form_validation.dart';
 import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utils/common_widget/common_dropdown_form_field.dart';
 import '../utils/theme/text_styles.dart';
 
-class CreatePostJob extends ConsumerWidget {
+class CreatePostJob extends ConsumerStatefulWidget {
   const CreatePostJob({super.key});
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  ConsumerState<CreatePostJob> createState() => _CreatePostJobState();
+}
+
+class _CreatePostJobState extends ConsumerState<CreatePostJob> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(createPostJobController).clearForm();
+    });
+  }
+  @override
+  Widget build(BuildContext context,) {
     final createPostJobWatch = ref.watch(createPostJobController);
     return  Scaffold(
       appBar: const CommonAppBar(title: "Create Job Post",),
@@ -38,7 +53,7 @@ class CreatePostJob extends ConsumerWidget {
             children: [
               CommonTypeAheadFormField(
                   direction: AxisDirection.down,
-                  onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.jobTitleFieldController, value),
+                  onChanged: (value)=>notAllowSpecialChar_withSpace(createPostJobWatch.jobTitleFieldController, value),
                   controller: createPostJobWatch.jobTitleFieldController,
                   hintText: "Job Title",
                   labelText: "Job Title",
@@ -138,7 +153,7 @@ class CreatePostJob extends ConsumerWidget {
                 onChanged: (value)=>notAllowSpecialChar(createPostJobWatch.numberOfEmpFieldController, value),
                 validator: (value)=>requiredFieldValidator(input:value , errorMgs: "Please enter number of employee"),
                 hintText: "Need of Employees",labelText: "Number of Employees",prefixIcon: Icon(Icons.people,color: AppColors.colors.blueColors,),),
-              SizedBox(height: 10.h,),
+               SizedBox(height: 10.h,),
               /// Bottom Button ///
               const CreatePostJobBottomButton()
 

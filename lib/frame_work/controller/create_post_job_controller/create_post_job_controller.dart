@@ -214,7 +214,7 @@ class CreatePostJobController extends ChangeNotifier{
     imageFile = null;
     techSkillTagline="";
     softSkillTagline = "";
-    jobTitleFieldController.clear();
+    jobTitleFieldController.text = "";
     companyNameFieldController.clear();
     jobDescriptionFieldController.clear();
     jobRoleRespFieldController.clear();
@@ -265,12 +265,24 @@ class CreatePostJobController extends ChangeNotifier{
         );
         FormData formData = FormData.fromMap(
             {
+              "vJobTitle":jobTitleFieldController.text,
+              "vCompanyName":companyNameFieldController.text,
+              "tDes":jobDescriptionFieldController.text,
+              "vJobLevel":" ",
+              "vExperience":experienceFieldController.text,
+              "iNumberOfVacancy":numberOfEmpFieldController.text,
+              "vJobRoleResponsbility":jobRoleRespFieldController.text,
+              "tTechnicalSkill":techSkillTagline,
+              "tSoftSkill":softSkillTagline,
+              "vEducation":educationSearchController.text,
+              "vAddress":selectedJobLocation,
+              "vSalaryPackage":salaryFieldController.text,
+              "vWrokingMode":selectedWorkingModeValue,
               "tCompanyPic":await MultipartFile.fromFile(imgUrl!, filename: imageName),
             });
 
         Response response = await DioClient.client
-            .postDataWithFormWithBearerToken("${APIEndPoint.jobInsertApi}?vJobTitle=${jobTitleFieldController.text}&vCompanyName=${companyNameFieldController.text}&tDes=${jobDescriptionFieldController.text}&vJobLevel=""&vExperience=${experienceFieldController.text}&iNumberOfVacancy=${numberOfEmpFieldController.text}&vJobRoleResponsbility=${jobRoleRespFieldController.text}&tTechnicalSkill=$techSkillTagline&tSoftSkill=$softSkillTagline&vEducation=${educationSearchController.text}&vAddress=$selectedJobLocation&vSalaryPackage=${salaryFieldController.text}&vWrokingMode=$selectedWorkingModeValue",
-            formData: formData,
+            .postDataWithFormWithBearerToken("/job/insert_jobs_flutter",formData: formData,
             options: options);
         if(response.statusCode == 200){
           debugPrint("Job Post Done--------->");
@@ -286,7 +298,6 @@ class CreatePostJobController extends ChangeNotifier{
         }
       }
     }catch(e){
-      
       Future.error("Post Job Insert API-------> $e");
     }
     notifyListeners();

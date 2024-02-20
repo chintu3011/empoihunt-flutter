@@ -1,12 +1,10 @@
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import 'package:emploiflutter/ui/home/helper/recruiter/helper/recruiter_profile_card.dart';
 import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../../../frame_work/repository/model/user_model/user_with_device_token_model.dart';
+import 'package:emploiflutter/frame_work/repository/model/user_model/user_with_device_token_model.dart';
 
 
 class RecruiterListTile extends StatelessWidget {
@@ -35,13 +33,8 @@ class RecruiterListTile extends StatelessWidget {
                     Text(user.vPreferJobTitle??"",style: TextStyles.w500.copyWith(fontSize: 15.sp,color: AppColors.colors.blueColors),overflow: TextOverflow.ellipsis,),
                     SizedBox(height: 10.h,),
                     Text(user.vQualification??"",style: TextStyles.w400.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),overflow: TextOverflow.ellipsis,),
-                    SizedBox(height: 15.h,),
-                    Row(
-                      children: [
-                        Text(user.vCurrentCompany!=null  && user.vCurrentCompany != ""? "Experience":"Fresher",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
-                        Expanded(child: Text(" ${user.tTagLine??""}"))
-                      ],
-                    ),
+                    Text(user.vCurrentCompany!=null  && user.vCurrentCompany != ""? "Experience":"Fresher",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
+                    Text(" ${user.tTagLine??""}"),
                     SizedBox(height: 10.h,),
                     Row(
                       children: [

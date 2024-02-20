@@ -59,7 +59,7 @@ class JobSeekerListCard extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(4.r),
                             color: AppColors.colors.clayColors),
                         child: Text(
-                          "${jobPostModel.vExperience} Years",
+                          "${jobPostModel.vExperience} Years Ex.",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyles.w400.copyWith(
                               fontSize: 12.sp, color: AppColors.colors.whiteColors),
@@ -90,11 +90,21 @@ class JobSeekerListCard extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      jobPostModel.vCompanyName!,
-                      style: TextStyles.w500.copyWith(
-                          fontSize: 12.sp, color: AppColors.colors.blackColors),
+                    // Text(
+                    //   jobPostModel.vCompanyName!,
+                    //   style: TextStyles.w500.copyWith(
+                    //       fontSize: 12.sp, color: AppColors.colors.blackColors),
+                    // ),
+                    Expanded(
+                      child: Text(
+                        jobPostModel.tTechnicalSkill!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.w500.copyWith(
+                            fontSize: 12.sp, color: AppColors.colors.blackColors),
+                      ),
                     ),
+                    SizedBox(width: 5.w,),
                     Text(
                       "${jobPostModel.iNumberOfVacancy} Vacancy",
                       style: TextStyles.w500.copyWith(
@@ -137,9 +147,10 @@ class JobSeekerListCard extends ConsumerWidget {
                         ),
                         SizedBox(width: 5.w),
                         Text(
-                          "${jobPostModel.user!.vFirstName} ${jobPostModel.user!.vLastName}",
+                          "${jobPostModel.vCompanyName!}",
+                          // "${jobPostModel.user!.vFirstName} ${jobPostModel.user!.vLastName}",
                           style: TextStyles.w400.copyWith(
-                              fontSize: 11.sp, color: AppColors.colors.blackColors),
+                              fontSize: 12.sp, color: AppColors.colors.blackColors),
                         ),
                       ],
                     ),

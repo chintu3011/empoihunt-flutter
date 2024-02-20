@@ -40,8 +40,8 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             children: [
               Container(
                 alignment:  Alignment.center,
-                height: size.height * 0.75,
-                width:  size.width,
+                height: size.height * 0.72.spMin,
+                width:  size.width.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.r),bottomLeft: Radius.circular(50.r))
@@ -63,8 +63,8 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             ],
           ),
           Positioned(
-            bottom: size.height * 0.11,
-            left: size.width * 0.42,
+            bottom: size.height * 0.11.h,
+            left: size.width * 0.42.spMin,
             child: const IntroNextButton(),)
         ],
       ),

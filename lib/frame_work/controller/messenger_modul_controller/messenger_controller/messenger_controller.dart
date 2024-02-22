@@ -20,7 +20,7 @@ class MessengerController extends ChangeNotifier{
     notifyListeners();
   }
 
-  bool isLoading = false;
+  bool isLoading = true;
 
   final databaseReference = FirebaseDatabase.instance.ref('Mess').child("LatestMessage");
 

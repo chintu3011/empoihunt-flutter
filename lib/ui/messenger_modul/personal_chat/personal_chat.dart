@@ -1,5 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
+import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/video_call/viedo_call_frame.dart';
+import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -8,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../utils/common_widget/common_profile_image_viewer.dart';
 import '../../utils/theme/text_styles.dart';
+import 'helper/video_call/video_call_test.dart';
 
 class PersonalChat extends ConsumerStatefulWidget {
   final String profileUrl;
@@ -25,6 +29,7 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
+    final user= BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
     return  GestureDetector(
@@ -33,6 +38,7 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
       },
       child: Scaffold(
         appBar: AppBar(
+
           elevation: 3,
           shadowColor: Colors.grey,
           backgroundColor: AppColors.colors.clayColors,
@@ -86,6 +92,11 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
             ],
           ),
           actions: [
+            IconButton(onPressed: (){
+              print(widget.chatPersonFId.toString());
+              print(user.user.vFirstName.replaceFirst(" ", "_"));
+              Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CallPage(callID: "callIdController.text", userName: user.user.vFirstName.replaceFirst(" ", "_"))));
+            }, icon: Icon(Icons.video_camera_front_rounded,color: AppColors.colors.whiteColors,size: 22.sp,)),
             IconButton(onPressed: (){
               Future.delayed(const Duration(milliseconds: 700),()async{
                 await launchUrl(Uri(

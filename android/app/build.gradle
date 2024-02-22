@@ -29,8 +29,8 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.amri.emploihunt"
     compileSdkVersion 33
+    namespace "com.amri.emploihunt"
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -69,6 +69,7 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 

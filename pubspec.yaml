@@ -90,6 +90,8 @@ dependencies:
   geolocator: ^10.1.0
   permission_handler:
 
+  zego_uikit_prebuilt_call: ^4.2.5
+
 # Balloon chat
 popover: ^0.2.9
 

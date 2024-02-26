@@ -2,6 +2,7 @@
 import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 import '../utils/theme/app_assets.dart';
 import '../utils/theme/app_color.dart';
@@ -40,8 +41,8 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             children: [
               Container(
                 alignment:  Alignment.center,
-                height: size.height * 0.72.spMin,
-                width:  size.width.w,
+                height: size.height * 0.78.h,
+                width:  double.infinity.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.r),bottomLeft: Radius.circular(50.r))

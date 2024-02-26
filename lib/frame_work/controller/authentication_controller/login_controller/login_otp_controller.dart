@@ -16,7 +16,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../repository/services/hive_service/box_service.dart';
-import '../../dash_board_controller/dash_board_controller.dart';
+import '../../../repository/services/ze_go_cloud_service/ze_go_cloud_service.dart';
 
 final loginOtpController = ChangeNotifierProvider((ref) => LoginOtpController(ref));
 

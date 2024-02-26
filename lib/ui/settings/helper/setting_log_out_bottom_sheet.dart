@@ -9,8 +9,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-
-import '../../../frame_work/controller/dash_board_controller/dash_board_controller.dart';
+import '../../../frame_work/repository/services/ze_go_cloud_service/ze_go_cloud_service.dart';
 
 
 class SettingLogoutBottomSheet extends ConsumerStatefulWidget{
@@ -64,6 +63,7 @@ class _SettingLogoutBottomSheetState extends ConsumerState<SettingLogoutBottomSh
               CommonButton(btnText: "Yes", onPressed: ()async{
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
                 await settingWatch.singOutApi(context);
+                ZeGoCloudService.service.onUserLogout();
                 Future.delayed(Duration(milliseconds: 700),()async{
                    BoxService.boxService.clearAllBoxes();
                 });

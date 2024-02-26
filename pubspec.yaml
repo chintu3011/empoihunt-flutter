@@ -90,7 +90,9 @@ dependencies:
   geolocator: ^10.1.0
   permission_handler:
 
+# video call ze go cloud
   zego_uikit_prebuilt_call: ^4.2.5
+  zego_uikit_signaling_plugin: ^2.7.6
 
 # Balloon chat
 popover: ^0.2.9

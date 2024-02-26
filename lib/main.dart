@@ -13,14 +13,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
+
+
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,);
+
+  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+
 
 ///---------------FCM Token ------------///
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
@@ -53,18 +61,31 @@ Future main() async {
    BoxService.boxService.userGetDetailBox = await Hive.openBox<UserDetailDataModel>(userDetailsBox);
    BoxService.boxService.userModelBox = await Hive.openBox<UserModel>(userModelBox);
    BoxService.boxService.userExperienceBox = await Hive.openBox<UserExperienceModel>(userExperienceBox);
-   runApp(const ProviderScope(child: MyApp()));
+
+
+   ///----------------- Video call -----------------------///
+  ZegoUIKit().initLog().then((value) {
+    ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+      [ZegoUIKitSignalingPlugin()],
+    );
+
+    runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
+  });
+   // runApp( ProviderScope(child: MyApp(navigatorKey: navigatorKey,)));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final GlobalKey<NavigatorState> navigatorKey; /// added for video call
+  const MyApp({super.key, required this.navigatorKey});
 
   @override Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors,));
     return ScreenUtilInit(designSize: const Size(375, 812),
       minTextAdapt: true,
-      child: MaterialApp(debugShowCheckedModeBanner: false,
+      child: MaterialApp(
+        navigatorKey: navigatorKey, /// added for video call
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
               seedColor: AppColors.colors.blueColors),),

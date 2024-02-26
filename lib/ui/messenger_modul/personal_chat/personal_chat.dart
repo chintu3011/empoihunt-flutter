@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../utils/common_widget/common_profile_image_viewer.dart';
 import '../../utils/theme/text_styles.dart';
@@ -38,11 +39,10 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
       },
       child: Scaffold(
         appBar: AppBar(
-
           elevation: 3,
           shadowColor: Colors.grey,
           backgroundColor: AppColors.colors.clayColors,
-          toolbarHeight: 68.h,
+          toolbarHeight: 70.h,
           automaticallyImplyLeading: false,
           centerTitle: false,
           title: Row(
@@ -92,12 +92,22 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
             ],
           ),
           actions: [
-            IconButton(onPressed: (){
-              print(widget.chatPersonFId.toString());
-              print(user.user.vFirstName.replaceFirst(" ", "_"));
-              Navigator.of(context).push(MaterialPageRoute(builder: (_)=>CallPage(callID: "callIdController.text", userName: user.user.vFirstName.replaceFirst(" ", "_"))));
-            }, icon: Icon(Icons.video_camera_front_rounded,color: AppColors.colors.whiteColors,size: 22.sp,)),
-            IconButton(onPressed: (){
+            ZegoSendCallInvitationButton(
+              buttonSize: Size(50.w,60.h) ,
+              padding: EdgeInsets.zero,
+              iconSize: Size(50.w,60.h),
+              margin: EdgeInsets.zero,
+              icon: ButtonIcon(icon: Icon(Icons.video_camera_front_rounded,color: Colors.white,)),
+              isVideoCall: true,
+              resourceID: "emploihunt_call", //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
+              invitees: [
+                ZegoUIKitUser(
+                  id: widget.chatPersonFId,
+                  name: widget.personName.replaceFirst(" ", "_"),
+                ),
+              ],
+            ),
+             IconButton(onPressed: (){
               Future.delayed(const Duration(milliseconds: 700),()async{
                 await launchUrl(Uri(
                     scheme: 'tel',
@@ -111,4 +121,6 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
       ),
     );
   }
+
+
 }

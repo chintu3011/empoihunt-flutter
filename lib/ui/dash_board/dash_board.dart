@@ -3,6 +3,7 @@ import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../frame_work/controller/dash_board_controller/dash_board_controller.dart';
+import '../../frame_work/repository/services/ze_go_cloud_service/ze_go_cloud_service.dart';
 import '../utils/theme/app_color.dart';
 import '../utils/theme/theme.dart';
 
@@ -20,6 +21,8 @@ class _DashBoardState extends ConsumerState<DashBoard> {
     // TODO: implement initState
     super.initState();
     final user = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
+    ZeGoCloudService.service.onUserLogin(user);
+
     print("-------------------------------------------Dash Board User Details-----------------------------------------------");
     print(user.user.vFirebaseId.toString());
     print(user.user.tUpadatedAt);

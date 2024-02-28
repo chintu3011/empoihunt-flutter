@@ -1,19 +1,3 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
-import 'package:emploiflutter/ui/terms_and_condition/terns_and_condition.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
-import 'package:emploiflutter/ui/utils/form_validation.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:flutter/services.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:page_transition/page_transition.dart';
-
-class RegisterCard extends ConsumerWidget {
-  const RegisterCard({super.key});
-
-  @override
   Widget build(BuildContext context, WidgetRef ref) {
     final registerWatch = ref.watch(registerController);
     return Form(
@@ -209,6 +193,8 @@ class RegisterCard extends ConsumerWidget {
                     ],
                   ),
                   CommonButton(
+                      backgroundColor: AppColors.colors.blueColors,
+                      onPrimary: AppColors.colors.blueDark,
                       btnText: "Register",
                       onPressed: () {
                         registerWatch.registerButton(context);
@@ -227,4 +213,3 @@ class RegisterCard extends ConsumerWidget {
       ),
     );
   }
-}

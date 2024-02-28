@@ -82,6 +82,7 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                   children: [
                     SizedBox(height: 50.h,),
                     CommonButton(btnText: "Login",
+                        onPrimary: AppColors.colors.blueDark,
                         backgroundColor: AppColors.colors.blueColors,
                         txtPadding: EdgeInsets.symmetric(horizontal: 120.w,vertical: 8.h),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(width: 1.5.w,color: AppColors.colors.whiteColors)),

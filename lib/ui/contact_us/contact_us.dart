@@ -100,7 +100,10 @@ class ContactUs extends ConsumerWidget {
                     EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),
                   ),
                 SizedBox(height: 20.h,),
-                CommonButton(btnText: "Submit",onPressed: (){
+                CommonButton(
+                  backgroundColor: AppColors.colors.blueColors,
+                    onPrimary:AppColors.colors.blueDark,
+                    btnText: "Submit",onPressed: (){
                   contactUsWatch.submitButton(context);
                 },fontSize: 16.sp,txtPadding: EdgeInsets.symmetric(horizontal: 47.w,vertical: 6.h))
               ],

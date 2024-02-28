@@ -19,12 +19,22 @@ class CommonButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
         onPressed: onPressed,
-        style:  ElevatedButton.styleFrom(
-            onPrimary:onPrimary?? Colors.white,
-            backgroundColor: backgroundColor ?? AppColors.colors.blueColors,
-            shape: shape,
-            // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r),side: const BorderSide(color: Colors.white,width: 1.5))
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(backgroundColor),
+          shape: MaterialStateProperty.all(shape),
+          overlayColor: MaterialStateProperty.resolveWith(
+                (states) {
+              return states.contains(MaterialState.pressed)
+                  ? onPrimary
+                  : null;
+            },
+          ),
         ),
+        // style:  ElevatedButton.styleFrom(
+        //     backgroundColor: backgroundColor ?? AppColors.colors.blueColors,
+        //     shape: shape,
+        //     // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r),side: const BorderSide(color: Colors.white,width: 1.5))
+        // ),
         child: Padding(
           padding: txtPadding ?? EdgeInsets.symmetric(horizontal: 10.w,vertical: 8.h),
           child: Text(btnText,style: TextStyles.w400.copyWith(fontSize:fontSize?? 22.sp,color:textColor ?? Colors.white),),

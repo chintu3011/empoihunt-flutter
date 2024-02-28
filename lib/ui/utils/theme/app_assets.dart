@@ -53,5 +53,6 @@ class AppAssets {
   static const String bannerLoadingLottie = 'assets/lottie/imag_lodding_rectangle.json';
   static const String applyLottie = 'assets/lottie/apply.json';
   static const String chatLottie = 'assets/lottie/chat.json';
+  static const String campusAddedLottie = 'assets/lottie/campus_added_lottie.json';
 }
 

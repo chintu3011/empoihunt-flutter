@@ -41,7 +41,7 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             children: [
               Container(
                 alignment:  Alignment.center,
-                height: size.height * 0.78.h,
+                height: 620.h,
                 width:  double.infinity.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -64,8 +64,8 @@ class _OnBoardingState extends ConsumerState<OnBoarding> {
             ],
           ),
           Positioned(
-            bottom: size.height * 0.11.h,
-            left: size.width * 0.42.spMin,
+            bottom: 80.h,
+            left: 168.spMin,
             child: const IntroNextButton(),)
         ],
       ),

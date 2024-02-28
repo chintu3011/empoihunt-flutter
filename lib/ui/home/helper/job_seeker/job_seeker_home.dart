@@ -1,7 +1,6 @@
 import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:popover/popover.dart';
 import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
 import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
 import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_appbar.dart';
@@ -38,8 +37,8 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
       await ref.read(jobSeekerHomeController).getJobPrefApiCall();
       await ref.read(jobSeekerHomeController).getJobsPostApiCall();
       SharedPrefServices.services.getBool(chatBalloonIsFirstTime)? updateHeigthWidth():null;
-
     });
+
     debugPrint("Job seeker Home init call");
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -47,6 +46,56 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
         // Fetch more items when reaching the end of the list
         ref.read(jobSeekerHomeController).fetchItems();
       }
+    });
+
+
+    Future.delayed(Duration(seconds: 2),(){
+        showDialog(context: context, builder: (context) {
+          return Dialog(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            clipBehavior: Clip.hardEdge,
+            child: Stack(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(18 .sp),
+                  height: 450.h,
+                  width: double.infinity.w,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.colors.clayColors,
+                        AppColors.colors.whiteColors,
+                        AppColors.colors.clayColors,
+                        AppColors.colors.whiteColors,
+                        AppColors.colors.clayColors,
+                      ],
+                      end: Alignment.bottomRight,
+                      begin: Alignment.topLeft
+                    ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.r)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Lottie.asset(AppAssets.campusAddedLottie,repeat: true,height: 200.h,width: 320.w),
+                      Text("Hurrayy!! New Campus Added",style: TextStyles.w600.copyWith(fontSize: 14.sp, color: AppColors.colors.blueDark)),
+                      Text("Apply now",style: TextStyles.w500.copyWith(fontSize: 16.sp, color: AppColors.colors.blueDark)),
+
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 3,
+                    top: 3,
+                    child: IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    }, icon: Icon(Icons.cancel,size: 30.sp,color: AppColors.colors.blueDark,)))
+              ],
+            ),
+          );
+        },);
     });
   }
 

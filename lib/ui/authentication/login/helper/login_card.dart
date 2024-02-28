@@ -72,6 +72,8 @@ class LoginCard extends ConsumerWidget {
                 ),
                  ),
                 CommonButton(
+                  backgroundColor: AppColors.colors.blueColors,
+                    onPrimary: AppColors.colors.blueDark,
                     btnText: "Login",onPressed: (){
                     loginWatch.loginButton(context);
                 },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 6.h)),

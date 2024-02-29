@@ -216,8 +216,8 @@ class ProfileController extends ChangeNotifier {
   Future<void> pickBannerImg() async{
     isBannerAnimationRun = true;
     final result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg','png','jpeg']
+        type: FileType.image,
+        // allowedExtensions: ['jpg','png','jpeg']
     );
     bannerImgUrl = null;
     notifyListeners();
@@ -283,7 +283,7 @@ class ProfileController extends ChangeNotifier {
     isProfileImgAnimationRun = true;
     final result = await FilePicker.platform.pickFiles(
         type: FileType.image,
-        allowedExtensions: ['jpg','png','jpeg']
+        // allowedExtensions: ['jpg','png','jpeg']
     );
     profileImg = null;
     notifyListeners();

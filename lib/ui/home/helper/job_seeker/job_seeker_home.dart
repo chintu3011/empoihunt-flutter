@@ -12,10 +12,12 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-import '../../../../frame_work/repository/services/shared_pref_services.dart';
-import '../../../utils/common_widget/common_no_data_found_layout.dart';
-import '../../../utils/theme/app_assets.dart';
-import '../../../utils/theme/text_styles.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
+import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+
+import 'helper/ads_dialog_campus.dart';
 
 
 class JobSeekerHome extends ConsumerStatefulWidget {
@@ -37,7 +39,16 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
       await ref.read(jobSeekerHomeController).getJobPrefApiCall();
       await ref.read(jobSeekerHomeController).getJobsPostApiCall();
       SharedPrefServices.services.getBool(chatBalloonIsFirstTime)? updateHeigthWidth():null;
-    });
+      await ref.read(jobSeekerHomeController).checkCampusFound();
+
+      /// this api is call for to check the new campus is added or not
+      ref.read(jobSeekerHomeController).campusShowStatus == 1?Future.delayed(Duration(seconds: 2),(){
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {return Dialog(elevation: 0, backgroundColor: Colors.transparent, clipBehavior: Clip.hardEdge, child: AdsDialogCampus(),);},);}):
+      null;});
+
 
     debugPrint("Job seeker Home init call");
     _scrollController.addListener(() {
@@ -49,54 +60,8 @@ class _JobSeekerHomeState extends ConsumerState<JobSeekerHome> {
     });
 
 
-    Future.delayed(Duration(seconds: 2),(){
-        showDialog(context: context, builder: (context) {
-          return Dialog(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            clipBehavior: Clip.hardEdge,
-            child: Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(18 .sp),
-                  height: 450.h,
-                  width: double.infinity.w,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        AppColors.colors.clayColors,
-                        AppColors.colors.whiteColors,
-                        AppColors.colors.clayColors,
-                        AppColors.colors.whiteColors,
-                        AppColors.colors.clayColors,
-                      ],
-                      end: Alignment.bottomRight,
-                      begin: Alignment.topLeft
-                    ),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.r)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Lottie.asset(AppAssets.campusAddedLottie,repeat: true,height: 200.h,width: 320.w),
-                      Text("Hurrayy!! New Campus Added",style: TextStyles.w600.copyWith(fontSize: 14.sp, color: AppColors.colors.blueDark)),
-                      Text("Apply now",style: TextStyles.w500.copyWith(fontSize: 16.sp, color: AppColors.colors.blueDark)),
 
-                    ],
-                  ),
-                ),
-                Positioned(
-                  left: 3,
-                    top: 3,
-                    child: IconButton(onPressed: (){
-                      Navigator.pop(context);
-                    }, icon: Icon(Icons.cancel,size: 30.sp,color: AppColors.colors.blueDark,)))
-              ],
-            ),
-          );
-        },);
-    });
+
   }
 
   double boxHeigth = 130.h, boxWidth = 200.w;

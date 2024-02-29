@@ -306,4 +306,52 @@ isVoiceListening= true;
     notifyListeners();
   }
 
+  ///------------------------- get campus add api --------------------------------------///
+
+
+  String campusDetailMessage = "";
+  int campusShowStatus = 0;
+  Future  checkCampusFound() async{
+    campusShowStatus = 0;
+    notifyListeners();
+    try{
+      final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+      if(user != null){
+        Options options = Options(
+            headers: {
+              'Accept': 'application/json',
+              'Authorization': 'Bearer ${user.tAuthToken}',
+            });
+        Response response = await DioClient.client.getDataWithBearerToken("/update_app/notity", options);
+        print(response);
+        if(response.statusCode == 200){
+          campusDetailMessage = response.data["data"]["tMessage"];
+          print("campus found ${response.data["data"]["isShow"]}");
+          campusShowStatus = response.data["data"]["isShow"];
+          notifyListeners();
+        }
+      }
+    }catch(e){
+      Future.error(e.toString());
+    }
+    notifyListeners();
+    }
+
+    campusMessageReadApi() async{
+      try{
+        final user = BoxService.boxService.userGetDetailBox.get(userDetailKey);
+        if(user != null){
+          Options options = Options(
+              headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ${user.tAuthToken}',
+              });
+          Response response = await DioClient.client.getDataWithBearerToken("/update_app/update_isMessageRead", options);
+          print(response);
+        }
+      }catch(e){
+        Future.error(e.toString());
+      }
+    }
+  ///------------------------- get campus add api --------------------------------------///
 }

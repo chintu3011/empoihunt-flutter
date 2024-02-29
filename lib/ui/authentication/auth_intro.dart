@@ -63,11 +63,11 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
                   child: Column(
                     children: [
                       Expanded(
-                        flex: 3,
+                          flex: 3,
                           child: Image.asset(AppAssets.titleLog,)),
                       SizedBox(height: 8.h,),
                       Expanded(
-                        flex: 8,
+                          flex: 8,
                           child: Image.asset(AppAssets.welcome,)),
                     ],
                   ),
@@ -76,25 +76,26 @@ class _AuthIntroState extends ConsumerState<AuthIntro> {
               Container(
                 height: size.height * 0.4,
                 decoration: BoxDecoration(
-                    color: AppColors.colors.clayColors,
+                  color: AppColors.colors.clayColors,
                 ),
                 child: Column(
                   children: [
                     SizedBox(height: 50.h,),
                     CommonButton(btnText: "Login",
+                        onPrimary: AppColors.colors.blueDark,
                         backgroundColor: AppColors.colors.blueColors,
                         txtPadding: EdgeInsets.symmetric(horizontal: 120.w,vertical: 8.h),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(width: 1.5.w,color: AppColors.colors.whiteColors)),
                         onPressed: (){
-                      Navigator.push(context, PageTransition(child: const Login(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
-                    }),
+                          Navigator.push(context, PageTransition(child: const Login(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
+                        }),
                     SizedBox(height: 15.h,),
                     CommonButton(btnText: "Register",
                         backgroundColor: AppColors.colors.clayColors,
                         txtPadding: EdgeInsets.symmetric(horizontal: 105.w,vertical: 8.h),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.r),side: BorderSide(width: 1.5.w,color: AppColors.colors.whiteColors)),
                         onPressed: (){
-                                Navigator.push(context, PageTransition(child: const ChooseRegisterType(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
+                          Navigator.push(context, PageTransition(child: const ChooseRegisterType(),type: PageTransitionType.scale,duration: const Duration(milliseconds: 600),alignment: Alignment.center));
                         }),
                   ],
                 ),

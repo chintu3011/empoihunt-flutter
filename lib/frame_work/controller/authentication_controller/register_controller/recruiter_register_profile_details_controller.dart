@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
 import 'package:emploiflutter/frame_work/repository/dio_client.dart';
@@ -8,8 +9,8 @@ import 'package:emploiflutter/frame_work/repository/services/shared_pref_service
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
 import 'package:emploiflutter/ui/utils/app_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -56,32 +57,51 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   registerSubmitButton(BuildContext context) async {
     debugPrint("final button called");
     if (registerProfileDetailsGlobalKey.currentState!.validate()) {
-      if (selectedQualification != null && bioController.text != "") {
+      if (selectedQualification != null) {
         isQualificationEmpty = false;
-        if (companyNameController.text != "" &&
-            selectedDesignation != null &&
-            selectedJobLocation != null) {
-          isDesignationEmpty = false;
-          isJobLocationEmpty = false;
-          if (profilePic != null) {
-            await registerApiCall(context);
+        if (bioController.text != "") {
+          isBioEmpty = false;
+          if (companyNameController.text != "") {
+            if(selectedDesignation != null){
+              isDesignationEmpty = false;
+              if(selectedJobLocation != null){
+                isJobLocationEmpty = false;
+                if (profilePic != null) {
+                  await registerApiCall(context);
+                  clearForm();
+                } else {
+                  showSnackBar(context: context, error: "Please select an image");
+                }
+              }else{
+                isJobLocationEmpty = true;
+                index = 1;
+                pageController.animateToPage(index,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeIn);
+              }
+            }else{
+              isDesignationEmpty = true;
+              index = 1;
+              pageController.animateToPage(index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeIn);
+            }
           } else {
-            showSnackBar(context: context, error: "Please select an image");
+            isCompanyEmpty = true;
+            index = 1;
+            pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeIn);
           }
         } else {
-          isDesignationEmpty = true;
-          isJobLocationEmpty = true;
-          isCompanyEmpty = true;
-          index = 1;
+          isBioEmpty = true;
+          index = 0;
           pageController.animateToPage(index,
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn);
         }
-        notifyListeners();
-
       } else {
         isQualificationEmpty = true;
-        isBioEmpty = true;
         index = 0;
         pageController.animateToPage(index,
             duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
@@ -130,9 +150,7 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   bool isDesignationEmpty = false;
   bool isJobLocationEmpty = false;
 
-
-
-  List<String> workingModeList=[
+  List<String> workingModeList = [
     "On-Site",
     "Remote",
     "Hybrid",
@@ -140,7 +158,8 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
 
   int selectedWorkingMode = 0;
   String selectedWorkingModeText = "";
-  updateWorkingMode(int index){
+
+  updateWorkingMode(int index) {
     selectedWorkingMode = index;
     selectedWorkingModeText = workingModeList[index];
     debugPrint(selectedWorkingModeText);
@@ -184,7 +203,8 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   Future<void> imagePicker() async {
     isPicAnimationRun = true;
     final result = await FilePicker.platform.pickFiles(
-        type: FileType.image,);
+      type: FileType.image,
+    );
     profilePic = null;
     notifyListeners();
     uploadImgLottieController.stop();
@@ -234,20 +254,21 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
 
   bool isLoading = false;
 
-
   double latitude = 0.0;
   double longitude = 0.0;
 
-  Future getLocation() async{
-    if(await Permission.location.isGranted){
-      Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  Future getLocation() async {
+    if (await Permission.location.isGranted) {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
       latitude = position.latitude;
       longitude = position.longitude;
       notifyListeners();
-    }else{
+    } else {
       var status = await Permission.location.request();
-      if(status.isGranted){
-        Position position= await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      if (status.isGranted) {
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.high);
         latitude = position.latitude;
         longitude = position.longitude;
       }
@@ -265,23 +286,38 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
     print(uid);
     try {
       FormData formData = FormData.fromMap({
-        "profilePic": await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
-        "resume":"",
+        "profilePic":
+            await MultipartFile.fromFile(imgUrl!, filename: profilePicName),
+        "resume": "",
       });
-      int userDeletedValue  = ref.read(registerController).userDeleted;
+      int userDeletedValue = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration=""&vPreferCity=""&vPreferJobTitle=""&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine=""&tLatitude=$latitude&tLongitude=$longitude&tAppVersion=0&isDeleted=$userDeletedValue",
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration="
+          "&vPreferCity="
+          "&vPreferJobTitle="
+          "&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine="
+          "&tLatitude=$latitude&tLongitude=$longitude&tAppVersion=0&isDeleted=$userDeletedValue",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;
-        UserDetailDataModel user = UserDetailDataModel.fromJson(response.data["data"]);
-        BoxService.boxService.addUserDetailToHive(userDetailKey, UserDetailDataModel(tAuthToken: user.tAuthToken, iUserId: user.iUserId, tDeviceToken: user.tDeviceToken, user: user.user));
+        UserDetailDataModel user =
+            UserDetailDataModel.fromJson(response.data["data"]);
+        BoxService.boxService.addUserDetailToHive(
+            userDetailKey,
+            UserDetailDataModel(
+                tAuthToken: user.tAuthToken,
+                iUserId: user.iUserId,
+                tDeviceToken: user.tDeviceToken,
+                user: user.user));
         await SharedPrefServices.services.setBool(isUserLoggedIn, true);
-        if(context.mounted){
-          Navigator.pushAndRemoveUntil(context, PageTransition(
-              child: const DashBoard(),
-              type: PageTransitionType.rightToLeft,
-              duration: const Duration(milliseconds: 300)), (route) => false);
+        if (context.mounted) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              PageTransition(
+                  child: const DashBoard(),
+                  type: PageTransitionType.rightToLeft,
+                  duration: const Duration(milliseconds: 300)),
+              (route) => false);
         }
         print("Succesfully register");
       }
@@ -298,6 +334,20 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
   void notifyListeners() {
     super.notifyListeners();
   }
+
+
+  clearForm(){
+    selectedQualification != null;
+    bioController.clear();
+    companyNameController.clear();
+    selectedDesignation = null;
+    selectedJobLocation = null;
+    profilePic = null;
+    companyNameController.dispose();
+    designationSearchController.dispose();
+    qualificationSearchController.dispose();
+  }
+
 
   @override
   void dispose() {

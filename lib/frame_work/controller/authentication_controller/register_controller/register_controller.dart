@@ -72,7 +72,7 @@ class RegisterController extends ChangeNotifier{
               ref.read(jobSeekerRegisterProfileDetailsController).assignRegisterData(phone: "${selectedCountry.phoneCode}${phoneNumberController.text}", firstName: firstNameController.text, lastName: lastNameController.text, city: cityController.text, email: emailController.text);
               /// assign data for register api call ///
               if(context.mounted) {
-                Navigator.push(context, PageTransition(
+                await Navigator.push(context, PageTransition(
                     child:  RegisterOTP(phoneNumber: "+${selectedCountry.phoneCode}${phoneNumberController.text}",),
                     type: PageTransitionType.rightToLeft,
                     duration: const Duration(milliseconds: 300)));

@@ -104,7 +104,10 @@ class _RegisterOTPState extends ConsumerState<RegisterOTP> {
                       ),
                     ),
                     SizedBox(height: 15.h,),
-                    CommonButton(btnText: "Verify", onPressed: ()async{
+                    CommonButton(
+                      backgroundColor: AppColors.colors.blueColors,
+                      onPrimary: AppColors.colors.blueDark,
+                      btnText: "Verify", onPressed: ()async{
                       await registerOtpWatch.verifyOtp(context: context, selectedUserType:chooseUserRoleWatch.userRole ,childCurrent: widget);
                     },txtPadding: EdgeInsets.symmetric(horizontal: 85.w,vertical: 8.h),fontSize: 18.sp,),
                     SizedBox(height: 10.h,),

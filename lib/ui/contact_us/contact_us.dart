@@ -24,13 +24,13 @@ class ContactUs extends ConsumerWidget {
             key: contactUsWatch.formKey,
             child: Column(
               children: [
-                  Image.asset(AppAssets.contactUs,height: 130.h,),
-                  Text("Please let us  know is you have any query",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
-                  SizedBox(height: 15.h,),
-                  CommonFormField(
-                    maxLength: 15,
-                    buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
-                    textInputAction: TextInputAction.next,
+                Image.asset(AppAssets.contactUs,height: 130.h,),
+                Text("Please let us  know is you have any query",style: TextStyles.w500.copyWith(fontSize: 12.sp,color: AppColors.colors.blueColors),),
+                SizedBox(height: 15.h,),
+                CommonFormField(
+                  maxLength: 15,
+                  buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
+                  textInputAction: TextInputAction.next,
                   controller: contactUsWatch.nameController,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   validator: (val)=>requiredFieldValidator(input: val!,errorMgs:"Please provide a name" ),
@@ -38,7 +38,7 @@ class ContactUs extends ConsumerWidget {
                   hintText: "Name",labelText: "Name",
                   labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
                 ),
-                  Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(vertical: 22.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -77,30 +77,33 @@ class ContactUs extends ConsumerWidget {
                     ],
                   ),
                 ),
-                  CommonFormField(
+                CommonFormField(
                   textInputAction: TextInputAction.next,
                   controller: contactUsWatch.emailController,
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   keyboardType: TextInputType.emailAddress,
-                    validator: (val)=>emailValidator(val),
+                  validator: (val)=>emailValidator(val),
                   prefixIcon: Icon(Icons.email,size: 18.sp,color: AppColors.colors.blueColors,),
                   hintText: "Email",labelText: "Email",
                   labelStyle: TextStyles.w400.copyWith(color: Colors.black,fontSize: 12.sp),
                 ),
-                  SizedBox(height: 15.h,),
-                  CommonFormField(
-                    maxLength: 5000,
-                    controller: contactUsWatch.messageController,
-                    hintText: "Message",
-                    autoValidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (val)=>requiredFieldValidator(input: val!, errorMgs: "Description is required"),
-                    prefixIcon:  Icon(Icons.file_copy_rounded,color: AppColors.colors.blueColors,),
-                    maxLine: 4,
-                    contentPadding:
-                    EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),
-                  ),
+                SizedBox(height: 15.h,),
+                CommonFormField(
+                  maxLength: 5000,
+                  controller: contactUsWatch.messageController,
+                  hintText: "Message",
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (val)=>requiredFieldValidator(input: val!, errorMgs: "Description is required"),
+                  prefixIcon:  Icon(Icons.file_copy_rounded,color: AppColors.colors.blueColors,),
+                  maxLine: 4,
+                  contentPadding:
+                  EdgeInsets.symmetric(vertical: 30, horizontal: 10.w),
+                ),
                 SizedBox(height: 20.h,),
-                CommonButton(btnText: "Submit",onPressed: (){
+                CommonButton(
+                    backgroundColor: AppColors.colors.blueColors,
+                    onPrimary:AppColors.colors.blueDark,
+                    btnText: "Submit",onPressed: (){
                   contactUsWatch.submitButton(context);
                 },fontSize: 16.sp,txtPadding: EdgeInsets.symmetric(horizontal: 47.w,vertical: 6.h))
               ],

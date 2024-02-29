@@ -154,6 +154,8 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                       height: 15.h,
                     ),
                     CommonButton(
+                      backgroundColor: AppColors.colors.blueColors,
+                      onPrimary: AppColors.colors.blueDark,
                       btnText: "Verify",
                       onPressed: () {
                         loginOtpWatch.verifyOtp(

@@ -209,6 +209,8 @@ class RegisterCard extends ConsumerWidget {
                     ],
                   ),
                   CommonButton(
+                      backgroundColor: AppColors.colors.blueColors,
+                      onPrimary: AppColors.colors.blueDark,
                       btnText: "Register",
                       onPressed: () {
                         registerWatch.registerButton(context);

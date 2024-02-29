@@ -33,11 +33,11 @@ class LoginCard extends ConsumerWidget {
               children: [
                 Text("OTP Verification",style:  TextStyles.w500.copyWith(fontSize: 26.sp,color: Colors.black),),
                 Text("we will send you 6-digit one-time password to the number", textAlign: TextAlign.center, style:  TextStyles.w400.copyWith(fontSize: 8.sp,color: Colors.grey),),
-                 Padding(
-                   padding: EdgeInsets.symmetric(vertical: 22.h),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 22.h),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       InkWell(
                         onTap: (){
@@ -53,27 +53,29 @@ class LoginCard extends ConsumerWidget {
                           ],
                         ),
                       ),
-                       Expanded(child: CommonFormField(
-                         buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
-                         autoValidateMode: AutovalidateMode.onUserInteraction,
-                         maxLength: 10,
-                         validator: (val)=>phoneValidator(val),
-                         inputFormatters: [
-                           LengthLimitingTextInputFormatter(10),
-                           FilteringTextInputFormatter.digitsOnly,
-                         ],
-                         textInputAction: TextInputAction.done,
-                         keyboardType: TextInputType.phone,
-                         controller: loginWatch.phoneNumberController,
+                      Expanded(child: CommonFormField(
+                        buildCounter: (p0, {required currentLength, required isFocused, maxLength}) => const SizedBox(),
+                        autoValidateMode: AutovalidateMode.onUserInteraction,
+                        maxLength: 10,
+                        validator: (val)=>phoneValidator(val),
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        textInputAction: TextInputAction.done,
+                        keyboardType: TextInputType.phone,
+                        controller: loginWatch.phoneNumberController,
                         onChanged: (value)=>notAllowSpecialChar(loginWatch.phoneNumberController, value),
                         prefixIcon: Icon(Icons.phone,size: 18.sp,color: AppColors.colors.blueColors,),
                         hintText: "9876....",labelText: "Phone Number",)),
                     ],
+                  ),
                 ),
-                 ),
                 CommonButton(
+                    backgroundColor: AppColors.colors.blueColors,
+                    onPrimary: AppColors.colors.blueDark,
                     btnText: "Login",onPressed: (){
-                    loginWatch.loginButton(context);
+                  loginWatch.loginButton(context);
                 },fontSize: 20.sp,txtPadding: EdgeInsets.symmetric(horizontal: 60.w,vertical: 6.h)),
                 SizedBox(height: 15.h,),
                 Row(

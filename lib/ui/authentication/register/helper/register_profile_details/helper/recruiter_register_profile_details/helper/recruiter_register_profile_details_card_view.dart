@@ -22,7 +22,7 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
         elevation: 4,
         child: Container(
           width: width * 0.93,
-          height: height * 0.58,
+          height: 440.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16.r),
             color: Colors.white,
@@ -34,7 +34,7 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     controller: registerProfileDetailWatch.pageController,
                 onPageChanged: (index){
-                      registerProfileDetailWatch.index = index;
+                      registerProfileDetailWatch.pageIndex = index;
                       // print(registerProfileDetailWatch.index);
                 },
                 children: const [
@@ -50,7 +50,7 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ///---------------- Backward Button--------- ///
-                    registerProfileDetailWatch.index == 0 ? const SizedBox():
+                    registerProfileDetailWatch.pageIndex == 0 ? const SizedBox():
                     IconButton(
                         style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.r)),
@@ -65,7 +65,7 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
                         )),
 
                     ///---------------- Forward Button --------------///
-                    registerProfileDetailWatch.index == 2 && registerProfileDetailWatch.profilePic  != null?
+                    registerProfileDetailWatch.pageIndex == 2 && registerProfileDetailWatch.profilePic  != null?
                    IconButton(
                        style: ElevatedButton.styleFrom(
                            shape: RoundedRectangleBorder(
@@ -84,10 +84,8 @@ class RecruiterRegisterProfileDetailsCardView extends ConsumerWidget {
                             backgroundColor: AppColors.colors.blueColors,
                             fixedSize: Size(60.w, 50.h)),
                         onPressed: () {
-                          if(registerProfileDetailWatch.index == 2){
-                            registerProfileDetailWatch.registerSubmitButton(context);
-                          }
                           registerProfileDetailWatch.forwardBtn(context);
+
                         },
                         icon: Icon(Icons.arrow_forward_rounded,
                             color: AppColors.colors.whiteColors)),

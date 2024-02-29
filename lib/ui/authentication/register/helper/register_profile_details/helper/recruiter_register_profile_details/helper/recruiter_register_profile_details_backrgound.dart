@@ -20,7 +20,7 @@ class RecruiterRegisterProfileDetailsBackGround extends StatelessWidget {
         Column(
           children: [
             Container(
-              height: size.height * 0.54,
+              height: 400.h,
               width:  size.width,
               decoration: BoxDecoration(
                   color: AppColors.colors.clayColors,

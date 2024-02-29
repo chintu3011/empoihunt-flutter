@@ -14,7 +14,7 @@ class RecruiterRegisterProfileDetailsAppBar extends ConsumerWidget implements Pr
         elevation: 0.0,
           title: Row(
             children: List.generate(4, (index) {
-              if(registerProfileDetailWatch.index >= index){
+              if(registerProfileDetailWatch.pageIndex >= index){
                 return Container(
                   height: 40.h,
                   width: 50.w,
@@ -26,7 +26,7 @@ class RecruiterRegisterProfileDetailsAppBar extends ConsumerWidget implements Pr
                   child: const Icon(Icons.check,color: Colors.white,),
                 );
               }
-              if(registerProfileDetailWatch.index == index -1){
+              if(registerProfileDetailWatch.pageIndex == index -1){
                 return Container(
                   height: 40.h,
                   width: 50.w,

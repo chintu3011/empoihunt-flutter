@@ -30,25 +30,24 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
 
   PageController pageController = PageController();
 
-  int index = 0;
+  int pageIndex = 0;
 
   forwardBtn(BuildContext context) {
-    if (index < 2) {
-      index++;
-      pageController.animateToPage(index,
+    if (pageIndex < 2) {
+      pageIndex++;
+      pageController.animateToPage(pageIndex,
           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     } else {
       registerSubmitButton(context);
-      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const DashBoard()), (route) => false);
+
     }
-    // print(index);
     notifyListeners();
   }
 
   backwardBtn() {
-    if (index > 0) {
-      index--;
-      pageController.animateToPage(index,
+    if (pageIndex > 0) {
+      pageIndex--;
+      pageController.animateToPage(pageIndex,
           duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
     }
     notifyListeners();
@@ -56,11 +55,10 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
 
   registerSubmitButton(BuildContext context) async {
     debugPrint("final button called");
-    if (registerProfileDetailsGlobalKey.currentState!.validate()) {
+    if (bioController.text != "") {
+      isBioEmpty = false;
       if (selectedQualification != null) {
         isQualificationEmpty = false;
-        if (bioController.text != "") {
-          isBioEmpty = false;
           if (companyNameController.text != "") {
             if(selectedDesignation != null){
               isDesignationEmpty = false;
@@ -74,38 +72,40 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
                 }
               }else{
                 isJobLocationEmpty = true;
-                index = 1;
-                pageController.animateToPage(index,
+                pageIndex = 1;
+                pageController.animateToPage(pageIndex,
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn);
               }
             }else{
               isDesignationEmpty = true;
-              index = 1;
-              pageController.animateToPage(index,
+              pageIndex = 1;
+              pageController.animateToPage(pageIndex,
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeIn);
             }
           } else {
             isCompanyEmpty = true;
-            index = 1;
-            pageController.animateToPage(index,
+            pageIndex = 1;
+            pageController.animateToPage(pageIndex,
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.easeIn);
           }
-        } else {
-          isBioEmpty = true;
-          index = 0;
-          pageController.animateToPage(index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeIn);
-        }
+
       } else {
         isQualificationEmpty = true;
-        index = 0;
-        pageController.animateToPage(index,
+        pageIndex = 0;
+        pageController.animateToPage(pageIndex,
             duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+      notifyListeners();
       }
+    } else {
+      print("Bio empty");
+      isBioEmpty = true;
+      pageIndex = 0;
+      pageController.animateToPage(pageIndex,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn);
       notifyListeners();
     }
     notifyListeners();

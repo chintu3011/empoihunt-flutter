@@ -20,28 +20,28 @@ class MessengerController extends ChangeNotifier{
     notifyListeners();
   }
 
-  bool isLoading = false;
+  bool isLoading = true;
 
   final databaseReference = FirebaseDatabase.instance.ref('Mess').child("LatestMessage");
 
 
 
   List<ChatAllModel> testList = [];
- Future<void> getUserByFirebaseId(
-     {required String firebaseId,
-      required String recentText,
-      required String dateStamp,
-      required String timeStamp}) async{
-   print("child added");
+  Future<void> getUserByFirebaseId(
+      {required String firebaseId,
+        required String recentText,
+        required String dateStamp,
+        required String timeStamp}) async{
+    print("child added");
     try{
-     // testList=[];
+      // testList=[];
       isLoading =true;
       notifyListeners();
       Options options = Options(
-        headers: {
-          "Accept":"application/json",
-          'Authorization': 'Bearer ${currentUser.tAuthToken}',
-        }
+          headers: {
+            "Accept":"application/json",
+            'Authorization': 'Bearer ${currentUser.tAuthToken}',
+          }
       );
       Response response =await DioClient.client.getDataWithBearerToken("${APIEndPoint.getUserByFirebaseId}?vFirebaseId=$firebaseId", options);
       if(response.statusCode == 200){
@@ -67,11 +67,11 @@ class MessengerController extends ChangeNotifier{
         i.recentText = database["message"];
       }
     }
-   notifyListeners();
+    notifyListeners();
   }
   makeListOfPersonEmpty(){
-   testList = [];
-   notifyListeners();
+    testList = [];
+    notifyListeners();
   }
 }
 
@@ -79,9 +79,9 @@ class MessengerController extends ChangeNotifier{
 class ChatAllModel{
 
   final UserWithDeviceTokenModel userChat;
-   String recentText;
-   String timeStamp;
-   String dateStamp;
+  String recentText;
+  String timeStamp;
+  String dateStamp;
 
   ChatAllModel(this.timeStamp, this.dateStamp, {required this.recentText,required this.userChat});
 }

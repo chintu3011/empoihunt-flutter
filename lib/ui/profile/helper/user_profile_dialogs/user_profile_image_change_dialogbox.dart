@@ -72,7 +72,7 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
                   ),
                   const Spacer(),
                   ///---------- Image Picker Icon --------///
-                  Container(
+                profileWatch.isProfileImgAnimationRun? SizedBox():  Container(
                     clipBehavior: Clip.hardEdge,
                     decoration:  BoxDecoration(
                       shape: BoxShape.circle,
@@ -105,24 +105,3 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
     );
   }
 }
-
-
-/*
-                    Image.network(
-                      loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                      errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                        return const Center(
-                          child: Text('No Image Provided'),
-                        );
-                      },
-                      "https://api.emploihunt.com${widget.userModel.tProfileUrl}",fit: BoxFit.fill,)
-
- */

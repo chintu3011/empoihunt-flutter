@@ -71,7 +71,7 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserBannerImageDialog
                         : Image.asset(AppAssets.defaultBannerImage,fit: BoxFit.contain,),
                   ),
                   ///---------- Image Picker Icon --------///
-                  Positioned(
+                  profileWatch.isBannerAnimationRun? SizedBox():Positioned(
                     left: 130.w,
                     bottom: 0,
                     child: Container(

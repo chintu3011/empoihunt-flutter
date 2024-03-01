@@ -72,7 +72,7 @@ class _UserBannerImageDialogBoxState extends ConsumerState<UserProfileImageChang
                   ),
                   const Spacer(),
                   ///---------- Image Picker Icon --------///
-                  Container(
+                profileWatch.isProfileImgAnimationRun? SizedBox():  Container(
                     clipBehavior: Clip.hardEdge,
                     decoration:  BoxDecoration(
                       shape: BoxShape.circle,

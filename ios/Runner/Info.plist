@@ -46,6 +46,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Give camara access for capturing photos</string>
+	<key>NSPrivacyAccessedAPIUsageDescription</key>
+    <string>We need access to UserDefaults to store user preferences and settings.</string>
+    <key>NSPrivacyAccessedAPICategoryFileTimestamp</key>
+    <string>We need access to file timestamps for real time conversation.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Always and when in use!</string>
 	<key>NSLocationAlwaysUsageDescription</key>

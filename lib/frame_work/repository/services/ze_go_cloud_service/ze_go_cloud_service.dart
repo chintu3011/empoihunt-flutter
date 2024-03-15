@@ -16,8 +16,8 @@ class ZeGoCloudService{
     /// when app's user is logged in or re-logged in
     /// We recommend calling this method as soon as the user logs in to your app.
     ZegoUIKitPrebuiltCallInvitationService().init(
-      appID:  1972285556 /*input your AppID*/,
-      appSign: "9d8abde5e76da12a4ce61c3855dde3b898d06317fdc6a1b4fe4ddc49d37ee7a0" /*input your AppSign*/,
+      appID:  1692507178 /*input your AppID*/,
+      appSign: "e18ae8bbf1e561cf42791560704cc7db4bb908a8d9b99ea98adbbf39f74e58a6" /*input your AppSign*/,
       userID: userModel.user.vFirebaseId.toString(),
       userName: userModel.user.vFirstName.replaceFirst(" ", "_"),
       plugins: [ZegoUIKitSignalingPlugin()],

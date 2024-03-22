@@ -11,6 +11,8 @@ import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../../../../../../utils/common_widget/common_typ_ahead_form_field.dart';
+
 class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
   const JobSeekerRegisterProfileDetails3({super.key});
 
@@ -35,41 +37,75 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
               thickness: 4.h,
             ),
             Padding(
-              padding: EdgeInsets.only(top: 50.h,bottom: 15.h),
+              padding: EdgeInsets.only(top: 30.h,bottom: 15.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonDropDownFormField(
-                    items: designationList,
-                    searchController:
-                        registerProfileDetailsWatch.jobSearchController,
-                    onChanged: (value) {
-                      registerProfileDetailsWatch
-                          .updateSelectedJobTitle(value);
-                    },
-                    hintTextForDropdown: "Job Title",
-                    hintTextForField: "Job Title",
-                    selectedValue:
-                        registerProfileDetailsWatch.selectedJobTitle,
+                  CommonTypeAheadFormField(
+                      prefixIcon: null,
+                      direction: AxisDirection.up,
+                      onChanged: (value){
+                        registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
+                      },
+                      controller: registerProfileDetailsWatch.jobSearchController,
+                      hintText: "Job Title",
+                      labelText: "Job Title",
+                      suggestionsCallback: (pattern) {
+                        return registerProfileDetailsWatch.checkJobSearch(pattern);
+                      },
+                      onSuggestionSelected: (value) {
+                        registerProfileDetailsWatch.jobSearchController.text = value;
+                        registerProfileDetailsWatch.isSelectedJobTitleEmtUpdate(value);
+                      }
                   ),
+                  // CommonDropDownFormField(
+                  //   items: designationList,
+                  //   searchController:
+                  //       registerProfileDetailsWatch.jobSearchController,
+                  //   onChanged: (value) {
+                  //     registerProfileDetailsWatch
+                  //         .updateSelectedJobTitle(value);
+                  //   },
+                  //   hintTextForDropdown: "Job Title",
+                  //   hintTextForField: "Job Title",
+                  //   selectedValue:
+                  //       registerProfileDetailsWatch.selectedJobTitle,
+                  // ),
                   registerProfileDetailsWatch.isSelectedJobTitleEmt?Text("Please select Job title",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
         
                   SizedBox(
-                    height: 25.h,
+                    height: 20.h,
                   ),
-                  CommonDropDownFormField(
-                    items: SharedPrefServices.services.getList(locationListKey)??["No data"],
-                    searchController:
-                    registerProfileDetailsWatch.preferCitySearchController,
-                    onChanged: (value) {
-                      registerProfileDetailsWatch
-                          .updateSelectedPreferCity(value);
-                    },
-                    hintTextForDropdown: "Prefer City",
-                    hintTextForField: "Prefer City",
-                    selectedValue:
-                    registerProfileDetailsWatch.selectedPreferCity,
+                  CommonTypeAheadFormField(
+                      prefixIcon: null,
+                      direction: AxisDirection.up,
+                      onChanged: (value){
+                        registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
+                      },
+                      controller: registerProfileDetailsWatch.preferCitySearchController,
+                      hintText: "Prefer City",
+                      labelText: "Prefer City",
+                      suggestionsCallback: (pattern) {
+                        return registerProfileDetailsWatch.checkJobLocation(pattern);
+                      },
+                      onSuggestionSelected: (value) {
+                        registerProfileDetailsWatch.preferCitySearchController.text = value;
+                        registerProfileDetailsWatch.isSelectedPrefCityEmtUpdate(value);
+                      }
                   ),
+                  // CommonDropDownFormField(
+                  //   items: SharedPrefServices.services.getList(locationListKey)??["No data"],
+                  //   searchController:
+                  //   registerProfileDetailsWatch.preferCitySearchController,
+                  //   onChanged: (value) {
+                  //     registerProfileDetailsWatch
+                  //         .updateSelectedPreferCity(value);
+                  //   },
+                  //   hintTextForDropdown: "Prefer City",
+                  //   hintTextForField: "Prefer City",
+                  //   selectedValue:
+                  //   registerProfileDetailsWatch.selectedPreferCity,
+                  // ),
                   registerProfileDetailsWatch.isSelectedPrefCityEmt?Text("Please select Prefer City",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                 ],
               ),
@@ -123,7 +159,7 @@ class JobSeekerRegisterProfileDetails3 extends ConsumerWidget {
               ],
             ),
             SizedBox(
-              height: 25.h,
+              height: 20.h,
             ),
             Row(
               children: [

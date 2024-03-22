@@ -173,6 +173,7 @@ class RegisterCard extends ConsumerWidget {
                     height: 10.h,
                   ),
                   CommonTypeAheadFormField(
+                    prefixIcon: Icon(Icons.location_city_outlined,size: 18.sp,color: AppColors.colors.blueColors,),
                     direction: AxisDirection.up,
                     onChanged: (value)=>notAllowSpecialChar(registerWatch.cityController, value),
                       controller: registerWatch.cityController,

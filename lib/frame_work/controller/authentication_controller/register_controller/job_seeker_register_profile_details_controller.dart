@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
 import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
 import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
@@ -42,8 +43,8 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
       }
     }else if(isFresher){
       if(index <= 3) {
-        print(index);
-        print("final");
+        // print(index);
+        // print("final");
         if(index<3){
           index++;
         }
@@ -81,7 +82,20 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   final qualificationSearchController = TextEditingController();
   bool isQualificationEmpty = false;
 
+  List<String> checkEducation(String query){
+    query = query.toUpperCase().trim();
+    return qualificationsList.where((city) => city.toUpperCase().trim().contains(query)).toList();
+  }
 
+  isQualificationEmptyUpdate(String? value){
+    if(value !=""){
+      isQualificationEmpty = false;
+      notifyListeners();
+    }else{
+      isQualificationEmpty = true;
+      notifyListeners();
+    }
+  }
 
   bool isBioControllerEmpty = false;
   updateIsBioEmpty(String? value){
@@ -107,13 +121,13 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     notifyListeners();
   }
 
-  String? selectedQualification;
-  bool isSelectedQualificationEmpty =false;
-  updateSelectedQualification(String? value) {
-      selectedQualification = value;
-      isSelectedQualificationEmpty = false;
-    notifyListeners();
-  }
+  // String? selectedQualification;
+  // bool isSelectedQualificationEmpty =false;
+  // updateSelectedQualification(String? value) {
+  //     selectedQualification = value;
+  //     isSelectedQualificationEmpty = false;
+  //   notifyListeners();
+  // }
   ///-----------------Profile1--------------///
 
 
@@ -126,18 +140,34 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
 
   bool isSelectedJobTitleEmt = false;
   bool isSelectedPrefCityEmt = false;
-  String? selectedJobTitle;
-  updateSelectedJobTitle(String? value) {
-    selectedJobTitle = value;
-    isSelectedJobTitleEmt = false;
-    notifyListeners();
-  }
+  // String? selectedJobTitle;
 
-  String? selectedPreferCity;
-  updateSelectedPreferCity(String? value) {
-    selectedPreferCity = value;
-    isSelectedPrefCityEmt = false;
-    notifyListeners();
+  List<String> checkJobSearch(String query){
+    query = query.toUpperCase().trim();
+    return designationList.where((city) => city.toUpperCase().trim().contains(query)).toList();
+  }
+  isSelectedJobTitleEmtUpdate(String? value){
+    if(value !=""){
+      isSelectedJobTitleEmt = false;
+      notifyListeners();
+    }else{
+      isSelectedJobTitleEmt = true;
+      notifyListeners();
+    }
+  }
+  List<String> checkPrefCity(String query){
+    query = query.toUpperCase().trim();
+    return SharedPrefServices.services.getList(locationListKey)!.where((city) => city.toUpperCase().trim().contains(query)).toList();
+  }
+  // String? selectedPreferCity;
+  isSelectedPrefCityEmtUpdate(String? value){
+    if(value !=""){
+      isSelectedPrefCityEmt = false;
+      notifyListeners();
+    }else{
+      isSelectedPrefCityEmt = true;
+      notifyListeners();
+    }
   }
 
 
@@ -209,7 +239,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
   bool isSelectedJobLocEmpty = false;
   bool isExpertiseEmpty = false;
 
-  String? selectedDesignation;
+  // String? selectedDesignation;
 
   updateIsCompanyNameEmt(String? value){
     if(value !=null){
@@ -219,17 +249,35 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     }
     notifyListeners();
   }
-  updateSelectedDesignation(String? value) {
-    selectedDesignation = value;
-    isSelectedDesignEmpty = false;
-    notifyListeners();
+
+  isSelectedDesignEmptyUpdate(String? value){
+    if(value !=""){
+      isSelectedDesignEmpty = false;
+      notifyListeners();
+    }else{
+      isSelectedDesignEmpty = true;
+      notifyListeners();
+    }
+  }
+  List<String> checkDesignation(String query){
+    query = query.toUpperCase().trim();
+    return designationList.where((city) => city.toUpperCase().trim().contains(query)).toList();
   }
 
-  String? selectedJobLocation;
-  updateSelectedJobLocation(String? value) {
-    selectedJobLocation = value;
-    isSelectedJobLocEmpty = false;
-    notifyListeners();
+
+  // String? selectedJobLocation;
+  isSelectedJobLocEmptyUpdate(String? value){
+    if(value !=""){
+      isSelectedJobLocEmpty = false;
+      notifyListeners();
+    }else{
+      isSelectedJobLocEmpty = true;
+      notifyListeners();
+    }
+  }
+    List<String> checkJobLocation(String query){
+    query = query.toUpperCase().trim();
+    return SharedPrefServices.services.getList(locationListKey)!.where((city) => city.toUpperCase().trim().contains(query)).toList();
   }
   ///-----------------Profile3--------------///
 
@@ -304,17 +352,17 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     print("experienceRegisterSubmitButton");
     if(bioController.text != ""){
       isBioControllerEmpty = false;
-      if(selectedQualification != null){
+      if(qualificationSearchController.text != ""){
         isQualificationEmpty = false;
         if(companyNameController.text != ""){
           isCompanyNameEmpty = false;
-          if(selectedDesignation !=null){
+          if(designationSearchController.text !=""){
             isSelectedDesignEmpty = false;
-            if(selectedJobLocation != null){
+            if(jobLocationSearchController.text != ""){
               isSelectedJobLocEmpty = false;
-              if(selectedJobTitle != null){
+              if(jobSearchController.text != ""){
                 isSelectedJobTitleEmt = false;
-                if(selectedPreferCity !=null){
+                if(preferCitySearchController.text !=""){
                   isSelectedPrefCityEmt = false;
                   if(expertiseList.isNotEmpty){
                       isExpertiseEmpty = false;
@@ -385,11 +433,11 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     print("freshersRegisterSubmitButton");
     if(bioController.text != ""){
       isBioControllerEmpty = false;
-      if(selectedQualification != null){
+      if(qualificationSearchController.text != ""){
         isQualificationEmpty = false;
-        if(selectedJobTitle != null){
+        if(jobSearchController.text !=""){
           isSelectedJobTitleEmt = false;
-          if(selectedPreferCity !=null){
+          if(preferCitySearchController.text !=""){
             isSelectedPrefCityEmt = false;
             if(expertiseList.isNotEmpty){
               isExpertiseEmpty = false;
@@ -503,7 +551,7 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
       });
       int userDeletedValue  = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${selectedDesignation??""}&vJobLocation=${selectedJobLocation??""}&vDuration=""&vPreferCity=${selectedPreferCity??""}&vPreferJobTitle=${selectedJobTitle??""}&vQualification=${selectedQualification??""}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=${expertiseTagline??""}&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0&isDeleted=$userDeletedValue",
+          "${APIEndPoint.registerUserApi}?iRole=0&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${designationSearchController.text}&vJobLocation=${jobLocationSearchController.text}&vDuration=""&vPreferCity=${preferCitySearchController.text}&vPreferJobTitle=${jobSearchController.text}&vQualification=${qualificationSearchController.text}&vWorkingMode=${isFresher? selectedWorkingText :""}&tTagLine=${expertiseTagline??""}&tLatitude=${latitude}&tLongitude=${longitude}&tAppVersion=0&isDeleted=$userDeletedValue",
           formData: formData);
       if (response.statusCode == 200) {
         isLoading = false;
@@ -525,28 +573,25 @@ class JobSeekerRegisterProfileDetailsController extends ChangeNotifier{
     }
     notifyListeners();
   }
-  @override
-  void notifyListeners() {
-    super.notifyListeners();
-  }
-
 
   clearData(){
+    bioController.clear();
     companyNameController.clear();
     jobSearchController.clear();
     preferCitySearchController.clear();
     designationSearchController.clear();
     qualificationSearchController.clear();
     jobLocationSearchController.clear();
-    selectedQualification = null;
-    selectedDesignation = null;
-    selectedJobLocation = null;
+    qualificationSearchController.clear();
+    designationSearchController.clear();
+    jobLocationSearchController.clear();
     pdfUrl = null;
     imgUrl = null;
     profilePic = null;
     pdfName = null;
     selectedWorkingMode = 0;
     isFresher = true;
+    isExperienced = false;
     expertiseList = [];
     expertiseTagline = null;
     latitude = 0.0;

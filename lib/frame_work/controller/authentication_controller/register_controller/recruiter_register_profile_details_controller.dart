@@ -15,6 +15,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../../../ui/utils/app_string_constant.dart';
 import '../../../repository/model/user_model/user_detail_data_model.dart';
 import 'register_controller.dart';
 
@@ -56,12 +57,12 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
     debugPrint("final button called");
     if (bioController.text != "") {
       isBioEmpty = false;
-      if (selectedQualification != null) {
+      if (qualificationSearchController.text != "") {
         isQualificationEmpty = false;
           if (companyNameController.text != "") {
-            if(selectedDesignation != null){
+            if(designationSearchController.text != ""){
               isDesignationEmpty = false;
-              if(selectedJobLocation != null){
+              if(jobLocationSearchController.text != ""){
                 isJobLocationEmpty = false;
                 if (profilePic != null) {
                   await registerApiCall(context);
@@ -129,13 +130,21 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
     }
     notifyListeners();
   }
+  List<String> checkEducation(String query){
+    query = query.toUpperCase().trim();
+    return qualificationsList.where((city) => city.toUpperCase().trim().contains(query)).toList();
+  }
 
-  String? selectedQualification;
+  // String? selectedQualification;
 
-  updateSelectedQualification(String? value) {
-    selectedQualification = value;
-    isQualificationEmpty = false;
-    notifyListeners();
+  isQualificationEmptyUpdate(String? value){
+    if(value !=""){
+      isQualificationEmpty = false;
+      notifyListeners();
+    }else{
+      isQualificationEmpty = true;
+      notifyListeners();
+    }
   }
 
   ///-----------------Profile1--------------///
@@ -174,20 +183,36 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? selectedDesignation;
+  // String? selectedDesignation;
 
-  updateSelectedDesignation(String? value) {
-    selectedDesignation = value;
-    isDesignationEmpty = false;
-    notifyListeners();
+  isDesignationEmptyUpdate(String? value){
+    if(value !=""){
+      isDesignationEmpty = false;
+      notifyListeners();
+    }else{
+      isDesignationEmpty = true;
+      notifyListeners();
+    }
+  }
+  List<String> checkDesignation(String query){
+    query = query.toUpperCase().trim();
+    return designationList.where((city) => city.toUpperCase().trim().contains(query)).toList();
   }
 
-  String? selectedJobLocation;
+  // String? selectedJobLocation;
 
-  updateSelectedJobLocation(String? value) {
-    selectedJobLocation = value;
-    isJobLocationEmpty = false;
-    notifyListeners();
+  isJobLocationEmptyUpdate(String? value){
+    if(value !=""){
+      isJobLocationEmpty = false;
+      notifyListeners();
+    }else{
+      isJobLocationEmpty = true;
+      notifyListeners();
+    }
+  }
+  List<String> checkJobLocation(String query){
+    query = query.toUpperCase().trim();
+    return SharedPrefServices.services.getList(locationListKey)!.where((city) => city.toUpperCase().trim().contains(query)).toList();
   }
 
   ///-----------------Profile2--------------///
@@ -291,10 +316,10 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
       });
       int userDeletedValue = ref.read(registerController).userDeleted;
       Response response = await DioClient.client.postDataWithForm(
-          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=$selectedDesignation&vJobLocation=$selectedJobLocation&vDuration="
+          "${APIEndPoint.registerUserApi}?iRole=1&vFirebaseId=$uid&vMobile=%2B$phoneNumber&vDeviceId=${deviceData.deviceId}&vDeviceType=${deviceData.deviceType}&vOSVersion=${deviceData.deviceVersion}&tDeviceToken=$fcmTokenKey&tDeviceName=${deviceData.deviceName}&vFirstName=$firstName&vLastName=$lastName&vEmail=$email&tBio=${bioController.text}&vCity=$city&vCurrentCompany=${companyNameController.text}&vDesignation=${designationSearchController.text}&vJobLocation=${jobLocationSearchController.text}&vDuration="
           "&vPreferCity="
           "&vPreferJobTitle="
-          "&vQualification=$selectedQualification&vWorkingMode=$selectedWorkingModeText&tTagLine="
+          "&vQualification=${qualificationSearchController.text}&vWorkingMode=$selectedWorkingModeText&tTagLine="
           "&tLatitude=$latitude&tLongitude=$longitude&tAppVersion=0&isDeleted=$userDeletedValue",
           formData: formData);
       if (response.statusCode == 200) {
@@ -336,11 +361,11 @@ class RecruiterRegisterProfileDetailsController extends ChangeNotifier {
 
 
   clearForm(){
-    selectedQualification != null;
+    qualificationSearchController.clear();
     bioController.clear();
     companyNameController.clear();
-    selectedDesignation = null;
-    selectedJobLocation = null;
+    designationSearchController.clear();
+    jobLocationSearchController.clear();
     profilePic = null;
     companyNameController.dispose();
     designationSearchController.dispose();

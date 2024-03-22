@@ -2,9 +2,12 @@ import 'package:emploiflutter/frame_work/controller/authentication_controller/re
 import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
 import 'package:emploiflutter/ui/utils/theme/app_color.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+
+import '../../../../../../../../utils/form_validation.dart';
 
 class JobSeekerRegisterProfileDetails1 extends ConsumerWidget {
   const JobSeekerRegisterProfileDetails1({super.key});
@@ -47,9 +50,30 @@ class JobSeekerRegisterProfileDetails1 extends ConsumerWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-                    CommonDropDownFormField(items: qualificationsList, searchController: registerProfileDetailsWatch.qualificationSearchController,selectedValue: registerProfileDetailsWatch.selectedQualification,onChanged: (value){
-                      registerProfileDetailsWatch.updateSelectedQualification(value);
-                    }, hintTextForDropdown: 'Qualification', hintTextForField: 'Qualification',),
+                    CommonTypeAheadFormField(
+                      prefixIcon: null,
+                        direction: AxisDirection.up,
+                        onChanged: (value){
+                          // notAllowSpecialChar(registerProfileDetailsWatch.qualificationSearchController, value);
+                          registerProfileDetailsWatch.isQualificationEmptyUpdate(value);
+                        },
+                        controller: registerProfileDetailsWatch.qualificationSearchController,
+                        hintText: "Qualification",
+                        labelText: "Qualification",
+                        suggestionsCallback: (pattern) {
+                          return registerProfileDetailsWatch.checkEducation(pattern);
+                        },
+                        onSuggestionSelected: (value) {
+                          registerProfileDetailsWatch.qualificationSearchController.text = value;
+                          registerProfileDetailsWatch.isQualificationEmptyUpdate(value);
+                        }
+                       ),
+                    // CommonDropDownFormField(
+                    //   items: qualificationsList,
+                    //   searchController: registerProfileDetailsWatch.qualificationSearchController,
+                    //   selectedValue: registerProfileDetailsWatch.selectedQualification,onChanged: (value){
+                    //   registerProfileDetailsWatch.updateSelectedQualification(value);
+                    // }, hintTextForDropdown: 'Qualification', hintTextForField: 'Qualification',),
                    registerProfileDetailsWatch.isQualificationEmpty?Text("please Select the about Qualification",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox()
                   ],
                 ),

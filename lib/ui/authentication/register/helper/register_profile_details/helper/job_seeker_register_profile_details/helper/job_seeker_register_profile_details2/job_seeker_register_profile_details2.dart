@@ -9,6 +9,8 @@ import 'package:emploiflutter/ui/utils/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
 import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
 
+import '../../../../../../../../utils/common_widget/common_typ_ahead_form_field.dart';
+
 class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
   const JobSeekerRegisterProfileDetails2({super.key});
 
@@ -51,36 +53,72 @@ class JobSeekerRegisterProfileDetails2 extends ConsumerWidget {
                     SizedBox(
                       height: 15.h,
                     ),
-                    CommonDropDownFormField(
-                      items: designationList,
-                      searchController: registerProfileDetailsWatch
-                          .designationSearchController,
-                      onChanged: (value) {
-                        registerProfileDetailsWatch
-                            .updateSelectedDesignation(value);
-                      },
-                      hintTextForDropdown: "Designation",
-                      hintTextForField: "Designation",
-                      selectedValue:
-                          registerProfileDetailsWatch.selectedDesignation,
+                    CommonTypeAheadFormField(
+                        prefixIcon: null,
+                        direction: AxisDirection.up,
+                        onChanged: (value){
+                          // notAllowSpecialChar(registerProfileDetailsWatch.designationSearchController, value);
+                          registerProfileDetailsWatch.isSelectedDesignEmptyUpdate(value);
+                        },
+                        controller: registerProfileDetailsWatch.designationSearchController,
+                        hintText: "Designation",
+                        labelText: "Designation",
+                        suggestionsCallback: (pattern) {
+                          return registerProfileDetailsWatch.checkDesignation(pattern);
+                        },
+                        onSuggestionSelected: (value) {
+                          registerProfileDetailsWatch.designationSearchController.text = value;
+                          registerProfileDetailsWatch.isSelectedDesignEmptyUpdate(value);
+                        }
                     ),
+                    // CommonDropDownFormField(
+                    //   items: designationList,
+                    //   searchController: registerProfileDetailsWatch
+                    //       .designationSearchController,
+                    //   onChanged: (value) {
+                    //     registerProfileDetailsWatch
+                    //         .updateSelectedDesignation(value);
+                    //   },
+                    //   hintTextForDropdown: "Designation",
+                    //   hintTextForField: "Designation",
+                    //   selectedValue:
+                    //       registerProfileDetailsWatch.selectedDesignation,
+                    // ),
                     registerProfileDetailsWatch.isSelectedDesignEmpty?  Text("Please select designation",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
                     SizedBox(
-                      height: 25.h,
+                      height: 15.h,
                     ),
-                    CommonDropDownFormField(
-                      items: SharedPrefServices.services.getList(locationListKey)??["No data"],
-                      searchController: registerProfileDetailsWatch
-                          .jobLocationSearchController,
-                      onChanged: (value) {
-                        registerProfileDetailsWatch
-                            .updateSelectedJobLocation(value);
-                      },
-                      hintTextForDropdown: "Job Location",
-                      hintTextForField: "Job Location",
-                      selectedValue:
-                      registerProfileDetailsWatch.selectedJobLocation,
+                    CommonTypeAheadFormField(
+                        prefixIcon: null,
+                        direction: AxisDirection.up,
+                        onChanged: (value){
+                          // notAllowSpecialChar(registerProfileDetailsWatch.jobLocationSearchController, value);
+                          registerProfileDetailsWatch.isSelectedJobLocEmptyUpdate(value);
+                        },
+                        controller: registerProfileDetailsWatch.jobLocationSearchController,
+                        hintText: "Job Location",
+                        labelText: "Job Location",
+                        suggestionsCallback: (pattern) {
+                          return registerProfileDetailsWatch.checkJobLocation(pattern);
+                        },
+                        onSuggestionSelected: (value) {
+                          registerProfileDetailsWatch.jobLocationSearchController.text = value;
+                          registerProfileDetailsWatch.isSelectedJobLocEmptyUpdate(value);
+                        }
                     ),
+                    // CommonDropDownFormField(
+                    //   items: SharedPrefServices.services.getList(locationListKey)??["No data"],
+                    //   searchController: registerProfileDetailsWatch
+                    //       .jobLocationSearchController,
+                    //   onChanged: (value) {
+                    //     registerProfileDetailsWatch
+                    //         .updateSelectedJobLocation(value);
+                    //   },
+                    //   hintTextForDropdown: "Job Location",
+                    //   hintTextForField: "Job Location",
+                    //   selectedValue:
+                    //   registerProfileDetailsWatch.selectedJobLocation,
+                    // ),
                     registerProfileDetailsWatch.isSelectedJobLocEmpty?  Text("Please select job location",style: TextStyles.w300.copyWith(fontSize: 12.sp,color: Colors.red),):const SizedBox(),
 
                   ],

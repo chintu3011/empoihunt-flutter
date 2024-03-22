@@ -26,7 +26,7 @@ const CommonTypeAheadFormField({super.key, required this.controller, required th
           decoration:InputDecoration(
               errorStyle: TextStyles.w400.copyWith(fontSize: 10.sp,color: Colors.red.shade400),
               hintText: hintText,
-              prefixIcon:prefixIcon?? Icon(Icons.location_city_outlined,size: 18.sp,color: AppColors.colors.blueColors,),
+              prefixIcon:prefixIcon?? null,
               labelText: labelText,
               labelStyle:  TextStyles.w400.copyWith(color: Colors.black,fontSize: 14.sp),
               hintStyle: TextStyles.w400.copyWith(color: Colors.grey,fontSize: 14.sp),

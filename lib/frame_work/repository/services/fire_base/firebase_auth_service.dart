@@ -34,10 +34,13 @@ class FirebaseAuthService {
   Future<AuthResponseModel> verifyOtp(
       {required String verificationId, required String smsCode}) async {
     try {
-      PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.credential(
+      print("Callllll");
+      PhoneAuthCredential phoneAuthCredential =await PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: smsCode);
+      print("Callllll1");
       final result = await FireBaseSingleton.instance.firebaseAuth
           .signInWithCredential(phoneAuthCredential);
+      print("Callllll3");
       final user = UserLoginModel(userId: result.user!.uid, userPhone: result.user!.phoneNumber.toString());
       debugPrint(user.userPhone.toString());
         return AuthResponseModel(user: user);
@@ -45,6 +48,7 @@ class FirebaseAuthService {
       return AuthResponseModel(error: e.message);
     }
   }
+
 
   Future<void> resendOtp({required String phoneNumber,
     required void Function(PhoneAuthCredential) verificationCompleted,

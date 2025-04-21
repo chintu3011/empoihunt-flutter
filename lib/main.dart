@@ -8,6 +8,7 @@ import 'package:emploiflutter/ui/onboarding/on_boarding_jobseeker.dart';
 import 'package:emploiflutter/ui/splash/splash.dart';
 import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -70,7 +71,11 @@ Future<void> appInitialize()async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  await FirebaseAppCheck.instance.activate(
+  webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+   androidProvider: AndroidProvider.debug,
+      appleProvider: AppleProvider.appAttest,
+  );
   ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
 
   ///---------------FCM Token ------------///

@@ -30,7 +30,7 @@ class _PlayVideoScreenState extends State<PlayVideoScreen> {
       ..initialize().then((value) => setState(() {}));
     _customVideoPlayerController = CustomVideoPlayerController(
       customVideoPlayerSettings: CustomVideoPlayerSettings(
-        showFullscreenButton: false,
+          showFullscreenButton: false,
           systemUIModeAfterFullscreen: SystemUiMode.immersiveSticky),
       context: context,
       videoPlayerController: videoPlayerController,
@@ -63,15 +63,15 @@ class _PlayVideoScreenState extends State<PlayVideoScreen> {
             children: [
               _customVideoPlayerController.videoPlayerController.value.isInitialized
                   ? Align(
-                    alignment: Alignment.center,
-                    child: CustomVideoPlayer(
-                        customVideoPlayerController: _customVideoPlayerController),
-                  )
+                alignment: Alignment.center,
+                child: CustomVideoPlayer(
+                    customVideoPlayerController: _customVideoPlayerController),
+              )
                   : Container(),
               !_customVideoPlayerController.videoPlayerController.value.isInitialized
                   ? Align(
-                    alignment: Alignment.center,
-                    child: CircularProgressIndicator())
+                  alignment: Alignment.center,
+                  child: CircularProgressIndicator())
                   : Container(),
             ],
           ),
@@ -79,37 +79,4 @@ class _PlayVideoScreenState extends State<PlayVideoScreen> {
       ),
     );
   }
-
 }
-/*   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            _controller.value.isInitialized
-                ? AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: VideoPlayer(_controller),
-            )
-                : Container(),
-            !_controller.value.isInitialized
-                ? CircularProgressIndicator()
-                : Container(),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          isPlay ? _controller.pause() : _controller.play();
-        },
-        child: Icon(
-          isPlay && !_controller.value.isBuffering ? Icons.pause : Icons.play_arrow,
-        ),
-      ),
-    );
-  }
-
- */

@@ -105,16 +105,13 @@ class ProfileResumeTile extends ConsumerWidget {
                     ),
                   IconButton(onPressed: (){
                     kPrint(user.tVideoResumeUrl);
-                    // print(user.tResumeUrl);
                     if(user.tVideoResumeUrl != null){
                       Navigator.push(context, MaterialPageRoute(builder: (_)=> PlayVideoScreen(path: user.tVideoResumeUrl!,)));
                     }
-                      // Navigator.push(context, MaterialPageRoute(builder: (_)=> PlayVideoScreen(path: '',)));
                     }, icon: Icon(
                     Icons.play_arrow,
                     color: AppColors.colors.blackColors,
-                  )
-                  )
+                  ))
                   ],
                 ),
               ),
@@ -122,7 +119,7 @@ class ProfileResumeTile extends ConsumerWidget {
                 profileWatch.setDialogValue(7);
                 profileWatch.addResumeNameToDialog("${user.vFirstName}'s Resume");
                 profileWatch.updateIsDialogShow();
-              },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors,),),
+              },icon: Icon(Icons.edit,size: 18,color: AppColors.colors.blueColors)),
             ),
           ),
         ),

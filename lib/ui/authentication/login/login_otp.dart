@@ -115,8 +115,8 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                         ],
                         keyboardType: TextInputType.phone,
                         length: 6,
-                        onCompleted: (val) {
-                          loginOtpWatch.verifyOtp(
+                        onCompleted: (val) async{
+                          await loginOtpWatch.verifyOtp(
                               context: context, number: widget.number);
                         },
                         errorPinTheme: PinTheme(
@@ -157,8 +157,8 @@ class _LoginOTPState extends ConsumerState<LoginOTP> {
                       backgroundColor: AppColors.colors.blueColors,
                       onPrimary: AppColors.colors.blueDark,
                       btnText: "Verify",
-                      onPressed: () {
-                        loginOtpWatch.verifyOtp(
+                      onPressed: ()async {
+                        await loginOtpWatch.verifyOtp(
                           context: context,
                           number: widget.number,
                         );

@@ -144,25 +144,37 @@ class LoginOtpController extends ChangeNotifier{
 
   Future verifyOtp(
       {required BuildContext context, required String number}) async {
-    isLoading = true;
-    final response = await FirebaseAuthService.firebaseAuthService
-        .verifyOtp(verificationId: verId, smsCode: otpController.text);
-    if (response.user != null) {
-      if(context.mounted){
-       await userDetailGetApi(number,context);
+
+    try{
+      isLoading = true;
+      final response = await FirebaseAuthService.firebaseAuthService
+          .verifyOtp(verificationId: verId, smsCode: otpController.text);
+      if (response.user != null) {
+        print("Verification done");
+        if(context.mounted){
+          await userDetailGetApi(number,context);
+        }
+        notifyListeners();
+        isLoading = false;
+        debugPrint("Logged in user phone-------> ${response.user!.userPhone}");
+
+      } else {
+        if (context.mounted) {
+          isLoading= false;
+          showSnackBar(context: context, error: "OTP does not match");
+          debugPrint("something went wrong");
+        }
       }
       notifyListeners();
-      isLoading = false;
-      debugPrint("Logged in user phone-------> ${response.user!.userPhone}");
-
-    } else {
+    }catch(e){
       if (context.mounted) {
         isLoading= false;
-        showSnackBar(context: context, error: "OTP does not match");
+        showSnackBar(context: context, error: "Something went wrong, Try again!");
         debugPrint("something went wrong");
       }
+      throw Future.error(e.toString());
     }
-    notifyListeners();
+
   }
 
 /// ------------- login with firebase otp--------------///

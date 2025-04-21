@@ -42,7 +42,7 @@ class CreatePostJobController extends ChangeNotifier{
   GlobalKey globalKeyLogo = GlobalKey();
   GlobalKey globalKeyTechSkill = GlobalKey();
   GlobalKey globalKeySoftSkill = GlobalKey();
-    GlobalKey globalKeyExperience = GlobalKey();
+  GlobalKey globalKeyExperience = GlobalKey();
   GlobalKey globalKeyEducation = GlobalKey();
   GlobalKey globalKeyLocation = GlobalKey();
   GlobalKey globalKeyDescription = GlobalKey();
@@ -55,19 +55,10 @@ class CreatePostJobController extends ChangeNotifier{
 
   void initializeKeys() {
     showcaseKeys = [
-      globalKeyJobTitle,
-      globalKeyCompanyName,
-      globalKeyLogo,
-      globalKeyTechSkill,
-      globalKeySoftSkill,
-      globalKeyExperience,
-      globalKeyEducation,
-      globalKeyLocation,
-      globalKeyDescription,
-      globalKeyRoleRes,
-      globalKeySPackage,
-      globalKeyWorkingMode,
-      globalKeyNumOfE,
+      globalKeyJobTitle, globalKeyCompanyName, globalKeyLogo,
+      globalKeyTechSkill, globalKeySoftSkill, globalKeyExperience,
+      globalKeyEducation, globalKeyLocation, globalKeyDescription,
+      globalKeyRoleRes, globalKeySPackage, globalKeyWorkingMode, globalKeyNumOfE
     ];
   }
 
@@ -90,11 +81,7 @@ class CreatePostJobController extends ChangeNotifier{
       ).then((value) =>  ShowCaseWidget.of(context).startShowCase([key]),);
     }
   }
-
-
-
   /// Show case ///
-
 
    bool isJobTitleEmpty = false;
 
@@ -111,7 +98,6 @@ class CreatePostJobController extends ChangeNotifier{
     query = query.toUpperCase().trim();
     return designationList.where((jobTitle) => jobTitle.toUpperCase().trim().contains(query)).toList();
   }
-
 
   ///--------------- Working Mode ----------------///
   String selectedWorkingModeValue = "";

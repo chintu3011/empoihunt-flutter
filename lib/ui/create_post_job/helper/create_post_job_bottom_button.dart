@@ -13,11 +13,11 @@ class CreatePostJobBottomButton extends ConsumerWidget {
       children: [
         Expanded(child: CommonButton(onPressed: (){
           createJobWatch.postButton(context);
-        }, btnText: "Post Job",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 18.sp,)),
+        }, btnText: "Post Job",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 14.sp,)),
         SizedBox(width:8.w,),
         Expanded(child: CommonButton(onPressed: (){
           createJobWatch.cancelButton();
-        }, btnText: "Cancel Post",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 18.sp,)),
+        }, btnText: "Cancel Post",txtPadding: EdgeInsets.symmetric(vertical: 8.h),backgroundColor: AppColors.colors.blueColors,textColor: AppColors.colors.whiteColors,fontSize: 14.sp,)),
       ],
     );
   }

@@ -6,6 +6,7 @@
   /// ============= Show case keys ===============///
   const String registerShowCaseRecruiter = "registerShowCaseRecruiter";
   const String registerShowCaseJobSeeker = "registerShowCaseJobSeeker";
+  const String postJobRecruiter = "postJobRecruiter";
   /// ============= Show case keys ===============///
 
   const String locationListKey = "locationKey";

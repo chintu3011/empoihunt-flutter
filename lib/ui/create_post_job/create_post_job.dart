@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
+import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_bottom_button.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_dropdown_forms.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_skills_widget.dart';
 import 'package:emploiflutter/ui/create_post_job/helper/create_post_job_working_mode.dart';
+import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
 import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
 import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
@@ -35,7 +37,9 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
     });
 
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
-      ref.read(createPostJobController).startShowcaseSequence(context);
+      if(!SharedPrefServices.services.getBool(postJobRecruiter)){
+        ref.read(createPostJobController).startShowcaseSequence(context);
+      }
     },);
   }
   @override
@@ -235,6 +239,7 @@ class _CreatePostJobState extends ConsumerState<CreatePostJob> {
                 description: 'Specify the number of employees you need to hire for this role',
                 targetBorderRadius:  BorderRadius.circular(8.r),
                 targetPadding: EdgeInsets.only(top: 9.h,left: 8.w,right: 8.w,bottom: 5.h),
+                // onBarrierClick: () =>SharedPrefServices.services.setBool(postJobRecruiter, true),
                 child: CommonFormField(
                   controller: createPostJobWatch.numberOfEmpFieldController,
                   textInputAction: TextInputAction.next,

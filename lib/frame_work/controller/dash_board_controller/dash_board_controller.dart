@@ -33,14 +33,6 @@ class DashBoardController extends ChangeNotifier{
     const Setting()
   ];
 
-
-  bool isExitApp = false;
-
-  updateIsExitApp(bool value){
-    isExitApp = value;
-    notifyListeners();
-  }
-
   otherWidgetAllowToNavigate(int index){
     selectedIndex = index;
     notifyListeners();

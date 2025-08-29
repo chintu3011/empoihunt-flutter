@@ -1,5 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import 'helper/intro_appbar.dart';

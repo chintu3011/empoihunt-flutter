@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emploiflutter/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/helper/applied_candidate_about_tile.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/helper/applied_candidate_detail_tile.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/helper/applied_candidate_experience_tile.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/helper/applied_candidate_qualification_tile.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/helper/applied_candidate_resume_tile.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/helper/applied_candidate_about_tile.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/helper/applied_candidate_detail_tile.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/helper/applied_candidate_experience_tile.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/helper/applied_candidate_qualification_tile.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/helper/applied_candidate_resume_tile.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 import 'helper/applied_candidate_job_preference_tile.dart';
 

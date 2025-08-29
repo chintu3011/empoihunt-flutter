@@ -1,16 +1,16 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/check_user_exist_model/check_user_exist_model.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/authentication/login/login.dart';
-import 'package:emploiflutter/ui/authentication/register/register_otp.dart';
-import 'package:emploiflutter/ui/utils/common_service/helper.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/recruiter_register_profile_details_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/check_user_exist_model/check_user_exist_model.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/authentication/login/login.dart';
+import 'package:emploihunt/ui/authentication/register/register_otp.dart';
+import 'package:emploihunt/ui/utils/common_service/helper.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../../repository/api_end_point.dart';

@@ -1,11 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'controller/on_boarding_controller.dart';
 import 'helper/intro_appbar.dart';
 import 'helper/on_boarding_next_button.dart';

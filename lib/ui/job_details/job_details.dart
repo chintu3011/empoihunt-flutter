@@ -1,14 +1,14 @@
-import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
-import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
-import 'package:emploiflutter/frame_work/controller/setting_controller/save_job/save_job_controller.dart';
-import 'package:emploiflutter/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
-import 'package:emploiflutter/ui/job_details/helper/job_details_above_part.dart';
-import 'package:emploiflutter/ui/job_details/helper/job_details_appbar.dart';
-import 'package:emploiflutter/ui/job_details/helper/job_details_below_part.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
+import 'package:emploihunt/frame_work/controller/job_details_controller/job_details_controller.dart';
+import 'package:emploihunt/frame_work/controller/setting_controller/save_job/save_job_controller.dart';
+import 'package:emploihunt/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploihunt/ui/job_details/helper/job_details_above_part.dart';
+import 'package:emploihunt/ui/job_details/helper/job_details_appbar.dart';
+import 'package:emploihunt/ui/job_details/helper/job_details_below_part.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/extension/widget_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class JobDetails extends ConsumerStatefulWidget {
   final JobPostModel jobDetail;

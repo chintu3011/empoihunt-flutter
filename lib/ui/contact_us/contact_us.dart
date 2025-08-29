@@ -1,11 +1,11 @@
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
-import 'package:emploiflutter/ui/utils/common_service/form_validation.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploihunt/ui/utils/common_service/form_validation.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
 import '../../frame_work/controller/setting_controller/contact_us/contact_us_controller.dart';
 

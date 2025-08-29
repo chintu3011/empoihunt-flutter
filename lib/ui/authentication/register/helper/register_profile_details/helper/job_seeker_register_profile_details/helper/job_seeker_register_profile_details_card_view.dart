@@ -1,7 +1,7 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/helper/job_seeker_register_profile_details5/job_seeker_register_profile_details5.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
+import 'package:emploihunt/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/helper/job_seeker_register_profile_details5/job_seeker_register_profile_details5.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'job_seeker_register_profile_details1/job_seeker_register_profile_details1.dart';
 import 'job_seeker_register_profile_details2/job_seeker_register_profile_details2.dart';
 import 'job_seeker_register_profile_details3/job_seeker_register_profile_details3.dart';

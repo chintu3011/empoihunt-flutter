@@ -1,18 +1,18 @@
-import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/home/helper/recruiter/helper/recruiter_appbar.dart';
-import 'package:emploiflutter/ui/utils/common_widget/job_seeker_list_tile/job_seeker_list_tile.dart';
-import 'package:emploiflutter/ui/messenger_modul/messenger/messanger.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/home/helper/recruiter/helper/recruiter_appbar.dart';
+import 'package:emploihunt/ui/utils/common_widget/job_seeker_list_tile/job_seeker_list_tile.dart';
+import 'package:emploihunt/ui/messenger_modul/messenger/messanger.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_no_data_found_layout.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 
 class RecruiterHome extends ConsumerStatefulWidget {
   const RecruiterHome({super.key});

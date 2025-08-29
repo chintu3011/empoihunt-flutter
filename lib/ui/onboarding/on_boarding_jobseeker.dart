@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
 import '../utils/theme/theme.dart';
 import 'controller/on_boarding_controller.dart';
 import 'helper/intro_appbar.dart';

@@ -1,10 +1,10 @@
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/extension/widget_extension.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 
 class JobDetailsBottomSheet extends ConsumerStatefulWidget{
   final String companyName;

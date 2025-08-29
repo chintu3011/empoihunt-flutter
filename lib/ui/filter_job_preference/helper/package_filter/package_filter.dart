@@ -1,5 +1,5 @@
-import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class PackageFilter extends ConsumerWidget {
   const PackageFilter({super.key});

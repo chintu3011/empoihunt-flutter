@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/controller/dash_board_controller/dash_board_controller.dart';
-import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
-import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/ui/utils/common_service/helper.dart';
-import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/dash_board_controller/dash_board_controller.dart';
+import 'package:emploihunt/frame_work/repository/api_end_point.dart';
+import 'package:emploihunt/frame_work/repository/dio_client.dart';
+import 'package:emploihunt/ui/utils/common_service/helper.dart';
+import 'package:emploihunt/ui/utils/constant/app_string_constant.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:showcaseview/showcaseview.dart';
 

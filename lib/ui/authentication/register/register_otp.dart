@@ -1,14 +1,14 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_otp_controller.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_loading.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/choose_user_role_controller/choose_user_role_controller.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/register_otp_controller.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_loading.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 
 class RegisterOTP extends ConsumerStatefulWidget {
   final String phoneNumber;

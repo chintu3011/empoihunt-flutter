@@ -1,7 +1,7 @@
-import 'package:emploiflutter/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/create_post_job_controller/create_post_job_controller.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class CreatePostJobBottomButton extends ConsumerWidget {
   const CreatePostJobBottomButton({super.key});

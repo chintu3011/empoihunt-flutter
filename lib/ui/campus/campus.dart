@@ -1,7 +1,7 @@
-import 'package:emploiflutter/frame_work/controller/campus_placement_controller/campus_placement_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/campus_job_details_model/campus_job_detail_model.dart';
-import 'package:emploiflutter/ui/campus/helper/campus_detail_card.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/campus_placement_controller/campus_placement_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/campus_job_details_model/campus_job_detail_model.dart';
+import 'package:emploihunt/ui/campus/helper/campus_detail_card.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 
 import '../utils/common_widget/common_no_data_found_layout.dart';

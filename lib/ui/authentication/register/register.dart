@@ -1,5 +1,5 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_background.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
+import 'package:emploihunt/ui/authentication/register/helper/register_background.dart';
 import 'package:flutter/services.dart';
 import '../../utils/theme/theme.dart';
 

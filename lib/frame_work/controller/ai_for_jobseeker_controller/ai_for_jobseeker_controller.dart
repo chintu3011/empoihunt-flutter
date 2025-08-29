@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 final aiForJobSeekerController = ChangeNotifierProvider((ref) => AiForJobSeekerController());

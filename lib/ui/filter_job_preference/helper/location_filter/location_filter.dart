@@ -1,7 +1,7 @@
-import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class LocationFilter extends ConsumerWidget {
   const LocationFilter({super.key});

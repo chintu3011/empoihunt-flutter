@@ -1,10 +1,10 @@
-import 'package:emploiflutter/frame_work/controller/ai_for_jobseeker_controller/ai_for_jobseeker_controller.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_dropdown_form_field.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/ai_for_jobseeker_controller/ai_for_jobseeker_controller.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_dropdown_form_field.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lottie/lottie.dart';
 import '../utils/theme/text_styles.dart';

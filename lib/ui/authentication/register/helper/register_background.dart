@@ -1,5 +1,5 @@
-import 'package:emploiflutter/ui/authentication/register/helper/register_card.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/authentication/register/helper/register_card.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
 
 import '../../../utils/theme/app_color.dart';
 import '../../../utils/theme/theme.dart';

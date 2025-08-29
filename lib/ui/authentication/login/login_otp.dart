@@ -1,8 +1,8 @@
-import 'package:emploiflutter/frame_work/controller/authentication_controller/login_controller/login_otp_controller.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_loading.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/login_controller/login_otp_controller.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_loading.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:pinput/pinput.dart';

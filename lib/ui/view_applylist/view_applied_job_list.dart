@@ -1,9 +1,7 @@
-import 'package:emploiflutter/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
-import 'package:emploiflutter/ui/utils/common_widget/job_seeker_list_tile/job_seeker_list_tile.dart';
-import 'package:emploiflutter/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card.dart';
-import 'package:emploiflutter/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card_shimmer.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/setting_controller/view_apply_list/view_apply_list_controller.dart';
+import 'package:emploihunt/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card.dart';
+import 'package:emploihunt/ui/utils/common_widget/recruiter_list_tile/recruiter_list_card_shimmer.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';

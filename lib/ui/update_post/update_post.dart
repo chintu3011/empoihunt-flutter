@@ -1,19 +1,19 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
-import 'package:emploiflutter/ui/update_post/helper/update_post_bottom_button.dart';
-import 'package:emploiflutter/ui/update_post/helper/update_post_dropdown_forms.dart';
-import 'package:emploiflutter/ui/update_post/helper/update_post_skills_widget.dart';
-import 'package:emploiflutter/ui/update_post/helper/update_post_working_mode.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_form_field.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_typ_ahead_form_field.dart';
-import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploihunt/ui/update_post/helper/update_post_bottom_button.dart';
+import 'package:emploihunt/ui/update_post/helper/update_post_dropdown_forms.dart';
+import 'package:emploihunt/ui/update_post/helper/update_post_skills_widget.dart';
+import 'package:emploihunt/ui/update_post/helper/update_post_working_mode.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_form_field.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_typ_ahead_form_field.dart';
+import 'package:emploihunt/ui/utils/constant/app_string_constant.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/extension/widget_extension.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 

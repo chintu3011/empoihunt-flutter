@@ -1,7 +1,7 @@
 
 
 
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 mobileConfiguration(BuildContext context) {
   return ScreenUtil.init(context,

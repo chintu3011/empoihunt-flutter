@@ -1,8 +1,8 @@
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 import 'package:lottie/lottie.dart';
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/job_seeker_register_profile_details_controller.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class JobSeekerRegisterProfileDetails6 extends ConsumerWidget {

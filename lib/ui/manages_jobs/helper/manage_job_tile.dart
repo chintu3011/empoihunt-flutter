@@ -1,10 +1,10 @@
-import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
-import 'package:emploiflutter/ui/update_post/update_post.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploihunt/ui/update_post/update_post.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/ui/utils/extension/widget_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 
 class ManageJobTile extends ConsumerWidget {
   final JobPostModel jobPost;

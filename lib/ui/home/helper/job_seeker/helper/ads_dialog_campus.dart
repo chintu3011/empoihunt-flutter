@@ -1,8 +1,8 @@
-import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
 
 class AdsDialogCampus extends ConsumerWidget {

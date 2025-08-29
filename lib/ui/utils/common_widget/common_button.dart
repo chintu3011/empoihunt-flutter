@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import '../theme/app_color.dart';
 import '../theme/text_styles.dart';
 

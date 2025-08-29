@@ -1,10 +1,10 @@
-import 'package:emploiflutter/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
-import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
-import 'package:emploiflutter/ui/home/helper/job_seeker/helper/job_seeker_home_search_dialog.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_search_appbar.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/frame_work/controller/home_controller/job_seeker_home_controller/job_seeker_home_controller.dart';
+import 'package:emploihunt/ui/filter_job_preference/filter_job_preference.dart';
+import 'package:emploihunt/ui/home/helper/job_seeker/helper/job_seeker_home_search_dialog.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_search_appbar.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 
 class JobSeekerAppbar extends ConsumerWidget implements PreferredSizeWidget {
   const JobSeekerAppbar({super.key});

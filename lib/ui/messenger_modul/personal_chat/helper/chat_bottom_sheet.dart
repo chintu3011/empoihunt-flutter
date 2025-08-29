@@ -1,6 +1,6 @@
 
-import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
 
 import '../../../utils/theme/app_color.dart';
 import '../../../utils/theme/text_styles.dart';

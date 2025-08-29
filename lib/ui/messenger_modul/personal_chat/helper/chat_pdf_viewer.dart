@@ -1,6 +1,6 @@
-import 'package:emploiflutter/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
+import 'package:emploihunt/frame_work/controller/messenger_modul_controller/Personal_chat_controller/personal_chat_controller.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/extension/widget_extension.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 

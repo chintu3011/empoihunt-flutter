@@ -1,12 +1,12 @@
-import 'package:emploiflutter/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
-import 'package:emploiflutter/ui/manages_jobs/helper/manage_job_tile.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/manage_job_post_controller/manage_job_post_controller.dart';
+import 'package:emploihunt/ui/manages_jobs/helper/manage_job_tile.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:emploiflutter/ui/utils/common_widget/common_no_data_found_layout.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_no_data_found_layout.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
 
 class ManagesJobs extends ConsumerStatefulWidget {
   const ManagesJobs({super.key});

@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import '../theme/theme.dart';
 

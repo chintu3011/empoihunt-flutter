@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploihunt/ui/messenger_modul/personal_chat/helper/personal_back_widget.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+// import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../utils/common_widget/common_profile_image_viewer.dart';
 import '../../utils/theme/text_styles.dart';
@@ -28,7 +27,7 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
 
   @override
   Widget build(BuildContext context) {
-    final user= BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
+    final user = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: AppColors.colors.clayColors));
     return  GestureDetector(
@@ -90,21 +89,22 @@ class _PersonalChatState extends ConsumerState<PersonalChat> with SingleTickerPr
             ],
           ),
           actions: [
-            ZegoSendCallInvitationButton(
+           /* ZegoSendCallInvitationButton(
               buttonSize: Size(50.w,60.h) ,
               padding: EdgeInsets.zero,
               iconSize: Size(50.w,60.h),
               margin: EdgeInsets.zero,
-              icon: ButtonIcon(icon: Icon(Icons.video_camera_front_rounded,color: Colors.white,)),
+              // icon: ButtonIcon(icon: const Icon(Icons.video_camera_front_rounded,color: Colors.white,)),
               isVideoCall: true,
               resourceID: "emploihunt_call", //You need to use the resourceID that you created in the subsequent steps. Please continue reading this document.
               invitees: [
-                ZegoUIKitUser(
-                  id: widget.chatPersonFId,
-                  name: widget.personName.replaceFirst(" ", "_"),
-                ),
+                // ZegoUIKitPrebuiltCall(appID: appID, callID: callID, userID: userID, userName: userName, config: config)
+                // ZegoUIKitUser(
+                //   id: widget.chatPersonFId,
+                //   name: widget.personName.replaceFirst(" ", "_"),
+                // ),
               ],
-            ),
+            ),*/
              IconButton(onPressed: (){
               Future.delayed(const Duration(milliseconds: 700),()async{
                 await launchUrl(Uri(

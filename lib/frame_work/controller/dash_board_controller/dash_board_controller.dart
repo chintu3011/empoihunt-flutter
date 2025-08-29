@@ -1,9 +1,9 @@
-import 'package:emploiflutter/ui/campus/campus.dart';
-import 'package:emploiflutter/ui/create_post_job/create_post_job.dart';
-import 'package:emploiflutter/ui/home/helper/job_seeker/job_seeker_home.dart';
-import 'package:emploiflutter/ui/home/helper/recruiter/recruiter_home.dart';
-import 'package:emploiflutter/ui/settings/setting.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/campus/campus.dart';
+import 'package:emploihunt/ui/create_post_job/create_post_job.dart';
+import 'package:emploihunt/ui/home/helper/job_seeker/job_seeker_home.dart';
+import 'package:emploihunt/ui/home/helper/recruiter/recruiter_home.dart';
+import 'package:emploihunt/ui/settings/setting.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 import '../../../ui/ai_for_jobseeker/ai_for_jobseeker.dart';
 

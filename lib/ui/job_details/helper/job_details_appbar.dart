@@ -1,8 +1,8 @@
-import 'package:emploiflutter/frame_work/controller/job_details_controller/job_details_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/job_details_controller/job_details_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class JobDetailsAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final JobPostModel jobDetailModel;

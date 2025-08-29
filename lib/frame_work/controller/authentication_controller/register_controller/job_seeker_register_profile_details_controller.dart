@@ -1,24 +1,24 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
-import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_singleton.dart';
-import 'package:emploiflutter/ui/onboarding/on_boarding_jobseeker.dart';
-import 'package:emploiflutter/ui/utils/common_service/helper.dart';
-import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/frame_work/controller/authentication_controller/register_controller/register_controller.dart';
+import 'package:emploihunt/frame_work/repository/services/fire_base/firebase_singleton.dart';
+import 'package:emploihunt/ui/onboarding/on_boarding_jobseeker.dart';
+import 'package:emploihunt/ui/utils/common_service/helper.dart';
+import 'package:emploihunt/ui/utils/constant/app_string_constant.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
-import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
-import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/frame_work/repository/api_end_point.dart';
+import 'package:emploihunt/frame_work/repository/dio_client.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 final jobSeekerRegisterProfileDetailsController = ChangeNotifierProvider((ref) => JobSeekerRegisterProfileDetailsController(ref));

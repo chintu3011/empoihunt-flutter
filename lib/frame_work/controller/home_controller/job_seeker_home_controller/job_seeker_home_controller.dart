@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
-import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/dio_client.dart';
+import 'package:emploihunt/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../repository/api_end_point.dart';

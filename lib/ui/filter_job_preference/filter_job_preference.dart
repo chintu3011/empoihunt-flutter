@@ -1,14 +1,14 @@
-import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
-import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/ui/filter_job_preference/helper/domain_filter/domain_filter.dart';
-import 'package:emploiflutter/ui/filter_job_preference/helper/location_filter/location_filter.dart';
-import 'package:emploiflutter/ui/filter_job_preference/helper/mode_filter/mode_filter.dart';
-import 'package:emploiflutter/ui/filter_job_preference/helper/package_filter/package_filter.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
+import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploihunt/ui/filter_job_preference/helper/domain_filter/domain_filter.dart';
+import 'package:emploihunt/ui/filter_job_preference/helper/location_filter/location_filter.dart';
+import 'package:emploihunt/ui/filter_job_preference/helper/mode_filter/mode_filter.dart';
+import 'package:emploihunt/ui/filter_job_preference/helper/package_filter/package_filter.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 import '../utils/theme/text_styles.dart';
 

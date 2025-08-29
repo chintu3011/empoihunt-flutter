@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_about_tile.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_current_position_tile.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_experience_tile.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_qualification_tile.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_resume_tile.dart';
-import 'package:emploiflutter/ui/profile/helper/profile_user_detail_tile.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploihunt/ui/profile/helper/profile_about_tile.dart';
+import 'package:emploihunt/ui/profile/helper/profile_current_position_tile.dart';
+import 'package:emploihunt/ui/profile/helper/profile_experience_tile.dart';
+import 'package:emploihunt/ui/profile/helper/profile_qualification_tile.dart';
+import 'package:emploihunt/ui/profile/helper/profile_resume_tile.dart';
+import 'package:emploihunt/ui/profile/helper/profile_user_detail_tile.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 
 class ProfileUserDetails extends ConsumerWidget {

@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:emploiflutter/frame_work/repository/services/fire_base/firebase_auth_service.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/job_seeker_register_profile_details.dart';
-import 'package:emploiflutter/ui/authentication/register/helper/register_profile_details/helper/recruiter_register_profile_details/recruiter_register_profile_details.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/services/fire_base/firebase_auth_service.dart';
+import 'package:emploihunt/ui/authentication/register/helper/register_profile_details/helper/job_seeker_register_profile_details/job_seeker_register_profile_details.dart';
+import 'package:emploihunt/ui/authentication/register/helper/register_profile_details/helper/recruiter_register_profile_details/recruiter_register_profile_details.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:page_transition/page_transition.dart';

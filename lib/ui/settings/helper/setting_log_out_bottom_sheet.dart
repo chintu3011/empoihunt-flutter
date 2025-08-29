@@ -1,14 +1,14 @@
-import 'package:emploiflutter/frame_work/controller/setting_controller/setting_controller.dart';
-import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_assets.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/setting_controller/setting_controller.dart';
+import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/app_assets.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:lottie/lottie.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 import '../../../frame_work/repository/services/ze_go_cloud_service/ze_go_cloud_service.dart';
 
 
@@ -63,7 +63,7 @@ class _SettingLogoutBottomSheetState extends ConsumerState<SettingLogoutBottomSh
               CommonButton(btnText: "Yes", onPressed: ()async{
                 SharedPrefServices.services.setBool(isUserLoggedIn, false);
                 await settingWatch.singOutApi(context);
-                ZeGoCloudService.service.onUserLogout();
+                // ZeGoCloudService.service.onUserLogout();
                 Future.delayed(Duration(milliseconds: 700),()async{
                    BoxService.boxService.clearAllBoxes();
                 });

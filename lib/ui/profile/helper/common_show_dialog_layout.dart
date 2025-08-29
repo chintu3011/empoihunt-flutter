@@ -1,6 +1,6 @@
 import 'dart:ui';
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploihunt/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_detail_data_model.dart';
 import '../../utils/theme/theme.dart';
 
 class CommonShowDialogLayout extends ConsumerWidget {

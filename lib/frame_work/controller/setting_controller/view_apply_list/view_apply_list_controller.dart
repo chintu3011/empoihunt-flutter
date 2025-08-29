@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 import '../../../../ui/utils/constant/app_constant.dart';
 import '../../../repository/api_end_point.dart';

@@ -1,9 +1,9 @@
-import 'package:emploiflutter/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
-import 'package:emploiflutter/ui/filter_job_preference/filter_job_preference.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_search_appbar.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/frame_work/controller/home_controller/recruiter_home_controller/recruiter_home_controller.dart';
+import 'package:emploihunt/ui/filter_job_preference/filter_job_preference.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_search_appbar.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
 
 import 'recruiter_home_search_dialog.dart';
 

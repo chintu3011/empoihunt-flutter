@@ -1,6 +1,6 @@
 
 
-import 'package:emploiflutter/ui/onboarding/helper/on_boarding_next_button.dart';
+import 'package:emploihunt/ui/onboarding/helper/on_boarding_next_button.dart';
 import '../../utils/theme/theme.dart';
 import '../controller/on_boarding_controller.dart';
 

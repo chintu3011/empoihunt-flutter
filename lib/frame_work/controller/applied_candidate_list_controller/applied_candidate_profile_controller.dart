@@ -2,10 +2,10 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
-import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/frame_work/repository/model/applied_candidate_list_model/applied_candidate_experience_model.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/api_end_point.dart';
+import 'package:emploihunt/frame_work/repository/dio_client.dart';
+import 'package:emploihunt/frame_work/repository/model/applied_candidate_list_model/applied_candidate_experience_model.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 

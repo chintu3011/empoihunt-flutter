@@ -1,7 +1,7 @@
 
 
-import 'package:emploiflutter/ui/authentication/auth_intro.dart';
-import 'package:emploiflutter/ui/dash_board/dash_board.dart';
+import 'package:emploihunt/ui/authentication/auth_intro.dart';
+import 'package:emploihunt/ui/dash_board/dash_board.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../utils/theme/theme.dart';

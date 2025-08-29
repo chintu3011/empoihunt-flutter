@@ -1,9 +1,9 @@
-import 'package:emploiflutter/frame_work/controller/setting_controller/job_preference/job_preference_controller.dart';
-import 'package:emploiflutter/ui/job_preference/add_job_preference.dart';
-import 'package:emploiflutter/ui/job_preference/helper/job_preferene_tile.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_button.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/setting_controller/job_preference/job_preference_controller.dart';
+import 'package:emploihunt/ui/job_preference/add_job_preference.dart';
+import 'package:emploihunt/ui/job_preference/helper/job_preferene_tile.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_button.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
 

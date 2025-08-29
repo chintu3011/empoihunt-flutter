@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:emploiflutter/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
+import 'package:emploihunt/frame_work/repository/model/job_seeker_model/job_post_model/job_post_model.dart';
 
 AppliedListModel saveJobModelFromJson(String str) => AppliedListModel.fromJson(json.decode(str));
 

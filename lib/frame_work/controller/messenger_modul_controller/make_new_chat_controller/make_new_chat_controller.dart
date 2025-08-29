@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_with_device_token_model.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_with_device_token_model.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../../../ui/utils/constant/app_constant.dart';

@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/repository/model/job_preference_model/job_preference_model.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
-import 'package:emploiflutter/ui/utils/extension/context_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/model/job_preference_model/job_preference_model.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/constant/app_string_constant.dart';
+import 'package:emploihunt/ui/utils/extension/context_extension.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 import '../../../../ui/utils/common_widget/helper.dart';
 import '../../../repository/api_end_point.dart';

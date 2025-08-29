@@ -1,9 +1,9 @@
-import 'package:emploiflutter/frame_work/controller/applied_candidate_list_controller/applied_candidate_profile_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/applied_candidate_profile_details.dart';
-import 'package:emploiflutter/ui/applied_candidate_profile/applied_candidate_profile_pic.dart';
-import 'package:emploiflutter/ui/utils/common_widget/common_appbar.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/applied_candidate_list_controller/applied_candidate_profile_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/applied_candidate_list_model/applied_user_model.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/applied_candidate_profile_details.dart';
+import 'package:emploihunt/ui/applied_candidate_profile/applied_candidate_profile_pic.dart';
+import 'package:emploihunt/ui/utils/common_widget/common_appbar.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:flutter/scheduler.dart';
 
 

@@ -1,8 +1,8 @@
-import 'package:emploiflutter/frame_work/controller/profile_controller/profile_controller.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/profile_controller/profile_controller.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class ProfileAboutTile extends ConsumerWidget {
   final UserModel userModel;

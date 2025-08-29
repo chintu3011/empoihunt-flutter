@@ -1,13 +1,12 @@
 import 'dart:io';
-import 'package:emploiflutter/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_detail_data_model.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_experience_model.dart';
-import 'package:emploiflutter/frame_work/repository/services/hive_service/box_service.dart';
-import 'package:emploiflutter/frame_work/repository/services/shared_pref_services.dart';
-import 'package:emploiflutter/ui/onboarding/on_boarding_jobseeker.dart';
-import 'package:emploiflutter/ui/splash/splash.dart';
-import 'package:emploiflutter/ui/utils/constant/app_constant.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/model/splash/native_device_model/native_device_model.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_detail_data_model.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_experience_model.dart';
+import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
+import 'package:emploihunt/frame_work/repository/services/shared_pref_services.dart';
+import 'package:emploihunt/ui/splash/splash.dart';
+import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -15,8 +14,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:showcaseview/showcaseview.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
-import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
+// import 'package:zego_uikit/zego_uikit.dart';
+// import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+// import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 import 'firebase_options.dart';
 import 'frame_work/repository/services/fire_base/notification_service.dart';
 import 'frame_work/repository/services/hive_service/hive_adapter.dart';
@@ -26,18 +26,23 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 Future main() async {
   await  appInitialize();
   ///----------------- Video call -----------------------///
+  /*ZegoUIKit.instance.registerPlugin(ZegoUIKitSignalingPlugin());
   ZegoUIKit().initLog().then((value) {
     ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
       [ZegoUIKitSignalingPlugin()],
     );
-    runApp(ProviderScope(
-        child:  ShowCaseWidget(
-          builder: (context) =>  MyApp(
-            navigatorKey: navigatorKey,
-          ),
-        ),));
 
-  });
+
+  });*/
+  // ZegoUIKitPrebuiltCallInvitationService().useSystemCallingUI(
+  //   [ZegoUIKitSignalingPlugin()],
+  // );
+  runApp(ProviderScope(
+    child:  ShowCaseWidget(
+      builder: (context) =>  MyApp(
+        navigatorKey: navigatorKey,
+      ),
+    ),));
 }
 
 class MyApp extends StatelessWidget {
@@ -76,7 +81,7 @@ Future<void> appInitialize()async{
    androidProvider: AndroidProvider.debug,
       appleProvider: AppleProvider.appAttest,
   );
-  ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
+  // ZegoUIKitPrebuiltCallInvitationService().setNavigatorKey(navigatorKey);
 
   ///---------------FCM Token ------------///
   await FirebaseMessaging.instance.setAutoInitEnabled(true);

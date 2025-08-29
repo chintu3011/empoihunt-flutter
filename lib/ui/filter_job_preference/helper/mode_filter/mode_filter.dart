@@ -1,6 +1,6 @@
-import 'package:emploiflutter/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
-import 'package:emploiflutter/ui/utils/constant/app_string_constant.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/controller/filter_job_preference/filter_job_preference_controller.dart';
+import 'package:emploihunt/ui/utils/constant/app_string_constant.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 class ModeFilter extends ConsumerWidget {
   const ModeFilter({super.key});

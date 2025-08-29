@@ -1,5 +1,5 @@
-import 'package:emploiflutter/ui/authentication/login/helper/login_background.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/authentication/login/helper/login_background.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
 import 'package:flutter/services.dart';
 
 import '../../utils/theme/theme.dart';

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/frame_work/repository/api_end_point.dart';
-import 'package:emploiflutter/frame_work/repository/dio_client.dart';
-import 'package:emploiflutter/ui/job_details/helper/job_details_bottom_sheet.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/frame_work/repository/api_end_point.dart';
+import 'package:emploihunt/frame_work/repository/dio_client.dart';
+import 'package:emploihunt/ui/job_details/helper/job_details_bottom_sheet.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 
 import '../../../ui/utils/constant/app_constant.dart';
 import '../../repository/services/hive_service/box_service.dart';

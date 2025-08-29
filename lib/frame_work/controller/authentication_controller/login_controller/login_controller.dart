@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:emploiflutter/ui/authentication/register/register.dart';
-import 'package:emploiflutter/ui/utils/common_widget/helper.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/authentication/register/register.dart';
+import 'package:emploihunt/ui/utils/common_widget/helper.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:page_transition/page_transition.dart';
 

@@ -1,11 +1,11 @@
-import 'package:emploiflutter/ui/utils/common_widget/job_seeker_list_tile/job_seeker_profile_card.dart';
-import 'package:emploiflutter/ui/utils/extension/widget_extension.dart';
-import 'package:emploiflutter/ui/utils/theme/app_color.dart';
-import 'package:emploiflutter/ui/utils/theme/text_styles.dart';
-import 'package:emploiflutter/ui/utils/theme/theme.dart';
+import 'package:emploihunt/ui/utils/common_widget/job_seeker_list_tile/job_seeker_profile_card.dart';
+import 'package:emploihunt/ui/utils/extension/widget_extension.dart';
+import 'package:emploihunt/ui/utils/theme/app_color.dart';
+import 'package:emploihunt/ui/utils/theme/text_styles.dart';
+import 'package:emploihunt/ui/utils/theme/theme.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:emploiflutter/frame_work/repository/model/user_model/user_with_device_token_model.dart';
+import 'package:emploihunt/frame_work/repository/model/user_model/user_with_device_token_model.dart';
 
 
 class JobSeekerListTile extends StatelessWidget {

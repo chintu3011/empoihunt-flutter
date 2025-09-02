@@ -1,5 +1,6 @@
 import 'package:emploihunt/frame_work/repository/services/hive_service/box_service.dart';
 import 'package:emploihunt/ui/utils/constant/app_constant.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../frame_work/controller/dash_board_controller/dash_board_controller.dart';
 import '../../frame_work/repository/services/ze_go_cloud_service/ze_go_cloud_service.dart';
@@ -21,7 +22,7 @@ class _DashBoardState extends ConsumerState<DashBoard> {
     // TODO: implement initState
     super.initState();
     final user = BoxService.boxService.userGetDetailBox.get(userDetailKey)!;
-    // ZeGoCloudService.service.onUserLogin(user);
+    ZeGoCloudService.service.onUserLogin(user);
     print("-------------------------------------------Dash Board User Details-----------------------------------------------");
     print(user.user.vFirebaseId.toString());
     print(user.user.tUpadatedAt);
@@ -57,11 +58,11 @@ class _DashBoardState extends ConsumerState<DashBoard> {
              const BottomNavigationBarItem(
                icon: Icon(Icons.home), label: "Home"
              ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.location_city_outlined ), label: "Campus"
             ),
             ///Temporary stop fetching data
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.rocket ), label: "AI"
             ),
             const BottomNavigationBarItem(
@@ -73,7 +74,7 @@ class _DashBoardState extends ConsumerState<DashBoard> {
                icon: Icon(Icons.home),
                label: "Home"
              ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
                 icon: Icon(Icons.add_box_sharp),
                 label: "Post"
             ),
